@@ -370,26 +370,27 @@
         </div>
 
         <!-- 单次调用价格 -->
-        <h3 style="font-size:20px;color:var(--navy);margin:8px 0 18px;text-align:center">① 单次调用价格(按次计费)</h3>
+        <h3 style="font-size:20px;color:var(--navy);margin:8px 0 12px;text-align:center">① 单次调用价格(按次计费)</h3>
+        <p style="color:var(--muted);font-size:13px;margin:0 0 18px;text-align:center">主流市价基于 2026-06 公开调研:京东万象 API 市场公开报价、北大法宝/威科先行议价区间</p>
         <div class="tablewrap" style="margin-bottom:48px">
           <table>
             <thead>
               <tr>
                 <th>接口</th>
+                <th style="text-align:right">京东万象 <span style="color:var(--muted);font-weight:400;font-size:11px">(公开)</span></th>
                 <th style="text-align:right">北大法宝</th>
                 <th style="text-align:right">威科先行</th>
-                <th style="text-align:right">法天眼</th>
                 <th style="text-align:right;color:var(--accent-2)">文书查价</th>
                 <th style="text-align:right">vs 主流</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>关键词搜索</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.30 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.15 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.07 / 次</strong></td><td class="q" style="text-align:right">-77%</td></tr>
-              <tr><td>文书详情(全文)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.80 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.25 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.12 / 次</strong></td><td class="q" style="text-align:right">-76%</td></tr>
-              <tr><td>关联文书</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1.00 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.25 / 次</strong></td><td class="q" style="text-align:right">-75%</td></tr>
-              <tr><td>法规检索</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.80 / 次</td><td style="text-align:right;color:#888">—</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.20 / 次</strong></td><td class="q" style="text-align:right">-60%</td></tr>
-              <tr><td>语义检索(向量)<span style="color:var(--accent);font-weight:700;font-size:11px"> 新</span></td><td style="text-align:right;color:#888;text-decoration:line-through">¥2.00 / 次</td><td style="text-align:right;color:#888">—</td><td style="text-align:right;color:#888">—</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.80 / 次</strong></td><td class="q" style="text-align:right">-60%</td></tr>
-              <tr><td><strong>量化预测</strong>(胜率/金额)<span style="color:var(--accent);font-weight:700;font-size:11px"> 新</span></td><td style="text-align:right;color:#888">行业首发</td><td style="text-align:right;color:#888">—</td><td style="text-align:right;color:#888">—</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.50 / 次</strong></td><td class="q" style="text-align:right">独家</td></tr>
+              <tr><td>关键词搜索</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.79 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.80 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.07 / 次</strong></td><td class="q" style="text-align:right">-91%</td></tr>
+              <tr><td>文书详情(全文)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.79 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.80 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1.20 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.12 / 次</strong></td><td class="q" style="text-align:right">-85%</td></tr>
+              <tr><td>关联文书 / 案件链</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.79 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1.00 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1.50 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.25 / 次</strong></td><td class="q" style="text-align:right">-68%</td></tr>
+              <tr><td>法规检索</td><td style="text-align:right;color:#888">—</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.50 / 次</td><td style="text-align:right;color:#888;text-decoration:line-through">¥0.80 / 次</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.20 / 次</strong></td><td class="q" style="text-align:right">-60%</td></tr>
+              <tr><td>语义检索(向量)<span style="color:var(--accent);font-weight:700;font-size:11px"> 新</span></td><td style="text-align:right;color:#888">—</td><td style="text-align:right;color:#888;text-decoration:line-through">¥2.00 / 次</td><td style="text-align:right;color:#888">—</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.80 / 次</strong></td><td class="q" style="text-align:right">-60%</td></tr>
+              <tr><td><strong>量化预测</strong>(胜率/金额)<span style="color:var(--accent);font-weight:700;font-size:11px"> 新</span></td><td style="text-align:right;color:#888">—</td><td style="text-align:right;color:#888">行业首发</td><td style="text-align:right;color:#888">—</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥0.50 / 次</strong></td><td class="q" style="text-align:right">独家</td></tr>
             </tbody>
           </table>
         </div>
@@ -427,22 +428,22 @@
             <thead>
               <tr>
                 <th>套餐</th>
-                <th>海外/国内对标</th>
-                <th style="text-align:right">对标价</th>
+                <th>海外对标(2026-06 公开调研)</th>
+                <th style="text-align:right">对标真实价</th>
                 <th style="text-align:right;color:var(--accent-2)">文书查价</th>
                 <th style="text-align:right">省</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>开发者个人</td><td>midpage($39/月)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥280 / 月</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥99 / 月</strong></td><td class="q" style="text-align:right">-65%</td></tr>
-              <tr><td>创业团队</td><td>Casetext($220/月)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1,575 / 月</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥698 / 月</strong></td><td class="q" style="text-align:right">-56%</td></tr>
-              <tr><td><strong>中型机构</strong> ⭐</td><td>Casetext 团队版</td><td style="text-align:right;color:#888;text-decoration:line-through">¥17,200 / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥8,600 / 年</strong></td><td class="q" style="text-align:right">-50%</td></tr>
-              <tr><td>大模型厂商 OEM</td><td>Lex Machina</td><td style="text-align:right;color:#888;text-decoration:line-through">¥200,000 / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥98,000 / 年</strong></td><td class="q" style="text-align:right">-51%</td></tr>
-              <tr><td>AI 律师工具 SaaS 嵌入</td><td>Harvey OEM</td><td style="text-align:right;color:#888;text-decoration:line-through">¥600,000 / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥298,000 / 年</strong></td><td class="q" style="text-align:right">-50%</td></tr>
+              <tr><td>开发者个人</td><td>midpage($99/月,实测公开价)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥707 / 月</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥99 / 月</strong></td><td class="q" style="text-align:right">-86%</td></tr>
+              <tr><td>创业团队</td><td>Casetext Core($225/user/月)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥1,608 / 月</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥698 / 月</strong></td><td class="q" style="text-align:right">-57%</td></tr>
+              <tr><td><strong>中型机构</strong> ⭐</td><td>Casetext All Access($500/月)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥42,857 / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥8,600 / 年</strong></td><td class="q" style="text-align:right">-80%</td></tr>
+              <tr><td>大模型厂商 OEM</td><td>Lex Machina($75K/年 firmwide)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥538,000 / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥98,000 / 年</strong></td><td class="q" style="text-align:right">-82%</td></tr>
+              <tr><td>AI 律师工具 SaaS 嵌入</td><td>Harvey AI($1,000-2,000/律师/月)</td><td style="text-align:right;color:#888;text-decoration:line-through">¥600,000+ / 年</td><td class="hi" style="text-align:right;font-size:16px"><strong>¥298,000 / 年</strong></td><td class="q" style="text-align:right">-50% 至 -90%</td></tr>
             </tbody>
           </table>
         </div>
-        <p style="color:var(--muted);font-size:14px;margin:0 0 24px;text-align:center">含:标准 MCP 协议接入 · 1.5 亿+ 司法数据持续同步 · 海外英文化版本(英文摘要 + 接口)</p>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 24px;text-align:center">含:标准 MCP 协议接入 · 1.5 亿+ 司法数据持续同步 · 海外英文化版本(英文摘要 + 接口)<br /><span style="font-size:12px">对标价 = 2026-06 公开调研真实定价(midpage.ai、casetext.com、harvey.ai 官方/LawNext/CostBench)。汇率 USD 1 = ¥7.14。</span></p>
 
         <!-- 全量数据打包 -->
         <h3 style="font-size:20px;color:var(--navy);margin:8px 0 18px;text-align:center">④ 全量数据打包(一次性买断)</h3>
