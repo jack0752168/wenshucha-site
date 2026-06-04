@@ -3,11 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文书查 · 全国全量裁判文书数据服务</title>
-  <meta name="description" content="文书查提供覆盖1985年至今、超过1.5亿篇的全国全量裁判文书数据，涵盖刑事、民事、行政、执行、国家赔偿五大类，来源权威、字段结构化、每日同步更新，服务政府、高校与企业。" />
-  <meta property="og:title" content="文书查 · 全国全量裁判文书数据服务" />
-  <meta property="og:description" content="超过1.5亿篇裁判文书数据，来源权威、字段结构化、每日同步更新。" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <!-- Primary SEO（百度 / 搜狗 / 360 / Google） -->
+  <title>文书查 - 1.5亿+全国裁判文书数据API/MCP - 律师工作台案件胜算量化</title>
+  <meta name="description" content="文书查提供1.5亿+全国裁判文书数据API与MCP接入,覆盖1985至今刑事/民事/行政/执行/国家赔偿五大类,字段结构化、每日同步;旗舰律师工作台输出案件胜诉率与赔偿金额量化区间,服务政府/高校/律所/AI厂商。" />
+  <meta name="keywords" content="裁判文书,裁判文书API,裁判文书数据,全国裁判文书,裁判文书查询,法律大数据,司法大数据,中国法律API,法律AI数据,MCP裁判文书,MCP法律,律师工作台,案件胜算,类案检索,1.5亿裁判文书,文书查,SinoVerdict,法律数据合作,法律科技数据源" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large" />
+  <meta name="Baiduspider" content="index,follow" />
+  <meta name="copyright" content="深圳星谱网络科技有限公司" />
+
+  <!-- 百度移动适配 / 适老化 -->
+  <meta name="applicable-device" content="pc,mobile" />
+  <meta name="mobile-agent" content="format=html5; url=https://wenshucha.com/" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="format-detection" content="telephone=no,email=no,address=no" />
+
+  <!-- 站长平台验证位（部署后从对应平台拿到 token 替换 content） -->
+  <meta name="baidu-site-verification" content="REPLACE_WITH_BAIDU_TOKEN" />
+  <meta name="sogou_site_verification" content="REPLACE_WITH_SOGOU_TOKEN" />
+  <meta name="360-site-verification" content="REPLACE_WITH_360_TOKEN" />
+  <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_TOKEN" />
+  <meta name="msvalidate.01" content="REPLACE_WITH_BING_TOKEN" />
+
+  <link rel="canonical" href="https://wenshucha.com/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://wenshucha.com/" />
+  <link rel="alternate" hreflang="en" href="https://sinoverdict.wenshucha.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://wenshucha.com/" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="文书查" />
+  <meta property="og:title" content="文书查 · 1.5亿+全国裁判文书数据 API/MCP · 律师工作台" />
+  <meta property="og:description" content="覆盖1985至今、五大类、字段结构化、每日同步;律师工作台输出案件胜诉率与赔偿金额量化区间。服务政府/高校/律所/AI厂商。" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wenshucha.com/" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="文书查 — 1.5 亿+ 全国裁判文书数据 API/MCP/律师工作台" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="文书查 · 1.5亿+裁判文书数据 API/MCP · 律师工作台" />
+  <meta name="twitter:description" content="覆盖1985至今五大类裁判文书,字段结构化、日同步,API/MCP 接入,律师工作台量化胜率与赔偿金额。" />
+  <meta name="twitter:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "文书查",
+    "alternateName": ["SinoVerdict","深圳星谱网络科技有限公司","数据满屋"],
+    "url": "https://wenshucha.com/",
+    "logo": "https://wenshucha.com/favicon.svg",
+    "foundingDate": "2017",
+    "description": "覆盖 1985 年至今、超过 1.5 亿篇的全国全量裁判文书数据服务，提供 API、MCP Server、全量打包与律师工作台。",
+    "sameAs": ["https://mcp.wenshucha.com/","https://sinoverdict.wenshucha.com/"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "新安街道诺铂广场 1715",
+      "addressLocality": "宝安区",
+      "addressRegion": "深圳市",
+      "addressCountry": "CN"
+    },
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+86-131-6872-7779",
+      "email": "chenjiaxin@wenshucha.com",
+      "contactType": "sales",
+      "areaServed": "CN",
+      "availableLanguage": ["zh-CN","en"]
+    }]
+  }
+  </script>
+
+  <!-- JSON-LD: Product / Service（律师工作台 + API + MCP） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "文书查律师工作台 · API · MCP Server",
+    "description": "1.5 亿+ 全国裁判文书结构化数据,以 API、MCP Server、律师工作台 SaaS、全量打包多种形式交付,覆盖刑事/民事/行政/执行/国家赔偿五大类。律师工作台提供案件胜诉率与赔偿金额量化区间。",
+    "brand": { "@type": "Brand", "name": "文书查" },
+    "category": "LegalDataService",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "CNY",
+      "lowPrice": "99",
+      "highPrice": "298000",
+      "offerCount": "12",
+      "url": "https://wenshucha.com/#api-pricing"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage（抢百度精选问答 + Google PAA） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "文书查的裁判文书数据从哪里来？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "数据均源自人民法院公开裁判文书（中国裁判文书网及各级人民法院公开渠道），经统一清洗与结构化处理,合法、真实、可追溯。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "数据规模有多大？覆盖哪些类型？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "覆盖 1985 年至今超过 1.5 亿篇全国全量裁判文书,涵盖刑事、民事、行政、执行、国家赔偿五大类,字段结构化（案号、法院、案由、当事人、裁判日期、正文等），每日同步更新。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "API 与 MCP Server 怎么接入？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "REST API 按次计费或包年套餐;MCP Server 一行配置即可接入 Claude Desktop / Cursor / Cline 等 MCP 客户端,工具集含 search_cases / get_case_full_text / list_relevant_statutes / quantify_outcome。海外英文化版本同步提供。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "律师工作台能做什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "把 1.5 亿裁判文书 + AI 接入沉淀成律师每天能用的「类案 + 金额 + 胜率」工作台:类案精准检索、p25/中位/p75 三档赔偿金额区间、胜诉率、关键裁判因素自动提取。所有数字均源自历史判决统计,可链回中国裁判文书网原文。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "价格是怎么算的？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "API 按次计费 ¥0.07-¥0.80/次不等;年度套餐 ¥4,800-¥248,000/年;MCP Server ¥99/月（开发者）至 ¥298,000/年起（SaaS 嵌入）;全量数据打包 ¥12,000（劳动争议）至 ¥198,000（1.5 亿全量）。企业级议价与私有部署可联系商务。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "有海外英文版吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "有,海外品牌为 SinoVerdict(sinoverdict.wenshucha.com),面向境外律所与做中国业务的法律 AI 团队,英文查询与英文摘要,引证可回链中国原文。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "服务过哪些客户？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "自 2017 年起服务无讼、北大法宝、牛法网等司法科技企业,北京大学、清华大学、长江商学院等高校科研,以及江苏某法院等司法机关,共数十家。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "文书查",
+    "url": "https://wenshucha.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://wenshucha.com/?q={search_term}",
+      "query-input": "required name=search_term"
+    }
+  }
+  </script>
+
+  <!-- 百度自动推送（搜索引擎收录加速） -->
+  <script>
+  (function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    bp.src = (curProtocol === 'https')
+      ? 'https://zz.bdstatic.com/linksubmit/push.js'
+      : 'http://push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <style>
     :root{
@@ -434,6 +626,66 @@
               <span class="chip">江苏某法院</span>
               <span class="chip more">…等数十家</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FAQ（百度精选问答 + Google PAA） -->
+    <section class="block" id="faq">
+      <div class="wrap">
+        <div class="shead">
+          <div class="tag">常见问题</div>
+          <h2>政府 / 高校 / 律所 / AI 厂商最常问的问题</h2>
+          <p>从数据来源、合规边界,到 API / MCP 接入方式与定价口径,一次说清。</p>
+        </div>
+        <div class="cards c2" style="margin-top:36px">
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">文书查的裁判文书数据从哪里来?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">数据均源自人民法院公开裁判文书(中国裁判文书网及各级法院公开渠道),经统一清洗与结构化处理,合法、真实、可追溯。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">数据规模和时间跨度?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">覆盖 1985 年至今超过 1.5 亿篇全国全量裁判文书,涵盖刑事、民事、行政、执行、国家赔偿五大类,字段结构化,每日同步更新。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">API 与 MCP Server 怎么接入?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">REST API 按次计费或包年套餐,提供搜索 / 详情 / 关联 / 法规 / 语义检索 / 量化预测六大接口;MCP Server 一行配置接入 Claude Desktop / Cursor / Cline 等 MCP 客户端,内置 search_cases、get_case_full_text、list_relevant_statutes、quantify_outcome 工具。海外英文版同步提供。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">律师工作台能做什么?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">把 1.5 亿裁判文书 + AI 接入沉淀成「类案 + 金额 + 胜率」工作台:类案精准检索、p25 / 中位 / p75 三档赔偿金额区间、胜诉率、关键裁判因素自动提取。所有数字均源自历史判决统计,链回原文可验。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">价格区间?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">API 按次 ¥0.07 起;包年套餐 ¥4,800 至 ¥248,000/年;MCP Server ¥99/月(开发者)至 ¥298,000/年起(SaaS 嵌入);全量数据打包 ¥12,000(劳动争议)至 ¥198,000(1.5 亿全量)。企业级议价与私有部署可联系商务。详见 <a href="#api-pricing" style="color:var(--accent)">定价方案</a>。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">有海外英文版吗?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">有,海外品牌为 <a href="https://sinoverdict.wenshucha.com/" rel="alternate" hreflang="en" style="color:var(--accent)">SinoVerdict</a>,面向境外律所与做中国业务的法律 AI 团队,英文查询与英文摘要,引证可回链原文。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">服务过哪些客户?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">自 2017 年起服务无讼、北大法宝、牛法网等司法科技企业;北京大学、清华大学、长江商学院等高校科研;江苏某法院等司法机关。共数十家。</span>
+            </p>
+          </div>
+          <div class="card" itemscope itemtype="https://schema.org/Question">
+            <h3 itemprop="name" style="font-size:17px">合规边界?</h3>
+            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
+              <span itemprop="text">仅采集人民法院公开渠道已公示的裁判文书,不涉及未公开案件、个人隐私二次脱敏部分及限定不公开的内容。可签订数据使用协议,明确用途与边界。</span>
+            </p>
           </div>
         </div>
       </div>

@@ -1,0 +1,65 @@
+# 文书查 — 全国全量裁判文书数据服务
+# https://wenshucha.com
+
+User-agent: *
+Allow: /
+
+# 国内搜索引擎(完整放行)
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Baiduspider-render
+Allow: /
+
+User-agent: Baiduspider-image
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: Sogou inst spider
+Allow: /
+
+User-agent: Sogou Pic Spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: HaoSouSpider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# 国际搜索引擎
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI 爬虫(允许被收录引用,提高品牌曝光)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# 屏蔽噪音
+Disallow: /*.bak$
+Disallow: /tmp/
+
+Sitemap: https://wenshucha.com/sitemap.xml
