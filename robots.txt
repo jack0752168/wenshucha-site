@@ -61,5 +61,6 @@ Allow: /
 # 屏蔽噪音
 Disallow: /*.bak$
 Disallow: /tmp/
+Disallow: /_relay_*
 
 Sitemap: https://wenshucha.com/sitemap.xml
