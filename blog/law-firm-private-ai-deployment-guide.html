@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所 AI 私有化部署完全指南:数据+模型+合规+采购清单(2026)| 文书查</title>
+  <meta name="description" content="大型律所为什么不能用 SaaS 法律 AI?本文讲清律所 AI 私有化部署的完整方案:数据底座、法律大模型、工具链、硬件配置、等保合规、采购清单与部署周期。面向律所信息化主任与合伙人的决策参考。" />
+  <meta name="keywords" content="律所私有 AI 部署,法律 AI 私有化,律所内网大模型,司法数据本地化,律所信息化,法律大模型私有部署,律所 AI 采购,等保三级 法律 AI,裁判文书私有部署" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-private-ai-deployment-guide.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所 AI 私有化部署完全指南:数据+模型+合规+采购清单(2026)" />
+  <meta property="og:description" content="大型律所为什么不能用 SaaS 法律 AI?数据底座、法律大模型、工具链、硬件配置、等保合规、采购清单与部署周期,一文讲清。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-private-ai-deployment-guide.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所 AI 私有化部署完全指南:数据+模型+合规+采购清单(2026)",
+    "description": "面向大型律所信息化主任与合伙人的 AI 私有化部署决策参考。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-07",
+    "dateModified": "2026-06-07",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-private-ai-deployment-guide.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所用 SaaS 法律 AI 有什么合规风险?",
+        "acceptedAnswer": { "@type": "Answer", "text": "SaaS 模式下案件材料、当事人信息、内部文书会上传到第三方云服务器,可能违反《律师执业管理办法》的保密义务、客户的数据保护要求,以及《数据安全法》《个人信息保护法》对敏感数据出域的限制。涉密案件、政府/国企客户案件、跨境数据案件尤其不能用 SaaS。" }
+      },
+      {
+        "@type": "Question",
+        "name": "律所 AI 私有化部署需要什么硬件?",
+        "acceptedAnswer": { "@type": "Answer", "text": "取决于模型规模与并发。轻量方案(7B-14B 量化模型 + 检索):1-2 张 24GB 显存的消费级/专业卡(如 RTX 4090 / A5000)即可支撑几十人律所;中型方案(32B-72B 模型):2-4 张 A100/H800 级别;大所全员高并发可上 8 卡集群。检索与数据库部分用普通服务器即可。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化部署一套法律 AI 大概多少钱、多久能上线?",
+        "acceptedAnswer": { "@type": "Answer", "text": "硬件按规模从十几万到上百万不等;软件交付(数据+模型+工具链+部署+培训)按律所规模与数据范围阶梯报价。从评估到演示 demo 通常 14-30 天,正式部署后含数据持续同步与模型迭代的服务期。具体可联系商务获取方案。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化部署的法律 AI 数据怎么更新?",
+        "acceptedAnswer": { "@type": "Answer", "text": "裁判文书与法规库通过加密增量包定期同步(可离线导入,不需要内网持续连外网),保证案例库的时效性;法律大模型按版本迭代升级。本所历史卷宗与内部知识库可叠加微调,形成本所专属能力。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 律所 AI 私有化部署指南</div>
+    <h1>律所 AI 私有化部署完全指南:数据、模型、合规、采购清单(2026)</h1>
+    <div class="meta">2026-06-07 · 文书查 · 面向律所信息化主任与合伙人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">越来越多的大型律所想引入 AI 提效——类案检索、文书起草、案件预判。但当 IT 负责人把 SaaS 法律 AI 的合同摆到合伙人会议上时,几乎都会卡在同一个问题:<strong>当事人材料、案件底稿、内部文书,能不能上传到别人的云服务器?</strong>对于涉密案件、政府与国企客户、跨境业务的律所,答案是不能。这时候,<strong>私有化部署(本地离线 AI)</strong>就成了唯一可行的路径。本文讲清这条路怎么走。</p>
+
+      <h2>一、为什么大律所不能用 SaaS 法律 AI</h2>
+      <p>SaaS 模式下,你输入的每一段案情、上传的每一份文书,都会经过第三方服务器处理。对个人用户无所谓,但对律所是硬伤,涉及三层风险:</p>
+      <ul>
+        <li><strong>执业保密义务</strong>:《律师执业管理办法》与《律师法》要求律师对委托人信息保密。把案件材料喂给外部 SaaS,本身就可能构成保密义务的瑕疵,一旦泄露,律所要担责。</li>
+        <li><strong>客户的数据要求</strong>:政府、国企、上市公司、金融机构客户,普遍在委托协议里写明数据不得出域、不得交由第三方处理。用 SaaS 等于违约。</li>
+        <li><strong>法律法规约束</strong>:《数据安全法》《个人信息保护法》对敏感个人信息、重要数据的处理与出境有明确限制;跨境案件还涉及数据出境安全评估。</li>
+      </ul>
+      <p>结论很直接:<strong>真正有价值的案子,恰恰是最不能用 SaaS 的案子。</strong>这就是私有化部署的市场。</p>
+
+      <h2>二、律所 AI 私有化部署到底包含什么</h2>
+      <p>很多人以为"私有化"就是把一个聊天机器人装到内网。其实一套能用的律所 AI,是<strong>数据 + 模型 + 工具链</strong>三层缺一不可:</p>
+      <table>
+        <thead><tr><th>层</th><th>内容</th><th>没有它会怎样</th></tr></thead>
+        <tbody>
+          <tr><td><strong>数据底座</strong></td><td>结构化裁判文书(覆盖刑事/民事/行政/执行/国家赔偿)、法律法规、司法解释、地方规章</td><td>模型只会"一本正经地编",没有可溯源的案例支撑</td></tr>
+          <tr><td><strong>法律大模型</strong></td><td>在通用大模型基础上,用司法语料微调的法律专用模型,跑在内网 GPU 上</td><td>通用模型不懂法言法语,引用法条经常张冠李戴</td></tr>
+          <tr><td><strong>工具链</strong></td><td>类案检索引擎、判决要素抽取、量化预测(胜诉率/赔偿区间)、律师工作台 UI、API 接口</td><td>有数据有模型但律师用不起来,落不了地</td></tr>
+        </tbody>
+      </table>
+      <p>文书查提供的私有化方案,是把这三层<strong>一次性部署到律所机房</strong>:1.5 亿+ 裁判文书 + 法规库进内网,法律大模型在内网推理,完全无外网调用。</p>
+
+      <h2>三、硬件要求与成本测算</h2>
+      <p>硬件按律所规模和并发量分三档,不用一步到位:</p>
+      <table>
+        <thead><tr><th>规模</th><th>典型配置</th><th>适合</th></tr></thead>
+        <tbody>
+          <tr><td>轻量</td><td>1-2 张 24GB 显存卡(RTX 4090 / A5000)+ 量化 7B-14B 模型</td><td>几十人精品所 / 单办公室</td></tr>
+          <tr><td>中型</td><td>2-4 张 A100 / H800 + 32B-72B 模型</td><td>百人规模、多部门并发</td></tr>
+          <tr><td>大所</td><td>8 卡集群 + 负载均衡</td><td>全所全员高并发 / 多地办公室</td></tr>
+        </tbody>
+      </table>
+      <p>数据库与检索部分用普通服务器即可,不吃 GPU。<strong>很多律所的误区是上来就想配大集群</strong>——其实绝大多数所从轻量档起步,跑通了再扩,投入可控。</p>
+
+      <h2>四、合规要点:这几条写进采购需求里</h2>
+      <p>给政府或大客户做汇报时,这几条是过会的关键:</p>
+      <ul>
+        <li><strong>数据不出内网</strong>:全套部署在律所机房,模型内网推理,无任何外网调用。可满足等保三级要求。</li>
+        <li><strong>数据来源合法</strong>:裁判文书均源自人民法院公开渠道,合法、可追溯。</li>
+        <li><strong>权限分级</strong>:按组织结构定制——合伙人/授薪律师/实习律师/行政,不同角色看不同数据,操作可审计。</li>
+        <li><strong>更新不依赖外网</strong>:案例库通过加密增量包离线导入,既保持时效又不开外网口子。</li>
+      </ul>
+
+      <h2>五、决策者采购清单(直接照着问供应商)</h2>
+      <div class="callout">
+        <p>把这份清单发给候选供应商,能用一轮问出谁是真有货:</p>
+        <ol>
+          <li>数据范围?多少篇?覆盖哪几类文书?更新频率?来源是否合法可溯源?</li>
+          <li>模型是自研微调还是套壳通用模型?能否用本所卷宗二次微调?</li>
+          <li>是否含工具链(类案检索/要素抽取/量化预测/工作台 UI),还是只给数据?</li>
+          <li>部署是否完全离线?能否过等保三级?权限能否按本所组织结构定制?</li>
+          <li>交付周期?是否先出演示 demo 再签约?服务期含哪些(数据同步/模型升级/定制需求)?</li>
+          <li>报价结构?一次性买断还是年费?硬件是否包含?</li>
+        </ol>
+      </div>
+
+      <h2>六、部署流程与周期</h2>
+      <p>典型路径:<strong>电话/邮件预约勘察 → 评估范围与硬件 → 14-30 天交付演示 demo → 决策后部署正式版 → 进入服务期(数据同步 + 模型迭代 + 支持)</strong>。其中演示阶段通常不收费,demo 跑通、合伙人会议认可后再签合同——这能大幅降低律所的决策风险。</p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:私有化是不是比 SaaS 贵很多?</p>
+      <p>A:首次投入确实高于按月订阅,但对大所是一次性资产 + 可控年费,且换来的是合规与数据安全这两条不能让步的底线。算上"用 SaaS 一旦泄露的赔偿与声誉损失",私有化的总成本反而更低。</p>
+      <p class="faq-q">Q:我们所 IT 力量弱,部署后维护得动吗?</p>
+      <p>A:交付含部署 + 培训,服务期内数据同步、模型升级、bug 修复、定制需求由供应商负责,律所 IT 只需日常运维。</p>
+      <p class="faq-q">Q:能不能先小范围试?</p>
+      <p>A:可以。建议从一个业务部门(如劳动争议、合同纠纷)或一个办公室起步,跑出效果再全所推广。</p>
+
+      <div class="cta-box">
+        <h3>为你的律所评估一套私有化方案</h3>
+        <p>提供律所规模与大致用户数,1 个工作日内反馈方案与 demo 邀请。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/#workbench">律师工作台:案件胜算量化</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
