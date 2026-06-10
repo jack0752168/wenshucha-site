@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沈阳劳动争议赔偿金额数据:1982份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于1982份沈阳法院劳动争议获赔判决(2005–2023)的数据分析:判赔金额中位数13,756元,四分位区间5,117–30,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="沈阳劳动争议赔偿,沈阳劳动仲裁赔偿标准,沈阳违法解除赔偿金,沈阳劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/沈阳.html">
+<meta property="og:title" content="沈阳劳动争议赔偿金额数据:1982份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于1982份沈阳法院劳动争议获赔判决(2005–2023)的数据分析:判赔金额中位数13,756元,四分位区间5,117–30,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "沈阳劳动争议判决数据集", "description": "基于1982份沈阳法院劳动争议获赔判决(2005–2023)的数据分析:判赔金额中位数13,756元,四分位区间5,117–30,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2005/2023", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "沈阳劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的1982份沈阳劳动争议获赔判决,判赔金额四分位区间为 5,117–30,000 元,中位数 13,756 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "沈阳这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为沈阳法院劳动争议判决中劳动者诉请获完全或部分支持的 1982 份判决,其中完全支持约 28%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "沈阳劳动争议", "item": "https://www.wenshucha.com/data/labor/沈阳.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>沈阳劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 1982 份沈阳法院劳动争议<b>获赔判决</b>(2005–2023) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">13,756</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">5,117–30,000</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">28%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">1982</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为沈阳劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 1982 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>5,117</b> 元、中位 <b>13,756</b> 元、75 分位 <b>30,000</b> 元,
+  最高一例判赔 <b>700,975</b> 元。当地样本月工资中位 3,053 元,工龄中位 2.0 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>757</td><td>38%</td></tr><tr><td>经济性裁员</td><td>578</td><td>29%</td></tr><tr><td>劳动合同到期终止</td><td>239</td><td>12%</td></tr><tr><td>劳动者主动/被迫离职</td><td>214</td><td>11%</td></tr><tr><td>协商一致解除</td><td>194</td><td>10%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获部分支持</td><td>1430</td><td>72%</td></tr><tr><td>诉请获完全支持</td><td>552</td><td>28%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2020）辽0106民初12818号</span><span class="camt">判赔 700,975 元</span></div>
+      <div class="ct">沈阳秦农建筑装饰工程有限公司与邵建利劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 2 年</div>
+      <p class="cx">【查明】，被告从2015年2月开始在原告单位工作，审理中，经原、被告双方确认一致，双方于2019年12月28日终止劳动关系。审理中，原、被告双方均认可2019年双方约定的被告月工资标准为20000元。审理中，原告提交年终绩效协议书一份，内容为“甲方（原告下同）和乙方（被告下同）于2019年2月1日经协商达成如下协议，乙…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2016）辽0191民初1268号</span><span class="camt">判赔 419,406 元</span></div>
+      <div class="ct">可口可乐辽宁（北）饮料有限公司诉赫亮一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 19 年</div>
+      <p class="cx">【查明】被告赫亮于1995年7月10日入职原告可口可乐辽宁（北）公司，后担任仓储经理，2008年7月1日，双方签订了无固定期限劳动合同。原、被告双方确认被告解除劳动合同前十二个月平均工资为11,037元。 2014年5月26日和6月5日，原告外租库出租方沈阳宝驹汽车传动系统有限公司的汽车零件生产车间更换金属切削液，更换…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）辽0191民初2010号</span><span class="camt">判赔 381,333 元</span></div>
+      <div class="ct">姜伟林与沈阳传化公路港物流有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 2.9 年</div>
+      <p class="cx">【查明】，2018年5月31日《解除（终止）劳动合同证明书》载明：兹有本公司员工姜伟林，身份证号1201071971××××××××，入职时间为2007年6月28日，最近一次劳动合同期限为2016年8月1日至2019年7月31日，经双方协商一致，根据《劳动合同法》相关规定，本公司同意自2018年5月31日起与该员工解除…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2018）辽0191民初5784号</span><span class="camt">判赔 323,541 元</span></div>
+      <div class="ct">米其林沈阳轮胎有限公司与祁迹劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 8.7 年</div>
+      <p class="cx">【查明】，被告于2009年9月7日入职原告处工作，2017年9月7日，原、被告双方签订无固定期限劳动合同。2018年5月24日，原告作出关于解除劳动合同的决定，以被告严重违反公司规章制度为由解除与被告间劳动合同，并向被告出具《解除劳动合同证明书》。 另查明，依据被告提供的工资明细计算其离职前月平均应发工资为30,307…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）沈河民六初字第00359号</span><span class="camt">判赔 306,252 元</span></div>
+      <div class="ct">徐明晖与徐明晖、西门子（中国）有限公司沈阳分公司等劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 11 年</div>
+      <p class="cx">【查明】，2003年4月15日徐与北京西门子技术开发有限公司签订雇佣合同，2006年10月1日劳动合同雇主变更为西门子公司，2008年4月18日徐与西门子沈阳公司签订无固定期限劳动合同，该合同第8.3年约定“带薪假日：员工在每日历年有权享有15个工作日的带薪假日”。2014年12月29日西门子沈阳公司以电子邮件形式出具…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>沈阳劳动争议赔偿金一般是多少?</summary><p>根据本站收录的1982份沈阳劳动争议获赔判决,判赔金额四分位区间为 5,117–30,000 元,中位数 13,756 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>沈阳这组数据的样本是怎么选的?</summary><p>样本为沈阳法院劳动争议判决中劳动者诉请获完全或部分支持的 1982 份判决,其中完全支持约 28%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

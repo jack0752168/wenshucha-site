@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>温州劳动争议赔偿金额数据:357份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于357份温州法院劳动争议获赔判决(2009–2021)的数据分析:判赔金额中位数18,000元,四分位区间6,550–37,050元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="温州劳动争议赔偿,温州劳动仲裁赔偿标准,温州违法解除赔偿金,温州劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/温州.html">
+<meta property="og:title" content="温州劳动争议赔偿金额数据:357份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于357份温州法院劳动争议获赔判决(2009–2021)的数据分析:判赔金额中位数18,000元,四分位区间6,550–37,050元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "温州劳动争议判决数据集", "description": "基于357份温州法院劳动争议获赔判决(2009–2021)的数据分析:判赔金额中位数18,000元,四分位区间6,550–37,050元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2009/2021", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "温州劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的357份温州劳动争议获赔判决,判赔金额四分位区间为 6,550–37,050 元,中位数 18,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "温州这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为温州法院劳动争议判决中劳动者诉请获完全或部分支持的 357 份判决,其中完全支持约 45%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "温州劳动争议", "item": "https://www.wenshucha.com/data/labor/温州.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>温州劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 357 份温州法院劳动争议<b>获赔判决</b>(2009–2021) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">18,000</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">6,550–37,050</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">45%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">357</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为温州劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 357 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>6,550</b> 元、中位 <b>18,000</b> 元、75 分位 <b>37,050</b> 元,
+  最高一例判赔 <b>174,090</b> 元。当地样本月工资中位 3,200 元,工龄中位 2.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>159</td><td>45%</td></tr><tr><td>用人单位辞退/解雇</td><td>96</td><td>27%</td></tr><tr><td>劳动合同到期终止</td><td>48</td><td>13%</td></tr><tr><td>劳动者主动/被迫离职</td><td>28</td><td>8%</td></tr><tr><td>协商一致解除</td><td>26</td><td>7%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获部分支持</td><td>196</td><td>55%</td></tr><tr><td>诉请获完全支持</td><td>161</td><td>45%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2014）温龙民初字第636号</span><span class="camt">判赔 174,090 元</span></div>
+      <div class="ct">侯文杰与温州五星合成革有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获部分支持 · 工龄 10.5 年</div>
+      <p class="cx">【判决】一、被告温州五星合成革有限公司于本判决生效之日起十日内给付原告侯文杰违法解除劳动合同的赔偿金174090元、年休假工资7623元、失业待遇损失32928元，合计214641元。 二、被告温州五星合成革有限公司于本判决生效之日起十日内按规定为原告侯文杰补缴2003年8月至2014年1月由被告承担部分…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）浙温民终字第1902号</span><span class="camt">判赔 160,684 元</span></div>
+      <div class="ct">张启林与正光阀门集团有限公司劳动争议二审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 15.3 年</div>
+      <p class="cx">【判决】一、被告正光阀门集团有限公司于本判决生效之日起十日内支付原告张启林医疗费、住院伙食补助费、交通费、鉴定费、工资、护理费、停工留薪期工资、一次性伤残补助金、一次性工伤医疗补助金、一次性伤残就业补助金、经济补偿金等损失共计132484元；二、被告正光阀门集团有限公司于本判决生效之日起十日内按照劳动和社会…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）浙0303民初4964号</span><span class="camt">判赔 146,234 元</span></div>
+      <div class="ct">鄢建海与温州市现代冷链物流有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 15 年</div>
+      <p class="cx">【查明】原告于2005年5月进入温州菜篮子集团有限公司下属温州菜篮子锦绣农贸市场工作，由于温州菜篮子锦绣农贸市场搬迁，原告于2017年12月被调至被告公司，从事市场管理工作。双方于2017年12月25日签订一份无固定期限劳动合同。2020年2月10日，被告公司被开发区市场监督管理部门约谈，涉及疫情期间市场出入口体温测量…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）浙0303民初613号</span><span class="camt">判赔 143,000 元</span></div>
+      <div class="ct">温州人本物流服务有限公司、杜鹏龙劳动争议、人事争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 4 年</div>
+      <p class="cx">【查明】事实如下：2013年3月25日，人本公司作为甲方，杜鹏龙作为乙方，双方签订《劳动合同》一份，约定 合同期限共四年，自2013年3月25日起至2017年3月24日止。甲方聘用乙方从事驾驶员岗位工作。乙方试用期满后，工资标准根据甲方制定的工资制度执行 等。 2015年1月26日，杜鹏龙向人本公司支付10000元；人…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2019）浙0302民初7548号</span><span class="camt">判赔 133,396 元</span></div>
+      <div class="ct">孙宜修与王旭东、王煜辉经济补偿金纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 4.2 年</div>
+      <p class="cx">【查明】事实如下：2009年6月，原告入职金立公司，任总监岗位。2014年6月至2018年8月，金立公司为原告缴纳职工基本养老保险。2018年5月，原告离开金立公司。 另查明：金立公司于2006年3月15日登记成立，类型为有限责任公司，法定代表人为被告王旭东，自然人股东为被告王旭东、王煜辉、李永敏、**、张小平。201…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>温州劳动争议赔偿金一般是多少?</summary><p>根据本站收录的357份温州劳动争议获赔判决,判赔金额四分位区间为 6,550–37,050 元,中位数 18,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>温州这组数据的样本是怎么选的?</summary><p>样本为温州法院劳动争议判决中劳动者诉请获完全或部分支持的 357 份判决,其中完全支持约 45%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

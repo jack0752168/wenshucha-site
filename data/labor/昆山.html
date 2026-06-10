@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>昆山劳动争议赔偿金额数据:315份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于315份昆山法院劳动争议获赔判决(2013–2020)的数据分析:判赔金额中位数12,542元,四分位区间4,870–31,814元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="昆山劳动争议赔偿,昆山劳动仲裁赔偿标准,昆山违法解除赔偿金,昆山劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/昆山.html">
+<meta property="og:title" content="昆山劳动争议赔偿金额数据:315份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于315份昆山法院劳动争议获赔判决(2013–2020)的数据分析:判赔金额中位数12,542元,四分位区间4,870–31,814元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "昆山劳动争议判决数据集", "description": "基于315份昆山法院劳动争议获赔判决(2013–2020)的数据分析:判赔金额中位数12,542元,四分位区间4,870–31,814元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2013/2020", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "昆山劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的315份昆山劳动争议获赔判决,判赔金额四分位区间为 4,870–31,814 元,中位数 12,542 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "昆山这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为昆山法院劳动争议判决中劳动者诉请获完全或部分支持的 315 份判决,其中完全支持约 89%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "昆山劳动争议", "item": "https://www.wenshucha.com/data/labor/昆山.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>昆山劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 315 份昆山法院劳动争议<b>获赔判决</b>(2013–2020) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">12,542</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">4,870–31,814</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">89%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">315</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为昆山劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 315 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>4,870</b> 元、中位 <b>12,542</b> 元、75 分位 <b>31,814</b> 元,
+  最高一例判赔 <b>245,664</b> 元。当地样本月工资中位 3,966 元,工龄中位 1.2 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>179</td><td>57%</td></tr><tr><td>经济性裁员</td><td>77</td><td>24%</td></tr><tr><td>劳动者主动/被迫离职</td><td>31</td><td>10%</td></tr><tr><td>协商一致解除</td><td>22</td><td>7%</td></tr><tr><td>劳动合同到期终止</td><td>6</td><td>2%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>280</td><td>89%</td></tr><tr><td>诉请获部分支持</td><td>35</td><td>11%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2014）昆张民初字第00869号</span><span class="camt">判赔 245,664 元</span></div>
+      <div class="ct">七甲电子（昆山）有限公司与金雄民经济补偿金纠纷一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 0.9 年</div>
+      <p class="cx">【查明】被告金雄民于2007年1月入职原告公司，任职生产主管，负责管理模具、成型、喷涂、组装四个部门。原被告双方签订的最后一期劳动合同期限自2013年8月1日至2014年7月31日。劳动合同约定被告加班工资计发基数为最低工资标准，被告须遵守员工手册，月薪人员工资中含加班费。被告最后工作至2014年8月25日。2014年…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2013）昆民初字第0075号</span><span class="camt">判赔 241,560 元</span></div>
+      <div class="ct">赵静与亚龙纸制品（昆山）有限公司劳动合同纠纷一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 15.4 年</div>
+      <p class="cx">【查明】赵静于1997年3月18日进入亚龙公司工作。亚龙公司自2008年成立采购部后，赵静即任总经理室采购中心副理，负责采购部日常工作及业务。 2009年3月，伦尼公司注册成立，赵静配偶张必武系伦尼公司股东之一，2010年8月，张必武成为伦尼公司最大股东及法定代表人。 2010年9月，伦尼公司取代亿明公司成为亚龙公司电…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）昆张民初字第00520号</span><span class="camt">判赔 229,313 元</span></div>
+      <div class="ct">富港电子（昆山）有限公司与王华林经济补偿金纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 12.7 年</div>
+      <p class="cx">【查明】被告王华林于2002年10月29日入职原告处，担任模具工程师，自2012年10月1日起原被告签订无固定期限劳动合同。2015年5月8日，原告发布公告一份，内容为：因外在经济环境变动剧烈，公司经营遭遇诸多挑战及艰难，为有效运用资源，发挥整体效率，拟进行人力资源调节。同日，原告向昆山市锦溪镇劳动所、锦溪镇工会、锦溪…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2017）苏0583民初2978号</span><span class="camt">判赔 192,372 元</span></div>
+      <div class="ct">2978昆山六丰机械工业有限公司与陈明军劳动合同纠纷一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 17.4 年</div>
+      <p class="cx">【查明】被告于1999年2月1日进入原告处工作，双方签订了劳动合同。2016年7月25日原告作出解除劳动合同公告，认为被告自2015年5月起经常迟到早退不参加集合，安排工作不能及时完成，不服从主管管理，影响其他同仁工作。2016年7月11日安排被告调岗至磨修站，其不听课内安排拒绝工作，消极怠工，经常在上班时间离开工作岗…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）昆张民初字第00551号</span><span class="camt">判赔 175,542 元</span></div>
+      <div class="ct">富港电子（昆山）有限公司与唐世川经济补偿金纠纷一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 12.6 年</div>
+      <p class="cx">【查明】被告唐世川于2002年8月6日进入原告处工作，任职模具设计工程师，最后一期劳动合同为无固定期限劳动合同，期限自2014年7月1日起。被告最后上班至2015年4月3日，原告以被告一年累计三次大过为由，依据《奖惩作业管理办法》的规定通知被告解除劳动合同。被告解除前月平均工资为6751.63元。嗣后被告向昆山市劳动争…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>昆山劳动争议赔偿金一般是多少?</summary><p>根据本站收录的315份昆山劳动争议获赔判决,判赔金额四分位区间为 4,870–31,814 元,中位数 12,542 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>昆山这组数据的样本是怎么选的?</summary><p>样本为昆山法院劳动争议判决中劳动者诉请获完全或部分支持的 315 份判决,其中完全支持约 89%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

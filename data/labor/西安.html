@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>西安劳动争议赔偿金额数据:1799份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于1799份西安法院劳动争议获赔判决(2004–2023)的数据分析:判赔金额中位数20,236元,四分位区间7,903–33,976元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="西安劳动争议赔偿,西安劳动仲裁赔偿标准,西安违法解除赔偿金,西安劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/西安.html">
+<meta property="og:title" content="西安劳动争议赔偿金额数据:1799份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于1799份西安法院劳动争议获赔判决(2004–2023)的数据分析:判赔金额中位数20,236元,四分位区间7,903–33,976元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "西安劳动争议判决数据集", "description": "基于1799份西安法院劳动争议获赔判决(2004–2023)的数据分析:判赔金额中位数20,236元,四分位区间7,903–33,976元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2004/2023", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "西安劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的1799份西安劳动争议获赔判决,判赔金额四分位区间为 7,903–33,976 元,中位数 20,236 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "西安这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为西安法院劳动争议判决中劳动者诉请获完全或部分支持的 1799 份判决,其中完全支持约 59%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "西安劳动争议", "item": "https://www.wenshucha.com/data/labor/西安.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>西安劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 1799 份西安法院劳动争议<b>获赔判决</b>(2004–2023) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">20,236</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">7,903–33,976</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">59%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">1799</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为西安劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 1799 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>7,903</b> 元、中位 <b>20,236</b> 元、75 分位 <b>33,976</b> 元,
+  最高一例判赔 <b>1,042,586</b> 元。当地样本月工资中位 3,250 元,工龄中位 2.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>654</td><td>36%</td></tr><tr><td>经济性裁员</td><td>423</td><td>24%</td></tr><tr><td>劳动者主动/被迫离职</td><td>255</td><td>14%</td></tr><tr><td>协商一致解除</td><td>247</td><td>14%</td></tr><tr><td>劳动合同到期终止</td><td>220</td><td>12%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>1064</td><td>59%</td></tr><tr><td>诉请获部分支持</td><td>735</td><td>41%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2012）莲民一初字第01159号</span><span class="camt">判赔 1,042,586 元</span></div>
+      <div class="ct">西安圣梦美容护肤品有限公司与许芳劳动争议一审民事判决书</div>
+      <div class="cmeta">协商一致解除 · 诉请获完全支持 · 工龄 4.7 年</div>
+      <p class="cx">【查明】，2009年6月22日，原告圣梦公司（甲方）与被告许芳（乙方）签订劳动合同，约定乙方接受甲方聘任从事业务管理工作，劳动期限自2009年7月1日起至2012年6月30日止，月工资1200元，补助及任务提成按起薪通知标准执行，其中第十条第（三）款约定“乙方违反合同第九条第三款及合同其他条款，乙方应向甲方支付经济损失…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2021）陕0104民初10492号</span><span class="camt">判赔 550,000 元</span></div>
+      <div class="ct">陕西省军区西安第十六离职干部休养所、邵忠民劳动争议民事一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 34.7 年</div>
+      <p class="cx">【判决】一、原告邵忠民与被告中国人民解放军陕西省军区西安第十六干休所从1986年4月至2020年12月具有劳动关系; 二、驳回原告邵忠民要求被告中国人民解放军陕西省军区西安第十六干休所支付其解除劳动合同补偿金63000元之诉讼请求； 三、驳回原告邵忠民要求被告中国人民解放军陕西省军区西安第十六干休所向其支…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2021）陕0103民初9638号</span><span class="camt">判赔 473,034 元</span></div>
+      <div class="ct">贝朗医疗国际贸易有限公司、刘静宜劳动争议民事一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 17.7 年</div>
+      <p class="cx">【查明】2003年4月1日原告入职被告处，岗位为大区销售经理，期间双方签订了数份劳动合同。2014年9月1日双方签订了无固定期限劳动合同。2020年10月15日被告向原告发送第一次《严重警告通知书》，载明理由为：违反操作指令在未经主管事先批准的情况下擅自对工作规程作出变更；拒绝执行上司部署的合理工作任务或工作部署。审理…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2019）陕0116民初6069号</span><span class="camt">判赔 449,954 元</span></div>
+      <div class="ct">西安海门环保动力技术有限公司与林浪辉劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 9.8 年</div>
+      <p class="cx">【查明】：被告 林浪辉 于20 08 年 9 月 3 日 与 海门科技签订书面劳动合同，合同期限 为长期，工作内容为 负责新产品开发，老产品的优化整合、技术提升及其他日常技术工作。 2015年 原告 海门环保与 被告签订 无固定期限 劳动合同书， 从 2015年12月1日起至法定的终止条件出现时止，工作内容为总经理工作…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2019）陕0113民初13426号</span><span class="camt">判赔 380,535 元</span></div>
+      <div class="ct">横河电机有限公司与陈刚劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 1.5 年</div>
+      <p class="cx">【查明】，1991年8月9日陈刚入职横河公司，2008年1月25日，双方签订无固定期限劳动合同。2018年7月16日，横河公司法务部、人事部等部门工作人员与陈刚进行面谈，在面谈中，陈刚认可其名下有3家公司，其中2家已经注销。其中陕西兴源实业有限公司（以下简称兴源公司）至2017年底与横河公司一直有业务往来，其直系亲属现…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>西安劳动争议赔偿金一般是多少?</summary><p>根据本站收录的1799份西安劳动争议获赔判决,判赔金额四分位区间为 7,903–33,976 元,中位数 20,236 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>西安这组数据的样本是怎么选的?</summary><p>样本为西安法院劳动争议判决中劳动者诉请获完全或部分支持的 1799 份判决,其中完全支持约 59%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

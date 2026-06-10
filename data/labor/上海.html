@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>上海劳动争议赔偿金额数据:4480份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于4480份上海法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数20,000元,四分位区间7,614–48,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="上海劳动争议赔偿,上海劳动仲裁赔偿标准,上海违法解除赔偿金,上海劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/上海.html">
+<meta property="og:title" content="上海劳动争议赔偿金额数据:4480份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于4480份上海法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数20,000元,四分位区间7,614–48,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "上海劳动争议判决数据集", "description": "基于4480份上海法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数20,000元,四分位区间7,614–48,000元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2007/2023", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "上海劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的4480份上海劳动争议获赔判决,判赔金额四分位区间为 7,614–48,000 元,中位数 20,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "上海这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为上海法院劳动争议判决中劳动者诉请获完全或部分支持的 4480 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "上海劳动争议", "item": "https://www.wenshucha.com/data/labor/上海.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>上海劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 4480 份上海法院劳动争议<b>获赔判决</b>(2007–2023) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">20,000</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">7,614–48,000</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">85%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">4480</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为上海劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 4480 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>7,614</b> 元、中位 <b>20,000</b> 元、75 分位 <b>48,000</b> 元,
+  最高一例判赔 <b>3,510,324</b> 元。当地样本月工资中位 3,500 元,工龄中位 1.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>2201</td><td>49%</td></tr><tr><td>经济性裁员</td><td>1037</td><td>23%</td></tr><tr><td>劳动合同到期终止</td><td>599</td><td>13%</td></tr><tr><td>劳动者主动/被迫离职</td><td>413</td><td>9%</td></tr><tr><td>协商一致解除</td><td>230</td><td>5%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>3786</td><td>85%</td></tr><tr><td>诉请获部分支持</td><td>694</td><td>15%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2013）闸民四（民）初字第132号</span><span class="camt">判赔 3,510,324 元</span></div>
+      <div class="ct">张××与××（中国）货运代理有限公司劳动合同纠纷一案一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 2 年</div>
+      <p class="cx">【查明】，原告系本市户籍从业人员，与××公司和××公司签订了期限为2010年8月11日至2012年8月10日的劳动合同，其中载有如下条款：“第五条5.3在本合同期内当乙方（原告）无用工单位工作期间，甲方（××公司）依 《中华人民共和国劳动合同法》 规定执行工资标准为所在地政府每年规定的最低工资标准，并根据当地人民政府的…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2014）浦民一（民）初字第14366号</span><span class="camt">判赔 3,265,844 元</span></div>
+      <div class="ct">松下照明装置(上海)有限公司与高文国劳动合同纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 19.9 年</div>
+      <p class="cx">【查明】，被告于1994年7月1日至原告处工作，双方签订过一份自1998年9月1日起的无固定期限劳动合同。2012年9月5日，被告经原告批准延期退休，续任总经理一职，任期延期至2014年3月29日。2013年8月，由原告处法定代表人作为企业方，由工会主席及员工代表等五人作为员工方签署了一份《备忘录-关于松下照明装置（上…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）静民一（民）初字第233号</span><span class="camt">判赔 1,512,480 元</span></div>
+      <div class="ct">上海步升大风音乐文化传播有限公司与张枏劳动合同纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 3 年</div>
+      <p class="cx">【查明】以下事实： 一、2013年2月17日，被告入职原告处工作，担任首席运营官一职，年薪为1，800，000元。双方签订一份期限自2013年2月17日至2016年2月17日的劳动合同。合同条款F.“合同变更、终止和废除”项下F.8约定：若公司（金牌大风集团）自雇佣之日起36个月内，并非由于上文F3（F.3.1－F.3…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）沪0106民初26362号</span><span class="camt">判赔 985,966 元</span></div>
+      <div class="ct">夏农与法丽乡村旅游发展有限公司劳动合同纠纷一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 0.2 年</div>
+      <p class="cx">【查明】如下事实：原告于2016年11月14日入职被告处，担任总裁及首席执行官。双方签订过2016年11月14日至2018年11月13日、2018年11月14日至2019年2月13日以及2019年2月14日至2019年5月13日的三份劳动合同。末份劳动合同中第五章“工资及福利”第14条约定，原告的税前基本工资为每年人民…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2011）浦民一（民）初字第22837号</span><span class="camt">判赔 748,000 元</span></div>
+      <div class="ct">上海XX有限公司与孙X劳动合同纠纷一案一审民事判决书</div>
+      <div class="cmeta">协商一致解除 · 诉请获完全支持 · 工龄 1.9 年</div>
+      <p class="cx">【查明】，被告孙X于2002年1月起至原告上海XX有限公司（当时名称为上海XXXXX足球俱乐部）处从事职业球员工作。2003年至2004年期间，被告与当时的上海xxxxx足球俱乐部每年签订一份《职业运动员工作合同》，双方在合同中约定当年度年薪（2003年度为600,000元，2004年度为1,500,000元）、当年度…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>上海劳动争议赔偿金一般是多少?</summary><p>根据本站收录的4480份上海劳动争议获赔判决,判赔金额四分位区间为 7,614–48,000 元,中位数 20,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>上海这组数据的样本是怎么选的?</summary><p>样本为上海法院劳动争议判决中劳动者诉请获完全或部分支持的 4480 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

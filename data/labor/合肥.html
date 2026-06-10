@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>合肥劳动争议赔偿金额数据:885份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于885份合肥法院劳动争议获赔判决(2012–2021)的数据分析:判赔金额中位数12,510元,四分位区间5,259–27,557元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="合肥劳动争议赔偿,合肥劳动仲裁赔偿标准,合肥违法解除赔偿金,合肥劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/合肥.html">
+<meta property="og:title" content="合肥劳动争议赔偿金额数据:885份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于885份合肥法院劳动争议获赔判决(2012–2021)的数据分析:判赔金额中位数12,510元,四分位区间5,259–27,557元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "合肥劳动争议判决数据集", "description": "基于885份合肥法院劳动争议获赔判决(2012–2021)的数据分析:判赔金额中位数12,510元,四分位区间5,259–27,557元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2012/2021", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "合肥劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的885份合肥劳动争议获赔判决,判赔金额四分位区间为 5,259–27,557 元,中位数 12,510 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "合肥这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为合肥法院劳动争议判决中劳动者诉请获完全或部分支持的 885 份判决,其中完全支持约 46%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "合肥劳动争议", "item": "https://www.wenshucha.com/data/labor/合肥.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>合肥劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 885 份合肥法院劳动争议<b>获赔判决</b>(2012–2021) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">12,510</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">5,259–27,557</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">46%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">885</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为合肥劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 885 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>5,259</b> 元、中位 <b>12,510</b> 元、75 分位 <b>27,557</b> 元,
+  最高一例判赔 <b>649,385</b> 元。当地样本月工资中位 3,238 元,工龄中位 1.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>316</td><td>36%</td></tr><tr><td>经济性裁员</td><td>206</td><td>23%</td></tr><tr><td>劳动者主动/被迫离职</td><td>132</td><td>15%</td></tr><tr><td>劳动合同到期终止</td><td>123</td><td>14%</td></tr><tr><td>协商一致解除</td><td>108</td><td>12%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获部分支持</td><td>475</td><td>54%</td></tr><tr><td>诉请获完全支持</td><td>410</td><td>46%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2015）合民一终字第02763号</span><span class="camt">判赔 649,385 元</span></div>
+      <div class="ct">陶文军与沃尔玛（安徽）购物广场有限公司劳动争议二审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 17.2 年</div>
+      <p class="cx">【查明】陶文军于1997年4月7日入职沃尔玛珠江百货公司工作；2010年9月15日陶文军被沃尔玛（中国）投资有限公司安排至沃尔玛安徽公司担任总经理职务，同日签订无固定期限劳动合同。2014年6月17日，沃尔玛安徽公司以陶文军在合同履行期间严重违反用人单位规章制度为由，作出解除劳动合同关系决定，并送达陶文军。陶文军随后向…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）皖0111民初9714号</span><span class="camt">判赔 479,304 元</span></div>
+      <div class="ct">周琳与健康元药业集团股份有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 1 年</div>
+      <p class="cx">【判决】1、健康元药业集团股份有限公司于本判决书生效后十五日内支付周琳提成工资13391元； 2、健康元药业集团股份有限公司于本判决书生效后十五日内支付周琳未休年休假工资共计27546元； 3、健康元药业集团股份有限公司于本判决书生效后十五日内支付周琳违法解除劳动合同赔偿金479304元； 4、确认健康元…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）皖0102民初5034号</span><span class="camt">判赔 307,413 元</span></div>
+      <div class="ct">袁武、安徽盛世欣兴格力贸易有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 2.9 年</div>
+      <p class="cx">【查明】2003年10月，袁武入职安徽新兴格力空调销售有限公司工作。2013年1月，袁武入职盛世欣兴公司，担任该公司肥西区域业务经理一职，双方于劳动关系存续期间所签订的《劳动合同书》约定：合同期限为2018年12月1日至2021年11月30日止，工作岗位为业务员，工作地点为安徽省，工资标准为2500元/月（基本工资）、…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）皖0102民初4890号</span><span class="camt">判赔 307,413 元</span></div>
+      <div class="ct">袁武与安徽盛世欣兴格力贸易有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 2.9 年</div>
+      <p class="cx">【查明】2003年10月，袁武入职安徽新兴格力空调销售有限公司工作。2013年1月，袁武入职盛世欣兴公司，担任该公司肥西区域业务经理一职，双方于劳动关系存续期间所签订的《劳动合同书》约定：合同期限为2018年12月1日至2021年11月30日止，工作岗位为业务员，工作地点为安徽省，工资标准为2500元/月（基本工资）、…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2014）合民一终字第00640号</span><span class="camt">判赔 255,871 元</span></div>
+      <div class="ct">吕仕其、昆明滇虹药业销售有限公司与滇虹药业集团股份有限公司劳动争议纠纷二审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 10.7 年</div>
+      <p class="cx">【查明】2002年8月1日，吕仕其进入原昆明滇虹药业有限公司工作，任业务员，2007年5月1日，双方签订书面劳动合同，约定岗位为片区经理。2008年5月1日，双方续订期限至2011年4月30日的劳动合同，约定岗位为安徽区域商务经理。合同到期后，吕仕其与昆明滇虹药业销售有限公司（以下简称滇虹销售公司）订立期限至2014年…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>合肥劳动争议赔偿金一般是多少?</summary><p>根据本站收录的885份合肥劳动争议获赔判决,判赔金额四分位区间为 5,259–27,557 元,中位数 12,510 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>合肥这组数据的样本是怎么选的?</summary><p>样本为合肥法院劳动争议判决中劳动者诉请获完全或部分支持的 885 份判决,其中完全支持约 46%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>
