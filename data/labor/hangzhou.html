@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>杭州劳动争议赔偿金额数据:1385份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于1385份杭州法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数18,420元,四分位区间7,182–38,587元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="杭州劳动争议赔偿,杭州劳动仲裁赔偿标准,杭州违法解除赔偿金,杭州劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/hangzhou.html">
+<meta property="og:title" content="杭州劳动争议赔偿金额数据:1385份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于1385份杭州法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数18,420元,四分位区间7,182–38,587元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "杭州劳动争议判决数据集", "description": "基于1385份杭州法院劳动争议获赔判决(2007–2023)的数据分析:判赔金额中位数18,420元,四分位区间7,182–38,587元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2007/2023", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "杭州劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的1385份杭州劳动争议获赔判决,判赔金额四分位区间为 7,182–38,587 元,中位数 18,420 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "杭州这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为杭州法院劳动争议判决中劳动者诉请获完全或部分支持的 1385 份判决,其中完全支持约 57%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "杭州劳动争议", "item": "https://www.wenshucha.com/data/labor/hangzhou.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>杭州劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 1385 份杭州法院劳动争议<b>获赔判决</b>(2007–2023) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">18,420</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">7,182–38,587</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">57%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">1385</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为杭州劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 1385 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>7,182</b> 元、中位 <b>18,420</b> 元、75 分位 <b>38,587</b> 元,
+  最高一例判赔 <b>2,100,000</b> 元。当地样本月工资中位 3,798 元,工龄中位 2.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>532</td><td>38%</td></tr><tr><td>经济性裁员</td><td>489</td><td>35%</td></tr><tr><td>劳动合同到期终止</td><td>172</td><td>12%</td></tr><tr><td>协商一致解除</td><td>101</td><td>7%</td></tr><tr><td>劳动者主动/被迫离职</td><td>91</td><td>7%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>784</td><td>57%</td></tr><tr><td>诉请获部分支持</td><td>601</td><td>43%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2014）杭萧民初字第2786号</span><span class="camt">判赔 2,100,000 元</span></div>
+      <div class="ct">中国国际航空股份有限公司浙江分公司与孙成秋劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动者主动/被迫离职 · 诉请获完全支持 · 工龄 9.2 年</div>
+      <p class="cx">【判决】一、孙成秋在本判决生效后十日内支付中国国际航空股份有限公司浙江分公司赔偿金2100000元； 二、驳回中国国际航空股份有限公司浙江分公司的其他诉讼请求。 如孙成秋未按本判决指定的期间履行给付金钱义务，应当依照 《中华人民共和国民事诉讼法》第二百五十三条 之规定，加倍支付迟延履行期间的债务利息。 案…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2012）杭萧民初字第5713号</span><span class="camt">判赔 1,936,667 元</span></div>
+      <div class="ct">张治国与中国国际航空股份有限公司浙江分公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 0.4 年</div>
+      <p class="cx">【判决】一、确认张治国与中国国际航空股份有限公司浙江分公司之间的劳动合同自2012年6月21日起解除； 二、中国国际航空股份有限公司浙江分公司在本判决生效之日起十五日内支付张治国2011年的未休年休假工资23339.80元； 三、张治国在本判决生效之日起十五日内支付中国国际航空股份有限公司浙江分公司赔偿金…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2012）杭萧民初字第5714号</span><span class="camt">判赔 1,936,667 元</span></div>
+      <div class="ct">张柳华与中国国际航空股份有限公司浙江分公司劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 8.8 年</div>
+      <p class="cx">【判决】一、确认张柳华与中国国际航空股份有限公司浙江分公司之间的劳动合同自2012年6月21日起解除； 二、中国国际航空股份有限公司浙江分公司在本判决生效之日起十五日内支付张柳华2011年的未休年休假工资21701.15元； 三、张柳华在本判决生效之日起十五日内支付中国国际航空股份有限公司浙江分公司赔偿金…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2014）杭萧民初字第2784号</span><span class="camt">判赔 1,715,000 元</span></div>
+      <div class="ct">中国国际航空股份有限公司浙江分公司与刘冬劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动者主动/被迫离职 · 诉请获完全支持 · 工龄 7.2 年</div>
+      <p class="cx">【判决】一、刘冬在本判决生效后十日内支付中国国际航空股份有限公司浙江分公司赔偿金1715000元； 二、驳回中国国际航空股份有限公司浙江分公司的其他诉讼请求。 如刘冬未按本判决指定的期间履行给付金钱义务，应当依照 《中华人民共和国民事诉讼法》第二百五十三条 之规定，加倍支付迟延履行期间的债务利息。 案件受…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2014）杭萧民初字第2785号</span><span class="camt">判赔 1,715,000 元</span></div>
+      <div class="ct">中国国际航空股份有限公司浙江分公司与夏宁劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动者主动/被迫离职 · 诉请获完全支持 · 工龄 7.2 年</div>
+      <p class="cx">【判决】一、夏宁在本判决生效后十日内支付中国国际航空股份有限公司浙江分公司赔偿金1715000元； 二、驳回中国国际航空股份有限公司浙江分公司的其他诉讼请求。 如夏宁未按本判决指定的期间履行给付金钱义务，应当依照 《中华人民共和国民事诉讼法》第二百五十三条 之规定，加倍支付迟延履行期间的债务利息。 案件受…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>杭州劳动争议赔偿金一般是多少?</summary><p>根据本站收录的1385份杭州劳动争议获赔判决,判赔金额四分位区间为 7,182–38,587 元,中位数 18,420 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>杭州这组数据的样本是怎么选的?</summary><p>样本为杭州法院劳动争议判决中劳动者诉请获完全或部分支持的 1385 份判决,其中完全支持约 57%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>

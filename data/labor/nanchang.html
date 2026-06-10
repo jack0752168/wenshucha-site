@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>南昌劳动争议赔偿金额数据:380份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于380份南昌法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数17,905元,四分位区间8,643–31,970元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="南昌劳动争议赔偿,南昌劳动仲裁赔偿标准,南昌违法解除赔偿金,南昌劳动争议胜诉率,裁判文书数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/nanchang.html">
+<meta property="og:title" content="南昌劳动争议赔偿金额数据:380份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于380份南昌法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数17,905元,四分位区间8,643–31,970元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "南昌劳动争议判决数据集", "description": "基于380份南昌法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数17,905元,四分位区间8,643–31,970元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2013/2022", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "南昌劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的380份南昌劳动争议获赔判决,判赔金额四分位区间为 8,643–31,970 元,中位数 17,905 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "南昌这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为南昌法院劳动争议判决中劳动者诉请获完全或部分支持的 380 份判决,其中完全支持约 64%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "南昌劳动争议", "item": "https://www.wenshucha.com/data/labor/nanchang.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>南昌劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 380 份南昌法院劳动争议<b>获赔判决</b>(2013–2022) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">17,905</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">8,643–31,970</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">64%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">380</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为南昌劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 380 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>8,643</b> 元、中位 <b>17,905</b> 元、75 分位 <b>31,970</b> 元,
+  最高一例判赔 <b>675,513</b> 元。当地样本月工资中位 3,498 元,工龄中位 2.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>166</td><td>44%</td></tr><tr><td>经济性裁员</td><td>82</td><td>22%</td></tr><tr><td>协商一致解除</td><td>68</td><td>18%</td></tr><tr><td>劳动合同到期终止</td><td>33</td><td>9%</td></tr><tr><td>劳动者主动/被迫离职</td><td>31</td><td>8%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>242</td><td>64%</td></tr><tr><td>诉请获部分支持</td><td>138</td><td>36%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2016）赣01民终2431号</span><span class="camt">判赔 675,513 元</span></div>
+      <div class="ct">黎升宇、江西联创光电科技股份有限公司劳动争议二审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 3 年</div>
+      <p class="cx">【判决】驳回原告黎升宇的诉讼请求。案件诉讼费10元，减半收取，由原告黎升宇承担。 本院二审期间，被上诉人未向法院提供新证据，对一审查明的事实，且无异议和补充；上诉人对“2016年7月底，被告未为原告缴纳五险一金”有异议，称自2015年11月起，上诉人去鼎创公司上班后，被上诉人就没有给上诉人缴纳五险一金，而是…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2017）赣0111民初611号</span><span class="camt">判赔 429,930 元</span></div>
+      <div class="ct">南昌统一企业有限公司与裘园园劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 14 年</div>
+      <p class="cx">【判决】一、原告南昌统一企业有限公司支付被告裘园园违法解除劳动合同的赔偿金429930元； 二、驳回原告其他诉讼请求。 如未按本判决指定的期间履行给付金钱义务，应当依照 《中华人民共和国民事诉讼法》第二百五十三条 之规定，加倍支付迟延履行期间的债务利息。 本案受理费10元，由原告南昌统一企业有限公司负担。…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2019）赣0102民初10518号</span><span class="camt">判赔 333,000 元</span></div>
+      <div class="ct">长沙旺旺食品有限公司南昌分公司与郝惠斌劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 18.3 年</div>
+      <p class="cx">【查明】被告于2001年3月19日入职，原、被告于2010年9月1日签订无固定期限劳动合同。合同部分内容为：第二条、若被告开始工作时间与合同订立时间不一致的，以实际用工之日为合同起始时间，建立劳动关系。第十四条、原告依法建立和完善各项规章制度，原告应将制定、变更的规章制度及时进行公示或者告知员工，被告应严格遵守。第二十…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2017）赣01民终2029号</span><span class="camt">判赔 303,552 元</span></div>
+      <div class="ct">南昌统一企业有限公司、裘园园劳动争议二审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 12 年</div>
+      <p class="cx">【查明】，2015年南昌市在岗职工月平均工资为4216元。 另查明，新疆统一饮料、食品仓库货架新增、维修工程的验收时间是2015年2月。 【判决】一、撤销南昌市青山湖区人民法院(2017)赣0111民初611号民事判决第二项； 二、变更南昌市青山湖区人民法院(2017)赣0111民初611号民事判决第一项为：上诉人南昌…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）西民初字第1530号</span><span class="camt">判赔 211,200 元</span></div>
+      <div class="ct">江璐与海信科龙电器股份有限公司江西分公司、广东海信冰箱营销股份有限公司南昌分公司劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动者主动/被迫离职 · 诉请获完全支持 · 工龄 3 年</div>
+      <p class="cx">【查明】，原告于2003年4月进入被告海信科龙江西分公司工作，双方连续签订数份劳动合同。最后一份劳动合同期限自2013年12月1日至2016年12月31日。2014年4月，原告被安排至被告广东海信南昌分公司工作。2015年3月11日，被告广东海信南昌分公司下发《关于杨志勇等职务任解聘的通知》，通知载明：免去江璐容声大客…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>南昌劳动争议赔偿金一般是多少?</summary><p>根据本站收录的380份南昌劳动争议获赔判决,判赔金额四分位区间为 8,643–31,970 元,中位数 17,905 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>南昌这组数据的样本是怎么选的?</summary><p>样本为南昌法院劳动争议判决中劳动者诉请获完全或部分支持的 380 份判决,其中完全支持约 64%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>
