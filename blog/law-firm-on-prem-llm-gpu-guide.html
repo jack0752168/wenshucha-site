@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所内网大模型部署实战:GPU 选型、数据合规、用户权限怎么落地(2026)| 文书查</title>
+  <meta name="description" content="律所要把法律大模型部署到内网,GPU 怎么选?7B/32B/72B 模型分别要多少显存与吞吐?数据如何满足等保三级与执业保密?律师/合伙人/实习生的权限如何分级审计?本文给出可直接照搬的内网部署架构与配置清单。" />
+  <meta name="keywords" content="律所内网 AI,律所内网大模型,法律 LLM 内网部署,律所 GPU 选型,法律大模型私有部署,律所信息化,等保三级 法律 AI,法律 AI 权限分级,司法数据本地化,内网推理服务器" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所内网大模型部署实战:GPU 选型、数据合规、用户权限怎么落地(2026)" />
+  <meta property="og:description" content="7B/32B/72B 模型分别要多少显存与吞吐?数据怎么过等保三级?权限怎么分级审计?一篇给律所 IT 负责人的内网部署实战清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所内网大模型部署实战:GPU 选型、数据合规、用户权限怎么落地(2026)",
+    "description": "面向律所 IT 负责人的法律大模型内网部署实战:GPU 选型、显存与吞吐测算、等保合规、权限分级与审计。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-11",
+    "dateModified": "2026-06-11",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所内网部署法律大模型,最少要几张 GPU?",
+        "acceptedAnswer": { "@type": "Answer", "text": "几十人规模的精品所,1-2 张 24GB 显存卡(如 RTX 4090 / A5000)跑量化后的 7B-14B 法律模型即可起步,峰值并发 5-10 人没有压力。百人规模、多部门并发,建议 2-4 张 A100/H800 跑 32B-72B 模型。检索、向量库、数据库这些不吃 GPU,用普通服务器即可。多数律所应从轻量档起步,跑通后再扩,不要一上来就配大集群。" }
+      },
+      {
+        "@type": "Question",
+        "name": "32B、72B 法律模型分别需要多少显存?",
+        "acceptedAnswer": { "@type": "Answer", "text": "粗算口径:FP16 下每 10 亿参数约占 2GB 显存,再为 KV 缓存与并发预留 20%-40%。32B 模型 FP16 约需 64GB+,用 INT4 量化可压到 20GB 上下,单张 A100 40GB 或两张 24GB 卡即可承载;72B 模型 FP16 约 144GB,需 2 张 80GB 卡或 INT4 量化后 2 张 40GB 卡。律所实际选型应以“目标并发数 × 上下文长度”反推,而不是只看参数量。" }
+      },
+      {
+        "@type": "Question",
+        "name": "内网部署的法律 AI 怎么满足等保三级?",
+        "acceptedAnswer": { "@type": "Answer", "text": "核心是三条:一是全套部署在律所机房、模型内网推理、无任何外网调用,数据不出域;二是按等保三级要求做网络分区、堡垒机运维、操作审计与日志留存;三是身份鉴别与访问控制按角色分级。数据更新通过加密增量包离线导入,既保时效又不在内网开外网口子。这些都应写进采购需求,供应商需配合出具部署架构与合规说明。" }
+      },
+      {
+        "@type": "Question",
+        "name": "律所不同角色的 AI 使用权限怎么分级?",
+        "acceptedAnswer": { "@type": "Answer", "text": "建议按“组织架构 + 案件归属”双维度做 RBAC:合伙人可见全所知识库与本团队全部案件;授薪律师仅见所在团队与经手案件;实习律师仅见公开案例库与脱敏检索,不能调阅在办卷宗;行政与风控有独立的审计视图。所有调阅、生成、导出操作留痕可回溯,满足利益冲突隔离(防火墙)与客户保密要求。权限模型应能按本所实际架构定制,而非供应商写死。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 律所内网大模型部署实战</div>
+    <h1>律所内网大模型部署实战:GPU 选型、数据合规、用户权限怎么落地(2026)</h1>
+    <div class="meta">2026-06-11 · 文书查 · 面向律所 IT 负责人与信息化主任</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">合伙人会议已经拍板"法律 AI 必须上内网、不能走 SaaS",球踢回到 IT 负责人这里:<strong>到底要买几张什么卡?32B 还是 72B 的模型?数据怎么过等保?实习生能不能看在办卷宗?</strong>这篇不谈要不要做、值不值得投(那是另一笔账),只谈一件事——把法律大模型落到本所内网,工程上一步步怎么落地。下面给的是可以直接照着问供应商、照着写采购需求的实战配置。</p>
+
+      <h2>一、先定并发,再选 GPU(顺序别反了)</h2>
+      <p>很多律所选型一上来就纠结"要不要上 72B 大模型",其实<strong>决定硬件账单的不是参数量,而是"同时有多少人在用 × 每次问多长的上下文"</strong>。法律场景上下文往往很长(贴一份判决书、几段证据),KV 缓存吃显存比一般对话场景更凶。</p>
+      <p>显存粗算口径,记住两条就够跟供应商对话:</p>
+      <ul>
+        <li><strong>模型权重</strong>:FP16 下每 10 亿参数约占 2GB;INT4 量化后约 0.5–0.6GB。即 7B 模型 FP16 约 14GB、INT4 约 4–5GB;72B 模型 FP16 约 144GB、INT4 约 40GB 出头。</li>
+        <li><strong>运行余量</strong>:再为 KV 缓存与并发预留 20%–40%。长上下文、高并发取上限。</li>
+      </ul>
+
+      <h2>二、三档 GPU 配置清单(照规模对号入座)</h2>
+      <p>下面这张表把"律所规模 → 模型档位 → GPU 配置 → 能扛多少并发"一次说清。绝大多数所应从轻量档起步:</p>
+      <table>
+        <thead><tr><th>律所规模</th><th>推荐模型</th><th>GPU 配置</th><th>量化</th><th>可承载并发(参考)</th></tr></thead>
+        <tbody>
+          <tr><td>几十人精品所 / 单办公室</td><td>7B–14B 法律模型</td><td>1–2 × 24GB(RTX 4090 / A5000)</td><td>INT4 / INT8</td><td>5–10 人峰值</td></tr>
+          <tr><td>百人规模 / 多部门</td><td>32B 法律模型</td><td>1–2 × A100 40GB 或 80GB</td><td>INT4 / FP16</td><td>20–40 人</td></tr>
+          <tr><td>大所 / 多地办公室</td><td>72B 法律模型</td><td>2–4 × 80GB(A100/H800)+ 负载均衡</td><td>FP16 / INT4</td><td>50–100+ 人</td></tr>
+        </tbody>
+      </table>
+      <p class="callout"><strong>一个常被忽略的省钱点:</strong>检索引擎、向量库(类案检索)、判决要素抽取的轻量模型、数据库,这些<strong>基本不吃 GPU</strong>,用普通多核服务器 + 大内存即可。律所真正要为 GPU 付费的只有"大模型推理"这一段。把检索和推理拆开部署,既省卡又便于扩容。</p>
+
+      <h3>32B 还是 72B?给个判断标准</h3>
+      <p>不是越大越好。对绝大多数律所业务(类案检索归纳、文书初稿、争议焦点提炼、合同审查),<strong>一个用司法语料微调过的 32B 模型,效果通常优于一个没微调的 72B 通用模型</strong>——法律场景吃的是"懂不懂法言法语、会不会乱引法条",而不是通用智力。只有在需要复杂多步推理、跨案情综合论证时,72B 的边际收益才明显。先用 32B 跑业务,真有瓶颈再上 72B,是更稳的路径。</p>
+
+      <h2>三、内网部署架构:数据怎么进、怎么不出域</h2>
+      <p>一套能过合规审查的内网法律 AI,典型是四个区:</p>
+      <table>
+        <thead><tr><th>分区</th><th>放什么</th><th>合规要点</th></tr></thead>
+        <tbody>
+          <tr><td>数据区</td><td>1.5 亿+ 裁判文书、法规库、本所卷宗与知识库</td><td>独立存储分区,加密落盘,数据不出内网</td></tr>
+          <tr><td>计算区(GPU)</td><td>法律大模型推理、向量检索</td><td>内网推理,无外网调用,推理日志留存</td></tr>
+          <tr><td>应用区</td><td>律师工作台、API 网关、权限中心</td><td>统一身份鉴别,按角色放行</td></tr>
+          <tr><td>运维区</td><td>堡垒机、审计、更新通道</td><td>加密增量包离线导入更新,运维操作全审计</td></tr>
+        </tbody>
+      </table>
+      <p>关键的一条:<strong>案例库的更新不靠内网连外网拉取,而是通过加密增量包离线导入。</strong>这样既能保持裁判文书与法规的时效性,又不在内网上开一个长期对外的口子——这是过等保三级评审时最容易被问到、也最该提前设计好的点。</p>
+
+      <h2>四、等保三级:把这几条写进采购需求</h2>
+      <p>给信息中心或外部测评机构汇报时,这几条是能不能过会的关键。建议直接抄进采购需求,让供应商逐条应答:</p>
+      <ul>
+        <li><strong>数据不出域</strong>:全套部署本所机房,模型内网推理,无任何外网调用;可提供网络拓扑佐证。</li>
+        <li><strong>网络分区与边界防护</strong>:数据区 / 计算区 / 应用区逻辑隔离,边界访问受控。</li>
+        <li><strong>身份鉴别与访问控制</strong>:统一登录 + 角色分级(见下一节),双因素可选。</li>
+        <li><strong>安全审计</strong>:调阅、生成、导出、运维操作全留痕,日志留存满足等保要求且不可篡改。</li>
+        <li><strong>数据来源合法</strong>:裁判文书源自人民法院公开渠道,合法、可追溯。</li>
+        <li><strong>更新不开外网口</strong>:加密增量包离线导入,既保时效又守边界。</li>
+      </ul>
+
+      <h2>五、用户权限:别让实习生看到在办卷宗</h2>
+      <p>律所对 AI 系统的权限要求,比一般企业更严——因为叠加了<strong>执业保密义务</strong>和<strong>利益冲突隔离(信息隔离墙)</strong>。建议按"组织架构 + 案件归属"双维度做 RBAC:</p>
+      <table>
+        <thead><tr><th>角色</th><th>可见数据范围</th><th>可执行操作</th></tr></thead>
+        <tbody>
+          <tr><td>合伙人</td><td>全所公开知识库 + 本团队全部案件</td><td>检索 / 生成 / 导出 / 配置团队权限</td></tr>
+          <tr><td>授薪律师</td><td>所在团队 + 本人经手案件</td><td>检索 / 生成 / 受限导出</td></tr>
+          <tr><td>实习律师 / 助理</td><td>公开案例库 + 脱敏检索,<strong>不可调阅在办卷宗</strong></td><td>检索 / 生成草稿,导出需审批</td></tr>
+          <tr><td>风控 / 合规</td><td>独立审计视图</td><td>查日志 / 看冲突,不参与办案</td></tr>
+        </tbody>
+      </table>
+      <p>两条容易踩的坑:一是<strong>利益冲突隔离</strong>——同一所内承办对立当事人的团队之间,案件数据要互相不可见,权限模型必须支持团队级"防火墙";二是<strong>导出留痕</strong>——AI 生成内容的导出是数据外带的高风险动作,应按角色限制并全程审计。权限模型要能按本所实际架构定制,而不是供应商写死一套塞给你。</p>
+
+      <h2>六、给 IT 负责人的落地清单</h2>
+      <div class="callout">
+        <p>把这份清单和供应商过一遍,基本能问出谁是真能交付内网部署:</p>
+        <ol>
+          <li>按我所的目标并发与上下文长度,推荐哪档 GPU?给出显存测算依据,不要只报参数量。</li>
+          <li>模型是司法语料微调的专用模型,还是套壳通用模型?能否用本所卷宗二次微调?</li>
+          <li>检索 / 向量库 / 数据库是否与 GPU 推理拆分部署?后续扩容路径是什么?</li>
+          <li>能否提供过等保三级所需的部署架构图、网络拓扑与安全说明?</li>
+          <li>权限能否按本所组织架构 + 案件归属定制?是否支持团队级利益冲突隔离与导出审计?</li>
+          <li>数据更新走加密增量包离线导入吗?更新频率与交付方式?</li>
+          <li>是否先出演示 demo 再签约?服务期含数据同步 / 模型升级 / 定制吗?</li>
+        </ol>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:我们所 IT 力量弱,内网部署后维护得动吗?</p>
+      <p>A:交付应含部署 + 培训,服务期内数据同步、模型升级、bug 修复、定制由供应商负责,律所 IT 只需日常运维(开关机、监控、用户管理)。选型时把"服务期范围"问清楚比纠结硬件更重要。</p>
+      <p class="faq-q">Q:能不能先小范围试一个部门?</p>
+      <p>A:可以,也建议这样。从一个业务条线(如劳动争议、合同纠纷)起步,轻量档 GPU 跑通效果、跑顺权限与审计流程,再向全所扩,投入和风险都可控。</p>
+      <p class="faq-q">Q:消费级卡(如 4090)能用在生产环境吗?</p>
+      <p>A:几十人精品所做内部办案辅助,1–2 张 24GB 消费级/专业卡跑量化模型完全够用且性价比高。但要注意机房供电散热、驱动稳定性与无人值守可靠性;对可用性要求高、并发大的大所,建议用数据中心级卡(A100/H800)并做冗余。</p>
+
+      <div class="cta-box">
+        <h3>按你所的规模,出一份内网部署配置方案</h3>
+        <p>告诉我们律所人数、目标并发与用数据范围,1 个工作日内反馈 GPU 配置、合规架构与 demo 邀请。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a> · <a href="/#workbench">律师工作台:案件胜算量化</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
