@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化部署如何满足客户保密义务:数据合规落地指南(2026)| 文书查</title>
+  <meta name="description" content="律所引入 AI,合规官最担心的是当事人材料会不会泄露、会不会违反保密义务。本文从合规视角讲清:律所的三重保密义务从哪来、SaaS 法律 AI 触碰哪些红线、私有化部署如何逐条满足保密与数据出域要求,并给出合规官向管委会汇报的论证清单。" />
+  <meta name="keywords" content="律所数据合规,律所保密义务,客户保密义务 AI,律所私有化部署合规,律师执业保密,法律 AI 数据出域,律所等保三级,律所数据安全法合规,律所 AI 合规论证" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-data-compliance-confidentiality.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化部署如何满足客户保密义务:数据合规落地指南(2026)" />
+  <meta property="og:description" content="从合规视角讲清律所引入 AI 的保密义务来源、SaaS 的合规红线,以及私有化部署如何逐条满足保密与数据出域要求。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-data-compliance-confidentiality.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化部署如何满足客户保密义务:数据合规落地指南(2026)",
+    "description": "从合规视角拆解律所引入 AI 的保密义务来源、SaaS 模式的合规红线,以及私有化部署如何逐条满足保密与数据出域要求,附合规官向管委会汇报的论证清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-12",
+    "dateModified": "2026-06-12",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-data-compliance-confidentiality.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所用 AI 处理案件材料,法律上的保密义务有哪些来源?",
+        "acceptedAnswer": { "@type": "Answer", "text": "至少三层:一是执业规范层,《律师法》与《律师执业管理办法》要求律师对执业活动中知悉的委托人及他人不愿泄露的情况保密;二是合同层,与政府、国企、上市公司、金融机构的委托协议普遍约定数据不得出域、不得交由第三方处理;三是法律法规层,《数据安全法》《个人信息保护法》对敏感个人信息与重要数据的处理、对外提供和出境有强制限制。三层叠加,决定了案件材料能不能离开律所可控环境。" }
+      },
+      {
+        "@type": "Question",
+        "name": "用公有云 SaaS 法律 AI 会违反保密义务吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "存在实质风险。SaaS 模式下,案情、底稿、当事人信息会上传到第三方服务器处理,既可能构成执业保密义务的瑕疵,也可能违反委托协议中数据不出域的约定,还可能触碰个保法对敏感信息对外提供需取得单独同意、数安法对重要数据处理的限制。涉密案件、政府与国企客户案件、跨境数据案件尤其不能用 SaaS。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化部署能满足等保三级和数据不出域的要求吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "可以。私有化部署把数据底座、法律大模型、工具链全部装在律所机房或自有机房,模型在内网推理,无任何外网调用,数据物理上不离开可控边界。这正是等保三级、数据不出域、行业监管对数据本地化要求的落地形态。配合权限分级、操作留痕,可以形成完整的合规论证链条。" }
+      },
+      {
+        "@type": "Question",
+        "name": "合规官向管委会论证 AI 方案时,应该重点说清哪几条?",
+        "acceptedAnswer": { "@type": "Answer", "text": "建议固定五条:数据是否全程不出内网、数据来源是否合法可溯源、权限能否按组织结构与利益冲突隔离做分级、操作是否可审计留痕、出问题时责任边界是否清晰可界定。把这五条逐条对照供应商方案给出结论,管委会过会的合规风险点基本就覆盖齐了。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 律所私有化部署与保密义务</div>
+    <h1>律所私有化部署如何满足客户保密义务:数据合规落地指南(2026)</h1>
+    <div class="meta">2026-06-12 · 文书查 · 面向律所合规官与信息化负责人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">律所引入 AI 时,真正卡住决策的往往不是技术,而是合规官桌上的那个问题:<strong>当事人材料喂给 AI,会不会泄露?会不会违反我们对客户的保密义务?</strong>对精品所、对承接政府与国企业务的律所,这一问没有答好,再好用的 AI 也进不了所。本文不谈算法,只从合规视角把这件事讲透——保密义务到底从哪来、SaaS 触碰了哪些红线、私有化部署如何逐条把这些义务接住,以及合规官该怎么向管委会论证。</p>
+
+      <h2>一、律所的保密义务,其实是三层叠加</h2>
+      <p>很多 IT 同事以为保密只是一句"别泄露",但合规官清楚,律所对案件数据的保密义务来自三个不同层面,任何一层都足以否决一套 AI 方案:</p>
+      <ul>
+        <li><strong>执业规范层</strong>:《律师法》及《律师执业管理办法》要求律师对执业活动中知悉的国家秘密、商业秘密,以及委托人和他人不愿泄露的情况和信息予以保密。这是律师身份本身带来的、不可放弃的义务。</li>
+        <li><strong>委托合同层</strong>:与政府、国企、上市公司、金融机构签的委托协议里,普遍写明数据不得出域、不得交由第三方处理、不得用于约定目的之外。违反就是违约,可能触发赔偿与解约。</li>
+        <li><strong>法律法规层</strong>:《数据安全法》对重要数据的处理与对外提供设限,《个人信息保护法》对敏感个人信息的处理要求单独同意、对委托处理与对外提供有严格规定,跨境还涉及数据出境安全评估。</li>
+      </ul>
+      <p>三层叠加,本质上回答的是同一个问题:<strong>案件材料,能不能离开律所可控的环境?</strong>对绝大多数有价值的案子,答案都是不能。这就是合规视角下,私有化部署不是"更安全的选项",而是"唯一能过会的选项"。</p>
+
+      <h2>二、SaaS 法律 AI 触碰了哪几条红线</h2>
+      <p>公有云 SaaS 模式下,你输入的每段案情、上传的每份文书,都要经过第三方服务器处理。对个人用户无所谓,对律所则同时踩中三层义务:</p>
+      <table>
+        <thead><tr><th>义务来源</th><th>SaaS 的风险点</th><th>后果</th></tr></thead>
+        <tbody>
+          <tr><td>执业保密义务</td><td>案件材料离开律所,流入不可控的第三方系统</td><td>构成保密义务瑕疵,泄露时律所担责</td></tr>
+          <tr><td>委托协议约定</td><td>违反数据不出域、不得交第三方处理的约定</td><td>违约,可能赔偿、解约、丢客户</td></tr>
+          <tr><td>个保法 / 数安法</td><td>敏感个人信息未经单独同意对外提供;重要数据处理不合规</td><td>行政处罚、合规风险</td></tr>
+        </tbody>
+      </table>
+      <p>更隐蔽的一层是:SaaS 厂商的用户协议里,常含"为改进服务可使用输入数据"的条款。对律所而言,这意味着<strong>当事人的敏感材料可能被用于训练第三方模型</strong>——这是合规官最不能接受的。结论很直接:真正有价值、最该用 AI 提效的案子,恰恰是最不能用 SaaS 的案子。</p>
+
+      <h2>三、私有化部署如何逐条接住保密义务</h2>
+      <p>私有化部署(本地离线 AI)的合规逻辑,是把数据、模型、工具链整套装进律所可控边界,从物理层面消除"数据出域"这一前提。逐条对照三层义务:</p>
+      <table>
+        <thead><tr><th>保密要求</th><th>私有化部署如何满足</th></tr></thead>
+        <tbody>
+          <tr><td>数据不得离开律所可控环境</td><td>数据底座、模型、检索全部部署在律所机房或自有机房,模型内网推理,无任何外网调用,数据物理上不出域</td></tr>
+          <tr><td>不得交由第三方处理</td><td>推理在本所内网完成,供应商不接触运行中的案件数据;交付后律所自主掌控</td></tr>
+          <tr><td>敏感信息不被二次利用</td><td>不存在"输入用于改进服务"的回传,本所数据不进任何外部训练管道</td></tr>
+          <tr><td>满足等保 / 行业监管的本地化</td><td>部署形态天然符合等保三级、数据不出域、信创适配等要求,可写入合规论证</td></tr>
+        </tbody>
+      </table>
+      <p>需要强调的是:私有化不等于"把一个聊天机器人装进内网"就完事。一套能过合规的方案,是<strong>数据来源合法可溯源 + 内网推理无外联 + 权限分级 + 操作留痕</strong>四件事同时成立。下面三节展开后三件——这正是合规官比 IT 更关心的部分。</p>
+
+      <h2>四、数据来源:合法、可溯源是合规的地基</h2>
+      <p>"数据安全"不只是别泄露,还包括数据本身的来源是否站得住。合规官要确认两件事:</p>
+      <ul>
+        <li><strong>底座数据来源合法</strong>:作为案例与法规底座的裁判文书,应源自人民法院公开渠道,合法、可追溯;法规、司法解释来自官方发布。这样模型给出的引用才经得起溯源,不会变成"一本正经地编"。</li>
+        <li><strong>更新不依赖外网</strong>:案例库与法规库通过加密增量包离线导入,既保持时效,又不在内网开一个常态连外网的口子——这一点对过等保评审尤其关键。</li>
+      </ul>
+      <p>选型时可以直接问供应商:数据有多少篇、覆盖哪几类文书、来源是否合法可溯源、更新怎么走。答不清楚来源的,合规这一关就过不去。</p>
+
+      <h2>五、权限分级与利益冲突隔离</h2>
+      <p>律所的合规风险不止"对外泄露",还有"对内越界"。一个实习律师能不能检索到合伙人手里某个敏感客户的全部卷宗?一个团队能不能看到与本所存在利益冲突的另一方案件?这些都是合规官要堵的口子。私有化部署的价值在于<strong>权限可以按本所真实组织结构与利益冲突墙来定制</strong>:</p>
+      <table>
+        <thead><tr><th>角色</th><th>典型权限边界</th></tr></thead>
+        <tbody>
+          <tr><td>合伙人</td><td>本人及团队案件全量;跨团队按授权</td></tr>
+          <tr><td>授薪律师</td><td>所在团队 / 经办案件范围</td></tr>
+          <tr><td>实习律师 / 助理</td><td>被指派案件,最小必要范围</td></tr>
+          <tr><td>行政 / 知识管理</td><td>脱敏后的统计与知识库,不触原始敏感材料</td></tr>
+        </tbody>
+      </table>
+      <p>关键是,这套权限要和<strong>利益冲突隔离墙</strong>打通:存在冲突的两方案件,系统层面互相不可见。SaaS 很难按某一家律所的冲突规则定制,私有化部署则可以把这套规则固化进系统。</p>
+
+      <h2>六、可审计性:出了事,责任要能界定</h2>
+      <p>合规的最后一环是"留痕"。一旦发生争议或监管核查,律所要能拿出记录证明:谁、在什么时间、访问了什么数据、做了什么操作。私有化部署应具备:</p>
+      <ul>
+        <li><strong>操作日志</strong>:检索、查看、导出等关键动作全程留痕,可回溯。</li>
+        <li><strong>责任边界清晰</strong>:数据在本所内网、由本所掌控,责任主体明确,不会出现"数据在第三方云上、出了事互相推诿"的局面。</li>
+        <li><strong>可向客户与监管交代</strong>:面对政府、国企客户的尽调,或监管的数据安全检查,能拿出部署架构与留痕记录作为合规证据。</li>
+      </ul>
+
+      <h2>七、合规官给管委会的论证清单</h2>
+      <div class="callout">
+        <p>把 AI 方案提交管委会前,合规官按这五条逐条给结论,过会的合规风险点基本就覆盖齐了:</p>
+        <ol>
+          <li><strong>数据是否全程不出内网?</strong>——确认无任何外网调用、无输入回传。</li>
+          <li><strong>数据来源是否合法可溯源?</strong>——底座文书与法规来源、更新方式。</li>
+          <li><strong>权限能否按组织结构 + 利益冲突隔离分级?</strong>——角色边界与冲突墙。</li>
+          <li><strong>操作是否可审计留痕?</strong>——关键动作日志、可回溯。</li>
+          <li><strong>责任边界是否清晰可界定?</strong>——数据归属、责任主体、对客户与监管的交代能力。</li>
+        </ol>
+        <p>五条都为"是",这套 AI 方案才算过了合规这一关。任何一条含糊,都建议先打回供应商。</p>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:私有化部署是不是就一定合规、不用再做评估?</p>
+      <p>A:不是。私有化把"数据出域"这一最大风险点解决了,但合规是体系——权限、留痕、数据来源、内部管理制度仍要配套。私有化是合规的必要前提,不是全部。</p>
+      <p class="faq-q">Q:我们所体量不大,有必要为合规上私有化吗?</p>
+      <p>A:看客户结构而非律所规模。只要承接政府、国企、上市公司、涉密或跨境业务,哪怕是精品所,保密义务一样硬。可以从轻量档起步、单部门试点,投入可控。</p>
+      <p class="faq-q">Q:合规论证需要供应商配合提供什么材料?</p>
+      <p>A:部署架构说明(证明数据不出域)、数据来源与合法性说明、权限与留痕能力清单、服务期与责任界定条款。这些应在签约前就索取,作为过会与日后核查的依据。</p>
+
+      <div class="cta-box">
+        <h3>为你的律所做一份合规可落地的私有化方案</h3>
+        <p>提供律所规模与客户结构,1 个工作日内反馈方案与合规论证要点,并可安排演示 demo。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a> · <a href="/#workbench">律师工作台:案件胜算量化</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
