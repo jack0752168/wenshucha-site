@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)| 文书查</title>
+  <meta name="description" content="类案同判要落地,靠的是一套能在办案系统里自动推准类案的系统。本文讲清类案推送系统的四层技术架构(数据底座/检索模型/相似度算法/法官界面)、语义检索与关键词检索的差别、强制检索与全员检索的合规要求、本地化部署与等保三级,以及法院信息处可直接照问供应商的采购清单。" />
+  <meta name="keywords" content="类案推送系统,法院类案检索系统,类案同判,智慧法院类案推送,法院类案智能推送,类案检索语义模型,法官办案辅助系统,强制类案检索,司法大数据类案" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/court-similar-case-recommendation-system.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)" />
+  <meta property="og:description" content="类案同判落地靠一套能在办案系统里自动推准类案的系统。讲清四层技术架构、语义检索差别、强制检索合规、本地化部署与法院采购清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/court-similar-case-recommendation-system.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)",
+    "description": "拆解法院类案推送系统的四层技术架构、语义检索与关键词检索的差别、强制类案检索的合规要求、本地化部署与等保三级,以及法院信息处可直接照问供应商的采购清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-13",
+    "dateModified": "2026-06-13",
+    "mainEntityOfPage": "https://wenshucha.com/blog/court-similar-case-recommendation-system.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "类案推送系统和普通的案例检索有什么区别?",
+        "acceptedAnswer": { "@type": "Answer", "text": "案例检索是法官主动输入关键词去查;类案推送是系统在法官办理本案的过程中,基于本案的案由、争议焦点、关键事实,自动把高度相似的已决案件推到法官界面,无需法官另起检索动作。前者是工具,后者是嵌进办案流程的辅助。真正能支撑类案同判的是后者——因为它解决的是法官不知道有相似案、或没时间检索的问题。" }
+      },
+      {
+        "@type": "Question",
+        "name": "类案推送靠关键词匹配够不够准?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不够。关键词匹配只能命中字面相同的案子,但类案的本质是争议焦点和裁判要点相似,而非用词相同。同一个法律问题在不同文书里可能用完全不同的表述。准确的类案推送需要语义向量检索——把案件事实与争议焦点编码成向量,按语义相似度而非字面重合度排序,再结合案由、审级、法院层级、时间等结构化条件做过滤。语义模型 + 结构化过滤双轨,才能把准确率做到可用。" }
+      },
+      {
+        "@type": "Question",
+        "name": "类案推送系统需要本地化部署吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "需要。法院的在办案件数据高度敏感,涉及未公开裁判信息、当事人个人信息,不能流向外网。类案推送系统应与办案系统在同一内网环境本地化部署,数据底座、检索模型、推送服务全部在院内或政法内网运行,满足等保三级、数据不出域与信创适配要求。这也是与一般商用检索 SaaS 的根本差别。" }
+      },
+      {
+        "@type": "Question",
+        "name": "建一套类案推送系统,数据底座从哪来?",
+        "acceptedAnswer": { "@type": "Answer", "text": "两部分:一是法院自有的本院、本辖区历史裁判数据,体现本地裁判尺度;二是全国范围的裁判文书与法律法规底座,用于补齐本院数据稀疏的案由、提供上级法院与兄弟法院的参照。本院数据保证'同院同判',全国底座保证'类案不漏'。文书查可提供全国全量裁判文书与法规数据,以离线加密增量包形式导入内网,与本院数据融合成统一检索底座。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法院类案推送系统</div>
+    <h1>法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)</h1>
+    <div class="meta">2026-06-13 · 文书查 · 面向法院信息处与智慧法院建设决策者</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">"类案同判"写进了文件,也压在了每位法官肩上,但落到办案现场,问题很具体:<strong>法官怎么知道有相似的案子已经判过?又哪来时间去一篇篇检索比对?</strong>这正是类案推送系统要解决的——不是再造一个检索框,而是在法官办理本案时,把高度相似的已决案件自动推到面前。本文不谈口号,只讲一套能用的类案推送系统该怎么搭:四层技术架构、为什么必须用语义检索、强制检索如何留痕合规、为什么要本地化部署,以及法院信息处选型时该照着问供应商哪些问题。</p>
+
+      <h2>一、先厘清:类案"检索"与类案"推送"不是一回事</h2>
+      <p>很多招标文件把两者混着写,但落地效果天差地别:</p>
+      <ul>
+        <li><strong>类案检索</strong>:法官主动输入关键词,系统返回结果列表。本质是一个搜索工具。问题在于——法官得先想到去搜、知道搜什么词,且愿意花时间翻结果。在案多人少的现实下,主动检索的使用率往往很低。</li>
+        <li><strong>类案推送</strong>:系统在法官办理本案的流程中,基于本案的案由、争议焦点、关键事实,<strong>自动</strong>计算并推送最相似的已决案件,法官无需另起检索动作。它嵌在办案系统里,是"找上门"而非"等人来找"。</li>
+      </ul>
+      <p>真正能支撑类案同判的是后者。因为同判的最大障碍从来不是法官不愿参照,而是<strong>不知道有相似案、或没有时间去找</strong>。一套合格的系统,要把"类案出现在法官眼前"这件事从可选项变成默认项。下面四层架构,正是围绕"推得到、推得准、推得合规"展开。</p>
+
+      <h2>二、类案推送系统的四层技术架构</h2>
+      <p>从数据到法官界面,一套类案推送系统由下而上分四层,缺一层都推不准:</p>
+      <table>
+        <thead><tr><th>层级</th><th>承担什么</th><th>关键能力</th></tr></thead>
+        <tbody>
+          <tr><td>① 数据底座层</td><td>本院历史裁判 + 全国裁判文书 + 法律法规</td><td>全量、结构化、可溯源、离线可更新</td></tr>
+          <tr><td>② 检索召回层</td><td>把本案与海量已决案件做相似度匹配</td><td>语义向量召回 + 结构化条件过滤双轨</td></tr>
+          <tr><td>③ 相似度排序层</td><td>把召回的候选按"像不像"精排</td><td>争议焦点对齐、裁判要点匹配、可解释打分</td></tr>
+          <tr><td>④ 法官界面层</td><td>把类案嵌进办案系统、可一键参照与留痕</td><td>办案流程嵌入、强制检索留痕、对比视图</td></tr>
+        </tbody>
+      </table>
+      <p>下面逐层说清每层的难点和该有的样子。</p>
+
+      <h3>① 数据底座层:本院尺度 + 全国底座,两个都要</h3>
+      <p>类案推送的准确度,先天受限于底座数据的完整度。一个常见误区是只用本院数据——结果是本院判得少的案由直接"无类可推"。正确做法是两部分融合:</p>
+      <ul>
+        <li><strong>本院 / 本辖区历史数据</strong>:体现本地裁判尺度,支撑"同院同判""同辖区同判"。这是法院最权威、最该优先参照的部分。</li>
+        <li><strong>全国裁判文书 + 法规底座</strong>:补齐本院数据稀疏的案由,提供上级法院、兄弟法院的参照样本,避免"本院从没判过这类案就两手一摊"。</li>
+      </ul>
+      <p>底座还要满足三个工程要求:<strong>结构化</strong>(案号、法院、审级、案由、当事人、裁判结果等字段齐全,才能做过滤)、<strong>可溯源</strong>(每条都能回到来源文书,法官敢引用)、<strong>离线可更新</strong>(以加密增量包导入内网,既保持时效又不在内网常开外网口子)。文书查提供的全国全量裁判文书与法规数据,正是按这三条交付,可与本院数据融合成统一检索底座。</p>
+
+      <h3>② 检索召回层:语义向量,不是关键词匹配</h3>
+      <p>这一层决定了系统是"能用"还是"摆设"。如果只做关键词匹配,问题立刻暴露:同一个法律问题,在不同文书里表述可能完全不同——"未及时支付货款"和"逾期履行付款义务"指向同一争议,但字面不重合,关键词检索会漏掉。而类案的本质是<strong>争议焦点和裁判要点相似,不是用词相同</strong>。</p>
+      <p>准确的召回要走双轨:</p>
+      <ul>
+        <li><strong>语义向量召回</strong>:把案件事实与争议焦点用模型编码成向量,按语义相似度排序,捕捉"说法不同、问题相同"的类案。</li>
+        <li><strong>结构化条件过滤</strong>:在语义召回的基础上,用案由、审级、法院层级、裁判时间等硬条件过滤——比如优先推本省、近三年、同审级的案子,把"语义像但参照价值低"的剔除掉。</li>
+      </ul>
+      <p>语义 + 结构化双轨,既保证不漏(召回率),又保证推上来的有参照价值(精准率)。单靠任何一轨都不够。</p>
+
+      <h3>③ 相似度排序层:像不像,要能说清楚</h3>
+      <p>召回回来的可能有几十上百条,法官没空逐条看。排序层负责精排,把最像的几条顶上来。关键不只是排得准,还要<strong>可解释</strong>:系统要能告诉法官"这条为什么和本案像"——是争议焦点一致、还是关键事实重合、还是法律适用相同。一个只给相似度分数、说不清理由的系统,法官不会信、也不敢用。可解释的相似度,是司法场景区别于普通推荐系统的硬要求。</p>
+
+      <h3>④ 法官界面层:嵌进办案流程,顺手才会用</h3>
+      <p>再好的模型,如果要法官切换到另一个系统、重新登录、手动检索,使用率就会归零。界面层的核心是<strong>无缝嵌入现有办案系统</strong>:法官在写文书、拟裁判时,类案就在侧边自动呈现,可一键展开对比、一键引用。同时,对于最高法院要求强制检索的案件类型,系统要自动记录检索与参照情况,生成类案检索报告,实现"检索过程可留痕、可监督"。这一层做不好,前三层全白费。</p>
+
+      <h2>三、强制类案检索:推送系统也是合规工具</h2>
+      <p>2020 年最高人民法院《关于统一法律适用加强类案检索的指导意见(试行)》明确了应当进行类案检索的情形(如拟提交专业法官会议、审委会讨论的,缺乏明确裁判规则的等)。这意味着类案检索在特定案件里是<strong>强制动作</strong>,而非可选。一套好的类案推送系统,顺势把合规这件事自动化了:</p>
+      <table>
+        <thead><tr><th>合规要求</th><th>系统如何承接</th></tr></thead>
+        <tbody>
+          <tr><td>应检索情形不遗漏</td><td>按案件类型自动识别是否属强制检索情形,主动提示并推送</td></tr>
+          <tr><td>检索过程可留痕</td><td>自动记录检索条件、命中类案、法官参照情况,一键生成检索报告</td></tr>
+          <tr><td>类案参照可监督</td><td>审管办、院庭长可回溯检索与参照记录,纳入审判管理</td></tr>
+        </tbody>
+      </table>
+      <p>换句话说,类案推送系统对法官是"减负"(不用自己想着去搜),对审判管理是"留痕"(过程可监督)。这两个价值叠加,才是法院愿意投入建设的真正理由。</p>
+
+      <h2>四、为什么必须本地化部署</h2>
+      <p>类案推送要在法官办本案的当下推送,就必须读到在办案件的事实与争议焦点——而这些是高度敏感的未公开信息,夹杂当事人个人信息,绝不能流向外网。因此系统必须与办案系统在同一内网环境<strong>本地化部署</strong>:</p>
+      <ul>
+        <li><strong>数据不出域</strong>:数据底座、向量索引、检索模型、推送服务全部部署在院内或政法内网,在办案件信息物理上不离开法院可控边界。</li>
+        <li><strong>满足等保三级与信创</strong>:司法系统普遍要求等保三级、信创适配,本地化部署是天然合规形态,可写入建设方案与评审材料。</li>
+        <li><strong>与办案系统打通</strong>:本地部署才能与现有审判系统做数据与界面级集成,实现"推送嵌入流程"。</li>
+      </ul>
+      <p>这也是类案推送系统与一般商用法律检索 SaaS 的根本差别:后者数据在厂商云上,既进不了法院内网读在办案件,也过不了数据安全这一关。<a href="/blog/judicial-data-platform-construction.html">司法数据中台</a>的建设逻辑同理——底层都是"数据不出域 + 内网智能"。</p>
+
+      <h2>五、法院信息处选型采购清单</h2>
+      <div class="callout">
+        <p>把类案推送系统纳入智慧法院建设或单独采购时,这 9 条可以直接照着问供应商,基本能筛掉只做关键词检索、过不了数据安全的方案:</p>
+        <ol>
+          <li><strong>召回是关键词还是语义向量?</strong>——要求演示"说法不同、问题相同"的类案能否推出来。</li>
+          <li><strong>数据底座有多大、覆盖哪些案由、来源是否可溯源?</strong>——本院数据 + 全国底座如何融合。</li>
+          <li><strong>能否与本院现有办案系统嵌入式集成?</strong>——而非另开一个独立检索系统。</li>
+          <li><strong>相似度结果是否可解释?</strong>——能否说清"为什么像"。</li>
+          <li><strong>是否支持强制检索情形自动识别 + 检索报告自动生成?</strong></li>
+          <li><strong>是否全程本地化部署、数据不出域?</strong>——明确无外网调用。</li>
+          <li><strong>是否满足等保三级与信创适配?</strong>——能否提供合规材料。</li>
+          <li><strong>底座如何离线更新?</strong>——增量包导入机制与更新频率。</li>
+          <li><strong>审管办能否回溯监督检索与参照记录?</strong>——审判管理对接能力。</li>
+        </ol>
+        <p>九条逐条要演示、要实测,别只看 PPT。尤其第 1、4、6 条,是区分"能用的系统"和"摆设"的分水岭。</p>
+      </div>
+
+      <h2>六、常见问题</h2>
+      <p class="faq-q">Q:类案推送系统和案件智能审判辅助、文书生成是一回事吗?</p>
+      <p>A:不是,但同属一个智慧法院技术栈。类案推送解决"参照什么";审判辅助、量刑参考解决"怎么判";文书辅助生成解决"怎么写"。它们共用同一套数据底座与院内 AI 能力,通常一并规划、分模块建设。</p>
+      <p class="faq-q">Q:本院判例太少的案由,推送还有用吗?</p>
+      <p>A:正是全国底座存在的意义。本院没判过或判得少的案由,系统从全国裁判文书底座里召回上级法院、兄弟法院的参照样本,避免"无类可推"。本院数据保证同院同判,全国底座保证类案不漏。</p>
+      <p class="faq-q">Q:建设周期和投入大概什么量级?</p>
+      <p>A:取决于底座规模、与现有办案系统的集成深度、等保信创要求。通常可分期:先打通数据底座与召回排序(核心能力),再做办案系统嵌入与强制检索留痕(合规闭环)。具体方案与预算可结合贵院现状评估,我们可提供参考架构与分期建议。</p>
+
+      <div class="cta-box">
+        <h3>为贵院类案推送系统提供全国裁判文书底座与参考架构</h3>
+        <p>提供法院层级与重点案由方向,我们反馈数据底座覆盖说明、四层参考架构与分期建设建议,并可安排离线部署演示。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> · <a href="/blog/judicial-data-platform-construction.html">数字法治政府:司法数据中台建设方案</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
