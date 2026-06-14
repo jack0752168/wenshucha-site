@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所采购 AI 系统的 5 个坑:SaaS / 数据 / 模型 / 工具链 / 服务期(2026)| 文书查</title>
+  <meta name="description" content="律所采购法律 AI 系统最容易踩的 5 个坑:把 SaaS 当私有化买、数据只看条数不看口径、模型分不清自研微调与套壳、只买数据没有工具链、只看签约价不看服务期。面向律所采购委员会与信息化主任的避坑指南,附可直接照问供应商的采购对照清单。" />
+  <meta name="keywords" content="律所 AI 采购,律所法律 AI 采购,法律 AI 选型,律所 AI 系统采购,律所私有化部署采购,法律大模型采购,律所 AI 供应商,法律 AI 避坑,律所采购委员会" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所采购 AI 系统的 5 个坑:SaaS / 数据 / 模型 / 工具链 / 服务期(2026)" />
+  <meta property="og:description" content="律所采购法律 AI 最容易踩的 5 个坑,以及一份可直接照问供应商的采购对照清单。面向律所采购委员会与信息化主任。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所采购 AI 系统的 5 个坑:SaaS / 数据 / 模型 / 工具链 / 服务期(2026)",
+    "description": "面向律所采购委员会与信息化主任的法律 AI 采购避坑指南,附可直接照问供应商的采购对照清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-14",
+    "dateModified": "2026-06-14",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所采购法律 AI,SaaS 和私有化到底怎么选?",
+        "acceptedAnswer": { "@type": "Answer", "text": "判据是案件材料能不能上传到第三方云。如果律所承接涉密案件、政府国企客户、跨境业务,委托协议普遍要求数据不出域,这类业务不能用 SaaS,必须私有化部署(本地离线 AI)。如果只做公开法律检索、不涉及当事人敏感材料,SaaS 可作为补充工具。关键是别让供应商用「私有化」一词糊弄过去——要追问数据是否真的全程留在律所机房、模型是否内网推理、有没有任何外网调用。" }
+      },
+      {
+        "@type": "Question",
+        "name": "评估法律 AI 的数据,只看「多少亿条」够吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不够。条数最容易注水。真正要问四件事:覆盖范围(刑事/民事/行政/执行/国家赔偿是否齐全,有没有按案由、地域、年份的分布)、来源是否合法可溯源(是否源自人民法院公开渠道、能否回链原始文书)、结构化程度(案号/法院/案由/当事人/裁判结果是否抽成稳定字段)、更新机制(多久同步一次、怎么同步)。同样宣称「上亿条」,有的是去重后的结构化全量,有的是重复灌水的原始网页,差距巨大。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么分辨法律大模型是自研微调还是套壳通用模型?",
+        "acceptedAnswer": { "@type": "Answer", "text": "让供应商现场用本所真实案情提问,重点看三点:引用的法条与案例是否真实可核(套壳模型常一本正经地编法条号)、能否给出可溯源的案例链接、能不能用本所历史卷宗做二次微调形成专属能力。套壳通用模型这三点通常都做不到。也可以直接问:模型跑在哪——如果答「调用某外部大模型 API」,那它本质就不是能私有化的自研模型。" }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么有了数据和模型,律师还是用不起来?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为缺工具链。数据和模型是底座,律师真正每天用的是上层应用:类案检索、判决要素抽取、胜诉率/赔偿区间预测、文书辅助起草、律师工作台 UI、与办案系统的对接。只买数据和模型、没有工具链,等于买了发动机却没有整车,律师打不开、用不顺,系统最后就闲置了。采购时要把工具链清单写进需求,验收时让一线律师实际试用。" }
+      },
+      {
+        "@type": "Question",
+        "name": "签约时最容易忽略的成本是什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "服务期。法律 AI 不是买断即结束:裁判文书与法规要持续同步才有时效、模型要按版本迭代、律所会不断提定制需求、系统要有人维护。只盯签约价、不谈服务期,很容易第二年发现数据停在一年前、出了问题没人管。要在合同里写清服务期含哪些(数据同步频率/模型升级/bug 响应时效/定制需求/培训),以及续费口径,把全生命周期成本算清楚再决策。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 律所采购 AI 系统的 5 个坑</div>
+    <h1>律所采购 AI 系统的 5 个坑:SaaS / 数据 / 模型 / 工具链 / 服务期(2026)</h1>
+    <div class="meta">2026-06-14 · 文书查 · 面向律所采购委员会与信息化主任</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">法律 AI 这两年从「要不要上」变成了「上哪家」。但律所采购委员会真正坐下来对比方案时,会发现各家说辞高度雷同——都号称「上亿裁判文书」「自研法律大模型」「私有化部署」。问题是,这些词的水分,签约前看不出来,上线后才疼。本文把律所采购法律 AI 最容易踩的 <strong>5 个坑</strong>逐个拆开,并给一份能在一轮会上问出谁有真货的采购对照清单。它不替代你的尽调,但能帮你把对的问题问在签约之前。</p>
+
+      <h2>坑一:把 SaaS 当私有化买</h2>
+      <p>这是最贵的一个坑,因为它踩下去时你往往毫无察觉。很多供应商会说自己「支持私有化」,但落到合同里,交付的其实是一个<strong>把界面装在你内网、推理却调外部大模型 API</strong> 的混合方案——你输入的案情,仍然出了内网。</p>
+      <p>对律所来说,判据只有一条:<strong>当事人材料、案件底稿、内部文书,能不能完全不离开律所机房?</strong>对于承接涉密案件、政府国企客户、跨境业务的所,委托协议普遍写明数据不得出域、不得交由第三方处理。这类业务一旦走了 SaaS 或「伪私有化」,轻则违约,重则触碰《数据安全法》《个人信息保护法》对敏感数据出境的红线。</p>
+      <div class="callout">
+        <p><strong>怎么识破:</strong>直接问三句——①模型推理跑在哪台机器上?②系统运行时是否需要连任何外网?③能不能在断网环境里完整演示一遍?只要有一句答得含糊,所谓「私有化」就要打问号。真正的本地离线 AI,断网照跑。</p>
+      </div>
+
+      <h2>坑二:数据只看「多少亿条」,不看口径</h2>
+      <p>「我们有 1.5 亿+ 裁判文书」听起来很唬人,但条数是最容易注水的指标。同样宣称上亿条,有的是去重后、结构化的全量库,有的是把同一篇文书在不同页面重复抓取的原始网页堆叠。律师真正用起来,差距是天壤之别。</p>
+      <p>评估数据底座,要问的是这四件事,而不是一个总数:</p>
+      <table>
+        <thead><tr><th>维度</th><th>该问什么</th><th>注水的样子</th></tr></thead>
+        <tbody>
+          <tr><td><strong>覆盖范围</strong></td><td>刑事/民事/行政/执行/国家赔偿是否齐全?能否给出按案由、地域、年份的分布?</td><td>只给一个总数,拿不出分布,某些案由或近年数据其实是空的</td></tr>
+          <tr><td><strong>来源合法</strong></td><td>是否源自人民法院公开渠道?每篇能否回链到原始文书?</td><td>来源说不清,无法溯源,合规汇报时过不了关</td></tr>
+          <tr><td><strong>结构化</strong></td><td>案号/法院/案由/当事人/裁判结果是否抽成稳定字段?</td><td>只有一坨纯文本,检索、统计、引用都做不了</td></tr>
+          <tr><td><strong>更新机制</strong></td><td>多久同步一次?私有化环境下怎么离线更新?</td><td>交付时是一次性快照,之后数据永远停在采购那一天</td></tr>
+        </tbody>
+      </table>
+      <p>一句话:<strong>条数证明不了什么,口径才决定数据能不能用。</strong>要求供应商现场展示一次按案由+地域+年份的数据分布,注水库通常当场就露馅。</p>
+
+      <h2>坑三:模型分不清「自研微调」还是「套壳通用」</h2>
+      <p>几乎所有供应商都说自己有「法律大模型」。但其中相当一部分,是在通用大模型外面套了个提示词,本质是调用外部 API 的「套壳」。这类模型有两个致命问题:一是<strong>引用法条爱编</strong>(法条号、案例张冠李戴,对律师是硬伤);二是<strong>不能真正私有化</strong>(底层依赖外部 API,断网就废)。</p>
+      <p>分辨方法很简单——<strong>让供应商用你本所的真实案情现场提问</strong>,盯三点:</p>
+      <ul>
+        <li><strong>引用是否可核</strong>:它给的法条、司法解释、案例,能不能一条条核对真实存在?套壳模型常一本正经地编。</li>
+        <li><strong>能否溯源</strong>:每个结论能不能给出可点开的原始文书链接?不能溯源的法律 AI,律师不敢用。</li>
+        <li><strong>能否吃本所卷宗</strong>:能不能用本所历史案件二次微调,形成别家没有的专属能力?套壳模型做不到。</li>
+      </ul>
+      <p>再补一句直球:<strong>「模型跑在哪?」</strong>如果回答是「调用某外部大模型 API」,那它既不是真自研,也无法真私有化,坑一和坑三其实是同一个。</p>
+
+      <h2>坑四:只买了数据和模型,律师却用不起来</h2>
+      <p>这个坑很隐蔽:数据合规、模型也能跑,验收时一切正常,但系统上线三个月后就没人打开了。原因是<strong>缺了工具链</strong>——律师每天真正用的不是「大模型」,而是大模型之上的那层应用。</p>
+      <p>一套能落地的律所 AI,数据和模型只是底座,上面必须有:</p>
+      <table>
+        <thead><tr><th>工具链能力</th><th>律师用它干什么</th></tr></thead>
+        <tbody>
+          <tr><td>类案检索</td><td>输入案情,秒级找到相似已决案件,看法院怎么判</td></tr>
+          <tr><td>判决要素抽取</td><td>从一批案例里自动抽出争议焦点、裁判理由、赔偿金额</td></tr>
+          <tr><td>胜诉率 / 赔偿区间预测</td><td>给当事人一个有数据支撑的预期,而非「凭经验」</td></tr>
+          <tr><td>文书辅助起草</td><td>基于类案与本所模板生成初稿,律师改而非从零写</td></tr>
+          <tr><td>律师工作台 UI + 系统对接</td><td>在熟悉的界面里用,能与现有办案 / 案管系统打通</td></tr>
+        </tbody>
+      </table>
+      <p>只买数据和模型、没有工具链,等于<strong>买了发动机却没有整车</strong>。采购时要把工具链清单写进需求,验收时一定让一线律师实际试用、而不是只看供应商演示——能不能用得顺,只有真用的人知道。</p>
+
+      <h2>坑五:只看签约价,不看服务期</h2>
+      <p>法律 AI 不是买断即结束的软件。裁判文书与法规每天在更新,模型在迭代,律所会不断提新需求,系统也需要有人维护。<strong>只盯签约那一笔价、不谈服务期</strong>,很容易第二年发现:数据停在一年前、模型还是旧版、出了问题找不到人。</p>
+      <p>把全生命周期成本算清楚,合同里这几条必须写明:</p>
+      <ul>
+        <li><strong>数据同步</strong>:多久更新一次?私有化环境怎么离线导入?是否额外收费?</li>
+        <li><strong>模型升级</strong>:服务期内是否含版本迭代?升级是否要停机?</li>
+        <li><strong>响应时效</strong>:出 bug 多久响应、多久修复?有没有明确 SLA?</li>
+        <li><strong>定制需求</strong>:服务期内包多少定制开发?超出怎么计价?</li>
+        <li><strong>续费口径</strong>:服务期满后续费多少?数据与模型的所有权 / 使用权归谁?</li>
+      </ul>
+      <p>一个常见的反面案例:签约价压得很低,但服务期只含一年、数据不含同步,第二年续费和数据更新单列报价,总成本反而更高。<strong>算账要算三年,不是算签约那一天。</strong></p>
+
+      <h2>把五个坑变成一张采购清单</h2>
+      <div class="callout">
+        <p>把这份清单发给每一家候选供应商,一轮就能问出谁有真货:</p>
+        <ol>
+          <li><strong>私有化</strong>:模型推理在哪跑?运行需不需要连外网?能否断网完整演示?</li>
+          <li><strong>数据</strong>:覆盖哪几类文书?能否现场展示按案由+地域+年份的分布?每篇能否溯源?私有化下怎么更新?</li>
+          <li><strong>模型</strong>:自研微调还是套壳?用本所真实案情现场试,引用是否可核、可溯源?能否用本所卷宗二次微调?</li>
+          <li><strong>工具链</strong>:含哪些应用(类案检索/要素抽取/预测/起草/工作台)?能否与现有办案系统对接?让一线律师试用了吗?</li>
+          <li><strong>服务期</strong>:数据同步频率?模型升级是否含?bug 响应 SLA?定制需求额度?续费与使用权口径?</li>
+          <li><strong>交付</strong>:是否先出演示 demo 再签约?demo 阶段是否收费?交付周期多久?</li>
+        </ol>
+      </div>
+      <p>这六组问题,覆盖了从签约到三年运行的全部关键变量。真有货的供应商会乐意逐条作答;含糊其辞、绕开问题的,基本可以排除。</p>
+
+      <h2>常见问题</h2>
+      <p class="faq-q">Q:我们所规模不大,有必要这么较真吗?</p>
+      <p>A:越是预算有限,越要把钱花在刀刃上。一次选错供应商,沉没的不只是采购款,还有律师重新适应系统的时间成本和信任成本。这份清单不增加你的工作量,只是把该问的问题问在签约之前。</p>
+      <p class="faq-q">Q:能不能先小范围试用再全所采购?</p>
+      <p>A:强烈建议。先从一个业务部门(如劳动争议、合同纠纷)或一个办公室起步,用真实案件跑出效果,再决定是否全所推广。正规供应商通常提供不收费的演示 demo,demo 跑通、合伙人认可后再签合同,能大幅降低决策风险。</p>
+      <p class="faq-q">Q:私有化部署是不是一定比 SaaS 贵?</p>
+      <p>A:首次投入确实高于按月订阅,但对承接敏感案件的律所,合规与数据安全是不能让步的底线。算上「用 SaaS 一旦泄露的赔偿与声誉损失」,私有化的总成本反而更低。详见 <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a>。</p>
+
+      <div class="cta-box">
+        <h3>带着这份清单,来比一比文书查</h3>
+        <p>提供律所规模与大致用户数,我们逐条回答上面六组问题,并给出私有化方案与 demo 邀请。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
