@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律大模型微调:用本所历史卷宗叠加,效果到底有没有(2026)| 文书查</title>
+  <meta name="description" content="律所想让大模型「学会本所的写法和打法」,第一反应往往是拿历史卷宗去微调。但微调、RAG、继续预训练解决的是不同问题,用错了既烧钱又没效果。本文讲清三者怎么选、本所卷宗微调的数据准备(脱敏/标注/配比)、LoRA 指令微调的工程路径、效果怎么实测,以及为什么微调必须建在全量裁判文书私有库这层底座之上。面向律所知识管理总监与法律科技团队。" />
+  <meta name="keywords" content="法律 LLM 内网部署,法律大模型微调,律所卷宗微调,法律大模型 LoRA,律所私有大模型,指令微调 法律,法律 RAG vs 微调,本所历史卷宗" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-llm-finetune-case-archive.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律大模型微调:用本所历史卷宗叠加,效果到底有没有(2026)" />
+  <meta property="og:description" content="微调、RAG、继续预训练各解决什么问题?本所卷宗微调的数据准备、LoRA 指令微调路径、效果实测维度,以及为什么微调必须建在全量裁判文书私有库底座之上。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-llm-finetune-case-archive.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律大模型微调:用本所历史卷宗叠加,效果到底有没有(2026)",
+    "description": "微调、RAG、继续预训练各解决什么问题,本所卷宗微调的数据准备、LoRA 指令微调路径、效果实测维度,以及为什么微调必须建在全量裁判文书私有库底座之上。面向律所知识管理总监与法律科技团队。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-17",
+    "dateModified": "2026-06-17",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-llm-finetune-case-archive.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所要让大模型用上本所卷宗,到底该微调还是上 RAG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "先上 RAG(检索增强生成),再考虑微调,而不是反过来。两者解决的根本不是一个问题:RAG 是把本所卷宗和裁判文书库挂成可检索的知识源,模型回答时实时召回相关原文作为依据——管「知道哪些事实、引用得对不对、能不能溯源」;微调是用大量「输入-输出」样本去调模型权重,改变它的风格、格式、表达习惯——管「按本所的写法和口吻输出」。律所 80% 的痛点(查得准、引得对、不编法条)是 RAG 问题,先把检索底座做好就能解决大半;微调用来解决「输出风格不像本所、格式不统一」这类剩下的 20%。一上来就拿卷宗微调、却没有检索底座,模型照样会编案号编法条,钱花了问题没解决。" }
+      },
+      {
+        "@type": "Question",
+        "name": "用本所历史卷宗微调,大概需要多少数据、什么格式?",
+        "acceptedAnswer": { "@type": "Answer", "text": "微调吃的不是「卷宗有多少」,而是「能整理出多少高质量的输入-输出样本对」。把历史卷宗加工成指令微调数据:输入是某类任务的提示(如「根据以下案情起草一份答辩状要点」),输出是本所律师当年实际产出的、质量过关的成稿片段。经验上,做好一类任务(如某类合同审查、某类文书起草),通常需要数百到数千条经过清洗、脱敏、人工把过关的样本;贪多而脏不如少而精,几千条干净样本的效果远好于几万条噪声样本。关键不是堆量,而是每条样本都代表你希望模型学会的那种输出。数据准备(脱敏、抽取、标注、配比)往往占整个微调项目 70% 以上的工作量。" }
+      },
+      {
+        "@type": "Question",
+        "name": "微调律所自己的大模型,要不要全参数训练?成本多高?",
+        "acceptedAnswer": { "@type": "Answer", "text": "绝大多数律所场景不需要全参数微调,用 LoRA/QLoRA 这类参数高效微调(PEFT)就够,而且更划算。全参数微调要更新模型全部权重,显存和算力门槛高、容易过拟合到小数据、还容易把模型原有的通用能力训坏(灾难性遗忘);LoRA 只训练一小部分增量参数,单张或少量专业级 GPU 即可完成一轮微调,训练快、可回滚、能给不同业务线挂不同的适配器(adapter),互不干扰。成本上,LoRA 微调的算力开销通常是全参数的零头,真正的大头是前面的数据准备和后面的评测。除非你有海量高质量领域数据且要深度改造模型,否则从 LoRA 起步是性价比最高的路径。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么判断微调到底有没有效果,而不是「感觉变好了」?",
+        "acceptedAnswer": { "@type": "Answer", "text": "必须先建评测集再开训,用数据说话而不是凭感觉。做法是:在微调前,先准备一套覆盖目标任务的评测样本(比如 100-300 道有标准答案或参考成稿的题),固定不变;微调前用基线模型跑一遍记录分数,微调后用同一套题再跑一遍对比。评测维度至少包括:事实/引用准确性(法条、案号、当事人有没有编)、格式合规性(是否符合本所文书规范)、有用性(律师改动量大不大)、安全性(有没有泄露其他案件信息)。再叠加一组真实律师的盲评打分。只有「微调后这套固定题的分数确实涨了、且通用能力没退化」,才算有效果;否则就是把噪声当信号。" }
+      },
+      {
+        "@type": "Question",
+        "name": "微调后的律所模型,数据会不会外泄?能私有化吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "能且必须私有化。本所历史卷宗是律所最敏感的资产,涉及当事人信息和执业保密义务,绝不能上传到任何公网微调平台。正确做法是整套流程都在律所自己机房内闭环:开源基座模型本地部署,卷宗脱敏和样本加工在内网完成,微调训练在本地 GPU 上跑,产出的模型权重和 LoRA 适配器只存在自己服务器上,推理也在内网。这样卷宗数据、训练过程、模型权重三者都不出域。如果一个方案要求把你的卷宗传到它的云上「帮你微调」,直接否决——这等于把客户机密交给第三方,既违反保密义务,也踩《数据安全法》《个人信息保护法》的红线。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 用本所历史卷宗微调法律大模型</div>
+    <h1>法律大模型微调:用本所历史卷宗叠加,效果到底有没有(2026)</h1>
+    <div class="meta">2026-06-17 · 文书查 · 面向律所知识管理总监与法律科技团队</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">「能不能拿我们所这些年的卷宗,去训一个懂本所打法的大模型?」——这是律所知识管理总监问得最多的一句话,背后的期待很实在:让 AI 学会本所的写法、口吻和办案套路。但「拿卷宗去训」这件事,一旦细问就发现大多数人把<strong>微调、RAG、继续预训练</strong>混成了一团,用错了工具,既烧钱又看不到效果。本文把这三件事拆开:律所到底该用哪个、本所卷宗微调要怎么准备数据、用什么方式训、效果怎么<strong>实测</strong>而不是凭感觉,以及一个反复被忽略的前提——微调必须建在一层扎实的<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库</a>底座之上,否则就是空中楼阁。</p>
+
+      <h2>先分清:微调、RAG、继续预训练不是一回事</h2>
+      <p>律所想要的效果——「答得准 + 引得对 + 写得像本所」——其实由三种不同技术各自负责一块,搞混了就会拿错药方。</p>
+      <table>
+        <thead><tr><th>手段</th><th>解决什么问题</th><th>适合律所的场景</th></tr></thead>
+        <tbody>
+          <tr><td><strong>RAG(检索增强)</strong></td><td>让模型答得准、引得对、可溯源——实时召回真实文书作依据</td><td>查类案、引法条、基于本所卷宗答事实问题(优先做)</td></tr>
+          <tr><td><strong>微调(Fine-tuning)</strong></td><td>改变输出的风格、格式、表达习惯——让它「写得像本所」</td><td>统一文书格式、贴合本所写作口吻、固化某类任务的输出范式</td></tr>
+          <tr><td><strong>继续预训练</strong></td><td>给基座补大量领域语料,改造底层语言能力</td><td>极少数有海量自有语料、要深度改造模型的大所,门槛最高</td></tr>
+        </tbody>
+      </table>
+      <p>关键认知:律所 80% 的痛点是 <strong>RAG 问题不是微调问题</strong>。「模型不知道这个案子、引错了法条、编了个不存在的案号」——这些靠把检索底座做好就能解决一大半,跟微调没关系。微调解决的是剩下那 20%:输出风格不像本所、文书格式不统一、同一类任务每次写法都飘。<strong>顺序必须是先 RAG、再微调</strong>;反过来先拿卷宗微调、却没有检索底座,模型照样张口编,钱花了问题没解决。</p>
+      <div class="callout">
+        <p><strong>一句话判断该用哪个:</strong>如果你的不满是「答得不对、引得不准」,那是 RAG 要补;如果是「答得对但写得不像我们所的东西」,那才轮到微调。把这两类抱怨分清楚,能省掉一大半走弯路的预算。</p>
+      </div>
+
+      <h2>为什么微调离不开私有库这层底座</h2>
+      <p>很多团队把「微调本所模型」当成一个独立项目去立项,这是认知误区。微调出来的模型,推理时仍然要靠检索去拿真实事实——它学到的是<strong>怎么写</strong>,不是<strong>具体某个案子的事实</strong>。如果底下没有一层能召回真实判决与本所卷宗的检索系统,微调得再好的模型,面对「帮我找近三年北京类似判例」这种问题照样无能为力,甚至会自信地编造。</p>
+      <p>所以正确的架构是<strong>两层叠加</strong>:底层是全量裁判文书 + 法规构成的公共知识底座(解决「全国怎么判」),上面叠本所历史卷宗(解决「本所怎么打」),两层都接入混合检索;微调只是在这套检索底座之上,再给模型套一层「按本所风格输出」的适配。脱离底座谈微调,等于先盖二楼再想地基。底座怎么建,见 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p>
+
+      <h2>数据准备:微调项目 70% 的工作在这里</h2>
+      <p>微调的效果上限,几乎完全由数据质量决定。「我们卷宗多」不等于「能微调」——卷宗是原始素材,微调要的是从里面加工出来的<strong>指令样本对</strong>。这一步占整个项目 70% 以上的工作量,也是最容易被低估的地方。</p>
+
+      <h3>把卷宗变成「输入-输出」样本</h3>
+      <p>指令微调的数据长这样:输入是某类任务的提示,输出是本所律师当年实际产出的、质量过关的成稿。例如——</p>
+      <ul>
+        <li><strong>输入</strong>:「根据以下劳动争议案情,起草答辩状的核心抗辩要点。案情:……」</li>
+        <li><strong>输出</strong>:本所在类似案件中实际写出的、最终被采纳的抗辩要点段落。</li>
+      </ul>
+      <p>把卷宗里「任务 → 优秀产出」的对子系统地抽出来,就是微调数据的来源。每一条样本,都应该代表你<strong>希望模型学会的那种输出</strong>;混进去质量平平甚至打输了的卷宗,模型就会学歪。</p>
+
+      <h3>四道必过的工序</h3>
+      <table>
+        <thead><tr><th>工序</th><th>做什么</th><th>不做的后果</th></tr></thead>
+        <tbody>
+          <tr><td><strong>脱敏</strong></td><td>抹去当事人姓名、身份证、联系方式、商业秘密等 PII;在内网完成</td><td>违反保密义务,模型可能在别的案子里吐出敏感信息</td></tr>
+          <tr><td><strong>抽取</strong></td><td>从长卷宗中切出「任务-成稿」对,而非整篇喂入</td><td>样本噪声大,模型学不到清晰的输入输出映射</td></tr>
+          <tr><td><strong>把关</strong></td><td>资深律师人工筛掉低质量、有争议、最终败诉的产出</td><td>把坏样本当范本学,越训越差</td></tr>
+          <tr><td><strong>配比</strong></td><td>多类任务按需要的能力分布配比例,掺入通用样本防遗忘</td><td>过拟合某一类任务,通用能力退化</td></tr>
+        </tbody>
+      </table>
+      <p>关于数量:做好<strong>一类</strong>任务,通常需要数百到数千条清洗、脱敏、人工把过关的样本。<strong>少而精远胜多而脏</strong>——几千条干净样本的效果,比几万条带噪声的强得多。不要被「我们有几十万份卷宗」的体量迷惑,能整理出多少高质量样本才是真实弹药量。</p>
+
+      <h2>怎么训:LoRA 起步,别一上来全参数</h2>
+      <p>选定数据后,微调方式上律所绝大多数场景的答案是 <strong>LoRA / QLoRA 这类参数高效微调(PEFT)</strong>,而不是全参数训练。</p>
+      <table>
+        <thead><tr><th>方式</th><th>特点</th><th>适配律所?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>全参数微调</strong></td><td>更新模型全部权重,显存算力门槛高,易过拟合小数据、易训坏通用能力(灾难性遗忘)</td><td>多数律所不需要,成本与风险都高</td></tr>
+          <tr><td><strong>LoRA / QLoRA</strong></td><td>只训一小部分增量参数,单张/少量专业级 GPU 即可,训练快、可回滚</td><td>✅ 首选,性价比最高</td></tr>
+          <tr><td><strong>多适配器(adapter)</strong></td><td>不同业务线挂不同 LoRA 适配器,互不干扰,按需加载</td><td>✅ 适合诉讼/非诉/某专业领域分别训</td></tr>
+        </tbody>
+      </table>
+      <p>LoRA 的好处对律所特别契合:一是<strong>成本低</strong>,算力开销是全参数的零头,真正的大头反而是前面的数据准备和后面的评测;二是<strong>可回滚、可并存</strong>,劳动争议、知识产权、公司业务可以各训一个适配器,哪个不好用就换掉,不动基座;三是<strong>不易训坏</strong>,基座的通用能力基本保留,降低「越训越笨」的风险。除非你有海量高质量领域数据且要深度改造模型,否则从 LoRA 起步就是最优解。算力规划见 <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署:GPU 选型实战</a>。</p>
+
+      <h2>效果实测:先建评测集,再开训</h2>
+      <p>这是整篇文章最该被记住的一条:<strong>没有评测集的微调,等于闭着眼睛花钱。</strong>「感觉变好了」不是效果,固定题目上分数涨了才是。正确的实测流程是:</p>
+      <ol>
+        <li><strong>开训前先冻一套评测集</strong>:覆盖目标任务、100-300 道有标准答案或参考成稿的题,定下来就不再改。</li>
+        <li><strong>跑基线</strong>:微调前用原始基座模型把这套题做一遍,记录分数,这是对照组。</li>
+        <li><strong>微调后同题重测</strong>:用一模一样的题再跑一遍,直接对比前后。</li>
+        <li><strong>叠加律师盲评</strong>:让真实律师在不知道哪个是微调版的情况下打分,排除自我说服。</li>
+      </ol>
+      <p>评测维度至少要覆盖这四项:</p>
+      <table>
+        <thead><tr><th>维度</th><th>测什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>准确性</strong></td><td>法条、案号、当事人、引用有没有编造或张冠李戴</td></tr>
+          <tr><td><strong>格式合规</strong></td><td>输出是否符合本所文书规范与结构要求</td></tr>
+          <tr><td><strong>有用性</strong></td><td>律师拿到后的改动量大不大(改得越少越有用)</td></tr>
+          <tr><td><strong>安全性</strong></td><td>有没有泄露其他案件信息、有没有越权内容</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>盯住「通用能力有没有退化」。</strong>微调最隐蔽的坑是:目标任务分数涨了,但模型在其他通用问题上变笨了(灾难性遗忘)。所以评测集里要留一组通用能力题做「体检」。只有<strong>目标任务涨分、通用能力不退</strong>,这次微调才算真有效果;只涨一头、塌另一头,是把噪声当了信号。</p>
+      </div>
+
+      <h2>一条务实的落地路线</h2>
+      <p>把上面几步串起来,给律所一条不踩坑的推进顺序:</p>
+      <ol>
+        <li><strong>先把 RAG 底座做好</strong>:全量裁判文书 + 法规 + 本所卷宗接入混合检索,先解决「答得准、引得对、能溯源」。多数痛点到这一步已消解大半。</li>
+        <li><strong>识别真正需要微调的任务</strong>:盘点「答得对但写得不像本所」的具体场景(某类文书起草、某类审查),通常就两三类。</li>
+        <li><strong>从一类任务做样本</strong>:脱敏、抽取、资深律师把关,攒几百到几千条干净样本。</li>
+        <li><strong>LoRA 训一版 + 评测集验收</strong>:基线对照 + 律师盲评,数据说话。</li>
+        <li><strong>过关再扩,不过关就回滚</strong>:有效就给下一类任务做适配器,无效就停,别硬上。</li>
+      </ol>
+      <p>全程在律所自己机房内闭环——卷宗脱敏、样本加工、训练、推理都在内网,卷宗数据、训练过程、模型权重三者都不出域。<strong>任何要求把你的卷宗传到它云上「帮你微调」的方案,直接否决</strong>:这等于把客户机密交给第三方,既违反执业保密义务,也踩《数据安全法》《个人信息保护法》的红线(相关合规边界见 <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a>)。</p>
+
+      <h2>常见问题</h2>
+      <p class="faq-q">Q:律所要让大模型用上本所卷宗,该微调还是上 RAG?</p>
+      <p>A:先 RAG 再微调。RAG 管「答得准、引得对、能溯源」,是律所 80% 痛点的解药;微调管「写得像本所」,解决剩下 20% 的风格格式问题。先拿卷宗微调却没检索底座,模型照样编案号编法条。</p>
+      <p class="faq-q">Q:用本所卷宗微调,大概需要多少数据?</p>
+      <p>A:吃的是「能整理出多少高质量输入-输出样本对」,不是卷宗总量。做好一类任务通常要数百到数千条清洗、脱敏、人工把过关的样本;少而精远胜多而脏。数据准备占整个项目 70% 以上工作量。</p>
+      <p class="faq-q">Q:要不要全参数微调?</p>
+      <p>A:多数律所场景不用,LoRA/QLoRA 就够且更划算——单张或少量 GPU 即可、训练快、可回滚、能给不同业务线挂不同适配器,还不易训坏通用能力。除非有海量高质量领域数据要深度改造,否则从 LoRA 起步性价比最高。</p>
+
+      <div class="cta-box">
+        <h3>先把底座搭对,再谈微调</h3>
+        <p>文书查提供全量裁判文书 + 法规的私有化数据底座,支持与本所卷宗双层叠加、混合检索、本地大模型 RAG 与微调对接,全流程数据不出域。告诉我们你的业务线与机房条件,我们出一版「先 RAG 后微调」的落地路线并安排 demo。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">内网大模型 GPU 选型实战</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
