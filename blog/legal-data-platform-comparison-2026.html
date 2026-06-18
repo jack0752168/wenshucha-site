@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>文书查 vs 北大法宝 vs 无讼 vs Alpha:法律 AI 数据底座选型全维度对比(2026)| 文书查</title>
+  <meta name="description" content="律所、法律科技团队要做私有化 AI,数据底座选谁?本文把北大法宝、无讼、iCourt Alpha 与文书查放在同一张表上,从产品类型、数据范围、交付方式(SaaS vs 私有化)、可否本地部署、可否做 AI 数据底座五个维度逐项对比,给出按场景的选型建议。" />
+  <meta name="keywords" content="北大法宝替代,法律科技数据源,法律 AI 数据底座,法律数据库对比,北大法宝 无讼 对比,Alpha 案例库,裁判文书数据库选型,法律 AI 选型,法律数据私有化" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-data-platform-comparison-2026.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="文书查 vs 北大法宝 vs 无讼 vs Alpha:法律 AI 数据底座选型全维度对比(2026)" />
+  <meta property="og:description" content="把北大法宝、无讼、Alpha 与文书查放在同一张表上,从产品类型、数据范围、交付方式、可否本地部署、可否做 AI 数据底座五个维度逐项对比。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-data-platform-comparison-2026.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "文书查 vs 北大法宝 vs 无讼 vs Alpha:法律 AI 数据底座选型全维度对比(2026)",
+    "description": "面向律所与法律科技团队的法律数据/AI 底座选型对比,五维度逐项拆解。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-18",
+    "dateModified": "2026-06-18",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-data-platform-comparison-2026.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "北大法宝、无讼、Alpha 和文书查到底有什么区别?",
+        "acceptedAnswer": { "@type": "Answer", "text": "它们不在同一个货架上。北大法宝是面向研究与检索的综合法律数据库订阅;无讼以裁判文书检索和律师社区起家;iCourt Alpha 是面向律师办案流程的工具型 SaaS(含案例库);文书查的核心差异是把全量裁判文书 + 法规作为可批量授权、可本地私有化部署的数据底座交付,给律所和法律科技团队做自己的 AI 系统。前三者主要解决「人去查」,文书查解决「让你自己的系统和模型去用」。" }
+      },
+      {
+        "@type": "Question",
+        "name": "做律所私有化 AI,为什么不能直接订阅一个法律数据库?",
+        "acceptedAnswer": { "@type": "Answer", "text": "订阅型数据库是给人用网页/账号查的,通常不开放全量数据导出、不允许灌进你自己的检索与模型、也不支持部署到你的内网。私有化 AI 需要的是可落地到本地、可被程序批量调用、可作为 RAG 检索与模型微调底座的数据,这是授权方式和交付形态的根本不同,不是多买几个账号能解决的。" }
+      },
+      {
+        "@type": "Question",
+        "name": "选数据底座时最该问供应商哪几个问题?",
+        "acceptedAnswer": { "@type": "Answer", "text": "五个:一,是订阅账号还是可批量授权的数据本身;二,数据范围多大、覆盖哪几类文书、来源是否合法可溯源;三,能否部署到我方内网、完全离线、满足等保;四,是否提供结构化字段和稳定 ID(案号/法院/案由/结果),能否直接对接检索与模型;五,能否定期增量更新而不依赖外网常连。能正面回答这五条的才是数据底座供应商。" }
+      },
+      {
+        "@type": "Question",
+        "name": "文书查能替代北大法宝吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "取决于你的用途。如果你要的是律师/研究者上网页做法条法规检索与综合研究,北大法宝这类综合库有其价值;如果你要的是给本所的 AI 系统、类案检索引擎或法律大模型提供可本地部署、可批量调用的全量裁判文书数据底座,文书查正是为这个场景设计的。很多团队是两者并用:综合库做人工研究,文书查做 AI 数据底座。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}table{font-size:13.5px}th,td{padding:8px 9px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律数据底座选型对比</div>
+    <h1>文书查 vs 北大法宝 vs 无讼 vs Alpha:法律 AI 数据底座选型全维度对比(2026)</h1>
+    <div class="meta">2026-06-18 · 文书查 · 面向律所信息化负责人与法律科技选型者</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">当一家律所或法律科技团队决定「自己做 AI」——类案检索、文书辅助、案件预判——选型会议上最先吵起来的往往不是模型,而是<strong>数据底座到底用谁的</strong>。有人提北大法宝,有人说无讼好用,有人用惯了 iCourt Alpha,也有人听说文书查。问题是:这几个名字经常被放在一起比,但它们<strong>根本不在同一个货架上</strong>。把订阅型数据库、办案工具 SaaS 和可私有化的数据底座混为一谈,选完才发现「买回来的东西灌不进自己的系统」。本文把四者放在同一张表上,讲清各自是什么、适合谁,以及做私有化 AI 时该怎么选。</p>
+
+      <h2>一、先分清:它们解决的根本不是同一个问题</h2>
+      <p>选型的第一性问题不是「谁的数据多」,而是「这是给人查的,还是给我的系统用的」。按这个标准,市面上的产品大致分三类:</p>
+      <table>
+        <thead><tr><th>类型</th><th>代表</th><th>核心形态</th><th>解决谁的问题</th></tr></thead>
+        <tbody>
+          <tr><td><strong>综合法律数据库(订阅)</strong></td><td>北大法宝(PKULAW)</td><td>网页/账号订阅,法律法规 + 司法案例 + 期刊的综合检索</td><td>律师、研究者、高校「人去查、人去读」</td></tr>
+          <tr><td><strong>裁判文书检索 + 律师社区</strong></td><td>无讼</td><td>以裁判文书检索起家,叠加律师社区与产品工具</td><td>一线律师快速检索类案、找同行</td></tr>
+          <tr><td><strong>律师办案工具(SaaS)</strong></td><td>iCourt Alpha</td><td>面向办案流程的工具平台,内含案例库等模块</td><td>律师团队的案件管理与办案提效</td></tr>
+          <tr><td><strong>数据底座(可授权 / 可私有化)</strong></td><td>文书查</td><td>全量裁判文书 + 法规,作为可批量授权、可本地部署的数据资产交付</td><td>律所/团队「让自己的系统和模型去用」</td></tr>
+        </tbody>
+      </table>
+      <p>看清这张表,选型就清楚了一半:<strong>前三类的产品逻辑是「我们做好界面,你来用」;数据底座的逻辑是「我们把数据交给你,你拿去建自己的能力」。</strong>如果你的目标是搭一套属于本所、跑在本所内网的 AI 系统,你要的是第四类——哪怕你同时还在用前几类做人工研究。</p>
+
+      <h2>二、五个维度,把四者放在同一张表上</h2>
+      <p>抛开各家的宣传话术,真正决定 AI 选型的是下面五个维度。注意:对「人工检索」场景重要的指标(界面好不好用、社区活不活跃),对「AI 数据底座」场景几乎不重要;反过来也是。</p>
+      <table>
+        <thead><tr><th>维度</th><th>综合数据库<br/>(如北大法宝)</th><th>检索/社区<br/>(如无讼)</th><th>办案 SaaS<br/>(如 Alpha)</th><th>数据底座<br/>(文书查)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. 你买到的是什么</strong></td><td>检索账号 / 订阅席位</td><td>检索账号 / 工具席位</td><td>办案工具席位</td><td>数据本身 + 批量授权</td></tr>
+          <tr><td><strong>2. 数据能否批量导出/调用</strong></td><td>一般不开放全量</td><td>一般不开放全量</td><td>一般不开放全量</td><td>可批量授权(bulk + API)</td></tr>
+          <tr><td><strong>3. 能否本地私有化部署</strong></td><td>否(云端订阅为主)</td><td>否</td><td>否</td><td>可部署到内网、完全离线</td></tr>
+          <tr><td><strong>4. 能否当 AI 底座(RAG/微调)</strong></td><td>非设计目标</td><td>非设计目标</td><td>非设计目标</td><td>正是设计目标</td></tr>
+          <tr><td><strong>5. 结构化字段 + 稳定 ID</strong></td><td>面向阅读</td><td>面向阅读</td><td>面向办案</td><td>面向机器:案号/法院/案由/结果字段化</td></tr>
+        </tbody>
+      </table>
+      <p class="callout">一句话总结:北大法宝、无讼、Alpha 都是优秀的「人用」产品,在各自场景里很成熟;但它们的产品设计目标都不是「把全量数据交给你去喂自己的模型和检索引擎」。当你的需求从「人去查」变成「系统去用」,选型的坐标轴就整个换了。</p>
+
+      <h2>三、逐个看:它们分别适合谁</h2>
+
+      <h3>北大法宝(PKULAW)——综合研究与法条法规检索的老牌选择</h3>
+      <p>北大法宝是国内综合法律数据库的代表之一,法律法规、司法案例、法学期刊等多库合一,长期服务高校、研究机构和律所的<strong>人工研究与检索</strong>场景。如果你的核心需求是「律师和研究者上网页做权威的法条法规检索、写论文、做综合法律研究」,这类综合库有其不可替代的价值。但它的交付形态是订阅账号,通常不以「把全量数据批量授权给你本地部署」为产品方向——做 AI 底座不是它要解决的问题。</p>
+
+      <h3>无讼——一线律师的裁判文书检索与同行社区</h3>
+      <p>无讼以裁判文书检索切入,叠加了律师社区与产品工具,在「一线律师快速找类案、连接同行」这件事上口碑不错。它解决的是<strong>律师个人/团队的即时检索效率</strong>。同样,它是给人用的工具,不以全量数据授权 + 私有化部署为定位。</p>
+
+      <h3>iCourt Alpha——围绕办案流程的工具型 SaaS</h3>
+      <p>Alpha 是 iCourt 体系下面向律师办案流程的工具平台,把案例检索、案件管理等揉进律师的日常工作流,内含案例库模块。它的强项在<strong>办案流程提效与团队协作</strong>。但它本质是 SaaS 工具,数据与能力都在它的平台里,不是交给你去搭自己系统的底座。</p>
+
+      <h3>文书查——给你自己的 AI 系统用的数据底座</h3>
+      <p>文书查的定位和上面三者正交:它不主打「我们做一个好用的界面给律师查」,而是把<strong>全量裁判文书(覆盖刑事/民事/行政/执行/国家赔偿)+ 法规库</strong>,作为<strong>可批量授权、可本地私有化部署的数据资产</strong>交付。配套提供结构化字段、稳定 ID、REST API 与 MCP,目的就是让你能把它接进自己的检索引擎、RAG 管线和法律大模型。换句话说,前三者帮「人」更快找到案例;文书查帮「你的系统」拥有案例。对要做私有化 AI 的律所和政府客户,这是底座层的选择。</p>
+      <p>关于这套数据底座在内网具体怎么落地——存储、全文 + 向量混合检索、离线增量更新、权限与审计——可参见我们的 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库本地化部署架构</a>;关于用本所卷宗叠加微调,见 <a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调实测</a>。</p>
+
+      <h2>四、按场景选型:对号入座</h2>
+      <p>不用纠结「谁更强」,只问「我要干什么」:</p>
+      <ul>
+        <li><strong>我要让律师/研究者上网页做权威法条法规检索与综合研究</strong> → 综合数据库(如北大法宝)。这是它的主场。</li>
+        <li><strong>我要一线律师快速检索类案、连接同行</strong> → 检索/社区类工具(如无讼)。</li>
+        <li><strong>我要把案件管理、办案流程在一个平台里跑顺</strong> → 办案 SaaS(如 Alpha)。</li>
+        <li><strong>我要搭一套跑在本所内网、属于自己的 AI 系统(类案检索引擎 / 法律大模型 / 文书辅助),需要可本地部署、可批量调用的全量数据</strong> → 数据底座(文书查)。</li>
+        <li><strong>我两件事都要</strong> → 很常见:综合库做人工研究 + 文书查做 AI 底座,各司其职。两者不冲突。</li>
+      </ul>
+
+      <h2>五、选型避坑:把这 6 个问题甩给每个候选供应商</h2>
+      <div class="callout">
+        <p>做 AI 数据底座选型时,用这 6 问一轮筛掉「灌不进自己系统」的方案:</p>
+        <ol>
+          <li>我买到的是<strong>账号席位</strong>,还是<strong>可批量授权的数据本身</strong>?</li>
+          <li>数据范围多大?覆盖哪几类文书?来源是否<strong>合法、可溯源</strong>?更新到什么时间?</li>
+          <li>能否<strong>批量导出 / 程序化调用</strong>(bulk + 稳定 API),用于我方检索与模型?</li>
+          <li>能否<strong>部署到我方内网、完全离线</strong>、满足等保三级?</li>
+          <li>是否提供<strong>结构化字段与稳定 ID</strong>(案号 / 法院 / 案由 / 结果),能直接对接 RAG 与微调?</li>
+          <li>能否<strong>离线增量更新</strong>(加密增量包导入),而不需要内网常连外网?</li>
+        </ol>
+        <p>能正面、具体回答这 6 条的,才是真正的「数据底座供应商」;只能回答「我们有好用的检索界面」的,是「人用」产品——很好,但解决的不是你这个问题。</p>
+      </div>
+
+      <h2>六、常见问题</h2>
+      <p class="faq-q">Q:文书查是要取代北大法宝/无讼/Alpha 吗?</p>
+      <p>A:不是同一赛道,谈不上取代。它们是给人用的检索与办案产品,文书查是给系统用的数据底座。很多团队是叠加使用——综合库做人工研究,文书查做 AI 底座。</p>
+      <p class="faq-q">Q:为什么不直接多买几个数据库账号灌进我的 AI?</p>
+      <p>A:订阅账号通常不开放全量数据导出、不允许灌进你自己的检索与模型、也不支持内网部署。AI 底座要的是「可批量授权 + 可本地落地」的数据,这是授权方式的不同,不是账号数量能解决的。</p>
+      <p class="faq-q">Q:数据来源合法吗?私有化后怎么更新?</p>
+      <p>A:裁判文书均源自人民法院公开渠道,合法、可溯源。私有化部署后,案例与法规库通过加密增量包离线导入定期更新,既保时效又不需内网常连外网。</p>
+
+      <div class="cta-box">
+        <h3>评估文书查能否做你的 AI 数据底座</h3>
+        <p>告诉我们你要建什么(类案检索 / 法律大模型 / 文书辅助)与部署环境,1 个工作日内反馈数据范围、字段样例与私有化方案。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案</a> / <a href="/#api-pricing" style="color:var(--accent-2)">API · MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 系统的 5 个坑</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
