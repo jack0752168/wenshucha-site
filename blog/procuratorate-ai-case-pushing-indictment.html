@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>检察院 AI 系统怎么落地:类案推送 + 起诉书辅助 + 量刑建议实战(2026)| 文书查</title>
+  <meta name="description" content="检察 AI 不是替检察官办案,而是把'类案找得到、量刑建议有参照、审查报告与起诉书少返工'做进办案系统。本文讲清检察院 AI 系统的三大能力(类案推送/文书辅助生成/量刑建议辅助)、认罪认罚从宽下量刑建议的数据要点、起诉书与审查报告如何防错防幻觉、为什么必须本地化部署在检察专线、以及检察机关技术部门可直接照问供应商的采购清单。" />
+  <meta name="keywords" content="检察院 AI 系统,检察 AI,智慧检务,类案推送 检察院,起诉书辅助生成,量刑建议辅助,认罪认罚量刑建议,检察智能辅助办案,检察机关大数据,审查起诉辅助" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="检察院 AI 系统怎么落地:类案推送 + 起诉书辅助 + 量刑建议实战(2026)" />
+  <meta property="og:description" content="检察 AI 不替检察官办案,而是把类案推送、文书辅助生成、量刑建议辅助做进办案系统。讲清三大能力、认罪认罚下量刑建议的数据要点、防幻觉、本地化部署与采购清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "检察院 AI 系统怎么落地:类案推送 + 起诉书辅助 + 量刑建议实战(2026)",
+    "description": "拆解检察院 AI 系统的三大能力(类案推送/文书辅助生成/量刑建议辅助)、认罪认罚从宽制度下量刑建议辅助的数据与算法要点、起诉书与审查报告如何防错防幻觉、为什么必须在检察专线本地化部署,以及检察机关技术部门可直接照问供应商的采购清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-19",
+    "dateModified": "2026-06-19",
+    "mainEntityOfPage": "https://wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "检察院 AI 系统会替检察官办案吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不会。审查逮捕、审查起诉、提起公诉、提出量刑建议这些决定,都由检察官依法办理、由检察官负责,任何系统都不能代替检察官认定事实、判断证据、决定是否起诉。检察 AI 的定位是辅助:把同类案件推到检察官面前、把同类案件的量刑分布作为提出量刑建议的参照、把审查报告与起诉书里大量重复性的格式与表述自动生成草稿,目的是减少机械劳动、提升办案质量与统一性。最终的判断、文书的署名与办案责任仍由检察官承担。合规的系统会明确标注'供参考、草稿待核',并保留检察官采纳、修改、否决的完整痕迹。" }
+      },
+      {
+        "@type": "Question",
+        "name": "认罪认罚从宽制度下,量刑建议辅助靠不靠谱?",
+        "acceptedAnswer": { "@type": "Answer", "text": "量刑建议辅助的可信度取决于底层数据与算法逻辑,而不是模型本身。它需要两部分数据融合:一是全国范围同罪名、同情节的已决刑事裁判文书,统计出量刑的真实分布区间;二是本院、本辖区的历史办案与裁判尺度。算法在此之上按罪名、法定与酌定情节(自首、坦白、立功、退赃退赔、认罪认罚、累犯、未遂等)做条件筛选,给出一个类案量刑区间作为提出量刑建议的参照,而不是一个不可解释的精确数字。关键在于:数据是否全量可溯源、情节是否结构化、是否剔除了不可比案件。文书查提供全国全量刑事裁判文书底座,可与本院数据融合,作为量刑建议辅助的数据基础。" }
+      },
+      {
+        "@type": "Question",
+        "name": "AI 辅助生成起诉书、审查报告会不会写错、会不会编造?",
+        "acceptedAnswer": { "@type": "Answer", "text": "这是检察办案场景最该防的风险。检察文书辅助生成必须走'检索增强 + 受控生成'的路线:法条、类案、量刑参照全部来自本地可溯源底座,生成的每一处引用都能回链到原始法条或文书,而不是让大模型凭记忆自由发挥。常见做法是把审查报告与起诉书拆成结构化模块(当事人、案件事实、证据、定性、量刑情节、起诉意见),事实与证据部分由案卷信息回填、法律说理与法条引用部分基于检索到的法条与类案生成草稿,检察官逐段核对修改。系统对任何引用都标注来源、对生成内容标注'草稿待核',从机制上杜绝大模型一本正经地编造法条或不存在的类案。" }
+      },
+      {
+        "@type": "Question",
+        "name": "检察院 AI 系统为什么必须本地化部署?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为它要读在办案件的卷宗、证据、笔录与当事人个人信息,这些都是高度敏感的未公开数据,绝不能流向外网或厂商云端。系统必须与统一业务应用系统在同一检察专线/政法内网本地化部署,数据底座、检索模型、生成模型、量刑参照算法全部在院内运行,满足等保三级、信创适配、数据不出域要求。这也是与一般商用法律 AI SaaS 的根本差别:后者既进不了检察内网读在办案件,也过不了数据安全这一关。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 检察院 AI 系统</div>
+    <h1>检察院 AI 系统怎么落地:类案推送 + 起诉书辅助 + 量刑建议实战(2026)</h1>
+    <div class="meta">2026-06-19 · 文书查 · 面向检察机关技术部门与智慧检务建设决策者</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">"智慧检务"喊了几年,真正落到办案现场的检察 AI,价值集中在三件事——<strong>找类案、提建议、写文书</strong>。检察官在审查逮捕、审查起诉、提起公诉的过程里,最耗时、最容易出现"同案不同诉"的环节,正是这三处:本案有没有可参照的同类案件、认罪认罚案件该提多少量刑建议、审查报告与起诉书里大量重复性内容怎么少返工。本文不谈智慧检务的愿景口号,只讲一套能在检察专线内网真正落地的检察院 AI 系统该长什么样:三大核心能力怎么搭、认罪认罚从宽下量刑建议辅助的数据要点、起诉书与审查报告如何防错防幻觉、为什么必须本地化部署、以及检察机关技术部门选型时该照着问供应商哪些问题。</p>
+
+      <h2>一、先划清边界:辅助检察官,不是代替检察官</h2>
+      <p>任何关于检察 AI 的讨论,第一句话必须是这句:<strong>检察权由检察官依法行使,AI 只能辅助,不能代替。</strong>系统不认定事实、不决定是否逮捕、不决定是否起诉、不署名负责。它做的是把信息"端到检察官面前",最终怎么定性、要不要起诉、提多少量刑建议,仍由检察官依法决定、由检察官负责。这条边界不是免责声明,而是整个系统的设计前提——它决定了每一项功能都必须满足三个要求:</p>
+      <ul>
+        <li><strong>供参考、非结论</strong>:输出明确标注"参考""草稿待核",绝不以"系统认为应当起诉""建议判 X 年"这种结论式表达呈现。</li>
+        <li><strong>可解释</strong>:任何参照与生成,都要能说清依据——来自哪些类案、哪条法条、哪个情节,而非给一个说不清来由的判断或数字。</li>
+        <li><strong>留痕可追溯</strong>:检察官采纳、修改、否决的全过程留痕,既保护检察官,也支撑案件质量评查与办案责任制。</li>
+      </ul>
+      <p>守住这条边界,检察 AI 才既"有用"又"合规"。下面三大能力,都建立在这个前提上。</p>
+
+      <h2>二、检察院 AI 系统的三大核心能力</h2>
+      <p>落到办案现场,检察官真正需要 AI 帮忙的,集中在三件事:审查时找参照、认罪认罚时定建议、办案时写文书。对应三大能力:</p>
+      <table>
+        <thead><tr><th>能力</th><th>解决什么问题</th><th>对应办案环节</th></tr></thead>
+        <tbody>
+          <tr><td>① 类案推送</td><td>本案有没有可参照的同类已决/在办案件</td><td>审查逮捕 · 审查起诉</td></tr>
+          <tr><td>② 量刑建议辅助</td><td>认罪认罚案件,同类案件大致判多少</td><td>审查起诉 · 提出量刑建议</td></tr>
+          <tr><td>③ 文书辅助生成</td><td>审查报告、起诉书里重复性内容的草稿与校验</td><td>制作审查报告 · 起诉</td></tr>
+        </tbody>
+      </table>
+      <p>三者共用同一套院内数据底座与 AI 能力,通常一并规划、分模块建设。与法院侧的审判辅助逻辑相通(我们在 <a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院 AI 智能审判辅助怎么落地</a> 一文里拆过量刑参考与文书生成),但检察场景有两点不同必须讲清:一是检察办案以<strong>审查报告</strong>为核心载体、文书量更密;二是<strong>认罪认罚从宽制度</strong>把"提量刑建议"变成检察官的高频刚需,量刑建议辅助因此是检察 AI 里价值最直接的一块。下面重点拆量刑建议辅助与文书辅助生成。</p>
+
+      <h2>三、量刑建议辅助:给检察官一把"参照的尺",不是一个"定刑的钮"</h2>
+      <p>认罪认罚从宽制度全面推开后,检察官在审查起诉阶段提出量刑建议成为常态,且"确定刑量刑建议"的采纳率直接影响办案质效。这让量刑建议辅助成为检察 AI 里价值最直接、也最容易被供应商话术带偏的能力。做对了,它能显著压缩同类案件的量刑建议离散度、辅助提出更精准的量刑建议;做错了,它会变成一个"看似精确、实则误导"的数字黑箱。关键在于把它定位成<strong>参照的尺</strong>,而不是<strong>定刑的钮</strong>。</p>
+
+      <h3>① 数据:全国分布 + 本地尺度,双源融合</h3>
+      <p>量刑建议辅助的可信度先天取决于数据。需要两部分融合:</p>
+      <ul>
+        <li><strong>全国同类已决案件</strong>:同罪名、同情节的全国刑事裁判文书,统计出法院实际量刑的真实分布区间——量刑建议要贴近裁判结果,这是"类案量刑"的统计底座。</li>
+        <li><strong>本院 / 本辖区办案与裁判</strong>:体现本地办案尺度与法检衔接的实际情况,避免给出一个脱离本地实际的全国平均值。</li>
+      </ul>
+      <p>底座必须满足:<strong>全量可溯源</strong>(每个参照案件都能回到原文书)、<strong>情节结构化</strong>(自首、坦白、立功、退赃退赔、认罪认罚、累犯、未遂、主从犯等法定与酌定情节都被打成结构化标签,才能做条件筛选)。文书查提供全国全量刑事裁判文书底座,以离线加密增量包导入内网,可与本院办案数据融合,作为量刑建议辅助的数据基础。</p>
+
+      <h3>② 算法:按情节筛同类,给区间不给点值</h3>
+      <p>正确的量刑建议辅助逻辑是:先按罪名锁定案件池,再按法定与酌定情节(尤其是认罪认罚这一关键从宽情节)层层筛选,最后给出一个<strong>类案量刑区间</strong>(如"同类案件量刑集中在 X 至 Y,中位数 Z")并附上构成这个区间的真实案例,供检察官在此基础上裁量提出量刑建议。三个要点决定它是否靠谱:</p>
+      <ul>
+        <li><strong>给区间,不给点值</strong>:输出一个分布区间和可参照案例,而不是"建议判 3 年 2 个月"这种伪精确的点值结论。提多少量刑建议是检察官的裁量,系统只提供参照范围。</li>
+        <li><strong>剔除不可比案件</strong>:把情节差异大、明显不可比的案件排除出参照池,否则区间会被污染。可比性判断本身要可解释。</li>
+        <li><strong>情节透明</strong>:检察官能看到"这个区间是按哪些情节筛出来的",并能手动增减情节(比如把"认罪认罚"勾上)、实时看区间如何变化。</li>
+      </ul>
+      <div class="callout">
+        <p><strong>一句话识别注水的量刑建议产品:</strong>凡是直接给出一个精确刑期数字、却说不清这个数字怎么来、参照了哪些案件、是否考虑了认罪认罚情节的,基本可以判定为不可用——它把检察官的裁量权偷换成了一个不可解释的算法输出,既不合规也不敢用。要求供应商现场演示:勾上/取消"认罪认罚",看区间和参照案例是否随之透明变化。</p>
+      </div>
+
+      <h2>四、文书辅助生成:用"检索增强",不用"自由发挥"</h2>
+      <p>检察办案以审查报告为核心、起诉书为产出,文书制作是检察官投入时间最多的环节之一,也是 AI 辅助最能减负的地方——但前提是必须防住大模型"一本正经编法条"的幻觉风险。起诉书里写错一个法条号、审查报告里编造一个不存在的类案,后果远比效率损失严重。所以检察文书辅助生成必须走<strong>检索增强 + 受控生成</strong>的路线,而不是把案情丢给大模型自由发挥。</p>
+
+      <h3>① 结构化分块,事实与说理分开处理</h3>
+      <p>把审查报告与起诉书拆成结构化模块分别处理,是防错的第一步:</p>
+      <table>
+        <thead><tr><th>文书模块</th><th>生成方式</th><th>风险控制</th></tr></thead>
+        <tbody>
+          <tr><td>当事人 / 案件来源</td><td>从案卷结构化信息回填</td><td>来自卷宗,不生成,不出错</td></tr>
+          <tr><td>案件事实 / 证据</td><td>基于在卷证据材料组织,检察官核对</td><td>禁止凭空生成事实与证据</td></tr>
+          <tr><td>定性与法律意见</td><td>基于检索到的法条 + 类案生成草稿</td><td>每处引用回链来源,标注"草稿待核"</td></tr>
+          <tr><td>量刑情节 / 量刑建议</td><td>结构化情节 + 类案区间参照</td><td>区间参照,检察官裁量定建议</td></tr>
+          <tr><td>起诉意见 / 主文</td><td>模板 + 检察官填定</td><td>由检察官决定,系统只排版</td></tr>
+        </tbody>
+      </table>
+      <p>核心原则:<strong>事实与证据部分由案卷回填、绝不生成,法律部分基于可溯源检索生成草稿、检察官逐段核对。</strong>AI 负责把重复性的格式、表述、引用初稿做出来,检察官负责判断与定稿。审查报告与起诉书之间还能做一致性校验——比如起诉书认定的事实与证据,是否都在审查报告里有支撑。</p>
+
+      <h3>② 每一处引用都能回链原文</h3>
+      <p>受控生成的硬指标是<strong>可溯源</strong>:生成草稿里引用的每一条法条、每一个类案,都带一个能回链到本地底座原始法条文本或原始裁判文书的链接,检察官一点就能核对。做不到这一点的文书生成,就是在赌大模型的记忆——而大模型的记忆会编造法条,这在检察场景是不可接受的。这也是为什么文书辅助生成必须挂在一套<strong>全量、可溯源的本地法律数据底座</strong>之上,而不是单买一个生成模型。底座的检索质量,直接决定生成质量的上限。这一点的工程实现,我们在 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库:本地化部署的数据架构</a> 里有完整拆解。</p>
+
+      <h2>五、为什么必须本地化部署在检察专线</h2>
+      <p>检察院 AI 系统要读在办案件的卷宗、证据、讯问笔录与当事人个人信息——这些都是高度敏感的未公开数据,绝不能流向外网或厂商云端。因此系统必须与统一业务应用系统在同一检察专线/政法内网<strong>本地化部署</strong>:</p>
+      <ul>
+        <li><strong>数据不出域</strong>:数据底座、检索模型、生成模型、量刑参照算法全部部署在院内或政法内网,在办案件信息物理上不离开检察机关可控边界。</li>
+        <li><strong>满足等保三级与信创</strong>:检察系统普遍要求等保三级、信创适配,本地化部署是天然合规形态,可直接写入建设方案与评审材料。</li>
+        <li><strong>全程可解释留痕</strong>:检察官采纳、修改、否决每一项辅助输出的过程留痕,既支撑案件质量评查与司法责任制回溯,也是 AI 辅助"权责清晰"的制度保障。</li>
+      </ul>
+      <p>这也是检察 AI 与一般商用法律 AI SaaS 的根本差别。<a href="/blog/judicial-data-platform-construction.html">司法数据中台</a>是它的底层支撑——检察辅助的三大能力,本质上都建立在"数据不出域 + 内网智能"这一条地基上。从合规视角看,这与律所私有化部署的<a href="/blog/law-firm-data-compliance-confidentiality.html">数据保密义务</a>逻辑一致:越敏感的数据,越只能在自己可控的边界内做智能。</p>
+
+      <h2>六、检察机关技术部门选型采购清单</h2>
+      <div class="callout">
+        <p>把检察院 AI 系统纳入智慧检务建设或单独采购时,这 8 条可直接照着问供应商,基本能筛掉只会演示 PPT、过不了数据安全与可解释这两关的方案:</p>
+        <ol>
+          <li><strong>量刑建议辅助给的是区间还是点值?</strong>——要求现场勾上/取消"认罪认罚"等情节,看区间与参照案例是否透明变化。</li>
+          <li><strong>量刑数据底座多大、覆盖哪些罪名、是否可溯源?</strong>——全国分布 + 本地尺度如何融合,能否回链原文。</li>
+          <li><strong>文书生成走检索增强还是大模型自由发挥?</strong>——要求演示起诉书引用能否回链原始法条/类案。</li>
+          <li><strong>事实与证据部分是回填还是生成?</strong>——能不能保证不凭空编造事实与证据。</li>
+          <li><strong>审查报告与起诉书能否做一致性校验?</strong>——是否真正贴合检察办案流程,而非套用法院产品。</li>
+          <li><strong>所有辅助输出是否标注"参考/草稿待核"?</strong>——有没有混淆辅助与检察决定的边界。</li>
+          <li><strong>是否全程本地化部署在检察专线、数据不出域、满足等保三级与信创?</strong></li>
+          <li><strong>检察官采纳/修改/否决是否全程留痕、可供质量评查回溯?</strong></li>
+        </ol>
+        <p>八条逐条要实测,尤其第 1、3、5 条——它们是区分"真辅助"和"伪智能"、以及"懂检察办案"和"拿法院产品改个名"的分水岭。任何一条只给口头承诺、不肯现场演示的,直接打问号。</p>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:检察 AI 和法院 AI 是同一套系统吗?</p>
+      <p>A:底层数据底座与 AI 能力(类案检索、检索增强生成、量刑参照)是相通的,但业务流程完全不同。法院侧围绕"审判"——立案、庭审、裁判文书;检察侧围绕"审查与公诉"——审查逮捕、审查报告、起诉书、量刑建议、法律监督。直接把法院审判辅助产品改个名卖给检察院,往往在审查报告结构、认罪认罚量刑建议、法检数据衔接上水土不服。选型时要确认供应商是否真正按检察办案流程做了适配。</p>
+      <p class="faq-q">Q:量刑建议辅助会不会让检察官形成依赖、削弱裁量?</p>
+      <p>A:这正是"给区间不给点值"的意义所在。系统提供的是同类案件量刑的真实分布区间和可参照案例,检察官在此基础上结合个案具体情节裁量提出量刑建议——它扩大了检察官的信息面,而不是替他做决定。相反,一个直接吐出精确刑期数字的产品才会诱导依赖。配合全程留痕,采纳与否、为什么调整,都清晰可查。</p>
+      <p class="faq-q">Q:建设周期和投入大概什么量级?</p>
+      <p>A:取决于上线哪些能力、与统一业务应用系统的集成深度、等保信创要求。通常分期:先打通数据底座与类案推送(参照能力),再叠加量刑建议辅助与文书辅助生成(办案能力),最后做留痕、法律监督辅助与质量评查对接。具体方案与预算可结合贵院现状评估,我们可提供参考架构与分期建议。</p>
+
+      <div class="cta-box">
+        <h3>为贵院检察 AI 提供全国裁判文书底座与参考架构</h3>
+        <p>提供检察层级与重点罪名/案由方向,我们反馈数据底座覆盖说明、量刑建议辅助与文书辅助的参考架构,并可安排离线部署演示。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院 AI 智能审判辅助怎么落地:量刑参考 + 文书辅助生成实战</a> · <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统怎么建</a> · <a href="/blog/judicial-data-platform-construction.html">数字法治政府:司法数据中台建设方案</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库:本地化部署的数据架构</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
