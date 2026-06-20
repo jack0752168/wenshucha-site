@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>司法机关数据中台等保三级合规架构(2026)——定级备案、安全建设与测评清单 | 文书查</title>
+  <meta name="description" content="政法系统的数据中台怎么一次性过等保三级?本文不讲泛泛的中台建设,而是下钻到安全合规架构本身:等保三级的五大技术要求如何落到中台每一层、定级备案与三同步流程、数据分类分级与最小权限、操作全程审计、信创适配、数据不出域与离线导入的合规边界,以及等保测评的常见失分项和采购清单。面向政法委、司法局信息中心与法院技术处的安全合规决策参考。" />
+  <meta name="keywords" content="等保三级数据中台,司法机关数据中台,司法数据中台等保三级,等保三级合规架构,政法专网等保,政法数据安全,数据分类分级 司法,司法数据安全审计,信创等保,数据不出域" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/judicial-data-platform-security-compliance.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="司法机关数据中台等保三级合规架构(2026)" />
+  <meta property="og:description" content="等保三级不是验收前补的材料,而是架构里长出来的能力。五大技术要求如何落到中台每一层、定级备案三同步、分类分级、全程审计、信创、数据不出域,一文讲清。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/judicial-data-platform-security-compliance.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "司法机关数据中台等保三级合规架构(2026)——定级备案、安全建设与测评清单",
+    "description": "面向政法委、司法局信息中心与法院技术处的司法数据中台等保三级安全合规决策参考。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-20",
+    "dateModified": "2026-06-20",
+    "mainEntityOfPage": "https://wenshucha.com/blog/judicial-data-platform-security-compliance.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "司法机关数据中台一定要过等保三级吗?会不会要四级?",
+        "acceptedAnswer": { "@type": "Answer", "text": "政法系统承载办案、研判等重要数据的信息系统,普遍按网络安全等级保护三级定级建设;涉及国家安全、社会秩序、核心办案数据且一旦受损影响特别严重的关键系统,可能被定为四级。具体等级由运营单位依据《网络安全等级保护定级指南》初步定级,再经专家评审和主管部门、公安机关审核确定,不是供应商或建设方自己拍。数据中台作为承载多部门数据资产的底座,定级通常不低于其上承载的最高等级业务系统。" }
+      },
+      {
+        "@type": "Question",
+        "name": "等保三级是验收时才做的事吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不是,这是最常见也最致命的误区。等保强调安全建设与系统建设同步规划、同步建设、同步使用(三同步)。安全物理环境、通信网络、区域边界、计算环境、管理中心这五方面的要求必须在架构设计阶段就嵌进去——权限模型、审计留痕、加密、脱敏、边界隔离都属于此。如果是上线前临时贴几个安全设备补材料,测评几乎一定整改返工,既拖工期又留隐患。选型时要让供应商证明方案是合规内生而非事后加装。" }
+      },
+      {
+        "@type": "Question",
+        "name": "数据中台过等保三级,大概要走哪些流程?",
+        "acceptedAnswer": { "@type": "Answer", "text": "通常五步:一是定级,运营单位依据定级指南初步确定等级并组织专家评审;二是备案,到属地公安机关网安部门提交备案材料,取得备案证明;三是安全建设整改,按三级要求完成技术与管理两方面的安全建设;四是等级测评,委托有资质的测评机构开展测评并出具报告;五是监督检查,公安机关对定级备案对象进行日常监督。建议把定级、备案、测评的时间节点写进项目计划,安全建设与中台建设并行推进。" }
+      },
+      {
+        "@type": "Question",
+        "name": "全国裁判文书底座进了政法专网,会不会破坏数据不出域和等保合规?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不会,前提是按合规方式接入。外部公共法律数据(全国裁判文书、法律法规、司法解释)均源自人民法院等公开渠道,合法可溯源;以加密结构化数据包离线导入政法专网内的中台,与本地数据在治理层统一对齐,全程不需要中台连外网,完全符合数据不出域要求。后续靠加密增量包定期离线更新保持时效。导入的数据同样纳入中台的分类分级、权限与审计体系统一管理,与等保三级的数据安全要求一致。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 司法机关数据中台等保三级合规架构</div>
+    <h1>司法机关数据中台等保三级合规架构(2026)</h1>
+    <div class="meta">2026-06-20 · 文书查 · 面向政法委、司法局信息中心与法院技术处</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">司法数据中台的招标文件里,几乎都有一句「须满足等保三级要求」。但真到测评那天才发现:权限是事后加的、审计日志东缺西漏、数据加密只做了传输没做存储、外部数据导入没纳入分类分级——于是整改、返工、延期。<strong>等保三级从来不是验收前补的一摞材料,而是从架构第一层就要长出来的能力。</strong>这篇文章不重复讲中台怎么建(那篇在<a href="/blog/judicial-data-platform-construction.html">《数字法治政府:司法数据中台建设方案》</a>),而是专门下钻到一件事:<strong>怎么把一套司法机关数据中台,设计成天生就能过等保三级。</strong>等保三级的五大技术要求怎么落到中台每一层、定级备案走哪几步、分类分级与最小权限怎么固化、审计怎么做到全程可溯、信创与数据不出域怎么兼顾,以及测评最常见的失分项和照着问供应商的清单。</p>
+
+      <h2>一、先纠一个最贵的误区:合规内生 vs 事后加装</h2>
+      <p>多数项目栽跟头,不是技术不够,而是把等保理解错了。等保的核心原则之一是<strong>「三同步」——安全建设与系统建设同步规划、同步建设、同步使用。</strong>这句话翻译成工程语言就是:安全不是一个并行的「安全分包」,而是中台架构本身的一部分。</p>
+      <p>对照两种做法:</p>
+      <table>
+        <thead><tr><th>做法</th><th>表现</th><th>结果</th></tr></thead>
+        <tbody>
+          <tr><td><strong>事后加装(错)</strong></td><td>中台先按功能建好,临到测评再采购防火墙、堡垒机、日志审计、数据库审计往上贴,权限和脱敏靠应用层临时打补丁</td><td>测评高概率整改:审计覆盖不全、权限粒度太粗、数据存储未加密、外部数据游离在治理体系外,返工动架构</td></tr>
+          <tr><td><strong>合规内生(对)</strong></td><td>定级先行,五大安全要求在架构设计阶段就分解到每一层;权限、审计、加密、脱敏、边界隔离是数据治理层和服务层的原生能力</td><td>测评是验证既有能力,而不是临时凑;后续加应用、加数据源,安全能力自动复用</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>一句话判断供应商:</strong>问它「等保三级的能力是架构自带的,还是测评前另外加产品补的?能不能拿出一个把审计、权限、脱敏画进数据治理层的架构图?」。答不上来、只会报一堆安全设备清单的,大概率是事后加装思路,后面一定返工。</p>
+      </div>
+
+      <h2>二、等保三级的五大技术要求,怎么落到中台每一层</h2>
+      <p>等保 2.0 三级的安全通用要求,技术部分可归纳为五个层面。下面把每一层翻译成「司法数据中台该做什么」,这是整篇文章的骨架:</p>
+      <table>
+        <thead><tr><th>等保技术层面</th><th>在数据中台里对应做什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>安全物理环境</strong></td><td>中台部署在政法专网内的机房,机房按三级要求做物理访问控制、防雷防火防水、电力与环境监控;通常落在已建的政务云/政法云,沿用其物理安全资质</td></tr>
+          <tr><td><strong>安全通信网络</strong></td><td>网络架构分区分域,核心数据区与一般区隔离;通信传输全程加密(国密算法优先);关键链路冗余;与外网物理隔离,外部数据只走离线导入</td></tr>
+          <tr><td><strong>安全区域边界</strong></td><td>各安全区域之间边界访问控制(防火墙/网闸),入侵防范、恶意代码防范、安全审计部署在边界;最小化开放端口与服务;跨部门数据交换走受控的共享交换区</td></tr>
+          <tr><td><strong>安全计算环境</strong></td><td>这是数据中台的主战场:身份鉴别(双因子)、访问控制(RBAC+最小权限)、数据完整性与保密性(存储与传输加密)、数据脱敏、剩余信息保护、个人信息保护、操作全程审计——全部落在治理层与服务层</td></tr>
+          <tr><td><strong>安全管理中心</strong></td><td>统一的系统管理、安全管理、审计管理「三员分立」;集中的日志审计平台汇聚全中台操作与安全事件,可关联分析、可追溯、日志留存不少于六个月</td></tr>
+        </tbody>
+      </table>
+      <p>这五层里,物理环境和通信网络往往可以复用已建政务云/政法云的资质和能力,真正考验数据中台设计水平、也最容易失分的,是<strong>安全计算环境</strong>和<strong>安全管理中心</strong>这两块——它们直接对应中台「治理数据、提供服务、留痕审计」的核心职责。下面三节重点拆这两块。</p>
+
+      <h2>三、安全计算环境之一:数据分类分级是一切的地基</h2>
+      <p>等保三级对数据保密性、访问控制、个人信息保护的要求,落地的前提是<strong>先把数据分类分级做出来</strong>。没有分级,「最小权限」无从谈起——你都不知道哪些数据该严管。司法数据中台的分类分级要解决两个问题:</p>
+      <ul>
+        <li><strong>按敏感度分级</strong>:把汇入中台的数据(本地办案数据、统计数据、全国裁判文书底座、法规库等)按敏感程度划级,例如可公开/内部/敏感/核心几档。不同级别对应不同的加密、脱敏、访问与审计强度。</li>
+        <li><strong>按字段分级而非按表分级</strong>:同一份判决里,案号、案由、裁判要点可较宽松,而当事人身份信息、未脱敏的个人信息必须按最高级别管控。分级要细到字段,权限和脱敏才能精准。</li>
+      </ul>
+      <p>分类分级既是《数据安全法》《个人信息保护法》的明确要求,也是等保三级访问控制与个人信息保护条款的落地基础。务实的做法是:<strong>在数据治理层把分类分级做成一套可配置的规则与标签体系</strong>,数据一入中台就打上分级标签,后续的权限、脱敏、审计策略全部基于标签自动生效,而不是靠人对每个场景单独判断。一个有政法项目经验的供应商,应当带着一套成熟的司法数据分类分级模板进场,而不是把这项最费力的治理工作甩给信息中心从零摸索。</p>
+
+      <h2>四、安全计算环境之二:身份、最小权限与脱敏</h2>
+      <p>分级之上,是访问控制三件套。等保三级在这里的要求比一般系统严得多:</p>
+      <table>
+        <thead><tr><th>控制点</th><th>三级要求落到中台</th></tr></thead>
+        <tbody>
+          <tr><td><strong>身份鉴别</strong></td><td>重要操作采用双因子认证(口令+令牌/证书/生物特征其一);登录失败处理、会话超时、口令复杂度策略到位;管理员与普通用户分离</td></tr>
+          <tr><td><strong>访问控制(RBAC + 最小权限)</strong></td><td>按角色授权,角色只拿到完成职责所需的最小数据范围与字段;跨部门调数据只能看到被授权的字段与范围;授权变更留痕;默认拒绝,显式授权</td></tr>
+          <tr><td><strong>数据脱敏</strong></td><td>对外共享、研判分析、AI 训练/检索等非办案场景走脱敏视图,屏蔽个人敏感信息;在严格授权和安全审查前提下保留按规则回溯原文的能力,兼顾保护与办案需要</td></tr>
+          <tr><td><strong>数据保密性与完整性</strong></td><td>敏感数据存储加密(国密优先)、传输加密;关键数据完整性校验;剩余信息保护,确保删除/释放的数据不可被恢复利用</td></tr>
+        </tbody>
+      </table>
+      <p>这里的工程要点是:<strong>权限和脱敏必须做在数据服务层,而不是各个应用各做一套。</strong>中台的价值就是「数据一次治理、多处复用」,如果每接一个应用就重新写一遍权限和脱敏逻辑,不仅工作量翻倍,更会出现口径不一、有的应用漏脱敏的安全漏洞——而这恰恰是测评和实际泄露事故里最高发的点。正确的做法是把权限校验、脱敏、审计封装在统一的数据服务网关里,所有应用调数据都从这道关过,策略集中管理、一处变更全局生效。</p>
+
+      <h2>五、安全管理中心:审计要做到「谁、何时、对哪条数据、做了什么」</h2>
+      <p>等保三级对安全审计的要求,是很多司法数据项目最容易栽的一关。三级要求覆盖到<strong>每个用户的每一次重要操作</strong>,且审计记录要能支撑事后追溯与责任认定。具体到数据中台:</p>
+      <ul>
+        <li><strong>审计范围全覆盖</strong>:不只是登录登出,而是数据访问、查询、导出、共享、授权变更、脱敏开关、管理操作全部留痕。尤其是「数据导出」和「跨部门共享调用」这两类高风险操作,必须逐条可查。</li>
+        <li><strong>审计内容够细</strong>:每条日志要能回答「哪个身份、在什么时间、从哪个 IP、对哪一条(类)数据、做了什么操作、结果如何」。粒度粗到只记「某用户登录了系统」是过不了的。</li>
+        <li><strong>审计独立与防篡改</strong>:审计日志由独立的审计管理员管理,系统管理员无权删改自己的操作记录(三员分立);日志集中汇聚、防篡改存储、留存不少于六个月。</li>
+        <li><strong>可关联可告警</strong>:安全管理中心能对日志做关联分析,对异常行为(如非工作时间大批量导出敏感数据)告警。</li>
+      </ul>
+      <div class="callout">
+        <p><strong>为什么司法场景对审计格外较真:</strong>办案数据一旦不当外泄或被违规查询,后果是司法公信力问题,不是普通的数据事故。一套查不清「这条当事人信息到底是谁在什么时候导出去的」的中台,不仅过不了等保,更担不起司法机关的责任要求。把不可篡改的全程审计当成中台的原生能力,而不是附加功能,是这一层的底线。</p>
+      </div>
+
+      <h2>六、信创适配与数据不出域:两条政法系统的硬约束</h2>
+      <p>除了等保通用要求,政法系统还有两条几乎写死的约束,设计时要一并满足:</p>
+      <h3>信创适配</h3>
+      <p>基础软硬件要适配国产化:国产 CPU(鲲鹏/飞腾等)、国产操作系统、国产数据库与中间件,满足自主可控要求。这对数据中台意味着:存储引擎、检索引擎、向量库、加密模块都要选有信创适配能力的技术栈,国密算法(SM2/SM3/SM4)优先。选型时要确认供应商的中台是真的在信创环境里跑通过、出过测评,而不是只在 x86 上演示。</p>
+      <h3>数据不出域</h3>
+      <p>全套部署在政法专网/政务内网,数据处理与模型推理均在内网完成,无外网调用。这一条和「引入全国裁判文书法规底座」并不矛盾——<strong>外部数据靠离线加密数据包导入,不是让中台去连外网。</strong>导入后的外部数据同样纳入中台的分类分级、权限、审计体系统一管理,与等保要求一致。这正是文书查在司法数据中台里的接入方式:</p>
+      <ul>
+        <li><strong>结构化全国裁判文书 + 法规底座</strong>:覆盖刑事、民事、行政、执行、国家赔偿,1.5 亿+ 篇,已做要素抽取与结构化,可直接进中台治理层对齐口径、套用同一套分级与权限。</li>
+        <li><strong>加密数据包离线导入</strong>:数据源自人民法院等公开渠道,合法可溯源;以加密结构化包离线导入政法专网,全程不需中台连外网,守住数据不出域。</li>
+        <li><strong>加密增量包定期更新</strong>:既补齐全国底座、保持时效,又不破坏内网隔离与等保合规。</li>
+      </ul>
+
+      <h2>七、过等保三级的流程:把节点写进项目计划</h2>
+      <p>知道了要建什么,还要知道按什么节奏过。等保三级通常走五步,建议在立项时就把时间节点排进项目计划,让安全建设与中台建设并行:</p>
+      <table>
+        <thead><tr><th>步骤</th><th>做什么</th><th>谁主导</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 定级</strong></td><td>运营单位依据《网络安全等级保护定级指南》初步定级,组织专家评审确定等级(中台一般不低于其承载的最高等级业务系统)</td><td>运营单位(信息中心)</td></tr>
+          <tr><td><strong>② 备案</strong></td><td>到属地公安机关网安部门提交备案材料,取得等保备案证明</td><td>运营单位 + 公安网安</td></tr>
+          <tr><td><strong>③ 安全建设整改</strong></td><td>按三级要求完成技术(五大层面)+ 管理(制度、人员、运维)两方面建设,与中台建设同步推进</td><td>建设方 + 供应商</td></tr>
+          <tr><td><strong>④ 等级测评</strong></td><td>委托有资质的测评机构开展等级测评,出具测评报告,不达标项整改后复测</td><td>第三方测评机构</td></tr>
+          <tr><td><strong>⑤ 监督检查</strong></td><td>投入运行后,公安机关对定级对象开展日常监督检查,运营单位持续做安全运维</td><td>公安网安 + 运营单位</td></tr>
+        </tbody>
+      </table>
+      <p>关键提醒:<strong>定级要先行。</strong>等级没定,安全建设的强度就没有标尺,很容易要么过度建设浪费预算,要么建得不够测评通不过。先把级定下来、备案走起来,安全建设按标尺来,才不返工。</p>
+
+      <h2>八、等保测评最常见的失分项(对照自查)</h2>
+      <p>把这些高发失分点放进设计评审和供应商答疑,能避开八成返工:</p>
+      <ol>
+        <li><strong>审计不全</strong>:只记了登录,数据导出/共享/授权变更没逐条留痕,或日志粒度粗、留存不足六个月、可被管理员删改。</li>
+        <li><strong>权限粒度太粗</strong>:按部门一刀切授权,没做到字段级最小权限;跨部门调数据能看到不该看的字段。</li>
+        <li><strong>数据存储未加密</strong>:只做了传输加密,敏感数据在库里是明文;或没用国密算法。</li>
+        <li><strong>外部数据游离体系外</strong>:引入的裁判文书等底座没纳入统一的分类分级、权限和审计,成了管控盲区。</li>
+        <li><strong>三员未分立</strong>:系统管理员一人通吃系统、安全、审计三权,审计无法独立。</li>
+        <li><strong>合规事后补</strong>:安全设备临时加装,与中台架构两张皮,联动不起来,违背三同步。</li>
+        <li><strong>信创未真适配</strong>:演示在 x86,实际信创环境跑不通或性能塌方。</li>
+      </ol>
+
+      <h2>九、采购清单(照着问供应商)</h2>
+      <div class="callout">
+        <p>把这份清单放进技术交流和招标答疑,一轮就能问出谁真懂政法等保、谁只是嘴上说满足:</p>
+        <ol>
+          <li>等保三级能力是架构内生还是事后加装?能否提供把审计、权限、脱敏画进数据治理层的架构图?</li>
+          <li>数据分类分级怎么做?有没有成熟的司法数据分级模板?能否细到字段级?</li>
+          <li>权限与脱敏是统一在数据服务层做、所有应用复用,还是各应用各做一套?</li>
+          <li>审计是否覆盖数据访问/导出/共享/授权变更全操作?日志能否回答「谁在何时对哪条数据做了什么」?是否三员分立、防篡改、留存≥6 个月?</li>
+          <li>是否在信创环境(国产 CPU/OS/数据库 + 国密)里真实跑通并出过测评?</li>
+          <li>外部裁判文书/法规底座如何离线导入、如何纳入统一分级与审计、如何离线增量更新而不破坏数据不出域?</li>
+          <li>能否配合完成定级、备案、等级测评全流程?有无政法系统过等保三级的落地案例?</li>
+        </ol>
+      </div>
+
+      <h2>十、常见问题</h2>
+      <p class="faq-q">Q:我们已经有政务云了,中台还要单独过等保吗?</p>
+      <p>A:政务云提供的是物理环境和部分基础设施层的安全资质,中台作为运行在云上的信息系统,其计算环境、应用与数据安全仍需按自身等级单独建设和测评。可以复用云的物理与网络安全能力,但安全计算环境和安全管理中心这两块是中台自己的责任,跑不掉。</p>
+      <p class="faq-q">Q:数据中台过了等保三级,上面的 AI 应用还要再过吗?</p>
+      <p>A:要看应用的定级和承载数据。AI 类案推送、量刑参考等应用通常复用中台的数据、权限与审计体系,安全能力是继承下来的,这正是「合规内生」的好处——底座过了,上层应用的安全大头已经解决,应用层主要再补自身的功能安全。具体仍以应用的等级测评要求为准。</p>
+      <p class="faq-q">Q:引入全国裁判文书底座,会不会增加等保整改的工作量?</p>
+      <p>A:如果按合规方式接入,反而不增加额外负担:数据以加密包离线导入,纳入中台已有的分类分级、权限与审计统一管理,沿用同一套安全策略,不需要为它单开一套机制。真正会增加工作量的,是把外部数据随意堆进来、游离在治理体系外——那才是测评失分和安全隐患的来源。</p>
+
+      <div class="cta-box">
+        <h3>为你的司法数据中台评估一套等保三级合规架构</h3>
+        <p>提供建设范围(涉及部门、合规等级、信创要求),我们反馈把等保三级落到每一层的架构建议、全国案例法规底座的合规离线接入方案与 POC 邀请。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judicial-data-platform-construction.html">数字法治政府:司法数据中台建设方案</a> · <a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库:本地化部署的数据架构</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
