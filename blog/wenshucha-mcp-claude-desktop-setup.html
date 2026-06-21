@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.7 亿裁判文书(2026 实战)| 文书查</title>
+  <meta name="description" content="手把手教你用 MCP(Model Context Protocol)把 1.7 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。" />
+  <meta name="keywords" content="文书查 MCP,Claude Desktop 法律,裁判文书 MCP,法律 MCP server,Claude 接入裁判文书,类案检索 MCP,法律 AI MCP,Cursor 法律,裁判文书 API 接入,法律大模型数据源" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.7 亿裁判文书(2026 实战)" />
+  <meta property="og:description" content="申请试用 key、改配置、验证连接、第一次类案检索——法律 AI 开发者用 MCP 接入裁判文书的最快路径。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.7 亿裁判文书(2026 实战)",
+    "description": "面向法律 AI 开发者与法律科技团队的 MCP 接入实战:申请 key、改 claude_desktop_config.json、验证连接、第一次类案检索。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-21",
+    "dateModified": "2026-06-21",
+    "mainEntityOfPage": "https://wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "什么是 MCP?为什么法律 AI 要用 MCP 接入裁判文书?",
+        "acceptedAnswer": { "@type": "Answer", "text": "MCP(Model Context Protocol,模型上下文协议)是一种让 AI 助手调用外部工具和数据源的开放标准。把文书查的 MCP 服务接到 Claude Desktop、Cursor 等客户端后,AI 就能在对话里直接检索 1.7 亿+ 裁判文书,返回带原文链接的结果,而不是凭训练记忆编造判例。对法律 AI 来说,这把会编法条的通用模型变成了能引用真实判决的可溯源助手。" }
+      },
+      {
+        "@type": "Question",
+        "name": "接入文书查 MCP 需要写代码吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不需要。在 Claude Desktop 里接入只是改一个 JSON 配置文件(claude_desktop_config.json),填入 MCP 服务地址和你的 API key,重启客户端即可,全程不超过 5 分钟。如果你要把它接进自己的应用,则用 REST API(tob.wenshucha.com/api/v1),提供 Python/Node 示例。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么拿到文书查的试用 key?",
+        "acceptedAnswer": { "@type": "Answer", "text": "在试用申请页 paileme.wenshucha.com/tob/api-trial 提交申请,试用 key 通常 1 个工作日内发放。拿到 key 后即可用于 MCP 接入或直接调用 REST API,先在小范围验证检索效果再决定是否扩量或私有化部署。" }
+      },
+      {
+        "@type": "Question",
+        "name": "文书查 MCP 和直接调 REST API 有什么区别?",
+        "acceptedAnswer": { "@type": "Answer", "text": "两者数据同源,区别在使用场景。MCP 适合在 Claude Desktop / Cursor / Cline 等 AI 客户端里让 AI 自己去查,开发者零代码、终端用户直接对话即用;REST API 适合接进自己的产品后端做 RAG、批量检索、评测,需要写代码但可控性最高。很多团队先用 MCP 跑通效果,再用 API 接进生产。" }
+      },
+      {
+        "@type": "Question",
+        "name": "数据量大、要私有化能行吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "可以。试用 MCP/API 是云端调用,适合验证与中小用量;对数据不出域有要求的律所、政府、法院,文书查提供全量裁判文书 + 法规库的私有化离线部署,模型与检索都跑在内网。建议先用 MCP 验证检索质量,再评估私有化方案。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:32px;line-height:1.34;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;line-height:1.65}
+    code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:#f0eee6;color:#7a5b1e;
+      padding:1px 6px;border-radius:5px}
+    pre code{background:none;color:inherit;padding:0}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    .step{font-family:"Songti SC",serif;color:var(--accent);font-weight:700}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:24px}pre{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 文书查 MCP 接入 Claude Desktop</div>
+    <h1>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.7 亿裁判文书</h1>
+    <div class="meta">2026-06-21 · 文书查 · 面向法律 AI 开发者与法律科技团队</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">通用大模型最致命的法律短板,是<strong>它会"一本正经地编判例"</strong>——案号像模像样,引用的法条却对不上,你根本不敢拿去办案。解决办法不是换一个更大的模型,而是给它接一个能查真实判决的数据源。本文用最短的路径演示:如何用 <strong>MCP(Model Context Protocol)</strong>把文书查的 1.7 亿+ 裁判文书接进 Claude Desktop,让 AI 在对话里直接检索、返回<strong>带原文链接</strong>的真实判例。全程改一个配置文件,不到 5 分钟。</p>
+
+      <h2>一、先搞清楚:MCP 到底解决什么问题</h2>
+      <p>MCP 是一种让 AI 助手调用外部工具和数据的开放协议。你可以把它理解成"给大模型装的标准化数据接口"——装上之后,Claude / Cursor 这类客户端就能在回答前先去外部数据源查一遍,再基于查到的真实内容作答。</p>
+      <p>对法律场景,这个区别是决定性的:</p>
+      <table>
+        <thead><tr><th></th><th>不接数据源(裸用大模型)</th><th>接入文书查 MCP 之后</th></tr></thead>
+        <tbody>
+          <tr><td><strong>判例来源</strong></td><td>凭训练记忆生成,可能是编的</td><td>实时检索 1.7 亿+ 真实裁判文书</td></tr>
+          <tr><td><strong>可溯源</strong></td><td>无法核对,案号常对不上</td><td>每条结果回链法院原文,可点开验证</td></tr>
+          <tr><td><strong>时效</strong></td><td>停在训练截止日</td><td>数据每日同步,新判决约 24 小时内可查</td></tr>
+          <tr><td><strong>能不能办案用</strong></td><td>不敢</td><td>可作为类案检索与初判的起点</td></tr>
+        </tbody>
+      </table>
+      <p>一句话:<strong>MCP 把"会说法言法语的模型"变成"能引用真实判决的助手"。</strong>这也是法律 AI 防幻觉最实在的一招——不是靠 prompt 求它别编,而是直接喂给它可查的数据。</p>
+
+      <h2>二、准备:申请一把试用 key(1 个工作日)</h2>
+      <p>接入前你只需要一样东西:文书查的 API key。</p>
+      <ol>
+        <li>打开试用申请页 <a href="https://paileme.wenshucha.com/tob/api-trial" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a>,填写团队与用途。</li>
+        <li>试用 key 通常 <strong>1 个工作日内</strong>发放;同一把 key 既能用于 MCP 接入,也能直接调 REST API。</li>
+        <li>同时记下控制台给出的 <strong>MCP 服务地址</strong>(连接串)——下一步配置要用到。具体连接参数以控制台/开发者文档(<a href="https://mcp.wenshucha.com/" target="_blank" rel="noopener">mcp.wenshucha.com</a>)为准。</li>
+      </ol>
+      <div class="callout">
+        <p><strong>为什么先试用再谈量?</strong> 文书查的建议是:先用一把试用 key 在你真实的几个问题上跑一遍,确认检索召回与原文回链确实能用,再决定走云端 API 扩量还是私有化离线部署。别一上来就签大单——先验证数据质量。</p>
+      </div>
+
+      <h2>三、接入 Claude Desktop:改一个配置文件</h2>
+      <p>Claude Desktop 通过一个 JSON 配置文件管理 MCP 服务,接入文书查就是往里加一段。</p>
+
+      <h3>1. 找到配置文件</h3>
+      <ul>
+        <li><strong>macOS</strong>:<code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+        <li><strong>Windows</strong>:<code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+      </ul>
+      <p>也可以在 Claude Desktop 的设置(Settings → Developer → Edit Config)里直接打开它。文件不存在就新建一个。</p>
+
+      <h3>2. 加入文书查 MCP 配置</h3>
+      <p>把下面这段填进去(<code>mcpServers</code> 里已有别的服务就并列加一项),用你控制台拿到的真实地址和 key 替换占位:</p>
+      <pre><code>{
+  "mcpServers": {
+    "wenshucha": {
+      "command": "npx",
+      "args": ["-y", "@wenshucha/mcp-server"],
+      "env": {
+        "WENSHUCHA_API_KEY": "&lt;你的试用 key&gt;",
+        "WENSHUCHA_API_BASE": "https://tob.wenshucha.com/api/v1"
+      }
+    }
+  }
+}</code></pre>
+      <p>说明:<code>command</code> / <code>args</code> 的具体形式以控制台/开发者文档给出的为准(不同分发方式可能是 npx 包,也可能是远程 SSE/HTTP 连接串);<strong>务必复制官方文档里的那一行,不要照搬本文占位</strong>——本文给的是结构示意,真实连接参数随版本更新。</p>
+
+      <h3>3. 重启 Claude Desktop,验证连接</h3>
+      <p>完全退出并重新打开 Claude Desktop。连接成功后,输入框旁会出现 MCP 工具图标,展开能看到 <code>wenshucha</code> 提供的检索工具。验证一句最简单的:</p>
+      <pre><code>用文书查检索:近三年 劳动合同 违法解除 二倍赔偿 的二审改判案例,
+列 3 个,给案号和原文链接。</code></pre>
+      <p>如果 Claude 调起了文书查工具、返回了带案号和可点链接的结果,就说明接通了。<strong>看到真实案号 + 能点开的原文链接 = 成功。</strong></p>
+
+      <h2>四、接进自己的应用:用 REST API</h2>
+      <p>MCP 适合在 AI 客户端里"让 AI 自己查";如果你要把检索接进自己的产品后端(做 RAG、批量检索、评测),用 REST API 更可控。基本调用示意:</p>
+      <pre><code># Python 示例(结构示意,字段以接口文档为准)
+import requests
+
+resp = requests.post(
+    "https://tob.wenshucha.com/api/v1/search",
+    headers={"Authorization": "Bearer &lt;你的 key&gt;"},
+    json={"query": "民间借贷 担保 连带责任", "size": 10},
+)
+for hit in resp.json().get("data", []):
+    print(hit["case_no"], hit["court"], hit["url"])</code></pre>
+      <p>返回的每条记录都带结构化字段(案号、法院、审级、案由、当事人脱敏、裁判结果)和回链原文的 URL,直接可以喂进你的检索/重排/grounding 流程。完整字段与端点见开发者文档与 <a href="/#api-pricing">API/MCP 定价页</a>。</p>
+
+      <h2>五、MCP vs REST API:怎么选</h2>
+      <table>
+        <thead><tr><th></th><th>MCP 接入</th><th>REST API</th></tr></thead>
+        <tbody>
+          <tr><td><strong>适合谁</strong></td><td>用 Claude/Cursor 办公的律师、KM 团队、想零代码验证的人</td><td>要把检索接进自己产品的开发团队</td></tr>
+          <tr><td><strong>要写代码吗</strong></td><td>不用,改配置即可</td><td>要,但可控性最高</td></tr>
+          <tr><td><strong>典型用法</strong></td><td>对话里随手查类案、要素</td><td>RAG、批量检索、评测、Agent 工具</td></tr>
+          <tr><td><strong>上手时间</strong></td><td>~5 分钟</td><td>~半天接通</td></tr>
+        </tbody>
+      </table>
+      <p>实践里的常见路径是:<strong>先用 MCP 跑通、让团队直观看到效果,再用 REST API 接进生产。</strong>两者数据同源,切换不返工。</p>
+
+      <h2>六、三个让效果立竿见影的用法</h2>
+      <ul>
+        <li><strong>类案检索起点</strong>:把当事人情况写成一句话,让 AI 检索相似判决并归纳裁判倾向——比关键词搜更贴合语义,且每条可回原文核对。</li>
+        <li><strong>要素与结果抽取</strong>:对一批判决批量抽"争议焦点 / 裁判理由 / 赔偿区间",做实证分析或给客户出报告。</li>
+        <li><strong>初判参考</strong>:结合类案的赔偿区间和改判情况,给出一个有判例支撑的初步预判区间(强调:供参考,不替代律师判断)。</li>
+      </ul>
+      <div class="callout">
+        <p><strong>一句话提醒</strong>:MCP 接入解决的是"让 AI 用真实判决说话",但它是云端调用,适合验证与中小用量。对<strong>数据不能出内网</strong>的律所、法院、检察院、政府,正确路径是先用 MCP 验证检索质量,再上<a href="/#onpremise">私有化离线部署</a>(全量数据 + 模型都跑在内网)。</p>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:接入要不要懂 MCP 协议本身?</p>
+      <p>A:不用。Claude Desktop 已经把协议封装好了,你只是在配置文件里登记一个服务。会改 JSON、会复制粘贴 key 就够。</p>
+      <p class="faq-q">Q:试用 key 有什么限制?</p>
+      <p>A:试用用于验证检索效果,通常有用量配额。验证通过后可升级正式额度或转私有化部署,具体联系商务。</p>
+      <p class="faq-q">Q:Cursor / Cline / 自研助手能接吗?</p>
+      <p>A:能。任何支持 MCP 的客户端配置方式都类似(登记服务 + 填 key);自研后端则走 REST API。</p>
+      <p class="faq-q">Q:返回的判决会不会有当事人隐私问题?</p>
+      <p>A:数据均来自人民法院公开渠道,个人敏感信息已按公开口径脱敏,结果回链公开原文,合法可溯源。</p>
+
+      <div class="cta-box">
+        <h3>申请试用 key,5 分钟把判例库接进你的 AI</h3>
+        <p>提交团队与用途,1 个工作日内发放试用 key;需要私有化离线部署的律所/政府,可直接约方案与 demo。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 试用申请 <a href="https://paileme.wenshucha.com/tob/api-trial" style="color:var(--accent-2)" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型:文书查 vs 北大法宝 vs 无讼 vs Alpha</a> · <a href="/#workbench">律师工作台:案件胜算量化</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
