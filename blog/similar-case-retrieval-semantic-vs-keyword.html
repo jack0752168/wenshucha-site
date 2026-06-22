@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>类案检索 API:语义向量 vs 关键词,到底哪种更准?(2026 法律 AI 工程实战)| 文书查</title>
+  <meta name="description" content="做法律 AI 类案检索,该用关键词(BM25)还是语义向量(embedding)?本文从法律文本的真实特性出发,讲清两种召回各自的命中与翻车场景、为什么生产级类案检索 API 必须走混合检索 + 重排 + 引用回链,以及选型时该问数据方的 7 个问题。面向法律 AI 工程师与法律科技团队。" />
+  <meta name="keywords" content="类案检索 API,类案检索系统,语义检索 法律,向量检索 裁判文书,法律语义搜索,BM25 关键词检索,混合检索 RAG,法律 embedding,裁判文书检索 API,类案推荐算法" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="类案检索 API:语义向量 vs 关键词,到底哪种更准?(2026 法律 AI 工程实战)" />
+  <meta property="og:description" content="法律文本的特殊性决定了纯关键词和纯向量都不够。讲清两种召回的命中与翻车、为什么生产级类案检索要混合检索 + 重排 + 引用回链。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "类案检索 API:语义向量 vs 关键词,到底哪种更准?(2026 法律 AI 工程实战)",
+    "description": "面向法律 AI 工程师:从法律文本特性出发对比关键词检索与语义向量检索的命中与翻车场景,讲清生产级类案检索 API 为什么要走混合检索 + 重排 + 引用回链,以及选型必问清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-22",
+    "dateModified": "2026-06-22",
+    "mainEntityOfPage": "https://wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "类案检索到底该用关键词还是语义向量?",
+        "acceptedAnswer": { "@type": "Answer", "text": "生产级类案检索不是二选一,而是两者都要。关键词检索(BM25)在案号、法条号、当事人名、专有术语这类精确匹配上不可替代,且可解释;语义向量检索擅长把表述不同但争议焦点相同的判决召回来,补关键词的同义词与近义场景盲区。成熟做法是混合检索:两路分别召回,再用重排模型融合排序,最后回链原文。纯关键词会漏掉换了说法的类案,纯向量会在法条号、案号等精确点上翻车。" }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么通用 embedding 模型做法律语义检索效果不好?",
+        "acceptedAnswer": { "@type": "Answer", "text": "通用 embedding 在开放域语义相似上表现好,但法律文本有三个特殊性:一是术语高度专属(违法解除、经济性裁员、表见代理在向量空间里可能被通用模型压得很近,实际裁判后果天差地别);二是关键差异常藏在数字与法条号里(二倍赔偿 vs 经济补偿、是否适用某条司法解释),向量容易抹平;三是案由体系是结构而非语言。所以纯通用向量召回会出现看起来像、其实判得完全不同的伪类案,需要法律领域适配的表示 + 结构化字段过滤 + 重排来纠偏。" }
+      },
+      {
+        "@type": "Question",
+        "name": "类案检索 API 必须能回链原文吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "必须。法律场景里检索结果要能被律师核对,不能像通用 RAG 那样只给一段摘要。生产级类案检索 API 的每条结果都应携带稳定标识(案号 + 可点开的原文链接),让使用者点进去验证裁判要旨、审级、生效情况。回链是引用接地(citation grounding)的工程前提,也是防止大模型基于检索结果二次编造的关键。没有可溯源回链的类案检索,办案时不敢用。" }
+      },
+      {
+        "@type": "Question",
+        "name": "自建类案检索和直接接类案检索 API 怎么选?",
+        "acceptedAnswer": { "@type": "Answer", "text": "看你团队的瓶颈在数据还是在算法。如果你已经有干净、去重、字段结构化、且授权可商用的全量裁判文书底座,自建混合检索 + 重排是可行的;但多数团队卡在数据这层——裸爬数据覆盖不可表征、无结构、无法稳定回链。这种情况下接一个已经做好结构化与混合检索的类案检索 API 更快,且能先用试用 key 验证召回质量再决定扩量。对数据不出域有要求的律所、法院、检察院,则走私有化离线部署。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:32px;line-height:1.34;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;line-height:1.65}
+    code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:#f0eee6;color:#7a5b1e;
+      padding:1px 6px;border-radius:5px}
+    pre code{background:none;color:inherit;padding:0}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:24px}pre{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 类案检索:语义向量 vs 关键词</div>
+    <h1>类案检索 API:语义向量 vs 关键词,到底哪种更准?</h1>
+    <div class="meta">2026-06-22 · 文书查 · 面向法律 AI 工程师与法律科技团队</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">做类案检索的团队,几乎都在同一个路口纠结过:<strong>到底是用关键词(BM25)还是语义向量(embedding)?</strong>有人发现纯关键词漏掉了换个说法的类案,转头全押向量;又发现向量把"看起来很像、其实判得完全相反"的案子也召回了,信心崩塌。两边都踩过坑之后才明白:这道题的正确答案不是二选一,而是<strong>理解法律文本到底"特殊"在哪里</strong>——一旦想清楚这点,该用混合检索、该在哪一步加重排、为什么必须回链原文,全都顺理成章。本文就从法律文本特性讲到生产级类案检索 API 的完整架构。</p>
+
+      <h2>一、先说结论:这不是二选一</h2>
+      <p>关键词和向量不是竞争关系,是<strong>互补关系</strong>。它们各自擅长一类召回,也各自有一类必然翻车的场景。生产里真正能用的类案检索,是把两路召回融合、再加一层重排把结果排对——而最后,无论用什么算法,每条结果都得能<strong>点回原文核对</strong>。下面拆开讲为什么。</p>
+
+      <h2>二、法律文本特殊在哪:三条决定一切的特性</h2>
+      <p>不理解这三点,选型就是在拍脑袋:</p>
+      <h3>1. 关键差异常常藏在"数字和法条号"里</h3>
+      <p>两份判决,正文九成相似,差别只在"判二倍赔偿"还是"判经济补偿"、是否适用了某一条司法解释。对人来说这是天壤之别,对通用向量模型来说,这点差异在几百维空间里可能几乎被抹平。<strong>语义相似 ≠ 裁判后果相似</strong>,这是法律检索最容易翻车的地方。</p>
+      <h3>2. 术语高度专属,且差之毫厘谬以千里</h3>
+      <p>"违法解除"和"经济性裁员"、"表见代理"和"无权代理"、"定金"和"订金"——这些词在通用语料里可能被压得很近,但裁判结果完全不同。法律检索需要的是<strong>领域适配的表示</strong>,而不是开放域 embedding 的"差不多就行"。</p>
+      <h3>3. 案由是结构,不是一句话</h3>
+      <p>"民间借贷纠纷""劳动合同纠纷""建设工程施工合同纠纷"是一套有层级的<strong>案由(案由 taxonomy)体系</strong>,本质是结构化标签而非自然语言。最强的过滤信号往往来自结构字段(案由 + 审级 + 法院层级 + 时间),而不是把整段文本丢进向量里硬算相似度。</p>
+
+      <h2>三、关键词检索(BM25):什么时候是它最强</h2>
+      <p>关键词检索基于词项精确匹配与统计权重(BM25/TF-IDF),它的强项恰恰是向量的弱项:</p>
+      <table>
+        <thead><tr><th>场景</th><th>关键词检索表现</th></tr></thead>
+        <tbody>
+          <tr><td><strong>按案号 / 法条号查</strong></td><td>✅ 精确命中,不可替代</td></tr>
+          <tr><td><strong>专有术语、当事人名、机构名</strong></td><td>✅ 准,且可解释(命中哪个词一目了然)</td></tr>
+          <tr><td><strong>必须包含某个法定要素</strong></td><td>✅ 可强约束(must 包含)</td></tr>
+          <tr><td><strong>换了说法的同义类案</strong></td><td>❌ 漏召(没出现该词就搜不到)</td></tr>
+          <tr><td><strong>只描述了情节、没用法言法语</strong></td><td>❌ 召回差(用户口语 ≠ 判决用词)</td></tr>
+        </tbody>
+      </table>
+      <p>一句话:<strong>关键词在"精确"和"可解释"上无可替代,但它召不回换了说法的类案。</strong>律师常用法言法语检索时它很好用;但当输入是当事人对情节的口语描述时,它会大量漏召。</p>
+
+      <h2>四、语义向量检索(embedding):它补什么、又会怎么翻车</h2>
+      <p>向量检索把文本编码成稠密向量,用相似度召回语义接近的判决。它补的正是关键词的盲区:</p>
+      <ul>
+        <li><strong>同义 / 近义召回</strong>:"被公司变相逼走"能召回到"未协商一致调岗降薪""未提供劳动条件"等法律表述的类案。</li>
+        <li><strong>口语 → 判决用词的跨越</strong>:用户写"老板拖着不发工资还把我开了",能召回拖欠劳动报酬 + 违法解除的判决。</li>
+        <li><strong>情节相似但措辞不同</strong>:把争议焦点相近的案子拉到一起,这是关键词做不到的。</li>
+      </ul>
+      <p>但纯向量会在三个地方翻车,且都很隐蔽:</p>
+      <table>
+        <thead><tr><th>翻车场景</th><th>为什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>精确点失准</strong></td><td>案号、法条号、金额这类需要精确匹配的,向量会"近似"而非命中</td></tr>
+          <tr><td><strong>伪类案</strong></td><td>正文九成像、关键裁判后果相反的判决被排到前面(最危险)</td></tr>
+          <tr><td><strong>通用模型术语压缩</strong></td><td>违法解除 vs 经济性裁员被通用 embedding 拉近,召回不分</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>工程提醒</strong>:别直接拿通用 embedding 模型上法律类案检索。要么用法律领域语料适配过的表示,要么至少叠加<strong>结构化字段过滤</strong>(先用案由/审级/时间把候选集圈对)再算语义相似度,否则"伪类案"会大量混进前排,而且它们看起来特别像,最难被发现。</p>
+      </div>
+
+      <h2>五、生产级答案:混合检索 + 重排 + 回链</h2>
+      <p>把上面两节合起来,成熟的类案检索 API 通常是这样一条流水线:</p>
+      <ol>
+        <li><strong>结构化预过滤</strong>:先用案由、审级、法院层级、时间范围把搜索空间圈到对的子集——这一步砍掉大量噪声,也是法律检索独有的强信号。</li>
+        <li><strong>两路并行召回</strong>:关键词(BM25)一路保精确与可解释,向量一路保同义与情节相似,各取 top-N。</li>
+        <li><strong>融合 + 重排(rerank)</strong>:把两路候选合并,用重排模型(cross-encoder)对"查询—判决"对逐一打分,把真正相关的排上去、把伪类案压下去。重排是纠正纯向量"看起来像"的关键一环。</li>
+        <li><strong>回链原文</strong>:每条结果带案号 + 可点开的原文链接,供律师核对裁判要旨、审级与是否生效。</li>
+      </ol>
+      <p>调用形态大致如下(<strong>结构示意,字段以接口文档为准</strong>):</p>
+      <pre><code># Python 示例:类案检索(混合检索 + 结构化过滤)
+import requests
+
+resp = requests.post(
+    "https://tob.wenshucha.com/api/v1/similar-cases",
+    headers={"Authorization": "Bearer &lt;你的 key&gt;"},
+    json={
+        "query": "公司未协商一致单方调岗降薪,员工被迫离职主张违法解除",
+        "filters": {"cause": "劳动合同纠纷", "trial_level": "二审"},
+        "mode": "hybrid",      # keyword | vector | hybrid
+        "rerank": True,
+        "size": 10
+    },
+)
+for hit in resp.json().get("data", []):
+    print(hit["case_no"], hit["court"], hit["score"], hit["url"])
+</code></pre>
+      <p>关键不是某个参数,而是这条链路的设计:<strong>结构过滤定边界、双路召回保全面、重排保精度、回链保可信。</strong>四者缺一,生产里都会出问题。</p>
+
+      <h2>六、评测:别只看"召回了多少",要看"前几条对不对"</h2>
+      <p>类案检索的好坏不是靠感觉,得用工程指标量:</p>
+      <ul>
+        <li><strong>Recall@K</strong>:真正的类案有没有进到前 K 条候选(衡量召回够不够全)。</li>
+        <li><strong>nDCG@10 / MRR</strong>:相关的有没有排在前面(衡量排序对不对,律师只看前几条)。</li>
+        <li><strong>伪类案率</strong>:前排里"看着像、判得反"的比例——这是法律检索特有、也是最该盯的反向指标。</li>
+      </ul>
+      <p>建一个小而真实的评测集(让懂业务的人标几十个查询的"正确类案"),每次改算法都跑一遍。<strong>没有评测集的调优都是自我安慰。</strong>这套方法论和我们在 <a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型</a> 里讲的"先验证再扩量"是一脉相承的。</p>
+
+      <h2>七、自建还是接 API:看你卡在数据还是算法</h2>
+      <p>混合检索 + 重排这套算法本身,有经验的团队两三周能搭起来。真正的瓶颈几乎总在<strong>数据底座</strong>:</p>
+      <table>
+        <thead><tr><th></th><th>自建(裸爬数据)</th><th>接类案检索 API</th></tr></thead>
+        <tbody>
+          <tr><td><strong>数据覆盖</strong></td><td>不可表征(爬到哪算哪)</td><td>全量 1.7 亿+,可表征</td></tr>
+          <tr><td><strong>结构化字段</strong></td><td>要自己抽,质量难保</td><td>案号/案由/审级/当事人脱敏/结果已结构化</td></tr>
+          <tr><td><strong>去重 / 同案多版</strong></td><td>自己处理,易污染</td><td>已做去重与版本归并</td></tr>
+          <tr><td><strong>回链原文</strong></td><td>链接不稳定</td><td>稳定标识 + 可点回链</td></tr>
+          <tr><td><strong>上手速度</strong></td><td>数月起</td><td>试用 key 当天接通</td></tr>
+        </tbody>
+      </table>
+      <p>如果你已经有干净、去重、结构化、且<strong>授权可商用</strong>的全量底座,自建是合理的;多数团队没有,这时接一个把脏活累活做完的类案检索 API 更快——而且能先用试用 key 在你真实的几个查询上验证召回质量,再决定扩量。</p>
+      <div class="callout">
+        <p><strong>数据不出域怎么办?</strong> 对律所、法院、检察院、政府,云端 API 适合验证与中小用量;涉密数据不能出内网时,正确路径是先用 API 验证检索质量,再上<a href="/#onpremise">私有化离线部署</a>——全量裁判文书 + 检索引擎 + 模型都跑在内网,混合检索这套链路同样适用。</p>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:只用向量检索行不行?省得维护两套。</p>
+      <p>A:不建议。你会在案号/法条号精确查询和"伪类案"上持续翻车,而这两类恰恰是法律场景的高频与高危。混合检索多维护的成本,远低于伪类案带来的信任崩塌。</p>
+      <p class="faq-q">Q:重排模型一定要吗?</p>
+      <p>A:强烈建议。双路召回保证了"该有的都在候选里",但排序往往不对;重排是把相关的排上来、伪类案压下去最有效的一步,对律师只看前几条的使用习惯尤其重要。</p>
+      <p class="faq-q">Q:用大模型直接做检索不就行了?</p>
+      <p>A:大模型负责理解查询和归纳结果,但它不该负责"记住判例"——那正是它会编案号的根源。正确分工是:检索系统找真实判决并回链,大模型在检索到的真实内容上作答。详见 <a href="/blog/wenshucha-mcp-claude-desktop-setup.html">用 MCP 把裁判文书接进 AI</a>。</p>
+      <p class="faq-q">Q:输入是当事人口语描述,检索效果会差吗?</p>
+      <p>A:这正是向量那一路的价值——把口语映射到法律表述。配合结构化过滤(先圈对案由)效果更稳。建议在评测集里专门放一批口语查询单独看指标。</p>
+
+      <div class="cta-box">
+        <h3>申请试用 key,在你真实的查询上验证类案召回</h3>
+        <p>提交团队与用途,1 个工作日内发放试用 key;先在自己的几个真实案子上跑混合检索,看召回与回链是否够用,再决定扩量或私有化离线部署。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 试用申请 <a href="https://paileme.wenshucha.com/tob/api-trial" style="color:var(--accent-2)" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/wenshucha-mcp-claude-desktop-setup.html">5 分钟把文书查接入 Claude Desktop(MCP 实战)</a> · <a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型:文书查 vs 北大法宝 vs 无讼 vs Alpha</a> · <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统:从数据到模型到法官界面</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
