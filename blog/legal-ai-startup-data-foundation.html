@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 创业团队怎么选数据底座:自建爬库还是接授权库?(2026 创业 CTO 决策指南)| 文书查</title>
+  <meta name="description" content="法律 AI 创业团队最早、也最被低估的一个技术决策,是选什么数据底座。本文从创业 CTO 视角讲清:为什么 per-seat 的人读型法律库不能当产品底座、自建爬库的隐藏成本(覆盖、合法性、结构、维护)、接授权结构化语料 vs 自己爬的逐项对比、以及一张按团队阶段选型的决策表。面向法律 AI 创业团队 CTO 与技术合伙人。" />
+  <meta name="keywords" content="法律科技数据源,法律 AI 数据底座,法律大模型训练数据,裁判文书数据 API,法律 AI 创业,自建爬库 vs 授权库,法律 RAG 数据,法律科技选型,裁判文书数据授权" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-startup-data-foundation.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 创业团队怎么选数据底座:自建爬库还是接授权库?(2026)" />
+  <meta property="og:description" content="创业 CTO 视角:为什么人读型法律库不能当产品底座、自建爬库的隐藏成本、授权结构化语料 vs 自爬的逐项对比,与一张按阶段选型决策表。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-startup-data-foundation.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 创业团队怎么选数据底座:自建爬库还是接授权库?(2026)",
+    "description": "面向法律 AI 创业团队 CTO,讲清为什么人读型法律库不能当产品底座、自建爬库的隐藏成本,以及授权结构化语料与自爬的逐项对比和按阶段的选型决策。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-25",
+    "dateModified": "2026-06-25",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-startup-data-foundation.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 创业,数据底座应该自己爬还是买授权?",
+        "acceptedAnswer": { "@type": "Answer", "text": "取决于数据是不是你的差异化所在。如果你的护城河是产品体验、垂直工作流或某个细分场景的算法,那么把工程力花在爬虫、清洗、去重和合规维护上是亏的——这部分高成本、低差异化,接一份授权好的结构化语料更划算,把人手留给真正决定胜负的产品层。只有当数据本身就是你要卖的东西、且你打算长期投入一支数据团队时,自建才成立。多数早期团队的现实答案是:产品层自建,语料层授权。" }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么北大法宝、威科这类法律库不能直接当 AI 产品的数据底座?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为它们是按席位(per-seat)卖给律师人读的检索产品,不是按授权(license)卖给开发者机器消费的结构化语料。人读型库优化的是网页检索体验,通常不提供可批量摄取、带结构化字段、可回链、可每日同步的数据接口,授权条款也多不允许把内容灌进你自己的模型或 RAG 库。这是 access model 与 license 的错配,不是内容质量问题——它们是优秀的律师工具,却不是合适的产品底座。" }
+      },
+      {
+        "@type": "Question",
+        "name": "自己爬裁判文书,隐藏成本主要在哪?",
+        "acceptedAnswer": { "@type": "Answer", "text": "四块:一是覆盖,公开渠道收紧、各地法院格式不一,你很难知道自己漏了什么、漏了多少,而覆盖缺口无法表征就等于结论不可信;二是合法性,绕过授权批量抓取存在合规风险,涉密与个人信息处理还受《数据安全法》《个人信息保护法》约束;三是结构,原始判决是高度格式化但元数据藏在正文里的长文本,要抽成案号/法院/案由/判项等可检索字段才能用,一条对 99% 文书成立的规则,在上亿量级上仍会错几百万条;四是维护,数据会持续更新、格式会漂移,爬库是一个永远停不下来的工程,不是一次性任务。" }
+      },
+      {
+        "@type": "Question",
+        "name": "早期团队验证 MVP 阶段,数据底座该怎么起步?",
+        "acceptedAnswer": { "@type": "Answer", "text": "先用 API/MCP 接一份小而真的结构化样本快速跑通产品闭环,验证用户是否真的为这个场景买单,而不是一上来就投人爬全量库。等产品方向被验证、要进生产时,再评估是要全量授权、还是在某个垂直领域自建。把'要不要自建数据团队'这种重决策,推迟到你确认数据真是你的差异化之后再做。文书查提供 1.7 亿+ 篇结构化、可回链的裁判文书语料,支持 REST API、MCP 与批量授权三种交付,可先申请试用 key 跑通再谈规模。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 创业团队怎么选数据底座</div>
+    <h1>法律 AI 创业团队怎么选数据底座:自建爬库还是接授权库?</h1>
+    <div class="meta">2026-06-25 · 文书查 · 面向法律 AI 创业团队 CTO 与技术合伙人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">几乎每一个法律 AI 创业团队,在写第一行产品代码之前,都要先回答一个看似技术、实则决定生死的问题:<strong>数据从哪来?</strong>这道题答错了,后面再聪明的模型、再漂亮的界面都救不回来——因为法律 AI 的可信度,归根结底押在它身后那批判决数据上。本文不谈具体产品对比(那是<a href="/blog/legal-data-platform-comparison-2026.html">选型对比文</a>的事),而是站在<strong>创业 CTO</strong>的角度,把「自己爬一个库」和「接一份授权库」这道 build-vs-buy 的题彻底拆开:人读型法律库为什么不能当产品底座、自建爬库的真实成本藏在哪、以及按你团队所处的阶段,到底该怎么选。</p>
+
+      <h2>一、先分清两种「法律数据」:人读的库 vs 机器吃的语料</h2>
+      <p>很多技术合伙人第一反应是「市面上不是有北大法宝、威科先行这些库吗,接一个不就行了」。这里有一个根本性的错配:<strong>这些产品是按席位(per-seat)卖给律师「人读」的检索工具,不是按授权(license)卖给开发者「机器消费」的结构化语料。</strong></p>
+      <p>两者优化的目标完全不同:</p>
+      <table>
+        <thead><tr><th>维度</th><th>人读型法律库(per-seat)</th><th>产品底座要的语料(license)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>买给谁用</strong></td><td>律师,人坐在网页前检索</td><td>你的程序,批量摄取进模型/RAG 库</td></tr>
+          <tr><td><strong>交付形态</strong></td><td>网页检索界面、账号席位</td><td>批量数据集 + API + 增量同步</td></tr>
+          <tr><td><strong>数据结构</strong></td><td>面向阅读排版,字段不对外开放</td><td>案号/法院/案由/判项等结构化字段</td></tr>
+          <tr><td><strong>授权条款</strong></td><td>通常禁止灌入你自己的模型/产品</td><td>明确授予摄取与再加工权利</td></tr>
+          <tr><td><strong>可回链溯源</strong></td><td>人工点击查看</td><td>每条结果带稳定 ID 回链原文</td></tr>
+        </tbody>
+      </table>
+      <p>结论很直接:人读型库是<strong>优秀的律师工具,却是错误的产品底座</strong>。你拿它当后端,要么授权不允许、要么拿不到结构化字段、要么没法批量和每日同步——这不是内容质量问题,是 access model 和你的需求根本不匹配。所以「接一个现成法律库」这条路,对做产品的团队多半走不通。真正的选择,落在下面这两条上。</p>
+
+      <h2>二、路线 A:自己爬一个库——以及它藏起来的四笔账</h2>
+      <p>「裁判文书不是公开的吗?写个爬虫抓下来不就有了?」——这是最常见、也最危险的乐观。免费只是表象,自建爬库的真实成本藏在四个地方,每一个都能拖垮一个早期团队。</p>
+      <h3>1)覆盖:你不知道自己漏了什么</h3>
+      <p>公开渠道近年持续收紧,各地法院上网比例、保留时长、格式都不一致。你抓到一堆判决,但<strong>无法回答「这批数据完整到什么程度、漏了哪些案由和地区」</strong>。而覆盖缺口一旦无法表征,基于它算出来的任何统计、训练出来的任何模型,结论都站不住——用户问「为什么这类案件你只有这么几条」,你答不上来。</p>
+      <h3>2)合法性:绕过授权批量抓取是有风险的</h3>
+      <p>绕开授权大规模抓取、再把内容商用,存在实打实的合规风险;涉及当事人信息、涉密案件时,还要受《数据安全法》《个人信息保护法》约束。早期为了省一笔授权费埋下的法律风险,在你拿融资、做尽调、签大客户时会被翻出来,代价远高于当初省下的钱。</p>
+      <h3>3)结构:原始判决不是「能用的数据」</h3>
+      <p>判决书是高度格式化、但元数据藏在正文里的长文本。要变成产品能用的东西,得把案号、法院层级、案由、引用法条、判项结果都抽成可检索字段,还要去重(同一纠纷的一审/二审/再审、转载副本要合并)。这件事的魔鬼在规模:<strong>一条对 99% 文书都成立的清洗规则,在上亿量级上仍会错几百万条。</strong>这套结构化与去重的工程,我们在<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库的技术架构</a>里拆得很细——它比写爬虫难得多。</p>
+      <h3>4)维护:这是一条永远停不下来的流水线</h3>
+      <p>数据每天都在新增,格式会漂移,法院网站会改版。爬库不是「抓一次就完事」的一次性任务,而是一支团队要长期养着的基础设施。对一个本该把全部火力压在产品上的早期团队,这是最容易被低估、也最伤的一笔持续支出。</p>
+      <div class="callout">
+        <p><strong>一句话判断:</strong>清洗、去重、字段抽取、合规维护这几层,是<strong>「成本高、但几乎不带来差异化」</strong>的脏活——两个团队就算用同一批判决,最后比的也是产品和场景,而不是谁把文本洗得更干净。把工程力压在这种地方,对早期团队往往是亏的。</p>
+      </div>
+
+      <h2>三、路线 B:接一份授权好的结构化语料</h2>
+      <p>另一条路,是把上面那四笔脏账外包出去:直接授权一份<strong>已经清洗、去重、结构化、可回链、可每日同步</strong>的语料,自己只搭产品。它把「覆盖、合法性、结构、维护」这四个最耗人的层一次性解决,换来的代价是一笔授权费和对供应商的依赖。</p>
+      <p>对早期团队,这条路的吸引力在于它<strong>反转了资源分配</strong>:本来要拿去养数据团队的人手,全部留给真正决定胜负的产品层——垂直工作流、检索体验、某个细分场景的算法。判断一份语料够不够格当底座,看四个硬指标:</p>
+      <ul>
+        <li><strong>是不是 license 而非 per-seat</strong>:授权条款明确允许你把数据摄取进自己的模型/产品,而不是只给账号看。</li>
+        <li><strong>是不是结构化 + 可回链</strong>:给的是带字段、带稳定 ID、能点回原判决的数据,而不是一堆纯文本。可回链是法律 AI 能不能溯源的命根子。</li>
+        <li><strong>交付形态够不够灵活</strong>:批量数据集(灌库/训练)、REST API(线上查询)、MCP(接 AI 助手)、增量同步(保持新鲜)——按你的阶段挑组合。</li>
+        <li><strong>覆盖可表征、来源合法</strong>:供应商能说清覆盖范围,数据来源经得起尽调。</li>
+      </ul>
+      <p>文书查提供的正是这样一份底座:<strong>1.7 亿+ 篇</strong>结构化、去重、可回链的裁判文书语料,支持 REST API、<a href="/blog/wenshucha-mcp-claude-desktop-setup.html">MCP</a> 与批量授权三种交付。检索那一层怎么做得准(语义+关键词混合召回),我们在<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a>里讲透了——你接的是底座,产品的检索体验仍然由你自己掌控。</p>
+
+      <h2>四、自建 vs 授权:逐项对比</h2>
+      <table>
+        <thead><tr><th>维度</th><th>自建爬库</th><th>接授权结构化语料</th></tr></thead>
+        <tbody>
+          <tr><td><strong>首日成本</strong></td><td>看着「免费」</td><td>一笔授权费</td></tr>
+          <tr><td><strong>真实总成本</strong></td><td>爬虫+清洗+去重+合规+长期维护团队</td><td>授权费 + 极少对接成本</td></tr>
+          <tr><td><strong>覆盖可表征</strong></td><td>难,不知道漏了什么</td><td>供应商给覆盖说明</td></tr>
+          <tr><td><strong>合规风险</strong></td><td>批量抓取+商用,风险自担</td><td>授权方承担来源合规</td></tr>
+          <tr><td><strong>数据新鲜度</strong></td><td>靠自己持续重爬</td><td>增量同步,每日更新</td></tr>
+          <tr><td><strong>上线速度</strong></td><td>数月起步</td><td>试用 key 当天就能跑</td></tr>
+          <tr><td><strong>差异化贡献</strong></td><td>低(同行都能爬到)</td><td>把人手腾给产品层=高</td></tr>
+          <tr><td><strong>适合谁</strong></td><td>数据本身就是你要卖的核心、且养得起数据团队</td><td>差异化在产品/场景/算法的多数团队</td></tr>
+        </tbody>
+      </table>
+      <p>这张表的落点不是「授权一定比自建好」,而是<strong>「数据是不是你的差异化」决定了你该把工程力放哪</strong>。如果你卖的就是数据本身、并打算长期投入一支数据团队,自建成立;否则,接底座、做产品,是更理性的早期选择。这套判断逻辑,和海外法律 AI 厂商面对中国判例时的 <a href="/blog/law-firm-ai-procurement-pitfalls.html">build-vs-buy</a> 取舍是同一个道理。</p>
+
+      <h2>五、按阶段选:一张给 CTO 的决策表</h2>
+      <p>不必一上来就做终局决策。按团队所处阶段,数据底座的选法是不同的:</p>
+      <table>
+        <thead><tr><th>阶段</th><th>首要目标</th><th>数据底座怎么选</th></tr></thead>
+        <tbody>
+          <tr><td><strong>验证 MVP</strong></td><td>确认用户为这个场景买单</td><td>用 API/MCP 接小而真的结构化样本,快速跑通闭环,别投人爬全量</td></tr>
+          <tr><td><strong>产品打磨</strong></td><td>把检索/研判体验做扎实</td><td>全量授权语料 + 自建检索/重排层,体验掌握在自己手里</td></tr>
+          <tr><td><strong>规模化</strong></td><td>稳定、新鲜、可控成本</td><td>批量授权 + 增量同步;高频场景考虑缓存/本地化</td></tr>
+          <tr><td><strong>涉密/政企客户</strong></td><td>数据不出域、过等保</td><td>转私有化离线部署,数据与模型都在客户内网</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>给 CTO 的一条原则:</strong>把「要不要自建数据团队」这种重决策,<strong>尽量往后推</strong>,推到你用真实用户验证过「数据确实是我的差异化」之后再做。早期最贵的不是授权费,是把宝贵的工程人手投错了地方。先接底座跑通产品,永远比先花半年爬一个库、最后发现产品方向不对要划算。</p>
+      </div>
+
+      <h2>六、选供应商照着问这 6 条</h2>
+      <div class="callout">
+        <p>把这几条发给候选数据供应商,一轮就能问出谁能真当底座:</p>
+        <ol>
+          <li>授权模式是 license(允许摄取进我的模型/产品)还是 per-seat?条款能否覆盖商用与再加工?</li>
+          <li>给的是结构化数据(案号/法院/案由/判项字段)还是纯文本?每条能否回链原判决?</li>
+          <li>覆盖范围怎么表征?哪些案由/地区/年份全、哪些缺?来源是否经得起尽调?</li>
+          <li>交付支持哪几种:批量数据集 / REST API / MCP / 增量同步?能否先给试用 key?</li>
+          <li>数据多久更新一次?增量同步怎么做?</li>
+          <li>涉密/政企场景能否转私有化离线部署、过等保?</li>
+        </ol>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:我们就是想做「中国版某海外法律 AI」,数据自己爬不行吗?</p>
+      <p>A:能爬到一些,但你会卡在覆盖不可表征、结构化成本、合规风险和永续维护这四关上。海外同类公司面对本国判例同样在做 build-vs-buy 取舍,多数选择授权语料、自建产品。除非数据就是你要卖的核心资产,否则把这几关外包出去更理性。</p>
+      <p class="faq-q">Q:授权一份语料,会不会被供应商「锁死」?</p>
+      <p>A:这正是选型时要看交付形态是否灵活的原因。优先选同时提供批量数据集 + API + MCP 的供应商:批量授权让数据落在你自己的库里、训练你自己的模型,而不是只能调它的在线接口。底座在你手里,产品和模型的主权就在你手里。</p>
+      <p class="faq-q">Q:数据底座选好了,检索和研判还要自己做吗?</p>
+      <p>A:要,而且这正是你的差异化所在。底座解决「有没有干净可用的数据」,检索召回、重排、研判逻辑、产品体验仍然由你构建——这是你区别于同行的地方。底座是地基,楼还得自己盖。</p>
+
+      <div class="cta-box">
+        <h3>先用试用 key 跑通你的产品闭环</h3>
+        <p>告诉我们你做的法律 AI 场景与大致规模,1 个工作日内反馈方案,先给一份结构化、可回链的样本数据与试用 API/MCP key,让你在自己的产品里实测召回与溯源效果。验证阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 了解 <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP 与数据授权</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-platform-comparison-2026.html">文书查 vs 北大法宝 vs Alpha:全维度对比</a> · <a href="/blog/wenshucha-mcp-claude-desktop-setup.html">5 分钟接入 MCP</a> · <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
