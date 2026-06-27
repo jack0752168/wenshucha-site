@@ -53,8 +53,14 @@
   <!-- 洞察 / 博客(SEO 长文) -->
   <url>
     <loc>https://wenshucha.com/blog/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wenshucha.com/blog/judgment-api-integration-python-nodejs.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
