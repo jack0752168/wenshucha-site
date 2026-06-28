@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)| 文书查</title>
+  <meta name="description" content="政府、法院、国企的法律 AI 项目越来越要求信创合规——国产 CPU(鲲鹏/飞腾/海光)、国产操作系统(麒麟/统信 UOS)、国产数据库(达梦/人大金仓/openGauss)、国产算力卡(昇腾)。本文讲清信创栈每一层对法律大模型与裁判文书库私有化部署意味着什么、适配真正的难点在哪(尤其是大模型推理上国产算力卡的模型转换)、信创+等保双合规怎么过,以及一份给信息中心主任的信创适配选型清单。" />
+  <meta name="keywords" content="信创 法律 AI,法律 AI 国产化,信创适配,法律大模型 信创,麒麟操作系统 法律 AI,鲲鹏 飞腾 大模型,昇腾 法律大模型,达梦数据库 裁判文书,政务云 法律 AI,信创 私有化部署" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)" />
+  <meta property="og:description" content="信创栈每一层对法律大模型与裁判文书库私有化部署意味着什么、适配的真正难点(国产算力卡模型转换)、信创+等保双合规怎么过,以及一份信创适配选型清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)",
+    "description": "面向政府、法院、国企与大律所信息中心的信创合规法律 AI 私有化部署指南:国产 CPU/OS/数据库/算力卡每层的适配含义、大模型推理在国产算力卡上的真实难点、信创+等保双合规路径与适配选型清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-28",
+    "dateModified": "2026-06-28",
+    "mainEntityOfPage": "https://wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "什么是信创?法律 AI 项目为什么要管信创?",
+        "acceptedAnswer": { "@type": "Answer", "text": "信创即信息技术应用创新,核心是把 IT 基础设施从底层国产化替代——CPU、操作系统、数据库、中间件、整机到算力卡都用国产自主可控的产品。对政府、法院、检察院和大量国企,信创已经是采购的硬性门槛:招标文件会明确要求适配国产 CPU(鲲鹏/飞腾/海光)、国产操作系统(麒麟/统信 UOS)、国产数据库(达梦/人大金仓/openGauss)。所以法律 AI 系统能不能在信创栈上跑起来,往往不是加分项,而是入围资格本身——跑不了就直接出局。" }
+      },
+      {
+        "@type": "Question",
+        "name": "法律大模型能在国产算力卡上推理吗?难点在哪?",
+        "acceptedAnswer": { "@type": "Answer", "text": "能,但这是整个信创适配里最难的一层。难点不在硬件本身,而在生态:主流大模型和向量检索都是围绕 CUDA 生态训练和优化的,迁到昇腾这类国产算力卡上需要做模型转换(到对应的推理框架/算子库),要逐个验证算子是否支持、精度是否对齐、长上下文与并发吞吐能不能扛住实际检索问答负载。这一步不能想当然——必须用你真实的法律问答与类案检索场景做实测压测,而不是看一个跑通的 demo 就拍板。" }
+      },
+      {
+        "@type": "Question",
+        "name": "信创合规和等保三级是一回事吗?要分别过吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不是一回事,通常要分别满足。信创解决的是基础设施自主可控(国产 CPU/OS/数据库/算力卡),等保解决的是网络安全等级保护合规(身份认证、访问控制、日志审计、数据加密、安全区域划分)。政企的法律 AI 项目往往两者都要:既要跑在信创栈上,又要过等保三级测评。两套要求有重叠(都强调可控、可审计),但验收口径不同,选型时要把两份清单并起来看,别只盯一边。" }
+      },
+      {
+        "@type": "Question",
+        "name": "1.7 亿裁判文书库能整套落到信创环境的本地机房吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "可以。私有化部署的本意就是把数据和模型整套落到客户内网,信创只是把底座换成国产软硬件。裁判文书库与检索能力适配到国产数据库(达梦/人大金仓/openGauss)和国产存储后,在内网提供同样的检索 API/MCP 接口形态;大模型与向量检索适配到国产算力卡。数据不出域、自主可控、可审计,正好契合涉密政企对私有化的核心诉求。具体适配范围和工期需结合你方的信创栈型号一事一议。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 信创环境下的法律 AI 私有化部署</div>
+    <h1>信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)</h1>
+    <div class="meta">2026-06-28 · 文书查 · 面向政府 / 法院 / 国企 / 大律所信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">越来越多的法律 AI 招标里,出现了一句话:"须适配信创环境"。对政府、法院、检察院和很多国企,这不是加分项,而是<strong>入围资格本身</strong>——系统能不能在国产 CPU、国产操作系统、国产数据库、国产算力卡上跑起来,直接决定你方案进不进得了门。这篇是写给信息中心主任和技术负责人的:把信创栈一层一层拆开,讲清每层对一套"法律大模型 + 1.7 亿裁判文书库"私有化部署到底意味着什么、适配真正卡人的难点在哪、信创和等保两套合规怎么一起过,最后给一份能直接拿去对照招标文件的适配选型清单。</p>
+
+      <h2>一、先说清楚:信创管的是什么</h2>
+      <p>信创(信息技术应用创新)的本质,是把 IT 基础设施从底层做<strong>国产自主可控替代</strong>。它不是某一个产品,而是一整条技术栈的国产化要求。对法律 AI 这种"大模型 + 大数据"的系统,信创会逐层落到下面这些环节:</p>
+      <table>
+        <thead><tr><th>信创层</th><th>国产代表(示意,非穷举)</th><th>对法律 AI 系统意味着什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CPU / 整机</strong></td><td>鲲鹏、飞腾(ARM 架构)、海光(x86 兼容)</td><td>架构可能从 x86 换到 ARM,所有服务端组件要在目标架构上重新编译/验证</td></tr>
+          <tr><td><strong>操作系统</strong></td><td>麒麟(银河麒麟/中标麒麟)、统信 UOS</td><td>依赖库、运行时、容器底座要在国产 OS 上跑通,不能假设是标准 CentOS/Ubuntu</td></tr>
+          <tr><td><strong>数据库</strong></td><td>达梦、人大金仓、openGauss、GBase</td><td>裁判文书的元数据/检索索引落到国产数据库,SQL 方言、全文检索、性能要重新调</td></tr>
+          <tr><td><strong>算力卡(AI 加速)</strong></td><td>昇腾(NPU)等国产加速卡</td><td>大模型推理 + 向量检索要从 CUDA 生态迁过来,这是最难的一层(见第三节)</td></tr>
+          <tr><td><strong>中间件 / 整体</strong></td><td>国产应用服务器、消息中间件、政务云底座</td><td>部署形态从"裸金属/通用云"变成"信创整机 + 政务云",交付边界要重画</td></tr>
+        </tbody>
+      </table>
+      <p>关键认知:信创不是"把软件装到一台国产服务器上"这么简单,它是<strong>把整条栈换底</strong>。换底之后,一套原本在 x86 + 标准 Linux + CUDA + PostgreSQL 上跑得好好的法律 AI,可能每一层都要重新适配验证。把这件事当成"换台机器"去报工期,几乎必然踩坑。</p>
+
+      <h2>二、数据层:裁判文书库落到国产数据库</h2>
+      <p>法律 AI 的根是数据。一套裁判文书私有库,适配到信创主要是两件事:</p>
+      <ul>
+        <li><strong>结构化元数据 + 检索索引迁到国产数据库。</strong>案号、法院、年份、案由、当事人、判决结果这些结构化字段,以及支撑过滤检索的索引,要从原数据库迁到达梦/人大金仓/openGauss。迁移本身不难,难在<strong>全文检索与复杂过滤的性能</strong>——千万级、亿级判决上按案由+法院层级+年份多维过滤,索引策略和查询计划往往要重新调,不能照搬原库的优化经验。</li>
+        <li><strong>海量原文与向量落到国产存储。</strong>判决全文、脱敏后的文本、以及类案检索用的向量,要落到国产存储/向量方案上。向量检索这一块和算力卡强相关,放到下一节一起说。</li>
+      </ul>
+      <div class="callout">
+        <p><strong>一个常被低估的点:</strong>国产数据库的 SQL 方言、函数、全文检索能力和你熟悉的库不完全一致。把一套依赖特定数据库特性的检索逻辑直接搬过去,很容易出现"功能跑通了但慢了一个数量级"。亿级裁判文书库的信创适配,数据库调优是真正吃工期的地方,要留足验证时间。</p>
+      </div>
+
+      <h2>三、最难的一层:大模型推理迁到国产算力卡</h2>
+      <p>如果说信创适配有一个真正的"硬骨头",就是把法律大模型和向量检索从 CUDA 生态迁到昇腾这类国产算力卡上。难点不在硬件性能,而在<strong>生态</strong>:</p>
+      <ul>
+        <li><strong>模型要做转换。</strong>主流开源大模型和 embedding 模型基本都是围绕 CUDA 训练和优化的。迁到国产算力卡,要把模型转换到对应的推理框架/算子库,这一步要逐个验证<strong>算子是否支持、精度是否对齐</strong>——个别算子不支持或精度漂移,可能让回答质量悄悄下降。</li>
+        <li><strong>性能要按真实负载实测。</strong>法律问答和类案检索的负载特征很具体:长上下文(整篇判决塞进去)、高并发(多个法官/律师同时查)、检索+生成串联。一个能跑通的 demo 不等于能扛住真实业务压测。<strong>必须用你自己的真实场景做压测</strong>,看吞吐、首字延迟、并发上限,而不是看厂商给的理论峰值。</li>
+        <li><strong>向量检索同样要迁。</strong>类案检索的向量召回如果也要走国产算力卡加速,同样面临算子和性能的验证问题。这部分容易被漏掉,排适配计划时要单列。</li>
+      </ul>
+      <p>诚实地讲:国产算力卡生态这两年进步很快,但成熟度和 CUDA 生态仍有差距。把法律大模型搬上去是可行的工程任务,但它需要<strong>专门的适配与压测周期</strong>,不能想当然。任何承诺"无缝迁移、零损耗"的说法,都该用你自己的场景去验。</p>
+
+      <h2>四、信创 + 等保:两套合规要一起过</h2>
+      <p>政企的法律 AI 项目,信创往往不是唯一的合规要求。常见的是信创和<strong>网络安全等级保护(等保,多为三级)</strong>叠加。两者解决的问题不同,验收口径也不同:</p>
+      <table>
+        <thead><tr><th>维度</th><th>信创</th><th>等保(三级)</th></tr></thead>
+        <tbody>
+          <tr><td>解决什么</td><td>基础设施<strong>自主可控</strong>(国产 CPU/OS/数据库/算力卡)</td><td>网络安全<strong>等级保护合规</strong></td></tr>
+          <tr><td>关注点</td><td>国产化替代、供应链可控</td><td>身份认证、访问控制、日志审计、数据加密、安全区域划分</td></tr>
+          <tr><td>对法律 AI 的落点</td><td>整条栈换成国产底座</td><td>模型调用要鉴权、检索要留痕、敏感数据要加密、内外网要隔离</td></tr>
+        </tbody>
+      </table>
+      <p>两套要求有重叠——都强调"可控、可审计",但不能假设过了一边就自动过另一边。实操上的建议是:<strong>立项时就把信创清单和等保清单并到一起看</strong>,统一设计身份与权限、日志审计、数据加密和网络分区,避免信创适配做完了、等保测评时又推倒重来。法律数据本身高度敏感(涉及当事人个人信息、案件细节),数据加密与脱敏、调用留痕这些等保要求,本来也是法律 AI 该有的底线。关于保密义务这条线,可参考我们的 <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化部署如何满足客户保密义务</a>。</p>
+
+      <h2>五、部署形态:从通用云到政务云 / 信创整机</h2>
+      <p>信创还会改变交付的"形",而不只是"芯"。常见的落地形态有两类:</p>
+      <ul>
+        <li><strong>信创整机本地部署。</strong>把整套法律 AI 落到客户自有机房的信创整机集群上,数据完全不出域。这是涉密、政法、核心国企最常见的选择,自主可控程度最高。</li>
+        <li><strong>政务云上的信创资源池。</strong>部署在地方政务云提供的信创资源池里,底座由政务云保证国产化,你的系统适配到它提供的国产 OS/数据库/算力资源。这种方式起步快,但要先确认政务云提供的具体型号,适配口径以它为准。</li>
+      </ul>
+      <p>两类形态对应的适配范围、工期、运维边界都不同。立项时第一件事不是选模型,而是<strong>先问清楚甲方的信创栈到底是哪些型号</strong>——CPU 架构、OS 版本、数据库品牌、算力卡型号——这四个答案决定了整个适配方案的形状。这套私有化部署的整体架构,可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p>
+
+      <h2>六、信创适配选型清单(对照招标文件用)</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>底座型号问清了吗?</strong>CPU(鲲鹏/飞腾/海光,ARM 还是 x86 兼容)、OS(麒麟/统信 UOS 及版本)、数据库(达梦/人大金仓/openGauss)、算力卡(昇腾及型号)——四项缺一项都没法准确报方案。</li>
+          <li><strong>大模型在目标算力卡上做过真实压测吗?</strong>要看你自己场景的吞吐/延迟/并发,不看理论峰值;算子支持与精度对齐验证过没有。</li>
+          <li><strong>裁判文书库在国产数据库上的检索性能验证了吗?</strong>亿级数据多维过滤的查询计划重新调过没有。</li>
+          <li><strong>信创清单 + 等保三级清单并到一起看了吗?</strong>身份/权限/审计/加密/分区是否一次设计到位。</li>
+          <li><strong>数据脱敏与回链原文落实了吗?</strong>展示给用户的内容做了脱敏、能回链到原始判决供核对、调用全程留痕。</li>
+          <li><strong>部署形态(信创整机 vs 政务云资源池)与运维边界划清了吗?</strong>谁负责底座、谁负责应用、升级和故障怎么界定。</li>
+          <li><strong>适配工期留足了吗?</strong>换底栈不是换机器,数据库调优 + 算力卡适配压测是真正吃时间的两块,别按通用环境的工期报。</li>
+        </ol>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:我们已经有一套基于通用 GPU 的法律 AI,迁到信创要从头做吗?</p>
+      <p>A:不用从头,但要按层评估。架构层(x86→ARM)、OS、数据库这几层适配相对成熟、路径清晰;真正要重点投入和实测的是大模型/向量检索迁到国产算力卡这一层。建议先做一个小范围的适配验证(POC),用真实场景压一遍,确认质量和性能,再排整体工期。</p>
+      <p class="faq-q">Q:信创环境下,数据安全是不是天然就更好?</p>
+      <p>A:信创解决的是"底座自主可控",不等于数据安全自动达标。数据安全要靠等保那套——加密、脱敏、访问控制、审计——来落实。两者叠加才完整。法律数据敏感度高,这条线不能省。</p>
+      <p class="faq-q">Q:1.7 亿裁判文书库整套迁到信创内网,现实吗?</p>
+      <p>A:现实,这正是私有化部署的本意——数据和模型整套落到客户内网,信创只是把底座换成国产软硬件。具体适配范围、工期与性能,取决于你方的信创栈型号,需要一事一议。</p>
+
+      <div class="cta-box">
+        <h3>信创环境法律 AI 私有化部署咨询</h3>
+        <p>把你方的信创栈型号(CPU / OS / 数据库 / 算力卡)和场景告诉我们,我们给出适配范围评估与 POC 方案,1 个工作日内反馈。先验证再立项。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署:GPU 选型实战</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台:等保三级合规架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
