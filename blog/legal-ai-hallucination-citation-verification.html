@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 幻觉怎么治:裁判文书引证核验落地指南(2026)| 文书查</title>
+  <meta name="description" content="法律大模型最大的落地障碍是幻觉——编造案号、张冠李戴判决结果、把法条记错。这在法律场景里足以让一份意见书报废,甚至让律师被处罚。本文讲清法律 AI 为什么会一本正经地编案例、幻觉的四种典型形态、治理的根(在真实可核验的裁判文书语料上做 RAG grounding + 引证核验),以及验收法律 AI 时怎么实测幻觉率,附一份给信息中心主任的引证核验清单。" />
+  <meta name="keywords" content="法律 AI 幻觉,法律大模型 幻觉,裁判文书引证核验,法律 AI 引用核查,法律大模型 编造案例,法律 AI 可信,RAG 法律,类案检索 引用,法律 AI 验收,法律大模型 落地" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-hallucination-citation-verification.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 幻觉怎么治:裁判文书引证核验落地指南(2026)" />
+  <meta property="og:description" content="法律大模型为什么会编造案例、幻觉的四种典型形态、治理的根(真实语料 RAG grounding + 引证核验),以及验收时怎么实测幻觉率,附一份引证核验清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-hallucination-citation-verification.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 幻觉怎么治:裁判文书引证核验落地指南(2026)",
+    "description": "面向律所信息化负责人、法院技术处与合伙人的法律 AI 幻觉治理指南:法律大模型为什么会编造案号与判决结果、幻觉的四种典型形态、以真实可核验裁判文书语料做 RAG grounding 与引证核验的工程落地,以及验收法律 AI 时的幻觉实测方法与核验清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-29",
+    "dateModified": "2026-06-29",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-hallucination-citation-verification.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律大模型为什么会编造案号和判决结果?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为通用大模型是按“下一个最可能的词”生成文本的,它学到的是判决书“长什么样”的语言规律,而不是某一份判决“是不是真的存在”。当你问它一个具体类案,它会按语言概率拼出一个看起来高度逼真的案号、当事人、裁判要旨——格式完全正确,内容却可能完全是编的。这不是模型“坏了”,而是纯生成式模型的固有特性:它没有一个真实案例库去核对自己说的话。解决幻觉的关键不是换个更大的模型,而是给它接上一个真实、可核验的裁判文书语料,让它的每一句引用都能回链到原文。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "RAG(检索增强生成)能彻底消除法律 AI 幻觉吗?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RAG 能大幅降低幻觉,但不会自动归零。RAG 的逻辑是先从真实语料里检索出相关判决,再让模型基于检索到的内容回答——这把“凭记忆编”变成了“看着真材料答”,是治理幻觉的根。但 RAG 本身仍有两类残留风险:一是检索没召回到对的判决,模型可能又退回去编;二是检索到了对的判决,模型在转述时仍可能把裁判结果说反、把数字记错。所以 RAG 之外还必须叠加引证核验:每一条引用都要校验案号真实存在、回链可打开的原文、并对裁判结果做一致性检查。语料的真实性 + 引证核验,两者一起,才是可信法律 AI 的底盘。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "验收法律 AI 系统时,怎么实测它的幻觉率?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不要看演示,要用你自己的真实问题做盲测抽样核验。可行的做法:准备一批本所/本院真实业务问题,让系统回答并列出它引用的案例和法条;然后逐条核验——案号是否真实存在、能否回链打开原文、引用的裁判要旨与原文是否一致、法条条款号是否准确。统计“引用错误率”(编造或张冠李戴的引用占比),这是比任何 benchmark 都直接的指标。再补一轮红队测试:故意问不存在的法条、诱导它给出某个结论,看它会不会顺着编。一个合格的法律 AI,应当在查不到时明确说“未检索到”,而不是编一个出来。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么裁判文书语料的真实性和可回链是治理幻觉的前提?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为引证核验的每一步都要拿模型的话去和“真材料”对账——校验案号、回链原文、核对裁判要旨,前提是你手里有一份真实、完整、可定位到原始判决的语料。如果底层数据本身是残缺的、来源不清的、无法回链原文的,那核验就无从谈起,系统给出的“引用”也就没法证伪。这也是私有化部署里数据底座如此关键的原因:一套包含 1.5 亿份真实裁判文书、每条都能回链原始判决的语料,本身就是抗幻觉能力的来源。数据是根,模型是表。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 幻觉与引证核验</div>
+    <h1>法律 AI 幻觉怎么治:裁判文书引证核验落地指南(2026)</h1>
+    <div class="meta">2026-06-29 · 文书查 · 面向律所信息化 / 法院技术处 / 合伙人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">很多律所和法院的法律 AI 项目,卡在同一道坎上:试用时模型答得头头是道,真拿去办案,却发现它<strong>引用的案号查无此案、把判决结果说反、把法条条款号记错</strong>。在别的行业,幻觉是个准确率问题;在法律行业,一条假引用就足以让一份意见书报废、让一次庭审被动,海外甚至已有律师因为提交了 AI 编造的虚假判例而被法院处罚。这篇写给在评估、采购、验收法律 AI 的人:讲清法律大模型为什么会"一本正经地编案例"、幻觉的四种典型形态、治理它真正的根在哪(不是换个更大的模型,而是<strong>真实可核验的语料 + 引证核验</strong>),以及验收时怎么用你自己的业务把幻觉率实测出来。</p>
+
+      <h2>一、为什么法律场景的幻觉,比别处都致命</h2>
+      <p>大模型在写营销文案时编一句,顶多不够准;在法律场景里,输出是要拿去支撑法律判断的,容错率近乎为零。法律 AI 的幻觉有三个让人后背发凉的特点:</p>
+      <ul>
+        <li><strong>它编得"像真的"。</strong>大模型最擅长的恰恰是模仿格式——它能拼出一个格式完全标准的案号(比如"(2021)京0105民初XXXXX号")、一段措辞专业的裁判要旨,外行甚至同行一眼都看不出是假的。越逼真,越危险。</li>
+        <li><strong>错误会被"权威感"放大。</strong>当 AI 用确定的语气告诉你"某案确立了某规则",使用者很容易直接采信、写进文书。一个幻觉就这样从模型输出变成了正式法律文件里的内容。</li>
+        <li><strong>后果是法律责任,不是用户体验。</strong>引用了不存在的判例、把对当事人不利的判决当成有利判决引用,影响的是案件结果和执业风险。这也是为什么"准确率 95%"这种说法在法律场景里没意义——你不知道出问题的是不是恰好这一条。</li>
+      </ul>
+      <p>所以法律行业对 AI 的第一诉求,从来不是"更聪明",而是<strong>"说的每句话我都能核到原文"</strong>。这是评估任何一套法律 AI 系统的第一性问题。</p>
+
+      <h2>二、法律大模型为什么会"一本正经地编案例"</h2>
+      <p>要治幻觉,先得理解它从哪来。通用大模型的本质是一个<strong>概率语言模型</strong>:它根据海量文本学到了"判决书长什么样、法律论证怎么写",然后按"下一个最可能出现的词"把答案生成出来。关键在于——</p>
+      <div class="callout">
+        <p>它学的是<strong>语言规律</strong>,不是<strong>事实清单</strong>。模型脑子里没有一份"哪些案子真实存在"的台账,它只是在"补全一段看起来最像真判决的文字"。所以当你问一个具体类案,它会非常自信地生成一个高度逼真但可能完全虚构的案例——这不是它"出故障",而是纯生成式模型的<strong>固有机制</strong>。</p>
+      </div>
+      <p>这意味着两件事:第一,<strong>幻觉不是靠"调教提示词"能根治的</strong>,提示词只能缓解;第二,<strong>换一个参数更大的模型也不能根治</strong>,模型再大,它依然是在凭记忆生成,而不是在查一个真实的库。真正的解法只有一个方向:<strong>别让它凭记忆答,让它看着真材料答,并且强制它把材料的出处亮出来。</strong></p>
+
+      <h2>三、法律 AI 幻觉的四种典型形态</h2>
+      <p>把幻觉拆开看,验收时才知道该测什么。法律场景里最常见的是这四种:</p>
+      <table>
+        <thead><tr><th>形态</th><th>表现</th><th>危害</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 凭空编造</strong></td><td>案号、当事人、法院、裁判要旨全是虚构的,但格式完美</td><td>引用一个根本不存在的判例,最危险</td></tr>
+          <tr><td><strong>② 张冠李戴</strong></td><td>案号是真的,但把这个案子的裁判结果、要旨说成了别的</td><td>表面可核,实则歪曲,最隐蔽</td></tr>
+          <tr><td><strong>③ 结果说反</strong></td><td>把"驳回""不予支持"说成"支持",把败诉案当胜诉案引</td><td>方向性错误,直接误导办案判断</td></tr>
+          <tr><td><strong>④ 法条/数字错</strong></td><td>法条条款号记错、引用已失效的旧法、赔偿数额/比例算错</td><td>看似细节,却是文书硬伤</td></tr>
+        </tbody>
+      </table>
+      <p>注意:②③④ 这三种比①更难发现,因为它们"半真半假"。一个只会查"案号存不存在"的核验机制,挡得住①,挡不住②③。所以真正的引证核验,不能只验案号,还要验<strong>裁判结果与原文是否一致</strong>。</p>
+
+      <h2>四、治理的根:在真实可核验的语料上做 RAG</h2>
+      <p>治幻觉的主线技术,是 <strong>RAG(检索增强生成)</strong>:不让模型凭记忆答,而是先从一个真实语料库里<strong>检索</strong>出相关判决,再让模型<strong>基于检索到的真实内容</strong>来回答和引用。这一步把"凭印象编"变成了"看着真材料转述",是抗幻觉的地基。</p>
+      <p>但 RAG 能不能真的兜住幻觉,取决于两个前提,而这两个前提都落在<strong>数据</strong>上:</p>
+      <ul>
+        <li><strong>语料必须真实、完整、可回链原文。</strong>RAG 检索的是什么,模型就基于什么答。如果底层是个残缺的、来源不清的、点不开原文的数据集,那检索出来的"依据"本身就不可信,核验更无从谈起。一套包含 <strong>1.5 亿份真实裁判文书</strong>、每一条都能回链到原始判决的语料,才是 RAG 真正能依赖的底盘。</li>
+        <li><strong>检索必须召得准。</strong>如果该召回的对的判决没被检索出来,模型为了"答得完整",有概率又退回去编。所以检索质量(语义 + 关键词 + 结构化过滤的混合召回)直接决定残留幻觉的多少。这一层怎么做,可参考 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索 API:语义向量 vs 关键词,哪种更准</a>。</li>
+      </ul>
+      <p>一句话:<strong>模型是表,数据是根。</strong>没有真实可核验的语料,再好的模型也只是把幻觉包装得更精致。这也是为什么严肃的法律 AI,数据底座的权重远高于模型选择——相关的私有化数据架构可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p>
+
+      <h2>五、引证核验的工程落地:每条引用都要"对账"</h2>
+      <p>RAG 把幻觉大幅压低,但不会归零(检索漏召、转述说反仍可能发生)。所以 RAG 之上必须再叠一层<strong>引证核验</strong>——把模型说的每一条引用,逐条拿去和真实语料对账。一条可落地的核验链路大致是:</p>
+      <pre><span class="c"># 引证核验流水线(对模型给出的每一条引用执行)</span>
+1. 抽取引用       → 从回答里解析出 案号 / 法条 / 引用的裁判要旨
+2. 案号存在性校验 → 案号在 1.5 亿语料中是否真实存在?不存在 → 标红/丢弃
+3. 回链原文       → 给出可打开的原始判决链接,让人能一键核对
+4. 一致性比对     → 模型转述的裁判结果 / 要旨 与原文是否一致?不一致 → 告警
+5. 法条校验       → 条款号、现行有效性核对(避免引已废止的旧法)
+6. 兜底策略       → 查不到就如实说"未检索到",禁止编一个出来</pre>
+      <p>这套机制的价值在于:它把"信不信 AI"从一个玄学问题,变成了一个<strong>可核对的工程问题</strong>。律师不需要相信模型,他只需要点开每一条引用回链的原文,30 秒就能确认真假。把法律 AI 从"看感觉"做到"每句可核",这正是 <a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台</a> 这类产品和裸调一个大模型的本质区别。</p>
+      <div class="callout">
+        <p><strong>一个关键的产品取舍:</strong>合格的法律 AI 必须接受"<strong>检索不到时,宁可少说</strong>"。一个会在查无结果时坦白"未检索到相关判例"的系统,比一个永远能"给你编一个"的系统,可信度高一个量级。验收时一定要专门测这一条。</p>
+      </div>
+
+      <h2>六、验收法律 AI 时,怎么把幻觉率实测出来</h2>
+      <p>厂商的 demo 永远是挑过的。真正能保护你的,是用<strong>你自己的真实业务</strong>做一轮盲测。建议这样测:</p>
+      <ol>
+        <li><strong>准备真题。</strong>从本所/本院真实业务里挑 30–50 个有代表性的问题(覆盖你常办的案由),让系统回答,并要求它<strong>列出所引用的每一个案例和法条</strong>。</li>
+        <li><strong>逐条核验,算"引用错误率"。</strong>对每一条引用核四件事:案号是否真实存在、能否回链打开原文、转述的裁判结果与原文是否一致、法条条款号与现行有效性是否准确。统计编造或张冠李戴的引用占比——这个数字比任何宣传都实在。</li>
+        <li><strong>红队诱导测试。</strong>故意问不存在的法条、诱导它得出某个你想要的结论,看它会不会顺着你编。合格系统应当顶住诱导、如实说"未检索到"。</li>
+        <li><strong>边界场景。</strong>问最新的、冷门的、跨案由的问题,看它在语料覆盖边缘是更倾向于"诚实地说没有",还是"自信地编一个"。</li>
+      </ol>
+      <p>把"引用错误率"和"诱导下的编造率"写进采购技术要求和验收标准里,比写"准确率 ≥ X%"有用得多——因为它直接对应你最怕的那个风险。</p>
+
+      <h2>七、给信息中心主任的引证核验清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>底层语料是真实、完整、可回链原文的吗?</strong>问清数据来源、规模、能否定位到每一份原始判决——这是抗幻觉的根,先验数据再谈模型。</li>
+          <li><strong>是 RAG 检索式回答,还是纯生成?</strong>纯靠大模型记忆生成的,幻觉无解;必须是基于真实语料检索后再回答。</li>
+          <li><strong>每一条引用都能一键回链原文吗?</strong>不能回链的引用,等于不可核验,等于没法用在办案上。</li>
+          <li><strong>核验是否覆盖"结果一致性",而不只是"案号存在"?</strong>能挡住张冠李戴和结果说反,才算真核验。</li>
+          <li><strong>查不到时,系统会如实说"没有"吗?</strong>专门测诱导场景,拒绝"永远能给你编一个"的产品。</li>
+          <li><strong>法条引用有现行有效性校验吗?</strong>避免引用已废止/已修订的旧法。</li>
+          <li><strong>验收用的是你自己的真题盲测,还是厂商的演示?</strong>一定要用本所/本院真实问题实测引用错误率。</li>
+          <li><strong>私有化部署时,这套核验是否完整保留?</strong>数据落到内网后,回链、核验、留痕能力不能因为离线而缩水。</li>
+        </ol>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:是不是用了 GPT-4 / DeepSeek 这种顶级模型,幻觉就没了?</p>
+      <p>A:不会。模型越强,编出来的假案例越逼真,反而更难一眼识破。幻觉的根在"凭记忆生成"这个机制,不在模型大小。解法是给它接真实语料做 RAG,并强制引证核验,而不是赌一个更大的模型。</p>
+      <p class="faq-q">Q:我们做了 RAG,为什么还会偶尔出现假引用?</p>
+      <p>A:RAG 降幻觉但不归零。常见两个原因:检索没召回到对的判决(模型为了答完整又退回去编)、或召回对了但转述时把结果说反。前者要优化检索质量,后者要靠引证核验里的"结果一致性比对"兜住。RAG + 核验,两层一起才稳。</p>
+      <p class="faq-q">Q:私有化离线部署后,引证核验还能用吗?</p>
+      <p>A:能,而且更该用。私有化部署把 1.5 亿裁判文书语料整套落到内网,案号校验、原文回链、一致性比对都在内网本地完成,数据不出域。离线不是削弱核验,反而让"可核验 + 可控 + 可审计"在一套系统里同时成立。</p>
+
+      <div class="cta-box">
+        <h3>想要一套"每句可核"的法律 AI?</h3>
+        <p>文书查提供 1.5 亿份真实裁判文书的私有化数据底座 + 引证回链与核验能力。把你的真实业务问题发来,我们用你自己的题做一轮幻觉实测,看引用错误率,1 个工作日内反馈。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#workbench" style="color:var(--accent-2)">律师工作台</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台:让胜算精确到小数点</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
