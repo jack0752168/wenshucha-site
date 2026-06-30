@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 招投标技术参数怎么写:采购需求书实战模板(2026)| 文书查</title>
+  <meta name="description" content="政府、法院、检察院、大律所采购法律 AI,成败一半取决于招标文件里的技术参数怎么写。参数写虚了招来一堆套壳 demo,写死了又被废标。本文给出可直接套用的需求书参数清单:数据底座、模型与推理、检索与引证核验、私有化与等保信创、集成权限、服务 SLA 六大模块,逐块给可抄的指标;并讲清参数怎么写既硬又不锁定单一厂商、怎么用验收条款堵住参数虚标。附采购委员会招标参数自查清单。" />
+  <meta name="keywords" content="法律 AI 招投标,法律 AI 采购技术参数,法律大模型 招标参数,法院 AI 采购需求书,政府采购 法律 AI,法律 AI 技术规格书,法律 AI 招标文件,AI 采购参数怎么写,法律大模型 采购,司法 AI 招标" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-tender-technical-specifications.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 招投标技术参数怎么写:采购需求书实战模板(2026)" />
+  <meta property="og:description" content="政府/法院/大所采购法律 AI,成败一半在技术参数怎么写。六大模块可抄指标 + 参数既硬又不锁死单一厂商的写法 + 堵住参数虚标的验收条款 + 采购委员会自查清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-tender-technical-specifications.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 招投标技术参数怎么写:采购需求书实战模板(2026)",
+    "description": "面向政府、法院、检察院信息中心与大律所采购委员会的法律 AI 招标技术参数写法指南:数据底座、模型与推理、检索与引证核验、私有化与等保信创合规、集成与权限、服务 SLA 六大模块的可套用参数清单,以及参数如何写得既硬又不锁定单一厂商、如何用验收条款堵住参数虚标。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-06-30",
+    "dateModified": "2026-06-30",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-tender-technical-specifications.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 招标的技术参数应该写多细?写太细会不会被认定为指向性、排斥性条款?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "原则是“写功能与能力指标,不写品牌与唯一实现路径”。把要求落在客观、可验证、与采购需求实质相关的能力上——比如“裁判文书语料规模不低于 X 亿份且每条可回链原始文书”“支持完全离线私有化部署”“引用须可逐条回链原文并做结果一致性校验”,这些是合法的实质性要求。要避免的是直接写某个品牌、某个型号、某项只有一家能满足的非必要参数。一个稳妥的自检办法:每写一条参数,问自己“这条是不是业务真需要?市场上是不是至少有三家能满足?”如果一条参数业务上可有可无、却恰好只有一家能过,它就有指向性嫌疑,应当删掉或放宽。具体合规口径以《政府采购法》《招标投标法》及本单位采购制度、当地财政与招标主管部门要求为准。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么防止供应商参数表全部“满足”、到货却是套壳 demo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "靠两件事:一是把关键能力从“是否满足”的勾选题,改成“现场实测 + 量化指标”的验收题;二是用你自己的真实业务数据做盲测,而不是看厂商挑过的演示。最有效的几条:要求用采购方提供的真题做现场检索与问答测试,统计“引用错误率/幻觉率”并写进验收标准;要求每一条引用都能当场点开回链原文核对;要求提供语料规模、覆盖年限、更新频率的可核验证明而非一句话承诺;要求私有化部署在采购方内网完成全流程演示(包括断网状态下仍可用)。把这些写成验收必过项(一票否决),套壳产品就过不了。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "采购法律 AI,数据参数和模型参数哪个更该写硬?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "数据底座的参数更该写硬。模型是可以替换、可以升级的部件,而底层语料的真实性、完整性、可回链性,直接决定这套系统会不会编造案例、能不能被律师和法官信任。很多招标文件把大量篇幅花在“模型参数量”“支持多少并发”上,却对“语料从哪来、有多少、能不能回链每一份原始判决、多久更新一次”写得含糊——这是本末倒置。建议把数据底座的规模、来源可核验性、回链能力、更新频率作为硬指标和实质性要求,模型则更多用“可实测的效果指标(检索准确率、引用错误率)”来约束,而不是纠结于某个具体的模型品牌或参数量。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "招标里要不要把“信创适配”和“等保三级”写进技术参数?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "如果采购方是党政机关、法院、检察院或国企,通常需要,而且往往是入围资格而非加分项;但要按本单位的实际合规要求和上级规定来定,不要照抄。常见做法是把“支持信创环境(国产 CPU/操作系统/数据库/算力卡)适配”和“满足等保三级相关要求”写成实质性条款,并要求投标方提供适配清单、测评报告或可现场验证的部署方案,而不是仅凭一句承诺。需要注意的是,信创适配在法律大模型推理这一层仍有工程难度,招标时应要求投标方就国产算力卡上的实际可用性、性能与精度提供真实场景实测结果,警惕“无缝零损耗”这类不实承诺。具体等级与适配范围以本单位定级备案和主管部门要求为准。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 招投标技术参数</div>
+    <h1>法律 AI 招投标技术参数怎么写:采购需求书实战模板(2026)</h1>
+    <div class="meta">2026-06-30 · 文书查 · 面向法院/检察院信息中心 · 政府采购 · 大律所采购委员会</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">一套法律 AI 项目的成败,一半在评标会上就已经决定了——决定它的不是哪家厂商讲得好,而是<strong>招标文件里的技术参数怎么写</strong>。参数写虚了,招来一堆套壳 demo,谁的话术漂亮谁中标,落地一地鸡毛;参数写死了、写出了指向性,要么流标重来,要么被质疑废标。更常见的是第三种:参数写了一大堆"模型参数量""并发数",却把最该写硬的<strong>数据底座、引证可核验、私有化合规</strong>写得含糊,结果买回来一个会编案例、数据来路不明、过不了等保的系统。这篇写给真正负责起草采购需求书、技术规格书的人:把法律 AI 招标的技术参数拆成<strong>六大模块</strong>,逐块给可以直接套用的指标,并讲清参数怎么写既硬又不锁定单一厂商、怎么用验收条款把"参数虚标"堵死。</p>
+
+      <h2>一、为什么"技术参数怎么写"是采购里最高杠杆的一步</h2>
+      <p>很多单位把精力放在评标打分、商务谈判上,却忽略了:<strong>招标文件的技术参数,才是整个采购的"游戏规则"</strong>。规则定得准,优质供应商才进得来、滥竽充数的才进不来;规则定歪了,后面再怎么评标都是在一堆不合适的投标里挑。法律 AI 这类专业系统尤其如此,因为它有三个特点,让"参数写得对不对"格外致命:</p>
+      <ul>
+        <li><strong>能力差异藏在水面下。</strong>两家厂商的 PPT 可能长得几乎一样,都说"基于大模型、支持类案检索、可私有化"。但一家背后是 1.5 亿份可回链原文的真实裁判文书语料,另一家是爬来的残缺数据加一个套壳模型——这个差距,只有把参数写到"语料规模 + 可回链 + 更新频率"这种层面,才逼得出来。</li>
+        <li><strong>出错的代价是法律责任。</strong>法律 AI 编一个不存在的判例、把败诉案当胜诉案引,后果不是体验差,是办案出错、是执业风险。所以参数里必须包含"<strong>引用可核验</strong>"这类别的行业不需要、法律行业不可省的硬要求。</li>
+        <li><strong>合规是入围资格,不是加分项。</strong>对党政机关、法院、检察院、国企,私有化、等保、信创往往是"不满足就出局"的实质性条款,写漏了等于把项目暴露在合规风险里。</li>
+      </ul>
+      <p>换句话说:<strong>技术参数清单,就是你对"什么是一套合格法律 AI"的定义。</strong>把这份定义写扎实,采购就成功了一大半。本文配套的两篇——<a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> 和 <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 系统的 5 个坑</a>——分别从"采购全流程"和"避坑"角度补充,本文则专注在最硬核的一环:<strong>技术参数本身怎么落笔</strong>。</p>
+
+      <h2>二、动笔之前先定三件事</h2>
+      <p>参数不是从天上抄一份模板填进去的。落笔前,先把三个前置判断想清楚,否则参数会自相矛盾。</p>
+      <table>
+        <thead><tr><th>要先定的</th><th>两种取向</th><th>它如何决定后面的参数</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 部署形态</strong></td><td>私有化离线 vs 公有云 SaaS</td><td>涉密、内网、数据不出域的场景,直接写"必须支持完全离线私有化部署",后面所有数据、合规参数随之确定。详见 <a href="/blog/law-firm-private-ai-deployment-guide.html">为什么大型律所不能用 SaaS</a>。</td></tr>
+          <tr><td><strong>② 数据来源</strong></td><td>买现成语料 vs 自建/自爬</td><td>决定你是把"语料规模 + 可回链 + 更新"写成对供应商的硬指标,还是只采购工具、数据自备。法律 AI 绝大多数情况下,数据底座应由供应商提供并写进参数。</td></tr>
+          <tr><td><strong>③ 验收口径</strong></td><td>看演示勾选 vs 真题实测</td><td>这一条决定参数的"可验证性"。凡是想写进参数的能力,都要先问:它能不能在验收时用我方真实数据当场测出来?测不出来的参数等于没写。</td></tr>
+        </tbody>
+      </table>
+      <p>这三件事定下来,参数才有骨架。下面进入正题——六大模块,每块给一份可直接改用的清单。</p>
+
+      <h2>三、六大模块:可直接套用的技术参数清单</h2>
+      <p>下面的指标是一套"骨架模板",请按本单位实际需求增删、按市场实际能力调整数值,<strong>不要原样照抄</strong>(照抄容易写出指向性或不切实际的参数)。其中标★的,是建议作为<strong>实质性条款/一票否决项</strong>的关键能力。</p>
+
+      <h3>模块 1 · 数据底座(法律 AI 的根,最该写硬)</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>★语料规模</td><td>裁判文书语料规模不低于 ___ 亿份(可按需求设定,如 1 亿份以上),投标方须提供可核验的规模证明</td></tr>
+          <tr><td>★可回链原文</td><td>每一条引用/检索结果均须能回链到对应的原始裁判文书全文,供办案人逐条核对</td></tr>
+          <tr><td>覆盖年限与范围</td><td>覆盖年限不少于 ___ 年;覆盖审级/案由/地域范围满足本单位业务需要(列明)</td></tr>
+          <tr><td>更新频率</td><td>语料具备持续更新机制,更新周期不低于 ___(如季度/月度),并说明更新方式</td></tr>
+          <tr><td>来源合规</td><td>数据来源合法合规,投标方须就数据来源与授权作出书面说明并承担相应责任</td></tr>
+          <tr><td>脱敏与隐私</td><td>涉及个人信息的内容具备脱敏处理能力,符合个人信息保护相关要求</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><p><strong>为什么数据要写得比模型还硬?</strong>模型是可替换、可升级的部件;数据底座的真实性、完整性、可回链性,直接决定这套系统会不会编案例、能不能被信任。把大量参数花在"模型参数量"上、却对"语料从哪来、能不能回链"含糊其辞,是本末倒置。相关架构可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p></div>
+
+      <h3>模块 2 · 模型与推理能力</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>核心功能</td><td>具备类案检索、要素抽取、文书辅助生成、法律问答等功能(按本单位业务列明必选项)</td></tr>
+          <tr><td>效果指标(优于参数量)</td><td>以可实测的效果指标约束:类案检索准确率、要素抽取准确率达到约定阈值,验收时以我方真题实测为准</td></tr>
+          <tr><td>本地化推理</td><td>模型可在采购方内网/本地算力上完成推理,不依赖外部公网调用(私有化场景)</td></tr>
+          <tr><td>模型可升级/可替换</td><td>支持模型迭代升级,不绑定单一模型;具备模型管理与版本回退能力</td></tr>
+          <tr><td>性能与并发</td><td>在约定硬件配置下满足 ___ 并发、响应时延不高于 ___(按实际规模设定)</td></tr>
+        </tbody>
+      </table>
+      <p><strong>提醒:</strong>不要把"模型参数量必须达到 ___B"写成硬指标。参数量大不等于法律场景准,且这类参数极易写成指向性条款。用"可实测的效果指标 + 我方真题验收"来约束模型,比纠结参数量科学得多。</p>
+
+      <h3>模块 3 · 检索与引证核验(法律行业专属、不可省)★</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>★引用可核验</td><td>系统输出的每一条案例/法条引用,须可回链原文、可核对案号真实存在</td></tr>
+          <tr><td>★结果一致性校验</td><td>具备对引用裁判结果与原文一致性的校验能力(防"张冠李戴""结果说反"),不只校验案号是否存在</td></tr>
+          <tr><td>★查不到如实告知</td><td>检索不到相关结果时,系统须明确告知"未检索到",不得编造</td></tr>
+          <tr><td>混合检索</td><td>支持语义向量 + 关键词 + 结构化条件(案由/法院/年份/审级等)的混合检索</td></tr>
+          <tr><td>法条时效</td><td>法条引用具备现行有效性校验,避免引用已废止/已修订的旧法</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><p>这一模块是把法律 AI 和"通用聊天机器人"区分开的关键。一套不能逐条回链原文、不做结果一致性校验的系统,在法律场景里就是不可用的——理由详见 <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:裁判文书引证核验落地指南</a>。强烈建议把本模块整体设为实质性条款。</p></div>
+
+      <h3>模块 4 · 私有化部署与合规(政企/司法机关的入围资格)★</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>★离线私有化</td><td>支持完全离线的私有化部署,断网状态下核心功能仍可用,数据全程不出域</td></tr>
+          <tr><td>★等保合规</td><td>满足等级保护相关要求(等级以本单位定级备案为准),提供相应测评/合规材料</td></tr>
+          <tr><td>信创适配</td><td>支持信创环境(国产 CPU/操作系统/数据库/算力卡)适配,提供适配清单与实测结果(按本单位要求设为实质性条款或加分项)</td></tr>
+          <tr><td>数据主权</td><td>全部数据、模型、日志存储于采购方可控环境,供应商不得留存或外传</td></tr>
+          <tr><td>审计留痕</td><td>具备操作日志与审计追溯能力,关键操作可追责</td></tr>
+        </tbody>
+      </table>
+      <p>信创这一层尤其要小心"承诺易、落地难"。法律大模型推理迁到国产算力卡上仍有工程难度,招标时应要求投标方就国产算力卡上的<strong>真实可用性、性能与精度</strong>提供实测,警惕"无缝零损耗"这类不实承诺——展开见 <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境下的法律 AI 私有化部署适配实战</a>。等保三级合规架构见 <a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台等保三级合规架构</a>。</p>
+
+      <h3>模块 5 · 系统集成与权限</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>对接能力</td><td>提供标准 API,可与本单位现有办案/办公系统对接(列明需对接的系统)</td></tr>
+          <tr><td>权限与隔离</td><td>支持分级分角色权限管理、数据隔离;敏感数据按需限定可见范围</td></tr>
+          <tr><td>账号与审批</td><td>支持与本单位统一身份认证对接;关键操作可设审批流</td></tr>
+          <tr><td>导出与留存</td><td>检索/分析结果可按权限导出,导出行为可审计</td></tr>
+        </tbody>
+      </table>
+
+      <h3>模块 6 · 服务、培训与 SLA</h3>
+      <table>
+        <thead><tr><th>参数项</th><th>建议写法(示意)</th></tr></thead>
+        <tbody>
+          <tr><td>实施与培训</td><td>提供部署实施、管理员与终端用户培训;交付完整文档</td></tr>
+          <tr><td>★服务期与响应</td><td>免费维保期不少于 ___ 年;故障响应时间、到场时间、解决时限写明 SLA 并设违约责任</td></tr>
+          <tr><td>数据/模型更新</td><td>服务期内提供语料更新与模型升级,明确更新频率与方式</td></tr>
+          <tr><td>退出机制</td><td>合同到期或终止时,数据可完整导出/迁移,不被锁定</td></tr>
+        </tbody>
+      </table>
+
+      <h2>四、参数怎么写得"既硬又不锁死单一厂商"</h2>
+      <p>这是起草人最纠结的一点:写松了招来李鬼,写紧了被质疑指向性、排斥性条款。平衡的诀窍只有一条——<strong>写"业务真需要的能力指标",不写"只有一家能满足的实现路径或品牌"</strong>。</p>
+      <ul>
+        <li><strong>写能力,不写品牌/型号。</strong>写"支持国产数据库",不写某个具体数据库品牌;写"语料可回链原文",不写某家产品的功能名。</li>
+        <li><strong>每条参数过"三家测试"。</strong>每写一条,问自己:这条业务上是不是真需要?市场上是不是至少有三家能满足?如果一条参数业务上可有可无、却恰好只有一家能过,它就有指向性嫌疑,删掉或放宽。</li>
+        <li><strong>关键能力设阈值而非唯一值。</strong>用"不低于/不少于 ___"的下限式写法,而不是卡一个只有某家正好满足的精确数字。</li>
+        <li><strong>把"硬"放在实质性、可验证、与采购需求强相关的能力上。</strong>数据可回链、引用可核验、离线可部署、等保可合规——这些"硬"是法律业务的刚需,经得起质疑;而"模型参数量必须 ___B"这种"硬"既不科学又易指向,反而是风险。</li>
+      </ul>
+      <div class="callout"><p><strong>合规口径提醒:</strong>政府采购与招投标的指向性/排斥性条款认定,以《政府采购法》《招标投标法》及本单位采购制度、当地财政与招标主管部门的具体要求为准。本文只给技术起草思路,涉及具体合规判断请咨询本单位法务与采购主管部门。</p></div>
+
+      <h2>五、用验收条款堵死"参数虚标"</h2>
+      <p>再好的参数,如果验收只是"对着表格勾满足",照样会被套壳产品蒙混过关。真正让参数有牙齿的,是把关键能力从"勾选题"变成"<strong>用我方真实数据现场实测的量化题</strong>"。建议把下面几条写进验收方案,并设为验收必过项:</p>
+      <pre><span class="c"># 法律 AI 验收实测条款(建议设为一票否决)</span>
+1. 真题盲测       → 用采购方提供的 ___ 道真实业务问题现场测试,非厂商演示
+2. 引用错误率     → 统计编造/张冠李戴的引用占比,须低于约定阈值(如 ___%)
+3. 回链可核       → 随机抽取引用,须能当场点开回链原始裁判文书核对
+4. 诱导红队测试   → 故意问不存在的法条/诱导给结论,系统须如实说"未检索到"
+5. 语料可核验     → 现场核验语料规模、覆盖、更新证明,而非一句话承诺
+6. 离线实测       → 私有化部署在内网完成全流程演示,含断网状态可用性
+7. 信创/等保      → 提供测评报告或现场验证,而非仅凭承诺函</pre>
+      <p>这套验收条款的意义在于:它把"信不信厂商"从一个话术问题,变成了一个<strong>可现场对账的工程问题</strong>。把"引用错误率""离线可用性"写进验收并设阈值,套壳 demo 和数据残缺的产品就无处遁形——这也正是 <a href="/blog/lawyer-workbench-case-win-rate.html">让案件胜算精确到小数点</a> 这类有真实数据底座的产品,和裸调一个大模型的本质区别。</p>
+
+      <h2>六、给采购委员会的招标参数自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>数据底座写硬了吗?</strong>语料规模、可回链原文、覆盖、更新频率,是不是都作为硬指标/实质性条款写进去了?</li>
+          <li><strong>"引用可核验"这条有没有?</strong>这是法律 AI 不可省的一条,缺了它,买回来的可能是个会编案例的系统。</li>
+          <li><strong>私有化/等保/信创按本单位合规要求写齐了吗?</strong>是入围资格还是加分项,有没有按上级规定定清楚?</li>
+          <li><strong>有没有把"实现路径/品牌/型号"误写成参数?</strong>逐条过"三家测试",剔除指向性条款。</li>
+          <li><strong>关键参数是不是下限式("不低于")而非精确卡值?</strong>避免一个数字正好只有一家满足。</li>
+          <li><strong>验收用的是我方真题实测,还是厂商演示?</strong>引用错误率、回链可核、离线可用,有没有写成可量化的验收必过项?</li>
+          <li><strong>服务期、SLA、退出机制(数据可迁出)写了吗?</strong>避免买完被锁定、出问题没人管。</li>
+          <li><strong>每一条参数,验收时测得出来吗?</strong>测不出来的参数等于没写,要么补验收办法,要么删掉。</li>
+        </ol>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:技术参数写多细才不算指向性、排斥性条款?</p>
+      <p>A:原则是"写功能与能力指标,不写品牌与唯一实现路径"。把要求落在客观、可验证、与采购需求实质相关的能力上(如语料可回链、支持离线部署、引用可核验),避免直接写品牌、型号或只有一家能满足的非必要参数。每条参数自检:业务是否真需要?是否至少三家能满足?具体合规口径以《政府采购法》《招标投标法》及本单位与主管部门要求为准。</p>
+      <p class="faq-q">Q:怎么防止参数表全勾"满足",到货却是套壳 demo?</p>
+      <p>A:把关键能力从"是否满足"的勾选,改成"用我方真实数据现场实测 + 量化指标"的验收必过项:真题盲测算引用错误率、随机抽引用当场回链核对、私有化在内网断网实测、语料规模要可核验证明。把这些设为一票否决,套壳产品过不了。</p>
+      <p class="faq-q">Q:数据参数和模型参数,哪个更该写硬?</p>
+      <p>A:数据底座更该写硬。模型可替换可升级,而语料的真实性、完整性、可回链性直接决定系统会不会编案例、能不能被信任。建议数据规模/来源可核验/回链/更新作硬指标,模型用"可实测效果指标"约束,不纠结参数量或品牌。</p>
+
+      <div class="cta-box">
+        <h3>要起草一份法律 AI 招标技术参数?我们可以帮你把"硬指标"落到能验收</h3>
+        <p>文书查提供 1.5 亿份真实裁判文书的私有化数据底座 + 引证回链与核验能力,支持离线私有化、等保与信创适配。把你的采购场景和需求发来,我们可协助梳理可验收的技术参数清单,并用你的真实业务做一轮实测,1 个工作日内反馈。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> · <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 系统的 5 个坑</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境法律 AI 私有化适配</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
