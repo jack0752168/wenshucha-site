@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>裁判文书数据_1.5亿全量裁判文书数据库_API/MCP数据接口 - 文书查</title>
+<meta name="description" content="文书查提供 1.5 亿篇全量裁判文书数据：结构化裁判文书数据库 + REST API + MCP Server 数据接口。刑事/民事/行政/执行/国家赔偿五大类,字段化检索,源自中国裁判文书网公开数据,可溯源。支持全量打包、年度套餐、按次调用。商务 131-6872-7779。">
+<meta name="keywords" content="裁判文书数据,裁判文书数据库,裁判文书API,裁判文书数据接口,裁判文书全量数据,中国裁判文书网数据,1.5亿裁判文书,裁判文书MCP,司法大数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/">
+<meta property="og:title" content="裁判文书数据 — 1.5亿篇全量裁判文书数据库 + API/MCP 数据接口 | 文书查">
+<meta property="og:description" content="1.5 亿篇全量裁判文书数据,结构化数据库 + REST API + MCP Server,源自中国裁判文书网公开数据可溯源。">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"中国裁判文书全量数据集","description":"1.5亿篇中国裁判文书结构化数据,覆盖刑事/民事/行政/执行/国家赔偿五大类,源自中国裁判文书网公开数据。提供数据库、REST API、MCP Server 三种交付方式。","keywords":["裁判文书数据","裁判文书数据库","裁判文书API","司法大数据"],"creator":{"@type":"Organization","name":"文书查 SinoVerdict","url":"https://www.wenshucha.com"},"temporalCoverage":"1985/2023","spatialCoverage":"中国","variableMeasured":["案号","法院","案由","省份","判决日期","裁判结果","当事人","判决全文"],"distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://tob.wenshucha.com/api/v1"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"裁判文书数据","item":"https://www.wenshucha.com/data/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"裁判文书数据从哪来?可靠吗?","acceptedAnswer":{"@type":"Answer","text":"数据源自中国裁判文书网(wenshu.court.gov.cn)公开发布的生效裁判文书,经文书查结构化处理。每条保留真实案号,可回链原文核验。"}},{"@type":"Question","name":"裁判文书数据库有多大?覆盖哪些范围?","acceptedAnswer":{"@type":"Answer","text":"约1.5亿篇,覆盖1985年至2023年的刑事、民事、行政、执行、国家赔偿五大类案件,含案号、法院、案由、省份、判决日期、裁判结果、判决全文等结构化字段。"}},{"@type":"Question","name":"裁判文书API怎么接入?","acceptedAnswer":{"@type":"Answer","text":"提供标准 REST API(base: tob.wenshucha.com/api/v1),支持关键词/法院/案由/年份/省份组合检索与全文获取,curl 一行可验证;另提供 MCP Server,Claude/Cursor 等大模型可直接调用。可申请试用 key。"}},{"@type":"Question","name":"能拿到全量裁判文书数据吗?","acceptedAnswer":{"@type":"Answer","text":"可以。支持全量数据打包买断、按案由/地域/年份切片交付,也支持年度 API 套餐与按次调用。企业级议价与私有化部署请联系商务 131-6872-7779。"}},{"@type":"Question","name":"裁判文书数据多少钱?","acceptedAnswer":{"@type":"Answer","text":"API 按次起价低至 ¥0.07/次;数据打包从单一案由到 1.5 亿全量分档定价;MCP Server 按席位/嵌入规模计费。具体见定价或联系商务定制。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:18px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:54px 0 48px}
+h1{font-family:"Songti SC",serif;font-size:32px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:680px;margin:0 0 26px}
+.btns a{display:inline-block;text-decoration:none;font-weight:700;padding:12px 26px;border-radius:9px;margin:6px 10px 6px 0}
+.btn-gold{background:var(--accent);color:var(--navy)}
+.btn-ghost{border:1px solid #5b6b82;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:34px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:12px;padding:18px;text-align:center}
+.stat .v{font-size:26px;font-weight:800;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:5px}
+section{padding:8px 0}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:40px 0 14px;border-left:4px solid var(--accent);padding-left:12px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+pre{background:#0e1b2e;color:#d6e0ef;padding:16px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.6}
+.card{background:#fff;border:1px solid #e6eaf0;border-radius:12px;padding:20px;margin:14px 0}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:42px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/data/">裁判文书数据</a><a href="https://www.wenshucha.com/#api-pricing">定价</a><a href="https://www.wenshucha.com/#api">API</a><a href="https://www.wenshucha.com/blog/">博客</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1>裁判文书数据 —— 1.5 亿篇全量裁判文书数据库 + API / MCP 数据接口</h1>
+  <p>覆盖 1985 至 2023 年、刑事/民事/行政/执行/国家赔偿五大类的结构化裁判文书数据。源自中国裁判文书网公开数据,字段化、可检索、可溯源。提供数据库打包、REST API、MCP Server 三种交付方式。</p>
+  <div class="btns">
+    <a class="btn-gold" href="mailto:chenjiaxin@wenshucha.com?subject=%E8%A3%81%E5%88%A4%E6%96%87%E4%B9%A6%E6%95%B0%E6%8D%AE%2FAPI%20%E5%92%A8%E8%AF%A2&body=%E5%9B%A2%E9%98%9F%2F%E5%85%AC%E5%8F%B8%EF%BC%9A%0A%E9%9C%80%E6%B1%82%EF%BC%88%E5%85%A8%E9%87%8F%E6%89%93%E5%8C%85%2FAPI%2FMCP%EF%BC%89%EF%BC%9A%0A%E9%A2%84%E8%AE%A1%E8%B0%83%E7%94%A8%E9%87%8F%EF%BC%9A%0A">申请数据 / API 试用 →</a>
+    <a class="btn-ghost" href="tel:+8613168727779">📞 商务 131-6872-7779</a>
+  </div>
+</div></div>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="v">1.5 亿</div><div class="l">裁判文书总量(篇)</div></div>
+    <div class="stat"><div class="v">五大类</div><div class="l">刑事/民事/行政/执行/国赔</div></div>
+    <div class="stat"><div class="v">1985–2023</div><div class="l">时间覆盖</div></div>
+    <div class="stat"><div class="v">API + MCP</div><div class="l">标准化数据接口</div></div>
+  </div>
+
+  <section>
+    <h2>裁判文书全量数据 — 1.5 亿篇覆盖</h2>
+    <p>文书查收录约 <b>1.5 亿篇</b>中国裁判文书,时间覆盖 1985 年至 2023 年,横跨<b>刑事、民事、行政、执行、国家赔偿</b>五大案件类型。数据均源自<b>中国裁判文书网</b>(wenshu.court.gov.cn)公开发布的生效文书,逐条保留真实案号,可回链官方原文核验。支持按案由、地域、年份、法院层级切片交付。</p>
+  </section>
+
+  <section>
+    <h2>裁判文书数据库 — 字段结构化</h2>
+    <p>原始判决书是高度非结构化的长文本。文书查把每篇文书解析成可直接入库、可检索的结构化字段:</p>
+    <table>
+      <tr><th>字段</th><th>说明</th></tr>
+      <tr><td>案号 / 法院</td><td>唯一案号 + 审理法院(可定位层级与地域)</td></tr>
+      <tr><td>案由 / 省份</td><td>标准化案由分类 + 省市,支持组合筛选</td></tr>
+      <tr><td>判决日期 / 审级</td><td>时间维度分析、趋势统计</td></tr>
+      <tr><td>裁判结果</td><td>支持/部分支持/驳回等结构化结果,可做胜率统计</td></tr>
+      <tr><td>判决全文</td><td>查明 / 本院认为 / 判决主文 全文可取</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>裁判文书数据接口 — REST API 标准化调用</h2>
+    <p>无需自建爬虫与清洗管线,一个 API 即可把裁判文书数据接进你的产品。base:<code>https://tob.wenshucha.com/api/v1</code>,支持关键词 + 法院 + 案由 + 年份 + 省份组合检索与全文获取,结果带 source_url 可溯源。</p>
+    <pre>curl -X POST https://tob.wenshucha.com/api/v1/cases/search \
+  -H "Authorization: Bearer &lt;YOUR_KEY&gt;" \
+  -d '{"keyword":"违法解除劳动合同","province":"广东省","year":2022}'</pre>
+    <p>curl 一行能验证,1 分钟接通。<a href="https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html">→ Python / Node.js 接入实战</a></p>
+  </section>
+
+  <section>
+    <h2>MCP Server — 让大模型直接调用裁判文书数据</h2>
+    <p>提供标准 <b>MCP Server</b>,Claude Desktop、Cursor 等支持 MCP 的大模型客户端可直接把裁判文书数据作为工具调用,做类案检索、案情分析、文书生成,数据可溯源、可呈堂。<a href="https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html">→ Claude Desktop 5 分钟接入</a></p>
+  </section>
+
+  <section>
+    <h2>数据来源与合规</h2>
+    <p>全部数据来自中国裁判文书网公开生效文书,属公开司法数据。文书查只做结构化与检索增强,当事人敏感个人信息(身份证、银行卡、手机号、邮箱)已做脱敏处理。数据用于法律科技产品、实证研究、合规分析等正当用途。</p>
+  </section>
+
+  <div class="cta">
+    <div style="font-size:19px;font-weight:700;margin-bottom:8px">需要裁判文书数据 / API / 全量打包?</div>
+    <div style="color:#cdd6e2;font-size:14px">说清用途与量级,一个工作日内给方案与试用 key</div>
+    <a href="mailto:chenjiaxin@wenshucha.com?subject=%E8%A3%81%E5%88%A4%E6%96%87%E4%B9%A6%E6%95%B0%E6%8D%AE%E5%92%A8%E8%AF%A2">✉️ chenjiaxin@wenshucha.com</a>
+    <a class="ghost" href="tel:+8613168727779">📞 131-6872-7779</a>
+    <a class="ghost" href="https://www.wenshucha.com/#api-pricing">查看定价</a>
+  </div>
+
+  <section>
+    <h2>常见问题</h2>
+    <details><summary>裁判文书数据从哪来?可靠吗?</summary><p>源自中国裁判文书网公开生效文书,经文书查结构化处理,逐条保留真实案号可回链原文核验。</p></details>
+    <details><summary>裁判文书数据库有多大?覆盖哪些范围?</summary><p>约 1.5 亿篇,覆盖 1985–2023 年刑事/民事/行政/执行/国家赔偿五大类,含案号、法院、案由、省份、判决日期、裁判结果、判决全文等字段。</p></details>
+    <details><summary>裁判文书 API 怎么接入?</summary><p>标准 REST API(base tob.wenshucha.com/api/v1),组合检索 + 全文获取,curl 一行可验;另有 MCP Server 供大模型直接调用。可申请试用 key。</p></details>
+    <details><summary>能拿到全量裁判文书数据吗?多少钱?</summary><p>支持全量打包买断、按案由/地域/年份切片、年度 API 套餐与按次调用(低至 ¥0.07/次)。企业议价与私有化部署联系商务 131-6872-7779。</p></details>
+  </section>
+
+  <section class="links">
+    <h2>延伸阅读</h2>
+    <a href="https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html">裁判文书 API 接入实战</a>
+    <a href="https://www.wenshucha.com/blog/legal-empirical-research-data-access.html">法学实证研究怎么拿到能用的裁判文书数据</a>
+    <a href="https://www.wenshucha.com/blog/legal-data-platform-comparison-2026.html">法律数据平台对比 2026</a>
+    <a href="https://www.wenshucha.com/data/labor/">各城市劳动争议赔偿数据</a>
+  </section>
+
+  <div class="dis">数据来自中国裁判文书网公开生效文书,当事人个人信息已脱敏。本页为产品与数据说明,具体覆盖与字段以实际交付为准。</div>
+</main>
+
+<footer><div class="wrap">文书查 SinoVerdict · 1.5 亿裁判文书数据 · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a></div></footer>
+</body>
+</html>
