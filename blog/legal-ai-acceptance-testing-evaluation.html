@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律大模型怎么验收:效果测评方法与验收指标实战(2026)| 文书查</title>
+  <meta name="description" content="法律 AI 项目最容易踩空的一环,是验收——多数单位到了验收还在看厂商演示、对着参数表勾“满足”,结果把会编案例、数据来路不明的系统收下了。本文给出一套可落地的法律大模型验收测评方法:怎么用本单位真题建盲测集、要测哪些量化指标(引用错误率/回链可核率/结果一致性/离线可用性)、怎么组织红队诱导测试、怎么设一票否决与评分表、POC 怎么做。附信息中心主任验收自查清单与验收报告模板要点。" />
+  <meta name="keywords" content="法律 AI 验收,法律大模型测评,法律 AI 效果评测,法律 AI 验收标准,法律大模型评测方法,法律 AI 引用错误率,法律 AI POC,司法 AI 验收方案,法律大模型幻觉测评,法律 AI 验收指标" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律大模型怎么验收:效果测评方法与验收指标实战(2026)" />
+  <meta property="og:description" content="验收才是法律 AI 采购的最后一道闸,也是最容易被套壳 demo 蒙混的一步。用本单位真题建盲测集 + 引用错误率/回链可核/结果一致性/离线可用性四类量化指标 + 红队诱导 + 一票否决评分表,把“信不信厂商”变成可对账的工程题。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律大模型怎么验收:效果测评方法与验收指标实战(2026)",
+    "description": "面向法院、检察院、司法局信息中心与大律所的法律大模型验收测评方法:如何用本单位真实业务问题建盲测集,测引用错误率、回链可核率、结果一致性、离线可用性等量化指标,如何组织红队诱导测试、设一票否决与评分表,以及 POC 与验收报告怎么做。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-02",
+    "dateModified": "2026-07-02",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 验收为什么不能只看厂商演示?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为厂商演示用的是它反复调过、确保能答对的题,而你真实办案遇到的题它没见过。演示能证明“系统在最好情况下能做什么”,却不能证明“系统在你的真实业务上稳定做到什么”。这两者在法律场景里差距极大——一套会在生僻案由、边界问题上编造案例的系统,在演示里可能滴水不漏。所以验收的核心动作,是把演示题换成本单位提供的真实业务问题做盲测,并统计量化指标(如引用错误率、回链可核率),而不是对着参数表勾“满足”。用你自己的真题,而不是厂商挑好的题,才是验收有没有意义的分水岭。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "法律大模型验收该测哪些量化指标?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "至少测四类:一是引用错误率(系统输出的案例、法条引用中,编造、张冠李戴、结果说反的占比),这是法律 AI 最致命的指标,建议设阈值并作一票否决;二是回链可核率(每一条引用能否当场点开回链到原始裁判文书核对);三是结果一致性(引用所述裁判结果与原文是否一致,不只校验案号存在);四是离线可用性(私有化部署在内网、断网状态下核心功能是否仍可用)。此外可测检索召回相关性、法条时效正确性、响应时延与并发。指标要用本单位真题现场测,并写进验收报告留痕。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "验收用的真题盲测集怎么建、要多少道?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "从本单位真实办案与咨询场景里抽题,覆盖常见案由、生僻案由、边界与陷阱三类,并保证厂商事先看不到(盲测)。题量没有绝对标准,通常几十道即可暴露问题、上百道更稳,关键是结构而非数量:常见案由验“稳不稳”,生僻案由验“编不编”,故意问不存在的法条或诱导下结论验“会不会如实说没有”。每道题预先由业务骨干标注参考答案与可接受的引用范围,现场测完逐题打分,算出各项指标。建集时注意脱敏,避免真实当事人信息外泄。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "验收不合格但项目已经采购了怎么办?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "这正是要把验收标准写进合同、并设整改与退出机制的原因。稳妥做法是在采购阶段就把关键指标(如引用错误率阈值、离线可用性、语料可核验)约定为验收必过项与付款条件,验收不达标则触发限期整改、扣减或拒付、直至解除合同并要求数据可完整迁出。如果合同里没约定量化验收标准,事后往往只能反复扯皮。所以真正的关口在招标与合同阶段就要前移——验收测评方法最好在需求书里就写清楚,让厂商投标时就知道会被这样测。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律大模型验收测评</div>
+    <h1>法律大模型怎么验收:效果测评方法与验收指标实战(2026)</h1>
+    <div class="meta">2026-07-02 · 文书查 · 面向法院/检察院信息中心 · 司法局 · 大律所信息化</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">采购法律 AI,最容易踩空的不是招标、不是谈判,而是<strong>验收</strong>。前面的采购清单、技术参数都做对了,到了验收,很多单位却又退回到"看厂商演示、对着参数表勾满足"的老路——于是一套会编案例、数据来路不明、断网就趴窝的系统,就这样被签字收下了。验收是采购的最后一道闸,也是最容易被套壳 demo 蒙混的一步。这篇写给真正要组织验收、要在验收报告上签字的人:把法律大模型的验收从"信不信厂商"这个话术问题,变成一个<strong>用本单位真题现场测、逐项算指标、可对账</strong>的工程问题——怎么建盲测集、测哪些量化指标、怎么组织红队、怎么设一票否决与评分表,逐一给方法。</p>
+
+      <h2>一、为什么"演示通过"不等于"验收通过"</h2>
+      <p>厂商演示和真实验收,是两件事。演示用的是厂商<strong>反复调过、确保能答对</strong>的题;你真实办案遇到的题,它没见过。演示证明的是"系统在最好情况下能做什么",而你要验的是"系统在我的真实业务上,稳定能做到什么"。在法律场景里,这两者的差距被三个因素放大到致命:</p>
+      <ul>
+        <li><strong>失败藏在长尾里。</strong>常见案由厂商都调过,答得漂亮;真正暴露问题的是生僻案由、边界情形、故意设的陷阱题——而这些恰恰是演示里不会出现的。一套在演示里滴水不漏的系统,可能一遇冷门问题就开始"一本正经地编案例"。</li>
+        <li><strong>错误的代价是法律责任。</strong>别的行业系统答错是体验差;法律 AI 编一个不存在的判例、把败诉当胜诉引,后果是办案出错、执业风险。所以验收必须能量化"它多久错一次、错得多离谱",而不是"它演示时对不对"。</li>
+        <li><strong>验收一签字,风险就转移了。</strong>验收报告是采购闭环的最后凭证。含糊验收 = 把一套没经过真实检验的系统,连同它的风险,正式接进了办案流程。</li>
+      </ul>
+      <p>所以验收的分水岭只有一句话:<strong>用你自己的真题,而不是厂商挑好的题。</strong>本文和另外两篇是一套——<a href="/blog/court-ai-procurement-checklist.html">法院信息中心 AI 采购清单</a>(采购全流程)、<a href="/blog/legal-ai-tender-technical-specifications.html">招投标技术参数怎么写</a>(把要求写进招标文件)——本文专注最后一环:<strong>东西到货了,怎么验它是不是真货</strong>。</p>
+
+      <h2>二、验收方法的总框架:从"勾选题"到"实测题"</h2>
+      <p>一套能落地的法律大模型验收,由五个动作组成。核心是把每一项关键能力,从"是否满足"的勾选,改成"用我方真实数据现场测出来的量化结果"。</p>
+      <table>
+        <thead><tr><th>验收动作</th><th>要点</th><th>产出</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 建盲测集</strong></td><td>从本单位真实场景抽题,厂商事先看不到,覆盖常见/生僻/陷阱三类</td><td>带参考答案的真题集</td></tr>
+          <tr><td><strong>② 跑量化指标</strong></td><td>引用错误率、回链可核率、结果一致性、离线可用性等逐项测</td><td>各项指标数值</td></tr>
+          <tr><td><strong>③ 红队诱导</strong></td><td>故意问不存在的法条/诱导下结论,看系统是否如实说"没有"</td><td>抗诱导表现</td></tr>
+          <tr><td><strong>④ 环境实测</strong></td><td>私有化在内网、断网状态跑全流程;信创/等保按本单位要求现场验</td><td>部署合规证据</td></tr>
+          <tr><td><strong>⑤ 评分与判定</strong></td><td>关键项设一票否决,其余按权重打分,写进验收报告留痕</td><td>验收结论 + 报告</td></tr>
+        </tbody>
+      </table>
+
+      <h2>三、盲测集怎么建(验收有没有意义,一半在这)</h2>
+      <p>盲测集的质量,直接决定验收能不能测出真问题。三条原则:</p>
+      <ul>
+        <li><strong>题从真实场景来。</strong>从本单位真实办案、咨询、检索场景里抽,不要用网上的标准题——只有真实业务题,才测得出系统在你这里到底行不行。</li>
+        <li><strong>结构比数量重要。</strong>题量几十道即可暴露问题、上百道更稳,但关键是三类都要有:<strong>常见案由</strong>验"稳不稳",<strong>生僻案由</strong>验"编不编",<strong>陷阱题</strong>(不存在的法条、诱导性提问)验"会不会如实说没有"。只测常见案由的验收,基本等于没验。</li>
+        <li><strong>预先标好参考答案。</strong>每道题由业务骨干预先标注参考结论与"可接受的引用范围",现场测完才能逐题客观打分,而不是凭感觉"看着还行"。</li>
+      </ul>
+      <div class="callout"><p><strong>脱敏红线:</strong>盲测集取自真实卷宗,务必先做脱敏(去除真实当事人身份信息等),避免验收过程本身造成信息外泄。涉密场景应在内网隔离环境组织测试。</p></div>
+
+      <h2>四、要测哪些量化指标</h2>
+      <p>下面四类是法律大模型验收的核心指标,前三类都指向同一件事——<strong>这套系统会不会、多常、多严重地编</strong>。建议把标★的设为一票否决项。</p>
+      <table>
+        <thead><tr><th>指标</th><th>怎么测</th><th>为什么关键</th></tr></thead>
+        <tbody>
+          <tr><td>★引用错误率</td><td>统计输出中编造、张冠李戴、结果说反的引用占比,须低于约定阈值</td><td>法律 AI 最致命的指标,直接关系办案风险</td></tr>
+          <tr><td>★回链可核率</td><td>随机抽取引用,须能当场点开回链到原始裁判文书核对</td><td>不能回链核对的引用=不可用</td></tr>
+          <tr><td>结果一致性</td><td>核对引用所述裁判结果与原文是否一致,不只验案号存在</td><td>"半真半假"最隐蔽,只验案号挡不住</td></tr>
+          <tr><td>★离线可用性</td><td>私有化在内网、断网状态跑完整流程,核心功能仍可用</td><td>私有化场景的入围底线,断网即崩=不合格</td></tr>
+          <tr><td>检索相关性</td><td>用真题看返回的类案是否真相关、召回是否够全</td><td>检索召不准,后面答得再好也是空中楼阁</td></tr>
+          <tr><td>法条时效</td><td>抽查法条引用是否为现行有效,是否引了已废止/已修订的旧法</td><td>引旧法=给错依据</td></tr>
+        </tbody>
+      </table>
+      <p>为什么引用错误率排第一?因为法律 AI 的根本风险不是"答得笨",而是"<strong>一本正经地编</strong>"——它固有于概率语言模型的机制,换更大的模型也治不了根,只能靠真实可回链语料上做检索增强来压制。这条的原理与治理方法,见 <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:裁判文书引证核验落地指南</a>;而能不能压得住,归根到底取决于底层语料是不是真实、可回链、检索得准——这正是 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿份可回链裁判文书私有库</a> 这类真实数据底座,和裸调一个大模型的本质区别。</p>
+
+      <h2>五、红队诱导:专门去"钓"它编</h2>
+      <p>常规题测"它答得对不对",红队测"<strong>它诚不诚实</strong>"——这在法律场景比正确率还重要。几种必做的诱导:</p>
+      <ul>
+        <li><strong>问不存在的东西。</strong>问一个编造的案号、一部不存在的司法解释,看系统是如实说"未检索到",还是顺着编出内容。</li>
+        <li><strong>诱导下确定结论。</strong>把一个模棱两可的问题问得像"求它给个准话",看它是给出带引用、带不确定性的回答,还是被带着拍胸脯下结论。</li>
+        <li><strong>给错误前提。</strong>在提问里埋一个错误的法律假设,看它会不会纠正,还是顺着错误前提往下答。</li>
+      </ul>
+      <p>一套合格的法律 AI,在这三类诱导下都应该<strong>守得住"查不到就说查不到"的底线</strong>。守不住的,无论常规正确率多高,在法律场景都是高危系统。</p>
+
+      <h2>六、验收判定:一票否决 + 评分表</h2>
+      <p>把上面的测试结果,落成一份可签字的判定。建议结构:关键能力设<strong>一票否决</strong>(有一项不过,整体不通过),其余按权重打分。</p>
+      <pre><span class="c"># 法律大模型验收判定表(示意,阈值按本单位设定)</span>
+[一票否决项 —— 任一不过即验收不通过]
+  · 引用错误率        ≤ ___%(用本单位真题盲测统计)
+  · 回链可核率        ≥ ___%(随机抽引用当场回链核对)
+  · 离线可用性        断网状态核心功能全流程可用
+  · 语料可核验        现场核验语料规模/覆盖/更新证明属实
+  · 红队诚实性        对不存在的法条/案号如实说"未检索到"
+
+[加权评分项 —— 合计 100 分,设及格线]
+  · 检索相关性/召回   ___ 分
+  · 结果一致性        ___ 分
+  · 法条时效正确性    ___ 分
+  · 响应时延/并发     ___ 分
+  · 集成/权限/审计    ___ 分
+  · 易用性/培训到位   ___ 分
+
+[判定]  一票否决全过 且 加权得分 ≥ 及格线 → 通过;否则限期整改后复测</pre>
+      <p>关键是:<strong>这些阈值和判定办法,最好在招标需求书里就写清楚</strong>,让厂商投标时就知道会被这样测。验收方法前移到采购阶段,套壳产品在投标时就会知难而退——这也是上一篇 <a href="/blog/legal-ai-tender-technical-specifications.html">技术参数怎么写</a> 强调"用验收条款堵参数虚标"的落点。</p>
+
+      <h2>七、POC 与试用:验收前的低成本预演</h2>
+      <p>对金额大、场景复杂的项目,不必等到正式验收才第一次真测。可以在采购前或合同履行早期安排一轮 <strong>POC(概念验证)/ 试用</strong>:用一小批真题,让候选系统实测一轮,提前暴露"演示很好、真题就露馅"的产品。POC 用的题和指标,可以直接复用本文的盲测集与量化指标框架。文书查提供 <a href="/#api-pricing">API / MCP 试用</a>,可以先用你自己的真实案由跑一轮检索与引证核验,再决定是否进入正式采购——把"实测"这件事,尽量往前放。</p>
+
+      <h2>八、给信息中心主任的验收自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>盲测集是本单位真题吗?</strong>厂商事先看不到吗?常见/生僻/陷阱三类都覆盖了吗?</li>
+          <li><strong>引用错误率测了吗、设阈值了吗?</strong>这是法律 AI 的头号指标,建议一票否决。</li>
+          <li><strong>每条引用能当场回链原文核对吗?</strong>回链可核率有没有实测统计?</li>
+          <li><strong>结果一致性验了吗?</strong>不只验案号存在,还核对了裁判结果与原文一致?</li>
+          <li><strong>做了红队诱导吗?</strong>问不存在的法条/案号,系统如实说"没有"了吗?</li>
+          <li><strong>离线/断网实测过吗?</strong>私有化场景断网状态跑完整流程了吗?</li>
+          <li><strong>信创/等保按本单位要求现场验了吗?</strong>是看报告还是现场验证?</li>
+          <li><strong>验收标准写进合同了吗?</strong>不达标有没有整改、扣款/拒付、直至解除并数据可迁出的机制?</li>
+        </ol>
+      </div>
+
+      <h2>九、常见问题</h2>
+      <p class="faq-q">Q:验收为什么不能只看厂商演示?</p>
+      <p>A:演示用的是厂商反复调过、确保能答对的题,你真实办案的题它没见过。演示证明"最好情况能做什么",验收要验"真实业务上稳定做到什么"。核心动作是把演示题换成本单位真题做盲测,统计引用错误率、回链可核率等量化指标,而不是对参数表勾"满足"。用你自己的真题,是验收有没有意义的分水岭。</p>
+      <p class="faq-q">Q:法律大模型验收该测哪些量化指标?</p>
+      <p>A:至少四类——引用错误率(编造/张冠李戴/结果说反占比,建议一票否决)、回链可核率(引用能否当场回链原文核对)、结果一致性(裁判结果与原文是否一致,不只验案号)、离线可用性(内网断网核心功能是否可用)。另可测检索相关性、法条时效、响应时延与并发,均用真题现场测并写进验收报告。</p>
+      <p class="faq-q">Q:验收不合格但已经采购了怎么办?</p>
+      <p>A:所以要把验收标准与阈值写进合同、并设整改与退出机制:关键指标约定为验收必过项与付款条件,不达标触发限期整改、扣减或拒付、直至解除合同并要求数据可完整迁出。关口要前移——验收测评方法最好在需求书里就写清楚。</p>
+
+      <div class="cta-box">
+        <h3>要组织一轮法律大模型验收测评?我们可以陪你用真题测一遍</h3>
+        <p>文书查提供 1.5 亿份真实、可回链裁判文书的私有化数据底座 + 引证回链与核验能力,支持离线私有化、等保与信创适配。把你的验收场景和真题发来,我们可协助设计盲测集与量化指标,并先用你的真实业务跑一轮 POC 实测,1 个工作日内反馈。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-tender-technical-specifications.html">法律 AI 招投标技术参数怎么写</a> · <a href="/blog/court-ai-procurement-checklist.html">法院信息中心 AI 采购清单</a> · <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的 5 个坑</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/lawyer-workbench-case-win-rate.html">让案件胜算精确到小数点</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
