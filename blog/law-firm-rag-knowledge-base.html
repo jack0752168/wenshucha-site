@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所知识库怎么建:卷宗/合同/类案三库一体的 RAG 落地实战(2026)| 文书查</title>
+  <meta name="description" content="很多律所买了法律大模型,却发现它不懂本所的案子——因为知识没进去。真正的杠杆不是模型,是把本所卷宗、合同范本和外部类案变成一个能被检索、能回链、能按权限隔离的知识库。本文讲律所 RAG 知识库怎么落地:三库一体的分工、五层架构、最难的权限与保密隔离、检索质量怎么保证、分阶段落地路线图,附知识管理总监落地自查清单与 FAQ。" />
+  <meta name="keywords" content="律所知识库,律所 RAG,律所知识管理,法律 RAG 落地,律所知识库建设,卷宗知识库,律所内部检索,律所大模型知识库,法律知识库私有化,律所知识管理系统" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/law-firm-rag-knowledge-base.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所知识库怎么建:卷宗/合同/类案三库一体的 RAG 落地实战(2026)" />
+  <meta property="og:description" content="买了大模型却不懂本所案子,是因为知识没进去。三库一体(卷宗/合同/类案)+ 五层 RAG 架构 + 利益冲突墙式权限隔离 + 引证回链,把律所知识库从“堆文档”做成“能办案的检索大脑”。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/law-firm-rag-knowledge-base.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所知识库怎么建:卷宗/合同/类案三库一体的 RAG 落地实战(2026)",
+    "description": "面向大中型律所知识管理总监与信息化负责人的律所 RAG 知识库落地方法:卷宗库、合同库、类案库三库一体的分工,五层技术架构,利益冲突墙式的权限与保密隔离,切分/向量/重排/引证回链的检索质量保证,以及分阶段落地路线图。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-04",
+    "dateModified": "2026-07-04",
+    "mainEntityOfPage": "https://wenshucha.com/blog/law-firm-rag-knowledge-base.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所买了大模型,为什么还是不懂本所的案子?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为大模型的“肚子里”只有它训练时见过的公开语料,没有本所的卷宗、合同范本、内部研究成果。你问它一个本所办过的类案、一份本所常用的合同条款,它要么答不上来,要么按公开常识“编一个像样的”。要让 AI 真正懂本所,关键不在换更大的模型,而在把本所知识变成一个能被检索、能回链核对、能按权限隔离的知识库,让模型每次回答都先从这个库里检索出真实材料再作答(即 RAG,检索增强生成)。模型是大脑,知识库才是这个大脑读过的案卷——没有后者,再强的模型在你所里也是个只会背公开教科书的实习生。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "律所知识库为什么要“三库一体”,一个库不行吗?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为律所要用的知识来自三类性质完全不同的材料。卷宗库是本所办过的真实案件与办案成果,回答“我们所之前怎么打这类案子”;合同库是范本、条款库与审查经验,回答“这个条款该怎么改、有什么坑”;类案库是外部海量裁判文书与法规,回答“法院普遍怎么判、有没有对我方有利的先例”。三类材料的更新频率、权限要求、检索方式都不一样——卷宗涉及利益冲突和保密,权限最严;类案是公开数据,可以全所共享。硬塞进一个库,要么权限一刀切导致该看的看不到、不该看的看得到,要么检索时三类材料互相干扰。三库一体不是分三个系统,而是在同一套检索架构下按来源和权限分层治理,再在回答时统一调用。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "律所知识库最大的风险是什么?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "两个:一是保密与利益冲突,二是幻觉。卷宗和合同是律所最敏感的资产,涉及客户保密义务和防火墙(利益冲突墙)要求,知识库必须做到按 matter、按团队、按人做检索层的权限隔离——A 客户的材料绝不能在给 B 客户办案时被检索到,这是执业底线,不是技术选配。所以律所知识库几乎必然要私有化离线部署,数据不出内网。二是幻觉:如果检索召不准或语料不可回链,模型仍会编。合格的律所知识库,每一条回答都要能点开回链到原始卷宗/条款/裁判文书原文核对,做不到回链核对的知识库不能用于办案决策。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "律所知识库落地要多久、从哪开始?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "建议分阶段,不要一上来就“把全所文档都灌进去”。务实的路线是:先选一个业务线(如某个高频专业领域)做小范围试点,把这个领域的卷宗、常用合同、相关类案接入,验证检索准不准、回链能不能核、权限隔离是否可靠;试点跑通、业务骨干认可后,再按业务线逐步扩,同时把权限模型、脱敏流程、更新机制固化成规范。类案库(外部裁判文书与法规)可以用现成的数据底座直接接入,不必自建;卷宗库和合同库则要配合本所的文档管理与权限体系逐步治理。整体是一个持续运营的过程,而不是一次性交付的项目。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 律所知识库 RAG 落地</div>
+    <h1>律所知识库怎么建:卷宗/合同/类案三库一体的 RAG 落地实战(2026)</h1>
+    <div class="meta">2026-07-04 · 文书查 · 面向律所知识管理总监 · 信息化负责人 · 合伙人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">不少律所花大价钱买了法律大模型,用了一阵却泄了气:它不懂本所办过的案子,不知道本所常用的合同条款,问它一个具体的内部问题,答得像个只读过公开教科书的实习生。问题几乎从来不在模型本身,而在<strong>知识没进去</strong>。真正的杠杆不是"换个更强的模型",而是把本所的卷宗、合同和外部类案,变成一个能被检索、能回链核对、能按权限隔离的<strong>知识库</strong>,让模型每次回答前先从这个库里检索出真实材料再作答——这就是 RAG(检索增强生成)。这篇写给要真正把律所知识库落地的人:三库一体怎么分工、五层架构长什么样、最难的权限与保密怎么做、检索质量怎么保证、分几步走,逐一给方法。</p>
+
+      <h2>一、模型是大脑,知识库才是它读过的案卷</h2>
+      <p>先厘清一个被销售话术搞混的问题:<strong>大模型本身不装本所的知识</strong>。一个通用大模型,肚子里是它训练时见过的公开语料——它可能读过大量公开判决和法律教材,但绝没读过你所的卷宗、你所的合同范本、你所某位合伙人十年攒下的办案心得。所以你问它本所的事,它只有两种反应:答不上来,或者按公开常识"编一个像样的"。</p>
+      <p>让 AI 懂本所,靠的不是把模型换大,而是给它配一套<strong>能检索的知识库</strong>:每次回答前,先从库里检索出真实相关的材料(卷宗、条款、判例原文),把这些材料连同问题一起交给模型,让它<strong>基于检索到的真实材料</strong>作答,并附上出处。模型是大脑,知识库才是这个大脑读过的案卷——没有后者,再强的模型在你所里也只是个会背公开教科书的实习生。这也解释了为什么"买个大模型就行"是个误区:<strong>80% 的价值在知识库和检索,不在模型选型</strong>。</p>
+
+      <h2>二、三库一体:卷宗、合同、类案各管一摊</h2>
+      <p>律所真正要用的知识,来自三类性质完全不同的材料。把它们笼统地叫"文档"一锅烩,是知识库做不好的头号原因。按来源拆成三库,各自的角色、权限、更新方式都不一样:</p>
+      <table>
+        <thead><tr><th>库</th><th>装什么</th><th>回答什么问题</th><th>权限/更新特点</th></tr></thead>
+        <tbody>
+          <tr><td><strong>卷宗库</strong></td><td>本所办过的真实案件、诉状/答辩/代理词、办案成果与复盘</td><td>"我们所之前怎么打这类案子、结果如何"</td><td>最敏感:涉客户保密与利益冲突,权限最严;随办案持续增长</td></tr>
+          <tr><td><strong>合同库</strong></td><td>范本、条款库、审查清单、修改痕迹与谈判经验</td><td>"这个条款怎么改、有什么坑、我方标准版是什么"</td><td>中敏感:按业务线/客户分权;版本管理是关键</td></tr>
+          <tr><td><strong>类案库</strong></td><td>外部海量裁判文书、法规、司法解释</td><td>"法院普遍怎么判、有没有对我方有利的先例"</td><td>公开数据可全所共享;须持续更新保持时效</td></tr>
+        </tbody>
+      </table>
+      <p>为什么必须分而治之?因为三类材料的<strong>权限模型天差地别</strong>:卷宗涉及利益冲突墙,A 客户的材料绝不能在给 B 客户办案时被检索到;类案是公开数据,全所共享无妨。硬塞进一个库,要么权限一刀切——该看的看不到、不该看的看得到;要么检索时三类材料互相干扰,问合同条款却召回一堆判例。"三库一体"不是搞三个割裂的系统,而是在<strong>同一套检索架构下,按来源和权限分层治理,回答时再统一调用</strong>。其中类案库这一层,不必自建——用现成的 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿份可回链裁判文书私有库</a> 直接接入即可,把精力省下来治理卷宗和合同这两个只有你所才有的库。</p>
+
+      <h2>三、RAG 知识库的五层架构</h2>
+      <p>把上面的构想落成系统,是一条自下而上的五层流水线。每一层做不好,上面的都白搭:</p>
+      <table>
+        <thead><tr><th>层</th><th>做什么</th><th>律所场景的关键坑</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 接入与解析</strong></td><td>把卷宗、合同、判例从各系统抽出,解析 PDF/扫描件/表格</td><td>大量卷宗是扫描件,OCR 质量直接决定后面能不能检索;表格与印章别丢</td></tr>
+          <tr><td><strong>② 切分与脱敏</strong></td><td>把长文档切成检索单元,涉密/个人信息按规则脱敏</td><td>切太碎丢上下文,切太粗召不准;脱敏要在入库前完成</td></tr>
+          <tr><td><strong>③ 向量与索引</strong></td><td>用嵌入模型把文本转成向量,建向量+关键词混合索引</td><td>法律术语专有,通用嵌入模型效果打折,需评估或适配</td></tr>
+          <tr><td><strong>④ 检索与重排</strong></td><td>召回候选 → 重排序 → 按权限过滤 → 取最相关的几条</td><td>权限过滤必须在检索层生效,不能只靠回答时"提醒模型别说"</td></tr>
+          <tr><td><strong>⑤ 生成与回链</strong></td><td>把检索到的材料交给模型作答,每条结论附原文回链</td><td>没有回链的回答不可用于办案;查不到要如实说"没有"</td></tr>
+        </tbody>
+      </table>
+      <p>这五层里,律所最容易低估的是<strong>第一层和第四层</strong>。第一层:很多所的历史卷宗是扫描件,OCR 不过关,后面做得再花哨也是"垃圾进垃圾出"。第四层:权限过滤如果只靠在提示词里"叮嘱模型别看别的客户",迟早出事——<strong>权限必须落在检索层,让不该被检索的材料根本进不了候选集</strong>。检索环节的语义与关键词怎么权衡、怎么评估召回质量,可参考 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词,哪种更准</a>。</p>
+
+      <h2>四、最难的一层:权限、保密与利益冲突墙</h2>
+      <p>技术架构可以照搬,但律所知识库有一条别的行业没有的硬约束:<strong>利益冲突墙(信息隔离墙)</strong>。这不是技术选配,是执业底线。</p>
+      <ul>
+        <li><strong>按 matter/团队/人做检索层隔离。</strong>知识库必须能做到:给 B 客户办案时,A 客户的卷宗和材料在检索阶段就被排除在候选集之外,而不是"检索到了但让模型别说"。前者是隔离,后者是隐患。</li>
+        <li><strong>客户保密义务不可让渡。</strong>卷宗和合同是律所最敏感的资产,一旦数据外流或被用于训练公开模型,是执业事故。这也是为什么律所知识库<strong>几乎必然要私有化离线部署</strong>——数据不出内网,不进任何外部云。相关合规视角见 <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化部署如何满足客户保密义务</a>。</li>
+        <li><strong>可审计。</strong>谁在什么时候检索了哪些材料,要有日志可查。这既是合规要求,也是万一发生争议时的自证依据。</li>
+      </ul>
+      <div class="callout"><p><strong>一句话判断标准:</strong>如果一套律所知识库方案,不能在检索层证明"A 客户的材料在给 B 客户办案时不可能被召回",那它无论演示多漂亮,都不能接进真实办案流程。权限隔离是这类系统的入围资格,不是加分项。</p></div>
+
+      <h2>五、检索质量:决定它是"能办案"还是"看着热闹"</h2>
+      <p>知识库建起来了,好不好用取决于检索准不准、答得能不能核。四个要点:</p>
+      <ul>
+        <li><strong>混合检索。</strong>法律问题既有语义(找相似情形),又有精确匹配(某个法条、某类合同条款),单靠向量或单靠关键词都不够,实践中多用两者混合再重排。</li>
+        <li><strong>召回要"全"也要"准"。</strong>漏掉一个对我方有利的先例,和塞进一堆不相关的判例,一样有害。用本所真实问题实测召回质量,而不是看厂商的标准题。</li>
+        <li><strong>引证回链是底线。</strong>每一条结论都要能点开回链到卷宗/条款/裁判文书原文核对。做不到回链的"结论",在法律场景等于没有——这也是压制幻觉的根本手段,原理见 <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:裁判文书引证核验落地指南</a>。</li>
+        <li><strong>查不到就说查不到。</strong>知识库里没有的,系统要如实说"未检索到",而不是拿公开常识补一个。这一条要在验收时用红队题专门测。</li>
+      </ul>
+
+      <h2>六、落地路线图:别一上来就"全灌进去"</h2>
+      <p>律所知识库最常见的翻车姿势,是立项就要"把全所几十年的文档全部灌进去"——结果卷在数据治理里出不来。务实的路线是<strong>小步试点、按业务线扩</strong>:</p>
+      <ol>
+        <li><strong>选一条高频业务线试点。</strong>挑一个案件量大、知识沉淀多的专业领域,把这个领域的卷宗、常用合同、相关类案接入,范围可控。</li>
+        <li><strong>先验三件事:检索准不准、回链能不能核、权限隔离靠不靠谱。</strong>用这条业务线的业务骨干做真实问题盲测,跑通了再谈扩。</li>
+        <li><strong>把规范固化下来。</strong>试点中把权限模型、脱敏流程、文档更新机制沉淀成本所规范,后面每扩一条线都照做。</li>
+        <li><strong>按业务线滚动扩,类案库直接接数据底座。</strong>卷宗库和合同库配合本所文档管理与权限体系逐步治理;类案库(外部裁判文书与法规)用现成底座接入、持续同步更新即可,不必自建。</li>
+      </ol>
+      <p>要记住:律所知识库是一个<strong>持续运营</strong>的过程,不是一次性交付的项目。卷宗天天在增长,合同范本不断迭代,类案数据需要保持时效——建起来只是开始,养护得当才有复利。它最终的落点,是喂饱一个真正懂本所的 <a href="/#workbench">律师工作台</a>,让 <a href="/blog/lawyer-workbench-case-win-rate.html">案件研判从"凭感觉"变成"有据可查"</a>。</p>
+
+      <h2>七、给知识管理总监的落地自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>三库分清了吗?</strong>卷宗/合同/类案是否按来源和权限分层治理,而不是一锅烩?</li>
+          <li><strong>权限落在检索层了吗?</strong>能否证明 A 客户材料在给 B 客户办案时不会被召回?</li>
+          <li><strong>私有化离线了吗?</strong>卷宗合同数据是否确保不出内网、不进外部云、不被用于训练?</li>
+          <li><strong>历史卷宗的 OCR 过关吗?</strong>扫描件解析质量是否实测过,别"垃圾进垃圾出"?</li>
+          <li><strong>每条结论能回链原文吗?</strong>回链可核率是否达标,查不到会不会如实说"没有"?</li>
+          <li><strong>类案库接的是真实、可回链、持续更新的数据底座吗?</strong>还是过期静态包?</li>
+          <li><strong>试点选好了吗?</strong>是不是从一条高频业务线小步起,而不是全所一次性灌?</li>
+          <li><strong>可审计吗?</strong>检索行为是否有日志,合规与争议时能否自证?</li>
+        </ol>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:买了大模型,为什么还是不懂本所的案子?</p>
+      <p>A:因为大模型只装了训练时见过的公开语料,没有本所卷宗、合同、内部成果。要让 AI 懂本所,靠的不是换更大的模型,而是把本所知识做成可检索、可回链、可按权限隔离的知识库,让模型每次回答前先检索真实材料再作答(RAG)。模型是大脑,知识库才是它读过的案卷。</p>
+      <p class="faq-q">Q:为什么要"三库一体",一个库不行吗?</p>
+      <p>A:卷宗、合同、类案三类材料的权限、更新、检索方式完全不同——卷宗涉利益冲突权限最严,类案是公开数据可共享。一锅烩会导致权限一刀切或检索互相干扰。三库一体是在同一检索架构下按来源和权限分层治理,回答时统一调用。</p>
+      <p class="faq-q">Q:律所知识库最大的风险是什么?</p>
+      <p>A:保密/利益冲突,和幻觉。卷宗合同最敏感,必须在检索层做 matter/团队/人的权限隔离(A 客户材料不能在给 B 客户办案时被召回),故几乎必然私有化离线。同时每条回答须能回链原文核对,压制幻觉;做不到回链的知识库不能用于办案决策。</p>
+
+      <div class="cta-box">
+        <h3>要把本所知识变成"能办案的检索大脑"?我们从数据底座到私有化落地陪你走一遍</h3>
+        <p>文书查提供 1.5 亿份真实、可回链裁判文书的类案数据底座,支持离线私有化、等保与信创适配,并可与本所卷宗库、合同库在同一套检索架构下三库一体落地。把你的业务线和场景发来,我们协助设计试点方案与权限隔离模型,1 个工作日内反馈。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库架构</a> · <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义 vs 关键词</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/lawyer-workbench-case-win-rate.html">让案件胜算精确到小数点</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
