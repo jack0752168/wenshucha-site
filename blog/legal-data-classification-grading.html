@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律数据怎么分类分级:律所与政法机关 AI 落地前必做的合规底座(2026)| 文书查</title>
+  <meta name="description" content="很多单位急着上法律 AI,却跳过了数据分类分级这道底座——结果等保测评过不了、涉密数据混进向量库、检索权限一刀切。数据分类分级不是填张表,而是决定哪些数据能上云、哪些必须离线、怎么脱敏、怎么隔离的合规起点。本文讲法律数据怎么做分类分级:分类的三个维度、核心/重要/一般三级怎么定、分级如何直接决定 AI 系统的技术措施、落地五步法,附信息中心与合规官落地自查清单与 FAQ。" />
+  <meta name="keywords" content="法律数据分类分级,数据分类分级,司法数据分类分级,数据分级保护,法律AI数据合规,政法数据分类,数据安全法分类分级,律所数据分级,数据分类分级落地,重要数据识别" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-data-classification-grading.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律数据怎么分类分级:律所与政法机关 AI 落地前必做的合规底座(2026)" />
+  <meta property="og:description" content="上法律 AI 之前先把数据分类分级做对:分类三维度、核心/重要/一般三级怎么定、分级如何决定能不能上云与怎么隔离检索权限,以及落地五步法。这是等保测评与私有化部署都绕不开的合规底座。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-data-classification-grading.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律数据怎么分类分级:律所与政法机关 AI 落地前必做的合规底座(2026)",
+    "description": "面向政法机关信息中心、律所合规官与信息化负责人的法律数据分类分级落地方法:分类的三个维度(来源/主体/业务)、核心数据与重要数据与一般数据三级如何界定、分级结果如何直接决定 AI 系统能否上云与检索权限如何隔离,以及分类分级落地五步法。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-05",
+    "dateModified": "2026-07-05",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-data-classification-grading.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "上法律 AI 之前,为什么必须先做数据分类分级?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为分类分级决定了后面所有的保护动作和技术选型。《数据安全法》确立了数据分类分级保护制度,要求按数据的重要程度采取相应保护措施——不先分级,你就无法回答“这批数据能不能上云、要不要脱敏、检索时给谁看”这些问题。落地上也是硬前置:等保测评、数据安全评估都会查你有没有分类分级台账;把训练语料、卷宗、当事人信息不分级就一股脑灌进 AI 系统,轻则测评过不了,重则涉密数据或敏感个人信息混进向量库、被模型召回给不该看的人。分类分级不是填张表交差,而是私有化部署与合规落地共同的起点:先分级,才谈得上保护。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "法律数据的分类和分级是一回事吗?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不是,是两件先后衔接的事。分类是按“数据是什么”把数据归堆——按来源(公开裁判文书/内部卷宗/当事人提交材料)、按主体(个人信息/法人信息/公共数据)、按业务(诉讼/合同/知识管理)分门别类;分级是按“出事有多严重”给每一类数据定保护级别,通常对应核心数据、重要数据、一般数据三级,个人信息里再单独识别敏感个人信息。先分类再分级:同一类数据里也可能有不同级别(比如同是卷宗,普通民事和涉未成年人、涉国家秘密的就不同级)。分类是为了看清家底、便于管理,分级是为了把有限的保护资源用在刀刃上——级别越高,加密、脱敏、离线、权限隔离的要求越严。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "分类分级的结果怎么影响 AI 系统的建设?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "分级结果直接决定四件技术上的事:一是能不能上云——核心数据、涉密数据、敏感卷宗几乎必然要求本地化私有部署、数据不出内网,只有低敏感的公开数据才谈得上用外部云或公有大模型;二是入库前要不要脱敏、怎么脱敏——敏感个人信息(身份证号、联系方式、生物识别、涉未成年人等)在进检索库/训练集之前必须按规则脱敏或去标识化;三是检索权限怎么隔离——高等级数据要在检索层按人、按团队、按业务隔离,让不该被召回的材料根本进不了候选集,而不是靠提示词“提醒模型别说”;四是能不能用于训练/微调——高等级、强敏感数据一般禁止用于会对外的模型训练。一句话:不同级别的数据,走不同的技术管线,分级台账就是这套管线的路由表。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "分类分级落地从哪一步开始,要做多久?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "建议按五步走,别指望一次做完美:第一步摸清数据家底(有哪些数据、在哪、谁在用),形成数据资产清单;第二步定分类框架(结合本单位业务,把数据按来源/主体/业务分类);第三步逐类定级(对照核心/重要/一般,重点是识别出重要数据和敏感个人信息);第四步把级别翻译成保护措施(每一级对应的加密、脱敏、存储位置、访问权限、能否上云、能否用于训练);第五步固化为台账并动态维护(数据在变,分级要定期复评)。第一版分类分级框架通常一两个月能出,重点是先把“重要数据”和“敏感个人信息”这两类高风险的识别准、隔离好,其余可以在运行中迭代。它是一个持续治理过程,不是一次性交付。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律数据分类分级</div>
+    <h1>法律数据怎么分类分级:律所与政法机关 AI 落地前必做的合规底座(2026)</h1>
+    <div class="meta">2026-07-05 · 文书查 · 面向政法机关信息中心 · 律所合规官 · 信息化负责人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">上法律 AI 这件事,很多单位是从"选哪个大模型、买多少张卡"开始的,却把最该先做的一步跳了过去——<strong>数据分类分级</strong>。结果往往是:等保测评时被问"你的数据分级台账呢",答不上来;涉密文件、当事人身份信息不加区分地灌进向量库,被模型召回给了不该看的人;想上公有云省成本,又拿不准这批数据到底能不能出内网。数据分类分级不是一张交差用的表格,而是决定<strong>哪些数据能上云、哪些必须离线、怎么脱敏、检索时给谁看</strong>的合规起点。这篇写给要在律所或政法机关真正把 AI 落地、并且要过合规这一关的人:分类怎么分、级别怎么定、分级结果如何直接决定 AI 系统怎么建,以及落地分几步走。</p>
+
+      <h2>一、为什么 AI 落地前必须先过分类分级这道底座</h2>
+      <p>《数据安全法》确立了国家实行<strong>数据分类分级保护制度</strong>,核心逻辑很朴素:数据的重要程度不一样,该上的保护措施也不一样,不能一刀切。对要上 AI 的单位,这句话落到实处就是一个绕不开的前置问题——<strong>你不先给数据分级,就没法回答后面每一个技术决策</strong>:这批数据能不能上公有云?要不要脱敏?训练能不能用?检索时给谁看?</p>
+      <p>它同时是合规落地的硬门槛。等保测评、数据安全评估、政务数据的安全审查,都会查你有没有分类分级的台账和依据。更现实的风险在 AI 环节被放大:传统系统里数据"躺着"不动,风险还相对可控;而 AI 会把语料<strong>切碎、向量化、跨案由检索、再由模型重新组织成答案</strong>——一旦把涉密材料、敏感个人信息不分级就喂进去,它们会以你意想不到的方式被召回、被拼接、被泄露。<strong>先分级,才谈得上保护</strong>,这是私有化部署和合规落地共同的第一块地基。</p>
+
+      <h2>二、分类 ≠ 分级:先看清家底,再定保护力度</h2>
+      <p>实践中最常见的混淆,是把"分类"和"分级"当成一件事。它们是先后衔接的两步:</p>
+      <table>
+        <thead><tr><th></th><th>回答的问题</th><th>产出</th><th>目的</th></tr></thead>
+        <tbody>
+          <tr><td><strong>分类</strong></td><td>"这是什么数据"</td><td>按来源/主体/业务把数据归堆</td><td>看清家底、便于管理</td></tr>
+          <tr><td><strong>分级</strong></td><td>"出事有多严重"</td><td>给每类数据定核心/重要/一般级别</td><td>把保护资源用在刀刃上</td></tr>
+        </tbody>
+      </table>
+      <p>顺序是<strong>先分类、再分级</strong>。要注意:同一类数据里也会有不同级别——同样是卷宗,普通民事纠纷卷宗和涉未成年人、涉商业秘密、涉国家秘密的卷宗,级别就不一样。所以分类是把数据摊开看清楚,分级是在每一堆里再挑出真正高风险的那部分重点看管。</p>
+
+      <h2>三、法律数据的三个分类维度</h2>
+      <p>法律数据不像业务数据那样天然带着字段,它更"文本化、卷宗化"。务实的做法是从三个维度交叉打标签:</p>
+      <table>
+        <thead><tr><th>维度</th><th>怎么分</th><th>为什么重要</th></tr></thead>
+        <tbody>
+          <tr><td><strong>按来源</strong></td><td>公开数据(裁判文书、法规)/ 内部数据(本所卷宗、办案成果)/ 当事人提交材料 / 第三方采购数据</td><td>来源直接影响可用范围:公开数据可共享,内部与当事人数据受保密义务约束</td></tr>
+          <tr><td><strong>按主体</strong></td><td>个人信息(其中识别出敏感个人信息)/ 法人及组织信息 / 公共数据 / 不涉及特定主体的数据</td><td>决定要不要走个人信息保护的合规动作(脱敏、去标识化、告知同意)</td></tr>
+          <tr><td><strong>按业务</strong></td><td>诉讼类 / 合同类 / 知识管理类 / 行政办公类;政法机关再叠加办案、监管、政务服务等条线</td><td>决定权限归谁、检索时按哪条业务线隔离</td></tr>
+        </tbody>
+      </table>
+      <p>三个维度不是三选一,而是给同一份数据同时贴上三类标签。一份"某离婚案卷宗"可能同时是:内部来源、含敏感个人信息(涉未成年人)、诉讼类业务——这三个标签合起来,基本就框定了它的保护要求。</p>
+
+      <h2>四、三级怎么定:核心 / 重要 / 一般</h2>
+      <p>分级通常对应<strong>核心数据、重要数据、一般数据</strong>三级,个人信息里再单独把<strong>敏感个人信息</strong>识别出来重点保护。定级的抓手是"一旦泄露、篡改、损毁,危害有多大":</p>
+      <table>
+        <thead><tr><th>级别</th><th>法律场景里大致是什么</th><th>保护基调</th></tr></thead>
+        <tbody>
+          <tr><td><strong>核心数据</strong></td><td>关系国家安全、涉国家秘密的司法数据,重大敏感案件数据等(政法机关才涉及,律所一般不持有)</td><td>最严:严格离线、专网、专人、最小授权</td></tr>
+          <tr><td><strong>重要数据</strong></td><td>规模化的当事人个人信息、可能影响特定领域安全的聚合司法数据、涉商业秘密的卷宗等</td><td>本地化、加密、脱敏、严格权限;识别出"重要数据"是分级的重中之重</td></tr>
+          <tr><td><strong>一般数据</strong></td><td>已公开的裁判文书、法规、公开司法统计等</td><td>常规保护即可,可用于检索、训练、对外服务</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><p><strong>定级的两个高频抓手:</strong>①先把<strong>敏感个人信息</strong>找全——身份证号、联系方式、生物识别、行踪、健康、金融账户,以及涉未成年人的一切信息,这些不管在哪一级里都要按最敏感处理;②再把<strong>重要数据</strong>识别准——单条不敏感、但<strong>聚合起来</strong>会形成规模效应或反映区域/领域态势的数据(如某地全部劳动争议的金额分布),很可能构成重要数据。分级最容易漏的,恰恰是这类"单看不起眼、汇总有分量"的聚合数据。</p></div>
+
+      <h2>五、分级怎么直接决定 AI 系统怎么建</h2>
+      <p>分类分级不是给合规部门存档的,它是 AI 系统的<strong>路由表</strong>——不同级别的数据走不同的技术管线。四条最关键的映射:</p>
+      <table>
+        <thead><tr><th>技术决策</th><th>分级怎么决定它</th></tr></thead>
+        <tbody>
+          <tr><td><strong>能不能上云</strong></td><td>核心/重要数据、敏感卷宗几乎必然要求<strong>本地化私有部署、数据不出内网</strong>,不能走公有云或公有大模型;只有已公开的一般数据才谈得上用外部资源</td></tr>
+          <tr><td><strong>要不要脱敏</strong></td><td>含敏感个人信息的数据在进检索库/训练集<strong>之前</strong>就要按规则脱敏或去标识化,而不是"入库后再说"</td></tr>
+          <tr><td><strong>检索权限怎么隔离</strong></td><td>高等级数据要在<strong>检索层</strong>按人、按团队、按业务线隔离,让不该被召回的材料根本进不了候选集,而不是靠提示词提醒模型"别说"</td></tr>
+          <tr><td><strong>能不能用于训练</strong></td><td>高等级、强敏感数据一般<strong>禁止用于会对外的模型训练/微调</strong>;可用于训练的通常只有已脱敏或本就公开的数据</td></tr>
+        </tbody>
+      </table>
+      <p>把这张表倒过来看就明白了:为什么律所和政法机关的 AI <strong>几乎必然要私有化离线</strong>?因为它们手里最有价值的那批数据(卷宗、办案数据、敏感个人信息)几乎都落在重要数据这一级,而重要数据的保护基调就是本地化。这也是<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库为什么要本地部署</a>、<a href="/blog/law-firm-rag-knowledge-base.html">律所知识库为什么要在检索层做权限隔离</a>这些问题背后的同一个根:分级结果不同,技术路线就不同。相对地,公开裁判文书这类一般数据,可以放心地作为<a href="/#api-pricing">类案数据底座</a>接进来做检索,不受这套高等级约束的拖累。</p>
+
+      <h2>六、分类分级落地五步法</h2>
+      <p>别指望一次做到完美。务实的路线是分五步,先把高风险的识别准、隔离好,其余在运行中迭代:</p>
+      <ol>
+        <li><strong>摸清数据家底。</strong>先搞清楚有哪些数据、存在哪、谁在用、怎么流动,形成一份数据资产清单。摸不清家底,分级就是空中楼阁。</li>
+        <li><strong>定分类框架。</strong>结合本单位业务,把数据按来源/主体/业务三个维度分类,形成本单位的分类目录。</li>
+        <li><strong>逐类定级。</strong>对照核心/重要/一般三级逐类打标,<strong>重点是把"重要数据"和"敏感个人信息"这两类高风险识别准</strong>,拿不准的从严。</li>
+        <li><strong>把级别翻译成保护措施。</strong>为每一级明确对应的加密、脱敏、存储位置、访问权限、能否上云、能否用于训练——这一步是分级真正产生约束力的地方。</li>
+        <li><strong>固化台账并动态复评。</strong>把上述结果沉淀成分类分级台账,并定期复评:数据在增、业务在变,分级不是一锤定音。</li>
+      </ol>
+      <p>整体是一个<strong>持续治理</strong>的过程,而非一次性交付的项目。第一版框架通常一两个月能出,关键是别在追求完美中卡死——先让高风险数据得到该有的保护,系统就能安全地跑起来。</p>
+
+      <h2>七、给信息中心与合规官的落地自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>有分类分级台账吗?</strong>能不能拿出一份说明"哪类数据是什么级别、依据是什么"的台账,而不是口头说"我们分过"?</li>
+          <li><strong>敏感个人信息找全了吗?</strong>身份证号、联系方式、生物识别、涉未成年人等,是否在入库前已识别并脱敏?</li>
+          <li><strong>重要数据识别准了吗?</strong>那些"单看不起眼、聚合有分量"的数据,有没有被漏成一般数据?</li>
+          <li><strong>分级和上云决策挂钩了吗?</strong>核心/重要数据是否确保本地化离线、不出内网、不进公有大模型?</li>
+          <li><strong>检索权限落在检索层了吗?</strong>高等级数据能否证明"不该看的人根本检索不到",而不是靠提示词兜底?</li>
+          <li><strong>训练用数据合规吗?</strong>用于训练/微调的语料是否都是已脱敏或本就公开的数据?</li>
+          <li><strong>台账会复评吗?</strong>有没有定期复评机制,还是定完就锁进抽屉?</li>
+          <li><strong>公开数据用对了吗?</strong>作为类案底座的裁判文书是否确为公开、可回链、可持续更新的一般数据?</li>
+        </ol>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:上法律 AI 之前,为什么必须先做数据分类分级?</p>
+      <p>A:因为分级决定后面所有保护动作与技术选型。《数据安全法》要求按数据重要程度采取相应保护措施,不先分级就无法回答"能不能上云、要不要脱敏、给谁看"。它也是等保测评、数据安全评估的硬前置;不分级就把语料灌进 AI,涉密或敏感数据极易被向量化后召回给不该看的人。先分级,才谈得上保护。</p>
+      <p class="faq-q">Q:分类和分级是一回事吗?</p>
+      <p>A:不是。分类回答"这是什么数据"(按来源/主体/业务归堆),分级回答"出事有多严重"(核心/重要/一般三级,并单独识别敏感个人信息)。先分类再分级,同一类里也可能有不同级别。分类看清家底,分级把保护资源用在刀刃上。</p>
+      <p class="faq-q">Q:分级结果怎么影响 AI 系统建设?</p>
+      <p>A:直接决定四件事——能不能上云(高等级须本地化离线)、要不要在入库前脱敏、检索权限如何在检索层隔离、能不能用于训练。分级台账就是 AI 系统的路由表:不同级别走不同技术管线。这也是律所与政法机关 AI 几乎必然私有化离线的根本原因。</p>
+
+      <div class="cta-box">
+        <h3>要把分类分级落成一套能过测评、能跑 AI 的私有化方案?我们从数据底座到合规落地陪你走一遍</h3>
+        <p>文书查提供 1.5 亿份真实、可回链裁判文书的公开类案数据底座(属一般数据,可放心接入检索),并支持等保、信创适配的私有化离线部署,配合本单位卷宗/合同等高等级数据在同一套架构下按分级隔离治理。把你的数据现状和场景发来,我们协助设计分类分级到技术措施的落地映射,1 个工作日内反馈。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台:等保三级合规架构</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所知识库怎么建:三库一体 RAG 落地</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库架构</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型怎么验收</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
