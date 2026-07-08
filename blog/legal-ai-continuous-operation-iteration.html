@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 上线只是开始:数据回流、持续运营与模型迭代实战(2026)| 文书查</title>
+  <meta name="description" content="很多单位以为法律 AI 验收签字就大功告成,半年后却发现它悄悄变笨了——法规更新了它不知道、新案由它答不好、律师问法变了它跟不上。静态系统会随时间贬值,真正决定长期价值的是上线之后的持续运营。本文讲法律 AI 的 Day-2 运营实战:为什么上线不是终点、持续运营的四条生命线、让系统越用越准的数据回流闭环、从发现到修好的 badcase 治理流程、把效果监控做成仪表盘而不是靠投诉、以及小步快跑的迭代节奏,附信息化负责人持续运营自查清单与 FAQ。" />
+  <meta name="keywords" content="法律AI持续运营,法律AI数据回流,法律大模型迭代,法律AI运维,法律AIbadcase治理,法律AI效果监控,法律AI持续优化,法律AI上线后运营,法律AI Day2,法律大模型持续优化" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-continuous-operation-iteration.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 上线只是开始:数据回流、持续运营与模型迭代实战(2026)" />
+  <meta property="og:description" content="法律 AI 不是买回来验收完就一劳永逸的固定资产,而是需要持续喂养的活系统。这篇讲上线之后的 Day-2 运营:四条生命线、数据回流闭环、badcase 治理流程、效果监控仪表盘与迭代节奏。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-continuous-operation-iteration.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 上线只是开始:数据回流、持续运营与模型迭代实战(2026)",
+    "description": "面向律所信息化负责人、政法机关信息中心与知识管理总监的法律 AI 持续运营方法:为什么上线不是终点、持续运营的四条生命线、让系统越用越准的数据回流闭环、从发现到修好的 badcase 治理流程、把效果监控做成仪表盘的指标体系,以及小步快跑的迭代节奏。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-08",
+    "dateModified": "2026-07-08",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-continuous-operation-iteration.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 验收上线之后,为什么还需要持续运营?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为法律 AI 是一个会随时间贬值的活系统,不是一次买断就一劳永逸的固定资产。上线那天它的表现是当时语料、当时法规、当时用户问法下的一个快照,但这三样都在变:法律法规和司法解释会更新,新的案由和新的判法会出现,律师问问题的方式也会随着用得深而变化。系统本身不动,世界在动,它就会悄悄变笨——去年答得对的问题,今年可能因为规则变了而答错;用户第一批高频问法覆盖到了,第二批新问法却没人补。真正决定法律 AI 长期价值的,不是上线时它有多强,而是上线之后有没有人持续喂养它:更新语料与法规、收集并修复 badcase、盯住效果指标、按节奏迭代检索与模型。把它当成买完就不用管的东西,是它半年后变得没人信、没人用的根本原因。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 的数据回流是什么?会不会拿客户数据去训练模型?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "数据回流指的是把系统用起来之后产生的反馈信号沉淀下来、变成让系统越用越准的优化依据——比如律师对某个回答点了踩、指出引用对不上、或者在结果上做了批注,这些都是极其宝贵的真实问题样本。把它们归集、脱敏、分类,就能沉淀出一套贴着本单位真实业务的评测集和优化清单,指导下一轮该补哪些语料、该修哪类检索、该调哪种提示。但数据回流不等于拿客户数据去训练模型。在律所和政法机关场景,当事人信息和办案数据高度敏感,回流必须先过脱敏与权限这一关:反馈信号可以用来发现问题、构建评测,能否用于任何形式的训练或微调,必须由数据分类分级和合规边界说了算,而且几乎都在私有化离线环境内闭环完成、不出内网。回流是为了持续优化,不是为了偷偷喂数据,这条边界必须写清楚。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 出了错答(badcase)应该怎么治理?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "靠一套从发现到修好、可追溯的闭环流程,而不是靠用户投诉一次改一次。务实的做法分四步:一是归集,给系统里随手就能标记错答的入口,把 badcase 连同原始提问、系统回答、引用一起收进一个池子;二是归因分类,判断这条错答的根子在哪——是检索没把该召回的判决召回来、是生成阶段编造了不存在的内容(幻觉)、是语料本身就缺这块、还是权限配错召回了不该看的材料,不同根子对应完全不同的修法;三是对症修,检索问题调检索与索引、幻觉问题强化引证约束与回链、语料缺失补数据底座、权限问题修隔离规则;四是回归验证,把修过的 badcase 沉淀进固定评测集,每次迭代都重跑,确保这次修好的下次不再退化。关键是别把 badcase 当成一次性救火,而是当成持续积累的资产,修一个进评测集一个,系统的下限就这么一格一格抬起来。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 上线后应该盯哪些指标?多久迭代一次?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "别等用户来投诉才知道系统退化了,要把效果做成一块持续在看的仪表盘。核心盯四类:引用错误率(答案引用的法条/判决是否真实、对得上,这是法律场景的生命线)、回链可核率(每个结论能不能点回原文核对)、检索命中质量(该召回的相关判决有没有被召回、排序对不对)、以及离线可用性与时延(私有化环境下是否稳定、够快)。这些按周看趋势,任何一项掉下来就是迭代信号。迭代节奏上建议小步快跑:大多数问题(语料补充、检索调优、提示与引证约束、badcase 修复)属于低风险的小版本,可以按周或按双周滚动上线;真正要动底层模型、换检索架构这类大改动才走大版本,且必须先在评测集和灰度上验证不退化再放量。判断该动哪一层有个简单原则:先看能不能靠补语料、调检索、改提示解决,能就别动模型——动模型成本最高、回归风险最大,是最后手段不是第一反应。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 持续运营</div>
+    <h1>法律 AI 上线只是开始:数据回流、持续运营与模型迭代实战(2026)</h1>
+    <div class="meta">2026-07-08 · 文书查 · 面向律所信息化负责人 · 政法机关信息中心 · 知识管理总监</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">很多单位把法律 AI 项目的终点画在了验收签字那一刻:系统跑通了、指标达标了、剪彩了,项目组解散,大家松一口气。可半年后再回头看,常常会发现一个尴尬的事实——它悄悄变笨了。新出的司法解释它不知道,还在按旧规则答;去年没人问的新案由,今年问得多了它却答不好;律师用得深了,问法变得更刁钻,它跟不上。系统本身一行代码没改,可它给人的信任却在一点点流失。根子在于:<strong>法律 AI 是一个会随时间贬值的活系统,不是买回来就一劳永逸的固定资产</strong>。真正决定它长期价值的,不是上线时有多强,而是上线之后有没有人持续喂养它。这篇写给已经或即将把 AI 落地、并且要对它长期负责的人:为什么上线不是终点、持续运营要守住哪几条生命线、以及怎么把数据回流、badcase 治理、效果监控和迭代做成一套转得起来的闭环。</p>
+
+      <h2>一、上线不是终点:静态系统会随时间贬值</h2>
+      <p>法律 AI 上线那天的表现,本质上是<strong>一个快照</strong>——它是当时的语料、当时的法规、当时用户问法这三样东西共同决定的一个瞬间状态。问题在于,这三样没有一样是静止的:</p>
+      <ul>
+        <li><strong>法规在变。</strong>法律、司法解释、指导性案例会更新,旧规则被新规则取代。系统若还拿着旧口径答题,答得越自信越危险——在法律场景,一个过期的结论就是一份潜在的执业风险。</li>
+        <li><strong>案子在变。</strong>新的案由、新的争议焦点、新的判法不断出现。上线时覆盖得好的领域,不代表覆盖得住后面涌现的新问题。</li>
+        <li><strong>用户在变。</strong>律师用得越深,问法越复杂、越贴实战。第一批高频问法被覆盖了,第二批更专业的问法却没人补。</li>
+      </ul>
+      <p>换句话说,<strong>系统不动,世界在动,相对而言它就是在退化</strong>。这也是为什么"验收即结束"是法律 AI 项目最隐蔽、也最伤信任的一种浪费:钱花了、系统上了,却没人为它的长期健康负责,于是它从一个越用越顺手的工具,慢慢变成一个"偶尔用一次、答得不对就再也不打开"的摆设。</p>
+      <div class="callout"><p>一句话记住:法律 AI 的价值不是在上线那天定格的,而是在持续运营里累积或流失的。把它当成"交付完就自动保值"的固定资产,是它半年后没人信、没人用的第一根源。上线,只是运营的起点。</p></div>
+
+      <h2>二、持续运营的四条生命线</h2>
+      <p>把法律 AI 长期养好,靠的不是玄学,而是四条必须转起来的生命线。缺哪一条,系统都会从那个口子开始漏水:</p>
+      <table>
+        <thead><tr><th>生命线</th><th>要做的事</th><th>不做的后果</th></tr></thead>
+        <tbody>
+          <tr><td><strong>语料与法规更新</strong></td><td>持续同步新判决、新法规、新司法解释,让数据底座保持新鲜</td><td>系统拿旧口径答新问题,越自信越错</td></tr>
+          <tr><td><strong>badcase 收集与治理</strong></td><td>把真实错答归集、归因、对症修、进评测集回归</td><td>同一类错反复犯,用户一次次被劝退</td></tr>
+          <tr><td><strong>效果监控</strong></td><td>把引用错误率、回链可核率、检索命中等做成持续盯的指标</td><td>退化了没人发现,靠用户投诉才知道</td></tr>
+          <tr><td><strong>模型与检索迭代</strong></td><td>按节奏滚动优化检索、提示、引证约束,必要时才动模型</td><td>系统停在上线水平,竞争力和信任同步下滑</td></tr>
+        </tbody>
+      </table>
+      <p>这四条里,<strong>语料更新和检索迭代决定系统的上限,badcase 治理和效果监控守住系统的下限</strong>。四条一起转,系统才会越用越准;只做上线不做运营,再强的模型也会慢慢滑回平庸。后面几节把其中最容易被低估的三件事——数据回流、badcase 治理、效果监控——拆开讲透。</p>
+
+      <h2>三、数据回流:让系统越用越准的闭环</h2>
+      <p>系统一旦真正被律师用起来,就会源源不断地产生一种极其宝贵的东西:<strong>真实的反馈信号</strong>。律师给某个回答点了踩、指出引用对不上、在结果上做了批注、或者干脆绕开 AI 自己查了——这些都是在告诉你"这里不对、这里不够"。把它们收集、脱敏、分类,就能沉淀出一套贴着本单位真实业务的<strong>评测集和优化清单</strong>:哪些语料要补、哪类检索要修、哪种提示要调,全都有了真凭实据,而不是拍脑袋。这就是数据回流——让系统在使用中不断校准自己的闭环。</p>
+      <p>但这里有一条必须先讲清楚的红线:<strong>数据回流不等于拿客户数据去训练模型</strong>。在律所和政法机关场景,当事人信息、办案材料高度敏感,回流必须先过<strong>脱敏与权限</strong>这一关。反馈信号可以用来发现问题、构建评测,但它能否用于任何形式的训练或微调,必须由<a href="/blog/legal-data-classification-grading.html">数据分类分级</a>和合规边界说了算,而且这套闭环几乎都在私有化离线环境内完成、不出内网。回流是为了持续优化,不是为了偷偷喂数据——这条边界写不清楚,回流就会从优化手段变成合规隐患。</p>
+      <div class="callout"><p>做对的数据回流:反馈 → 脱敏 → 归集为评测集/优化清单 → 指导下一轮语料与检索优化 → 系统变准 → 新的反馈。整个环在内网闭合,信号用于"改产品"而非"喂模型",训练与否单独走合规审批。</p></div>
+
+      <h2>四、badcase 治理:从"发现问题"到"修好"的流程</h2>
+      <p>没有任何法律 AI 上线即完美,关键差别在于:错答是被一次次投诉、一次次临时救火,还是被一套<strong>可追溯的流程</strong>系统性地收拢、修复、并防止复发。务实的 badcase 治理分四步:</p>
+      <ol>
+        <li><strong>归集。</strong>给系统里随手就能标记错答的入口,把 badcase 连同原始提问、系统回答、引用一并收进一个池子——离开了上下文的"它答错了"没法修。</li>
+        <li><strong>归因分类。</strong>判断这条错答的根子在哪。不同根子对应完全不同的修法,归错因就会白修。</li>
+        <li><strong>对症修。</strong>按归因动对应的那一层,别一出问题就想着换模型。</li>
+        <li><strong>回归验证。</strong>把修过的 badcase 沉淀进固定评测集,每次迭代都重跑,确保这次修好的下次不再退化。</li>
+      </ol>
+      <p>第二步的归因是整套流程的关键,常见的四类根因与修法:</p>
+      <pre><code><span class="c"># badcase 归因 → 对症修</span>
+检索没召回该召回的判决   → 调检索与索引(混合检索/重排/切分)
+生成阶段编造了内容(幻觉) → 强化引证约束 + 回链核对,查不到就说没有
+语料本身就缺这一块       → 补数据底座(接权威全量判决/法规)
+权限配错召回了不该看的   → 修检索层的权限隔离规则</code></pre>
+      <p>关键心法是:<strong>别把 badcase 当一次性救火,当成持续积累的资产</strong>。修一个,进评测集一个,系统的下限就这么一格一格被抬起来。半年后回看,真正拉开信任差距的,往往不是谁的模型更强,而是谁的 badcase 池子更厚、回归跑得更勤。关于幻觉这一类根因怎么系统治理,可进一步看<a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a>。</p>
+
+      <h2>五、把效果监控做成"仪表盘",别靠用户投诉</h2>
+      <p>系统退化最怕的是"没人发现"——等到律师开始集体绕开它,信任已经塌了,再修就晚了。所以效果不能靠投诉被动感知,要把它做成一块<strong>持续在看的仪表盘</strong>。法律场景至少盯这四类:</p>
+      <pre><code><span class="c"># 第一类:准不准(法律场景的生命线)</span>
+引用错误率  = 引用的法条/判决对不上的答案 / 全部带引用的答案
+回链可核率  = 每个结论都能点回原文核对的比例
+
+<span class="c"># 第二类:找得准不准(检索质量)</span>
+检索命中质量 = 该召回的相关判决被召回且排序靠前的比例
+
+<span class="c"># 第三类:稳不稳(私有化环境)</span>
+离线可用性  = 内网环境正常响应的时段占比
+响应时延    <span class="c"># 慢到一定程度,律师就不用了</span></code></pre>
+      <p>这些指标<strong>按周看趋势</strong>,任何一项掉下来,就是一个明确的迭代信号——而且是在用户流失之前就发出的信号。尤其是引用错误率和回链可核率,它俩是法律 AI 能不能被信任的底线,任何一次迭代都不能让它们退化。把这块仪表盘和上一节的 badcase 回归绑在一起看,就有了一套"发现退化 → 定位根因 → 修复验证"的完整反馈系统。指标怎么设、怎么建盲测集,可参考<a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型怎么验收</a>里的评测方法,验收用的那套评测集,正好可以延续下来当持续监控的基线。</p>
+
+      <h2>六、迭代节奏:小步快跑,别动不动就换模型</h2>
+      <p>有了监控和 badcase,接下来是怎么迭代。这里最常见的误区是"一有问题就想换个更强的模型"。实际上,<strong>动模型是成本最高、回归风险最大的一种改动,应该是最后手段,不是第一反应</strong>。务实的节奏是分层、小步快跑:</p>
+      <table>
+        <thead><tr><th>改动类型</th><th>典型动作</th><th>节奏与风险</th></tr></thead>
+        <tbody>
+          <tr><td><strong>小版本(低风险)</strong></td><td>补语料、调检索、改提示与引证约束、修 badcase</td><td>按周/双周滚动上线,占迭代绝大多数</td></tr>
+          <tr><td><strong>大版本(高风险)</strong></td><td>换底层模型、重构检索架构</td><td>先在评测集+灰度验证不退化再放量,少而慎</td></tr>
+        </tbody>
+      </table>
+      <p>判断该动哪一层,有个简单原则:<strong>先看能不能靠补语料、调检索、改提示解决,能就别碰模型</strong>。大多数"答得不好"其实是检索没召回对的材料、或语料本身缺这块,补数据、调检索就好了,根本不用动模型。真到了要动模型或换架构,也必须先用固定评测集和灰度流量验证"新的不比旧的差",确认不退化再放量。这样迭代才是稳的:下限靠 badcase 回归守住,上限靠小步快跑一点点抬,大改动只在有把握时才做。</p>
+
+      <h2>七、给信息化负责人的持续运营自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>有人为上线后负责吗?</strong>验收之后是否有专人、专项预算、纳入考核,还是"项目结束、各回各家"?</li>
+          <li><strong>语料和法规在持续更新吗?</strong>新判决、新法规、新司法解释有没有稳定的同步机制,还是停在上线那天的快照?</li>
+          <li><strong>badcase 收得住、修得动吗?</strong>有没有随手标记错答的入口、归因分类的流程、修完进评测集回归的闭环?</li>
+          <li><strong>效果是主动监控还是被动投诉?</strong>引用错误率、回链可核率、检索命中在不在一块持续看的仪表盘上?</li>
+          <li><strong>数据回流的合规边界清楚吗?</strong>反馈信号有没有脱敏,能不能用于训练是不是由分类分级和合规说了算、并在内网闭环?</li>
+          <li><strong>迭代分层了吗?</strong>是不是小改动小步快跑、大改动先灰度验证,而不是一有问题就想换模型?</li>
+          <li><strong>回归防退化了吗?</strong>修好的问题有没有进固定评测集、每次迭代都重跑,确保这次修好的下次不再犯?</li>
+          <li><strong>运营和采购是一笔账吗?</strong>预算里有没有为"上线后的持续运营"留资源,还是把钱全花在了采购那一刻?</li>
+        </ol>
+      </div>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:法律 AI 验收上线之后,为什么还需要持续运营?</p>
+      <p>A:因为它是会随时间贬值的活系统。上线表现只是当时语料、法规、用户问法下的一个快照,而这三样都在变:法规更新、新案由出现、律师问法变复杂。系统不动、世界在动,它就相对退化——去年答对的今年可能因规则变了而答错。决定长期价值的不是上线多强,而是有没有人持续更新语料、修 badcase、盯指标、按节奏迭代。</p>
+      <p class="faq-q">Q:数据回流会不会拿客户数据去训练模型?</p>
+      <p>A:不会,这是两回事。回流是把点踩、批注、指错这些真实反馈脱敏、归集成评测集与优化清单,用来发现问题、指导补语料和调检索。能否用于训练或微调,必须由数据分类分级和合规边界说了算,且几乎都在私有化离线环境内闭环、不出内网。回流是为了优化产品,不是偷偷喂数据。</p>
+      <p class="faq-q">Q:出了错答该怎么治理?多久迭代一次?</p>
+      <p>A:靠"归集→归因(检索没召回/幻觉/语料缺/权限错)→对症修→进评测集回归"的闭环,别一次次临时救火。迭代小步快跑:补语料、调检索、改提示、修 badcase 这类小版本按周/双周滚动上线;换模型、重构架构这类大改动才走大版本,且先灰度验证不退化再放量。能靠补语料调检索解决就别动模型。</p>
+
+      <div class="cta-box">
+        <h3>不止交付一套系统,更给你一个越用越准的数据底座</h3>
+        <p>法律 AI 能不能长期保值,一半看运营,一半看数据底座够不够新、够不够全。文书查提供 1.5 亿份真实、可回链裁判文书数据底座与私有化离线部署,支持持续同步更新——让你的语料更新、检索优化、badcase 治理都建在一个权威、鲜活的底座上。把你的落地与运营现状发来,1 个工作日内给一版可执行的持续运营方案。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 接入</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-ai-adoption-user-enablement.html">律所买了 AI 却没人用:落地后的 adoption 与用户运营</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型怎么验收</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/legal-data-classification-grading.html">法律数据怎么分类分级</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所知识库怎么建:三库一体 RAG 落地</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
