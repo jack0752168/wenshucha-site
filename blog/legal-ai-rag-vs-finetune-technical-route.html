@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>RAG 还是微调?律所法律 AI 的技术路线怎么选(2026 决策指南)| 文书查</title>
+  <meta name="description" content="律所和政法机关上法律 AI,第一个绕不开的技术岔路口就是:到底该做检索增强(RAG)还是微调一个专属法律大模型?选错方向,轻则多烧几十万、上线周期拖长半年,重则做出一个答得很流畅却引用不可核验、法规一更新就失效的系统。本文用律所听得懂的话讲清两条路的本质差别、为什么法律场景的可回链硬约束天然偏向 RAG、成本与维护三本账对比、微调真正该用在哪(风格与格式而非知识注入),给出以 RAG 为主、微调为辅的务实组合路线,附信息化负责人技术路线选型自查清单与 FAQ。" />
+  <meta name="keywords" content="法律AI RAG还是微调,律所大模型技术路线,法律大模型检索增强,RAG vs 微调,法律AI技术选型,律所AI检索增强,法律大模型微调,法律AI落地路线,检索增强生成法律,律所私有化大模型选型" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-rag-vs-finetune-technical-route.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="RAG 还是微调?律所法律 AI 的技术路线怎么选(2026 决策指南)" />
+  <meta property="og:description" content="法律 AI 落地的第一个技术岔路口:RAG 还是微调?本文讲清两条路的本质、法律场景为何偏向 RAG、成本与维护三本账、微调真正该用在哪,以及以 RAG 为主、微调为辅的务实组合路线。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-rag-vs-finetune-technical-route.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "RAG 还是微调?律所法律 AI 的技术路线怎么选(2026 决策指南)",
+    "description": "面向律所信息化负责人、政法机关信息中心与法律科技团队的技术路线决策方法:检索增强(RAG)与微调各自解决什么问题、法律场景的可回链硬约束为何偏向 RAG、成本与维护三本账对比、微调真正该用在哪,以及以 RAG 为主、微调为辅的务实组合路线。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-09",
+    "dateModified": "2026-07-09",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-rag-vs-finetune-technical-route.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 到底该做 RAG 还是微调?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "对绝大多数律所和政法机关,答案是以 RAG(检索增强)为主、微调为辅,而不是二选一。两条路解决的根本不是同一个问题:RAG 解决的是「让模型回答时以真实、可核验的法律材料为依据」,它把判决、法规、本所卷宗放进一个可检索的知识底座,模型回答前先检索、再基于检索到的原文作答,并把引用回链到原文;微调解决的是「让模型的表达风格、术语用法、输出格式更贴合本单位」,它改变的是模型怎么说,而不是它知道什么。法律场景最要命的需求是每一个结论都能点回原文核对、法规一更新系统就能跟上,这两点恰恰是 RAG 的强项、微调的弱项。所以务实的路线是先把 RAG 这条主干做扎实,微调只在风格和格式确有需要时作为补充,绝大多数「答得不好」其实靠补数据、调检索就能解决,根本不用动模型。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么不建议把法律知识直接微调进模型?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "因为把知识塞进模型参数里,会同时踩中法律场景的三个死穴。第一是不可核验:微调把知识揉进了权重,模型答出来的法条和判决没法点回原文,而法律场景里一个不能核对来源的结论就是一份执业风险。第二是更新代价高:法律法规、司法解释、指导性案例一直在变,靠微调更新知识意味着每次法规变动都要重新准备数据、重新训练、重新验证,又慢又贵,系统很容易停留在训练那天的旧口径上。第三是幻觉不降反升:模型被训练得对某个领域「更自信」,反而更容易在边界情况上编造看似专业实则不存在的内容。相比之下,把知识放在 RAG 的外部知识底座里,更新只需要同步新数据、不用动模型,回答可以严格约束在检索到的原文范围内并回链核对,幻觉可控、来源可查。所以知识用 RAG 管、风格用微调调,是法律场景更稳的分工。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "微调在法律 AI 里还有用武之地吗?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "有,但要用在对的地方。微调擅长的是改变模型的表达方式而非注入知识,所以它真正的用武之地是三类:一是风格与语气,让输出贴合法律文书的严谨表达、少一些口水话和 AI 腔;二是术语与体例,让模型稳定使用本地区、本单位习惯的法律术语和格式;三是特定输出结构,比如按固定模板生成检索报告、案情摘要、要素清单,让格式高度一致、可直接用。这些都是「怎么说」层面的优化,配合 RAG 提供的「说什么」的可靠依据,才是完整方案。但要强调:微调不是上线第一步就要做的事。更稳的顺序是先把 RAG 和数据底座跑通、拿到真实使用反馈,确认瓶颈确实在表达和格式上,再针对性微调;一上来就投入大量成本微调,往往是把钱花在了错的层。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "RAG 路线对数据底座有什么要求?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RAG 的效果上限,几乎完全由它检索的那个知识底座决定——模型再强,底座里没有的判决和法规,它也检索不到、答不出来。所以走 RAG 路线,数据底座的三个要求最关键:一是全,该覆盖的判决、法规、司法解释要尽量全,底座缺一块,系统在这块就是盲区;二是新,法律一直在更新,底座要能持续同步新判决、新法规,否则系统会拿旧口径答新问题;三是可回链,每一条数据都要能追溯回权威原文,这样模型的引用才能真正核对、才敢在法律场景用。这也是为什么很多单位做 RAG 卡在效果上——不是检索算法不行,而是底座本身不全、不新、不可回链。把权威、全量、可回链的裁判文书与法规数据作为底座,是 RAG 路线能不能真正落地的前提,而这恰恰是数据服务方比模型更该解决的问题。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    pre{background:#0e1b2e;color:#e8edf6;border-radius:10px;padding:18px 20px;margin:18px 0;overflow-x:auto;
+      font-size:13.5px;line-height:1.7;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+    pre .c{color:#7d8aa0}
+    code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:#eef0f5;
+      padding:1px 6px;border-radius:5px;color:var(--navy)}
+    pre code{background:none;padding:0;color:inherit}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › RAG 还是微调</div>
+    <h1>RAG 还是微调?律所法律 AI 的技术路线怎么选(2026 决策指南)</h1>
+    <div class="meta">2026-07-09 · 文书查 · 面向律所信息化负责人 · 政法机关信息中心 · 法律科技团队</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">律所和政法机关准备上法律 AI,选完供应商、谈完预算,很快会撞上第一个绕不开的技术岔路口:<strong>到底该做检索增强(RAG),还是干脆微调一个属于本所的专属法律大模型?</strong>供应商 A 拍胸脯说要微调一个懂本所业务的大模型,供应商 B 说 RAG 检索增强就够了、微调是烧钱。两种说法听起来都有道理,但选错方向的代价并不小:轻则多花几十万、上线周期硬生生拖长半年,重则做出一个答得很流畅、却引用不可核验、法规一更新就悄悄失效的系统。这篇写给要为这个决定负责的人——用律所听得懂的话讲清两条路到底在解决什么问题、法律场景的一条硬约束为什么天然偏向 RAG、成本与维护三本账怎么算、微调真正该用在哪,以及一条经得起推敲的务实组合路线。</p>
+
+      <h2>一、先讲清楚:RAG 和微调解决的根本不是同一个问题</h2>
+      <p>很多人把 RAG 和微调放在一起比,像在比「哪个更强」,这本身就问错了——它俩解决的压根不是同一件事。用一句话区分:<strong>微调改变的是模型「怎么说」,RAG 改变的是模型「说什么、依据什么说」。</strong></p>
+      <ul>
+        <li><strong>微调(Fine-tuning)</strong>:拿一批数据继续训练模型,调整它的参数,让它的表达风格、术语用法、输出格式更贴合特定需求。它优化的是模型的「说话方式和习惯」,知识是揉进权重里的、看不见也摸不着。</li>
+        <li><strong>检索增强(RAG)</strong>:在模型外面挂一个可检索的知识底座(判决、法规、本所卷宗),模型回答前先去底座里检索相关材料,再<strong>基于检索到的原文</strong>作答,并把引用回链到原文出处。它优化的是回答的「事实依据和可核验性」,知识放在外部、随时可查可换。</li>
+      </ul>
+      <p>打个律所听得懂的比方:微调像是<strong>把一位律师送去脱产培训</strong>,让他说话更专业、写东西更规范,但他脑子里记的东西还是培训那天的、而且你没法要求他把每句话都翻到出处;RAG 则像是<strong>给律师配一个随时更新的权威案例法规库和一条铁规矩——回答必须引用库里的原文、并标出处</strong>。前者改变的是人的表达,后者改变的是他作答的依据和可追溯性。理解了这个区别,后面的选择才不会拧巴。</p>
+
+      <h2>二、法律场景的硬约束:可回链、可核验、跟得上更新</h2>
+      <p>技术路线怎么选,不能脱离场景空谈。法律不是一个可以「大概对就行」的领域,它有三条几乎不可让步的硬约束,而正是这三条,决定了两条路线的适配度天差地别:</p>
+      <table>
+        <thead><tr><th>法律场景硬约束</th><th>RAG 的表现</th><th>纯微调的表现</th></tr></thead>
+        <tbody>
+          <tr><td><strong>每个结论要能点回原文核对</strong></td><td>回答基于检索到的原文,引用可回链到判决/法条出处</td><td>知识揉进参数,答出来的引用无法核对来源</td></tr>
+          <tr><td><strong>法规更新要跟得上</strong></td><td>同步新数据即可更新,不用动模型</td><td>每次法规变动都要重新准备数据、重训、重测</td></tr>
+          <tr><td><strong>幻觉必须可控</strong></td><td>可约束在检索范围内作答,查不到就说没有</td><td>被训得「更自信」,边界情况更易编造</td></tr>
+        </tbody>
+      </table>
+      <p>这张表其实已经把结论说了一半:<strong>法律 AI 最要命的需求——来源可核、更新可跟、幻觉可控——恰好都是 RAG 的强项、纯微调的弱项。</strong>一个答得再流畅、却没法告诉你「这句话出自哪份判决哪个法条」的系统,在法律场景里是不敢用的;一个法规改了半年还在拿旧口径答题的系统,是有执业风险的。这不是说微调没用,而是说<strong>把法律知识直接微调进模型,是在用一个不擅长这件事的工具去扛法律场景最硬的三条约束</strong>。关于幻觉与引证核验这条底线怎么系统性守住,可以进一步看<a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:裁判文书引证核验落地指南</a>。</p>
+
+      <h2>三、三本账:成本、周期、维护</h2>
+      <p>抛开效果,单从投入产出看,两条路的账也很不一样。律所决策时最该拉开来算的是这三本账:</p>
+      <table>
+        <thead><tr><th>维度</th><th>RAG 主路线</th><th>纯微调路线</th></tr></thead>
+        <tbody>
+          <tr><td><strong>前期成本</strong></td><td>主要在数据底座与检索工程,GPU 训练开销小</td><td>需要高质量标注数据 + 可观的训练算力,门槛与花费都更高</td></tr>
+          <tr><td><strong>上线周期</strong></td><td>底座就绪后相对快,可先跑起来再迭代</td><td>准备数据、训练、评估、调参,周期长、不确定性大</td></tr>
+          <tr><td><strong>更新维护</strong></td><td>同步新判决/法规即可,维护成本低且持续</td><td>知识过期要重训,每次都是一轮成本</td></tr>
+          <tr><td><strong>可解释性</strong></td><td>高——每个回答带可核对的出处</td><td>低——参数是黑盒,答错难定位是哪来的</td></tr>
+        </tbody>
+      </table>
+      <p>要特别提醒一个常见误区:<strong>微调不是「一次性投入」,而是「反复投入」。</strong>很多单位以为微调是花一笔钱训一个模型就一劳永逸,实际上只要法律在更新、业务在变,靠微调维持知识新鲜就意味着一轮又一轮地重新训练。法律恰恰是更新最频繁的领域之一,这本维护账拉长了看,往往比前期那笔训练费更沉。反观 RAG,更新的重担落在<strong>数据底座的同步</strong>上,而这件事本就该由数据服务方持续做,单位自己的边际成本要低得多。</p>
+      <div class="callout"><p>一句话记住这三本账:纯微调是「前期贵、周期长、更新更贵、还看不清账」;RAG 是「投入落在可复用的数据底座上,先跑起来、持续低成本更新、且每笔回答都能查账」。对要长期负责、要经得起审计的法律场景,后者的财务与合规特性都更稳。</p></div>
+
+      <h2>四、那微调到底该用在哪?</h2>
+      <p>讲到这里千万别误会成「微调没用、只做 RAG 就行」。微调在法律 AI 里有它明确、且不可替代的用武之地——关键是<strong>用在「怎么说」的层面,而不是拿它注入知识</strong>。真正值得微调的,是这三类:</p>
+      <ol>
+        <li><strong>风格与语气。</strong>让输出贴合法律文书的严谨表达,少一些口水话和 AI 腔,读起来像业内人写的而不是聊天机器人生成的。</li>
+        <li><strong>术语与体例。</strong>让模型稳定使用本地区、本单位习惯的法律术语、称谓与行文体例,而不是每次都要靠提示词去纠。</li>
+        <li><strong>固定输出结构。</strong>比如按本所模板生成检索报告、案情摘要、要素清单,让格式高度一致、可直接进入工作流,而不是每份都要人再排一遍。</li>
+      </ol>
+      <p>这三类的共同点是:它们都是<strong>表达和格式层面的优化,不涉及「事实是什么」</strong>。事实由 RAG 从可回链的底座里取,表达由微调打磨得更专业规范,两者各管一段、互不越位,才是完整方案。这也和我们此前实测过的结论一致——微调用来给模型「叠本所的表达与办案风格」效果明显,但拿它当知识库用就会翻车,详见<a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调:用本所历史卷宗叠加,效果到底有没有</a>。</p>
+      <div class="callout"><p>一条分工铁律:<strong>知识用 RAG 管(可查、可更新、可回链),风格与格式用微调调(更专业、更一致)。</strong>把这两件事的边界划清楚,就基本不会在技术路线上走弯路。</p></div>
+
+      <h2>五、务实路线:以 RAG 为主、微调为辅,分步走</h2>
+      <p>综合前面几节,对绝大多数律所和政法机关,最稳的不是二选一,而是一条<strong>以 RAG 为主干、微调为补充、分步推进</strong>的组合路线。判断该动哪一层,有个简单的先后顺序:</p>
+      <pre><code><span class="c"># 法律 AI 技术路线决策顺序(从便宜稳妥到昂贵慎重)</span>
+1. 先补数据底座   → 底座全不全、新不新、能不能回链?(决定 RAG 上限)
+2. 再调检索       → 混合检索/重排/切分,把该召回的判决召回来
+3. 再改提示与约束 → 强化引证约束、查不到就说没有,压住幻觉
+4. 最后才考虑微调 → 且只调风格/术语/格式,不注入知识
+5. 换底层模型     → 成本最高、回归风险最大,最后手段而非第一反应</code></pre>
+      <p>这个顺序的核心逻辑是:<strong>绝大多数「答得不好」,根子在底座缺数据或检索没召回对,补数据、调检索就能解决,根本轮不到动模型。</strong>一上来就投大钱微调,常常是把钱花在了错的层——底座还没建好,微调出来的模型照样答不准,因为它本就不该负责「知道什么」。务实的做法是:先把 RAG 和数据底座跑通、拿到真实使用反馈,确认瓶颈确实卡在表达和格式上,再针对性地做一轮小范围微调。这样每一分钱都花在刀刃上,系统也是一步一个脚印地稳。关于 RAG 底座本身怎么搭、卷宗/合同/类案怎么组织成可检索的知识库,可参考<a href="/blog/law-firm-rag-knowledge-base.html">律所知识库怎么建:三库一体的 RAG 落地实战</a>;底座的数据从哪来、私有化怎么部署,见<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库的本地化部署架构</a>。</p>
+
+      <h2>六、给信息化负责人的技术路线选型自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li><strong>供应商是用 RAG 还是微调扛知识?</strong>如果对方主打「微调一个懂法律的大模型」来解决知识问题,要追问引用怎么回链、法规更新怎么跟。</li>
+          <li><strong>每个回答能点回原文吗?</strong>结论能不能一键翻到出处判决/法条,这是法律场景敢不敢用的底线。</li>
+          <li><strong>法规更新靠什么?</strong>是同步数据底座(RAG)还是重新训练(微调)?后者的长期维护账要提前算清。</li>
+          <li><strong>数据底座全不全、新不新、可回链吗?</strong>RAG 的效果上限由底座决定,底座缺一块系统就盲一块。</li>
+          <li><strong>微调的目标是知识还是风格?</strong>如果是想靠微调注入知识,方向大概率错了;用来调风格、术语、格式才对。</li>
+          <li><strong>上线顺序对吗?</strong>是先把 RAG 跑通再按需微调,还是一上来就砸钱微调?后者往往钱花在错的层。</li>
+          <li><strong>预算结构合理吗?</strong>钱是更多落在可复用的数据底座上,还是一次性烧在训练算力上?</li>
+          <li><strong>能不能审计?</strong>系统答错时,能不能定位到是检索没召回、还是底座缺数据,而不是面对一个说不清的黑盒?</li>
+        </ol>
+      </div>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:法律 AI 到底该做 RAG 还是微调?</p>
+      <p>A:以 RAG 为主、微调为辅,不是二选一。RAG 解决「基于真实、可核验的材料作答」,微调解决「表达风格和格式更贴合本单位」。法律最要命的来源可核、更新可跟、幻觉可控,都是 RAG 的强项,所以先把 RAG 主干做扎实,微调只在风格和格式确有需要时补充。</p>
+      <p class="faq-q">Q:为什么不建议把法律知识直接微调进模型?</p>
+      <p>A:会同时踩三个死穴——不可核验(答案没法回链原文)、更新代价高(法规一变就要重训)、幻觉不降反升(被训得更自信反而更敢编)。知识放在 RAG 的外部底座里,更新只需同步数据、回答可约束在原文范围内并回链核对,更适合法律场景。</p>
+      <p class="faq-q">Q:微调在法律 AI 里还有用吗?</p>
+      <p>A:有,用在「怎么说」而非「知道什么」:调表达风格与语气、稳定本单位术语体例、生成固定模板的报告/摘要。且不是上线第一步,应先把 RAG 和底座跑通、确认瓶颈在表达格式上,再针对性微调。</p>
+      <p class="faq-q">Q:RAG 路线对数据底座有什么要求?</p>
+      <p>A:全、新、可回链。RAG 的上限由底座决定,底座缺一块系统就盲一块;法律一直更新,底座要能持续同步;每条数据要能追溯回权威原文,引用才能真正核对。很多 RAG 卡在效果,不是算法不行,是底座不全、不新、不可回链。</p>
+
+      <div class="cta-box">
+        <h3>RAG 做得好不好,一半在算法,一半在底座</h3>
+        <p>检索增强的效果上限,由它检索的那个数据底座决定。文书查提供 1.5 亿份真实、可回链的裁判文书数据底座与私有化离线部署,支持持续同步更新——让你的 RAG 建在一个权威、全量、可回链、跟得上法规更新的底座上。把你的技术路线与落地场景发来,1 个工作日内给一版可执行的选型与部署建议。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 接入</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-rag-knowledge-base.html">律所知识库怎么建:三库一体的 RAG 落地实战</a> · <a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调:用本所历史卷宗叠加效果实测</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:引证核验落地指南</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库的本地化部署架构</a> · <a href="/blog/legal-ai-continuous-operation-iteration.html">法律 AI 上线只是开始:持续运营与迭代</a> · <a href="/#onpremise">私有化部署方案</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
