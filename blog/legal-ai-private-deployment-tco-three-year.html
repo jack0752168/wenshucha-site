@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 私有化三年总拥有成本(TCO)测算:从 GPU 到运维的完整账本(2026)| 文书查</title>
+  <meta name="description" content="律所和政法机关上私有化法律 AI,采购价只是账本的一角。本文按三年周期拆解总拥有成本(TCO)的五大科目——硬件与折旧、软件授权、部署集成、运维人力、数据同步与模型迭代服务费,给出逐年现金流测算表、六项隐性成本、自建 vs 采购 vs SaaS 的三年对比,以及一份可直接照着填的 TCO 预算清单。面向律所信息化主任、政法信息中心与采购/预算负责人。" />
+  <meta name="keywords" content="法律AI TCO,私有化AI总拥有成本,律所AI三年成本,法律大模型部署成本,私有化AI预算测算,法律AI硬件成本,法律AI运维成本,私有化AI报价" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 私有化三年总拥有成本(TCO)测算:从 GPU 到运维的完整账本(2026)" />
+  <meta property="og:description" content="私有化法律 AI 的采购价只是账本一角。按三年周期拆解 TCO 五大科目、逐年现金流、六项隐性成本、自建 vs 采购 vs SaaS 对比与预算清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 私有化三年总拥有成本(TCO)测算:从 GPU 到运维的完整账本(2026)",
+    "description": "面向律所信息化主任与政法信息中心、采购负责人的私有化法律 AI 三年 TCO 测算方法：五大成本科目、逐年现金流、隐性成本、自建 vs 采购 vs SaaS 对比与预算清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-10",
+    "dateModified": "2026-07-10",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "私有化法律 AI 的三年总拥有成本(TCO)包含哪些科目?",
+        "acceptedAnswer": { "@type": "Answer", "text": "TCO 不等于采购报价。完整账本至少有五大科目：一是硬件与折旧（GPU 服务器、存储、网络，按三年摊销并预留一次中期扩容）；二是软件授权与数据（法律大模型、数据底座、工具链，一次性买断或年费）；三是部署与集成（实施、与 OA/案管/权限系统对接、数据迁移、培训）；四是运维人力（内部 IT 投入或外包运维）；五是数据同步与模型迭代服务费（裁判文书与法规增量更新、模型版本升级，这是逐年发生的）。只看第一年采购价，会系统性低估两到三成的真实支出。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化和 SaaS 法律 AI,三年算下来哪个更贵?",
+        "acceptedAnswer": { "@type": "Answer", "text": "要按三年周期和真实用户数一起算，而不是比单价。SaaS 是按席位、按年反复付费，用户越多、用得越久，累计支出越高；私有化是较高的首年投入加上可控的年度服务费，硬件是一次性资产可摊三年。对几十人以上、长期使用、且有合规硬约束的机构，私有化的三年 TCO 往往低于同等规模的 SaaS 累计订阅；更关键的是，涉密与政企客户案件本就不能上 SaaS，这时候 TCO 比较的前提并不成立——私有化是唯一可行项，账要算在‘合规不出内网’这条底线上。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化法律 AI 最容易被忽略的隐性成本是什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "最常被漏掉的有六项：机房电力与制冷（GPU 满载功耗不低，按三年电费是一笔实数）；系统集成工作量（与本单位 OA、案件管理、权限体系对接的人天，常被低估）；数据持续同步费（法规和案例会变，系统不更新就贬值，这是逐年成本不是一次性）；模型迭代与重新评测（升级后要重跑验收，占用业务人力）；内部运维人力的机会成本；以及三年后的硬件更新与再采购。把这六项写进预算，TCO 才不会在第二年‘超支’。" }
+      },
+      {
+        "@type": "Question",
+        "name": "文书查的私有化方案怎么报价、能不能先测 TCO 再决策?",
+        "acceptedAnswer": { "@type": "Answer", "text": "可以。我们按机构规模、并发用户数、数据范围与合规要求（是否等保三级、是否完全离线）给阶梯方案，硬件、软件、部署、服务期分项列清，方便贵单位做三年 TCO 测算与预算立项。评估到演示 demo 通常 14-30 天且演示阶段不收费，跑通效果、成本账清楚后再签约，降低决策与预算风险。可联系商务获取分项报价模板。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 私有化法律 AI 三年 TCO 测算</div>
+    <h1>法律 AI 私有化三年总拥有成本(TCO)测算:从 GPU 到运维的完整账本(2026)</h1>
+    <div class="meta">2026-07-10 · 文书查 · 面向信息化主任、政法信息中心与采购/预算负责人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">私有化法律 AI 的立项预算,几乎都栽在同一个地方:<strong>把供应商报的采购价当成了总成本。</strong>系统买回来第一年跑得挺好,到第二年却发现电费、运维人力、数据同步费、集成返工一笔笔冒出来,预算悄悄超了两三成。真正该拿去立项、去合伙人会或财务过会的,不是一次采购价,而是<strong>三年总拥有成本(TCO,Total Cost of Ownership)</strong>——把硬件、软件、部署、运维、逐年服务费按三年周期加总的完整账本。本文把这本账一项一项拆开,并给出一张可以直接照着填的逐年测算表。</p>
+
+      <h2>一、先说清楚:采购价 ≠ 总拥有成本</h2>
+      <p>一套能用起来的私有化法律 AI,是<strong>数据底座 + 法律大模型 + 工具链</strong>三层一起部署到内网,再叠加硬件、集成和长期服务。它的成本结构天然是<strong>一部分一次性、一部分逐年发生</strong>——只看第一年那张采购发票,等于只看到了冰山露出水面的部分。</p>
+      <p>TCO 的作用,就是把水面下的那块一并算进来,让预算立项一次到位、不在第二年被动追加。它和另一个常被混用的概念 ROI(投资回报)不是一回事:<strong>ROI 回答"值不值得买"(拿省下的律师工时、赢下的案子去对冲投入),TCO 回答"三年到底要花多少钱"。</strong>先把 TCO 算准,ROI 才有可靠的分母。关于回报侧的测算,可参见<a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a>一文,本文只专注成本这一面。</p>
+
+      <h2>二、TCO 五大成本科目</h2>
+      <p>无论找谁做,私有化法律 AI 的三年账本都逃不出这五个科目。把每一项都列出来,才叫一本完整的账:</p>
+      <table>
+        <thead><tr><th>科目</th><th>包含什么</th><th>发生方式</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 硬件与折旧</strong></td><td>GPU 推理服务器、存储、网络设备、机柜;按三年摊销</td><td>一次性采购 + 三年折旧;可能含一次中期扩容</td></tr>
+          <tr><td><strong>② 软件授权与数据</strong></td><td>法律大模型、结构化裁判文书与法规数据底座、类案检索/要素抽取/工作台工具链</td><td>一次性买断或年费(两种报价模式,直接影响 TCO 形状)</td></tr>
+          <tr><td><strong>③ 部署与集成</strong></td><td>实施部署、与本单位 OA/案件管理/统一权限对接、历史数据迁移、上线培训</td><td>一次性为主,复杂集成可能跨年</td></tr>
+          <tr><td><strong>④ 运维人力</strong></td><td>内部 IT 日常运维投入,或外包运维服务</td><td>逐年发生(常被当成"沉没的现有人力"漏算)</td></tr>
+          <tr><td><strong>⑤ 数据同步与模型迭代</strong></td><td>裁判文书/法规加密增量更新、法律大模型版本升级、随之而来的重新评测</td><td><strong>逐年发生</strong>——这是把系统"喂活"的钱,不给就贬值</td></tr>
+        </tbody>
+      </table>
+      <p>科目 ①②③ 大头落在第一年,④⑤ 则年年发生。一句话总结:<strong>私有化不是"买一台机器",而是"养一套会随法规和案子变化的活系统"。</strong>把 ④⑤ 漏掉,就是所有超支的根源。</p>
+
+      <h2>三、三年逐年现金流测算表(照着填)</h2>
+      <p>下面是一张<strong>结构模板</strong>——具体数字按贵单位规模、用户数与数据范围向供应商索取分项报价后填入。这里给出的是各科目在三年里的<strong>发生节奏</strong>(用相对占比表示,帮你判断钱花在哪一年):</p>
+      <table>
+        <thead><tr><th>科目</th><th>第 1 年</th><th>第 2 年</th><th>第 3 年</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>① 硬件</td><td>大额</td><td>—</td><td>可能小额扩容</td><td>一次性资产,三年折旧</td></tr>
+          <tr><td>② 软件/数据</td><td>大额(买断)或年费</td><td>年费</td><td>年费</td><td>买断=前重后轻;年费=三年均摊</td></tr>
+          <tr><td>③ 部署集成</td><td>中额</td><td>小额尾款</td><td>—</td><td>集成越复杂,越可能溢到第二年</td></tr>
+          <tr><td>④ 运维人力</td><td>小-中</td><td>小-中</td><td>小-中</td><td>内部投入也要折算成本</td></tr>
+          <tr><td>⑤ 数据/模型服务</td><td>含在首年或另计</td><td>年费</td><td>年费</td><td>逐年,保时效与准确度</td></tr>
+        </tbody>
+      </table>
+      <p>填表时的两个关键判断:</p>
+      <ul>
+        <li><strong>买断 vs 年费,决定 TCO 的"形状"。</strong>软件与数据若一次性买断,现金压力集中在第一年、后续轻;若走年费,则三年较平均。两种没有绝对优劣,取决于贵单位的预算节奏——政府/事业单位一次性资本性支出往往比逐年运营支出好立项,律所则可能反过来。<strong>请供应商两种都报,再选适合自己财务结构的那种。</strong></li>
+        <li><strong>第二、三年不是零。</strong>如果一份报价里第二、三年几乎不花钱,基本可以断定它把数据同步、模型迭代或运维给隐掉了——而这几项恰恰是系统"不变笨"的前提(为什么静态系统会随时间贬值,详见<a href="/blog/legal-ai-continuous-operation-iteration.html">法律 AI 上线只是开始:持续运营与模型迭代实战</a>)。</li>
+      </ul>
+
+      <h2>四、六项最常被漏算的隐性成本</h2>
+      <p>下面这六项,是"第二年超支"的常客。立项时逐条问自己有没有算进去:</p>
+      <table>
+        <thead><tr><th>隐性成本</th><th>为什么容易漏 / 影响多大</th></tr></thead>
+        <tbody>
+          <tr><td><strong>机房电力与制冷</strong></td><td>GPU 满载功耗不低,7×24 跑三年的电费是一笔实数,常被完全忽略</td></tr>
+          <tr><td><strong>系统集成人天</strong></td><td>与本单位 OA、案管、权限体系对接的工作量普遍被低估,复杂时可占部署成本相当比例</td></tr>
+          <tr><td><strong>数据持续同步费</strong></td><td>法规和案例会变,系统不更新就贬值——这是逐年成本,不是一次性买断能覆盖的</td></tr>
+          <tr><td><strong>模型迭代后的重新评测</strong></td><td>每次升级都要重跑验收、盲测幻觉率,占用业务骨干的时间(评测方法见下方内链)</td></tr>
+          <tr><td><strong>内部运维的机会成本</strong></td><td>"用现有 IT 顶一下"不等于免费,那是本可投在别处的人力</td></tr>
+          <tr><td><strong>三年后的硬件更新</strong></td><td>TCO 窗口内可能不发生,但要在立项时就预告下一轮资本开支,避免"到期即断供"</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>一条经验法则:</strong>如果一份私有化方案的报价里,只有第一年有明显支出、后两年近乎为零,那不是它便宜,而是它<strong>把 ④⑤ 和这六项隐性成本藏起来了</strong>。真实的账迟早会到,只是换个名目在第二年找上门。宁可在立项时把账做厚,也别在预算执行时被动追加。</p>
+      </div>
+
+      <h2>五、自建 vs 采购 vs SaaS:三条路的三年账</h2>
+      <p>同样要落地法律 AI,三条路的 TCO 结构完全不同:</p>
+      <table>
+        <thead><tr><th>路线</th><th>三年成本特征</th><th>适合谁</th></tr></thead>
+        <tbody>
+          <tr><td><strong>纯自建</strong>(自己攒数据+训模型+搭工具链)</td><td>看似省了软件费,实则数据采集清洗、模型训练、工具链开发的隐性人力极高,且时效维护要一直投人;多数机构低估了"养数据"的长期成本</td><td>有强 AI 工程团队、且把这当核心能力自研的极少数大所/机构</td></tr>
+          <tr><td><strong>采购私有化</strong>(数据+模型+工具链整体交付内网)</td><td>首年投入较高但结构清晰、有服务期兜底;三年 TCO 可控可预测,合规(离线/等保三级)天然满足</td><td>绝大多数有合规硬约束的大律所、法院、检察院、司法局</td></tr>
+          <tr><td><strong>SaaS 订阅</strong></td><td>单价低、起步快,但按席位×年反复付费,用户多、用得久则累计支出攀升;且案件材料出内网,涉密/政企案根本不能用</td><td>不涉密的轻量场景、个人或小团队试水</td></tr>
+        </tbody>
+      </table>
+      <p>三条路里,<strong>纯自建低估长期人力、SaaS 低估累计订阅且踩合规红线</strong>,对有保密义务的机构而言,采购私有化通常是三年 TCO 最可控、且唯一满足"数据不出内网"底线的选择。要注意:当案件本身涉密或涉政企客户时,SaaS 从一开始就出局,<strong>TCO 比较的前提并不成立</strong>——这时账不是算在"哪个便宜",而是算在"合规不出内网"这条不能让步的底线上(为什么大所不能用 SaaS,详见<a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a>)。</p>
+
+      <h2>六、给采购/预算负责人的 TCO 立项清单</h2>
+      <div class="callout">
+        <p>把这份清单发给候选供应商,一轮就能问出谁给的是"完整的账":</p>
+        <ol>
+          <li>请把硬件、软件/数据、部署集成、服务期<strong>分项报价</strong>,不要打包成一个总数。</li>
+          <li>软件与数据请<strong>同时报"一次性买断"和"年费"两种</strong>,方便我们匹配财务结构。</li>
+          <li>第二、三年各有哪些必付费用?数据同步、模型升级是否含在服务期、还是另计?</li>
+          <li>硬件配置对应多大并发/多少用户?三年内是否需要扩容,扩容成本预估多少?</li>
+          <li>与我方 OA/案管/权限系统对接,预估多少人天?由谁承担、含在报价里吗?</li>
+          <li>模型每次升级后是否需要我方重新验收?占用我方多少人力?(验收方法见相关阅读)</li>
+          <li>是否先出演示 demo 再签约?演示阶段是否收费?</li>
+          <li>三年服务期结束后,续约与硬件更新的大致节奏和成本区间?</li>
+        </ol>
+      </div>
+      <p>把这八问的答案填进第三节那张逐年表,一份经得起财务和合伙人会质询的三年 TCO 就成型了。<strong>好的供应商不怕你把账算细——怕算细的,往往是把成本藏在后两年的。</strong></p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:数据范围会显著影响 TCO 吗?</p>
+      <p>A:会,但主要影响软件/数据科目而非硬件。数据底座越全、案由覆盖越广(文书查提供 1.5 亿+ 结构化裁判文书与法规),前期数据授权成本相应上去,但换来的是模型有可回链的真实语料、少编案例,长期反而省下"因幻觉返工"的隐性成本。建议按贵单位实际用得上的案由范围谈,不必一步到位买全。</p>
+      <p class="faq-q">Q:我们 IT 力量弱,运维成本会不会失控?</p>
+      <p>A:这正是"采购私有化"相对"纯自建"的价值——服务期内数据同步、模型升级、故障修复由供应商负责,内部 IT 只做日常运维。立项时把这部分明确写进服务期条款,运维人力成本就可预测、不失控。</p>
+      <p class="faq-q">Q:三年之后呢?TCO 只算三年够不够?</p>
+      <p>A:三年是常用的资本性资产测算窗口,足以支撑立项决策。但建议在方案里让供应商预告第四年起的续约与硬件更新区间,避免"三年到期即断供"。把长期节奏讲清,预算才不会有断层。</p>
+
+      <div class="cta-box">
+        <h3>要一份分项报价模板,自己测三年 TCO</h3>
+        <p>提供机构规模、并发用户数与数据范围,我们按硬件/软件/部署/服务期分项出报价,方便贵单位做 TCO 测算与预算立项。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报(ROI)测算</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型:GPU 选型实战</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律 AI 验收测评方法</a> · <a href="/blog/legal-ai-continuous-operation-iteration.html">上线后的持续运营与迭代</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
