@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)| 文书查</title>
+  <meta name="description" content="律所和政法机关买私有化法律 AI,评标常常只看产品演示和报价,却漏掉了对供应商这家公司本身的尽职调查。产品会 demo,公司会不会活到服务期结束、数据来源合不合法、源代码断供了怎么办,才是三五百万项目真正的风险点。本文给出一份可直接照用的法律 AI 供应商尽调清单:主体与资质、财务与持续经营、团队与交付能力、数据来源合法性、客户案例可核验、服务与续约、退出与锁定、知识产权与源码托管八个维度,面向律所信息化主任、政法信息中心与采购委员会。" />
+  <meta name="keywords" content="法律AI供应商评估,法律AI厂商尽调,私有化AI供应商选择,法律AI供应商资质,法律科技供应商评估,法律AI厂商尽职调查,法律AI选型,法律AI数据来源合法性" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-vendor-due-diligence.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)" />
+  <meta property="og:description" content="产品会 demo,公司会不会活到服务期结束才是三五百万项目的真风险。八维度法律 AI 供应商尽调清单:资质、财务、交付、数据合法性、客户可核验、服务续约、退出锁定、源码托管。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-vendor-due-diligence.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)",
+    "description": "面向律所信息化主任、政法信息中心与采购委员会的法律 AI 供应商尽职调查方法:从主体资质、财务持续经营、交付团队、数据来源合法性、客户案例可核验、服务续约、退出锁定到源代码托管八个维度评估厂商本身而非只看产品演示。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-11",
+    "dateModified": "2026-07-11",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-vendor-due-diligence.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "评估法律 AI 供应商,和评估产品有什么区别?",
+        "acceptedAnswer": { "@type": "Answer", "text": "评估产品是看东西好不好用——功能、准确率、界面、能不能接进内网;评估供应商是看这家公司靠不靠得住——能不能把东西交付到位、能不能活到服务期结束、数据来源合不合法、出事了赔不赔得起。私有化法律 AI 是三五百万、服务期三年起的长期关系,产品可以在 demo 那天表现完美,但如果供应商第二年团队散了、数据被判侵权、公司注销,你手里的系统就成了没人维护的孤岛。评标环节最容易犯的错,就是把 80% 的分给了产品演示,给公司资质和持续经营能力的权重太低。产品 demo 只证明它此刻能跑,尽调才证明它三年后还在。" }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 供应商的数据来源合法性,具体该查什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "重点查三件事:一是裁判文书和法规语料的来源与授权链条,要求供应商书面说明数据从哪来、是否有合法采集与使用的依据,而不是含糊回答开源公开;二是个人信息与敏感信息的处理,语料里当事人姓名、身份证号等如何脱敏,是否符合个人信息保护法与数据安全法;三是数据用于模型训练的授权范围,尤其私有化场景里把你本单位卷宗喂进去做微调时,权属和保密边界怎么约定。数据来源不清的供应商,风险会在交付很久之后以侵权索赔或合规问责的形式转嫁到你身上——这是政企客户尤其要守的底线。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么防止被供应商锁定、避免三年后被断供卡脖子?",
+        "acceptedAnswer": { "@type": "Answer", "text": "在合同里提前约定四件事:一是数据可导出,你的原始数据和系统产生的结构化数据能以通用格式随时导出,不被私有格式绑架;二是源代码托管(escrow),约定供应商破产、被并购或停止服务等触发条件下,源代码与部署文档交付给你或第三方托管方,保证系统能继续维护;三是知识产权归属清晰,基于你本所语料训练出的模型权重归谁、能不能带走要写明;四是服务与续约条款,三年期满后的续约价格区间、硬件更新节奏、如果不续约系统能不能离线继续用。把退出路径在签约时就谈好,才不会在最被动的时候任人开价。" }
+      },
+      {
+        "@type": "Question",
+        "name": "文书查作为法律 AI 数据与私有化供应商,怎么配合客户的尽职调查?",
+        "acceptedAnswer": { "@type": "Answer", "text": "我们欢迎并配合尽调。主体是深圳星谱网络科技有限公司,可提供营业执照、相关资质与备案信息;数据侧提供 1.5 亿+ 结构化裁判文书与法规的来源说明与脱敏口径;交付侧可提供可核验的客户案例与私有化部署经验;合同侧支持分项报价、数据可导出、源代码托管与退出条款的协商。评估到演示 demo 通常 14-30 天且演示阶段不收费,先跑通效果、把公司底细和合同条款都谈清楚,再签约,降低贵单位的决策与合规风险。尽调清单可发我们逐条应答。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 供应商尽职调查</div>
+    <h1>法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)</h1>
+    <div class="meta">2026-07-11 · 文书查 · 面向信息化主任、政法信息中心与采购委员会</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">私有化法律 AI 的选型评标,有一个反复出现的盲区:<strong>大家把注意力全给了产品,却几乎没有人认真评估"供应商这家公司"本身。</strong>演示那天系统跑得漂亮、准确率也过关,合同就签了;可这是一段三五百万、服务期三年起步的长期关系,真正决定成败的往往不是产品此刻好不好用,而是这家公司<strong>能不能把东西交付到位、会不会活到服务期结束、数据来源合不合法、断供了你有没有退路</strong>。产品可以 demo,公司靠不靠谱只能靠尽职调查查出来。本文给出一份可以直接照着用的法律 AI 供应商尽调清单,八个维度,每个都配上"具体问什么、要什么证据"。</p>
+
+      <h2>一、为什么"评产品"远远不够</h2>
+      <p>选型的三部曲——<a href="/blog/court-ai-procurement-checklist.html">采购清单</a>(买什么)、<a href="/blog/legal-ai-tender-technical-specifications.html">招标技术参数</a>(怎么写要求)、<a href="/blog/legal-ai-acceptance-testing-evaluation.html">验收测评</a>(东西到货怎么验真货)——解决的都是<strong>产品与合同标的</strong>的问题。它们很重要,但都默认了一个前提:<strong>供应商这家公司本身是可靠的、会一直在的。</strong>而这个前提,恰恰最少被审查。</p>
+      <p>差别在哪?举三个真实会发生的场景:产品验收全部通过,但供应商第二年核心团队出走、再没人能改代码;数据准确率很高,但半年后被曝语料来源存在侵权,索赔顺着采购合同找到你这个使用方;系统稳定运行,但供应商公司被并购后战略调整、直接停止了这条产品线的服务。<strong>这三种风险,产品演示一个都测不出来,只有对公司做尽调才看得见。</strong>评标打分表如果把 80% 权重压在功能演示上,给主体资质、财务健康、持续经营能力的分寥寥无几,那就是在用产品的确定性,掩盖公司的不确定性。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>产品 demo 只证明它<strong>此刻</strong>能跑,尽职调查才证明供应商<strong>三年后</strong>还在、还赔得起、还能维护你的系统。选型评审的权重,必须给公司留出足够的位置。</p>
+      </div>
+
+      <h2>二、法律 AI 供应商尽调八维度</h2>
+      <p>下面八个维度,建议做成一张评审表,每一项都要供应商<strong>提供书面证据</strong>,而不是口头承诺。这也正好是<a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的常见坑</a>里最容易踩的那几个的"体检项":</p>
+      <table>
+        <thead><tr><th>维度</th><th>核心问题</th><th>要什么证据</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 主体与资质</strong></td><td>这家公司是谁?有没有做政企/涉密项目的资质?</td><td>营业执照、实缴资本、成立年限、相关信息安全/保密资质与备案</td></tr>
+          <tr><td><strong>② 财务与持续经营</strong></td><td>三年服务期内它会不会倒?</td><td>近年经营与纳税情况、是否有重大诉讼/被执行、股权结构与实控人</td></tr>
+          <tr><td><strong>③ 团队与交付能力</strong></td><td>真正干活的人在不在、够不够?</td><td>项目团队构成、类似私有化交付履历、是否外包、离职后谁接手</td></tr>
+          <tr><td><strong>④ 数据来源合法性</strong></td><td>语料从哪来、合不合法、脱敏了没?</td><td>数据来源与授权说明、个人信息脱敏口径、训练授权范围</td></tr>
+          <tr><td><strong>⑤ 客户案例可核验</strong></td><td>说做过的项目是不是真的?</td><td>可回访的同类客户、可实地看的落地案例,而非只有 logo 墙</td></tr>
+          <tr><td><strong>⑥ 服务与续约</strong></td><td>出了问题多久响应、三年后怎么续?</td><td>SLA 响应时效、服务期条款、续约价格区间、硬件更新节奏</td></tr>
+          <tr><td><strong>⑦ 退出与锁定</strong></td><td>不合作了我能不能全身而退?</td><td>数据可导出、不绑私有格式、源代码托管(escrow)条款</td></tr>
+          <tr><td><strong>⑧ 知识产权与源码</strong></td><td>基于我方数据的成果归谁?</td><td>模型权重与定制成果权属、源代码与部署文档的交付/托管安排</td></tr>
+        </tbody>
+      </table>
+      <p>下面把风险最大、也最容易被忽略的三个维度——数据来源合法性、退出与锁定、财务持续经营——展开讲。</p>
+
+      <h2>三、数据来源合法性:政企客户不能让步的底线</h2>
+      <p>法律 AI 的燃料是裁判文书与法规语料。语料从哪来、有没有合法依据、当事人信息脱没脱敏,直接决定这套系统会不会在交付很久之后,以<strong>侵权索赔或合规问责</strong>的形式反噬使用方。对律所是客户保密义务的延伸,对政法机关更是数据安全与合规的硬约束(参见<a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a>与<a href="/blog/law-firm-data-compliance-confidentiality.html">律所数据合规</a>)。尽调时至少问清三层:</p>
+      <ul>
+        <li><strong>语料来源与授权链条。</strong>要求供应商<strong>书面</strong>说明裁判文书、法规数据从哪采、依据是什么,而不是含糊一句"公开数据"。来源不清,风险就是悬在头上的剑。</li>
+        <li><strong>个人信息与敏感信息处理。</strong>语料里当事人姓名、身份证号、住址等如何脱敏?是否符合《个人信息保护法》《数据安全法》?脱敏口径要能拿出来看。</li>
+        <li><strong>训练授权范围。</strong>私有化场景常要把<strong>本单位历史卷宗</strong>喂进去做微调(见<a href="/blog/law-firm-llm-finetune-case-archive.html">用本所卷宗微调</a>),这时权属和保密边界必须白纸黑字:数据只在内网、不回流、训练成果归你。</li>
+      </ul>
+      <p>一个务实的判断法:<strong>越是回避"数据从哪来"这个问题、越是拿"行业都这么做"搪塞的供应商,越要警惕。</strong>敢把来源和脱敏口径逐条摊开的,才是把合规当回事的。</p>
+
+      <h2>四、退出与锁定:签约时就要谈好的"离婚协议"</h2>
+      <p>私有化项目最被动的时刻,是三年后想换供应商、或供应商想涨价时,才发现<strong>自己被牢牢锁死了</strong>:数据是私有格式导不出、系统没有源代码没人能维护、定制模型带不走。这些都要在<strong>议价能力最强的签约当下</strong>就写进合同,而不是等到最被动时再谈:</p>
+      <table>
+        <thead><tr><th>锁定风险</th><th>签约时该约定的条款</th></tr></thead>
+        <tbody>
+          <tr><td>数据被私有格式绑架</td><td><strong>数据可导出</strong>:原始数据与系统产生的结构化数据,可用通用格式随时导出</td></tr>
+          <tr><td>供应商停服/破产后系统没人维护</td><td><strong>源代码托管(escrow)</strong>:约定破产、被并购、停止服务等触发条件下,源码与部署文档交付你或第三方托管方</td></tr>
+          <tr><td>基于本所语料的成果带不走</td><td><strong>知识产权归属</strong>:定制模型权重、微调成果归谁、能否离网继续使用,写明</td></tr>
+          <tr><td>三年后被动接受涨价</td><td><strong>续约与退出</strong>:续约价格区间、不续约时系统能否离线继续用,提前锁定</td></tr>
+        </tbody>
+      </table>
+      <p>这也是私有化相对 SaaS 的一个天然优势:系统在你自己内网,只要合同把数据可导出和源码托管谈到位,你就始终握有退出的钥匙。谈退出条款时对方越爽快,通常说明它对自己的长期服务越有信心。</p>
+
+      <h2>五、财务与持续经营:别让系统变成"孤儿"</h2>
+      <p>三五百万的项目、三年起的服务期,供应商能不能"活到服务期结束"是一个必须评估、却常被跳过的问题。一家刚成立两年、实缴资本很薄、又背着重大诉讼的公司,和一家经营稳健、有同类政企交付履历的公司,交付风险完全不在一个量级。尽调时不必做成审计,但要看几个信号:<strong>成立年限与实缴资本、近年是否有被执行/重大诉讼记录、股权结构与实际控制人是否稳定、这条法律 AI 产品线是不是它的主营</strong>。把一个长期系统托付给一家可能明年就转型或注销的公司,系统就会变成没人管的"孤儿"——数据分类分级做得再好、验收测评过得再漂亮,也扛不住维护者消失。</p>
+
+      <h2>六、给采购委员会的一页纸尽调清单</h2>
+      <div class="callout">
+        <p>把这份清单发给每一家候选供应商,要求<strong>逐条书面应答</strong>,一轮就能筛掉那些经不起看的:</p>
+        <ol>
+          <li>请提供营业执照、成立年限、实缴资本,以及信息安全/保密相关资质与备案。</li>
+          <li>近三年是否有重大诉讼、被执行或行政处罚记录?股权与实控人是否稳定?</li>
+          <li>本项目团队如何构成?是否外包?核心人员离职后由谁承接?</li>
+          <li>裁判文书与法规语料<strong>来源与授权</strong>如何?当事人信息如何脱敏,依据哪些法规?</li>
+          <li>把我方卷宗用于微调时,数据是否只在内网、不回流,训练成果归属如何约定?</li>
+          <li>能否提供 2-3 个<strong>可回访/可实地看</strong>的同类客户案例?</li>
+          <li>故障响应 SLA 是多少?服务期、续约价格区间与硬件更新节奏怎么定?</li>
+          <li>是否接受<strong>数据可导出 + 源代码托管(escrow)</strong>条款?触发条件写明。</li>
+        </ol>
+      </div>
+      <p>把这八问的答案,和产品演示、<a href="/blog/legal-ai-acceptance-testing-evaluation.html">验收测评</a>、<a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO</a> 放在一张评审表里合并打分,选出来的才是"产品能用、公司靠谱、退路清楚"的供应商。<strong>好的供应商不怕你查它的底——怕查的,往往正是那些经不起查的。</strong></p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:我们不是专业尽调机构,做这些会不会太重?</p>
+      <p>A:不必做成投行级尽调。核心是把上面八个维度做成一张评审表,要求供应商<strong>逐条书面应答并附证据</strong>,再对关键项(数据来源、财务、客户案例)做重点核验。工作量可控,却能挡掉绝大多数交付与合规风险。</p>
+      <p class="faq-q">Q:小厂就一定不能选吗?</p>
+      <p>A:不是。规模不是唯一标准,关键是<strong>风险是否被条款对冲</strong>。一家小而专的公司,只要数据来源清楚、愿意签源代码托管与数据可导出、有可核验的同类案例,同样可靠;反过来,大厂如果回避数据来源、拒谈退出条款,风险一样高。尽调看的是"经不经得起查",不是看体量。</p>
+      <p class="faq-q">Q:源代码托管(escrow)供应商会同意吗?</p>
+      <p>A:成熟的供应商通常能接受,因为它保护的是"供应商不可抗力退出"这类双方都不愿看到的极端情况,不影响正常合作。对方若断然拒绝,恰恰是一个值得追问的信号。可以先谈"关键部署文档 + 源码第三方托管"的折中方案。</p>
+
+      <div class="cta-box">
+        <h3>把尽调清单发给我们,逐条应答</h3>
+        <p>文书查主体为深圳星谱网络科技有限公司,可就资质、1.5 亿+ 结构化裁判文书的数据来源与脱敏、私有化交付案例、数据可导出与源代码托管条款逐条应答。演示阶段不收费,先谈清楚再签约。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的 5 个坑</a> · <a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a> · <a href="/blog/legal-ai-tender-technical-specifications.html">法律 AI 招投标技术参数怎么写</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律 AI 验收测评方法</a> · <a href="/blog/legal-ai-private-deployment-tco-three-year.html">私有化三年 TCO 测算</a> · <a href="/blog/legal-data-platform-comparison-2026.html">文书查 vs 北大法宝 vs Alpha 全维度对比</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
