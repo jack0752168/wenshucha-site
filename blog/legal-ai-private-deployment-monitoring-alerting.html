@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>私有化法律 AI 上线后怎么运维:监控、告警与故障响应体系实战(2026)| 文书查</title>
+  <meta name="description" content="律所和政法机关把法律 AI 私有化部署进内网后,才发现真正的挑战不是上线那一天,而是之后三年的运维。SaaS 有厂商在云端替你盯着,私有化系统跑在你自己的机房、离线、没有外部兜底,监控和告警必须自己建。本文给出一套可落地的私有化法律 AI 运维监控体系:基础设施、模型服务、检索质量、业务与安全四层监控指标,告警分级与静默降噪的设计,离线环境特有的模型退化与数据回流断链问题,以及一份可直接照用的运维巡检清单,面向律所信息化主任与政法信息中心运维负责人。" />
+  <meta name="keywords" content="私有化AI运维,法律AI监控告警,法律AI运维体系,私有化部署监控,法律AI故障响应,法律大模型运维,政法信息中心运维,法律AI SLA" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-private-deployment-monitoring-alerting.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="私有化法律 AI 上线后怎么运维:监控、告警与故障响应体系实战(2026)" />
+  <meta property="og:description" content="SaaS 有厂商在云端替你盯着,私有化系统跑在你自己内网、离线、没有外部兜底。四层监控指标 + 告警分级降噪 + 离线环境模型退化与数据回流断链 + 一页纸运维巡检清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-private-deployment-monitoring-alerting.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "私有化法律 AI 上线后怎么运维:监控、告警与故障响应体系实战(2026)",
+    "description": "面向律所信息化主任与政法信息中心运维负责人的私有化法律 AI 运维体系:基础设施、模型服务、检索质量、业务与安全四层监控指标,告警分级与静默降噪设计,离线环境特有的模型退化与数据回流断链问题,以及一份可直接照用的运维巡检清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-12",
+    "dateModified": "2026-07-12",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-private-deployment-monitoring-alerting.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "私有化法律 AI 的运维,和普通业务系统运维有什么不一样?",
+        "acceptedAnswer": { "@type": "Answer", "text": "多两层特殊性。第一层是 AI 本身:普通系统只要进程活着、接口 200 就算健康,而法律 AI 就算服务完全正常运行,回答质量也可能悄悄变差——检索召回下降、幻觉引证增多、模型对新类型问题答非所问,这些在 CPU 内存曲线上一点都看不出来,必须专门监控回答质量。第二层是私有化离线:系统跑在你自己的内网,没有外网、没有厂商云端替你 7×24 盯着,数据回流管道断了、GPU 显存泄漏、许可证到期,都要靠你自己的监控发现。所以私有化法律 AI 的运维,是在传统基础设施监控之上,再叠加模型服务监控和检索质量监控两层,缺一层就是盲区。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化法律 AI 至少要监控哪些指标?",
+        "acceptedAnswer": { "@type": "Answer", "text": "建议按四层建指标。基础设施层:GPU 利用率与显存占用、CPU 内存磁盘、机房温度与电力(私有化常忽略硬件本身)。模型服务层:推理接口的成功率与错误码、P95/P99 响应时延、并发排队与超时、显存 OOM 次数、许可证/证书有效期。检索质量层(最容易漏):检索召回是否为空的比例、引证回链的有效性、无答案时是否老实说没有、向量索引与数据版本是否同步。业务与安全层:各业务线调用量与活跃用户、按 matter/团队的权限越界尝试、审计日志是否完整、异常导出行为。前两层保证系统活着,后两层保证它答得对、用得安全——政法机关尤其要盯第四层。" }
+      },
+      {
+        "@type": "Question",
+        "name": "告警怎么设才不会变成没人看的『狼来了』?",
+        "acceptedAnswer": { "@type": "Answer", "text": "三个原则。一是分级:P1 影响全所使用(推理服务全挂、GPU 宕机)必须立刻电话/短信找到人;P2 局部降级(某业务线检索变慢、单卡故障)工作时间响应即可;P3 趋势预警(显存缓慢泄漏、许可证还有 30 天到期)进日报不打扰。二是降噪:同一故障持续期间只告警一次不刷屏,能自愈的短暂抖动(一次网络重试成功)静默不报,给足阈值和持续时间窗口避免误报。三是可执行:每条告警都要说清『哪台机器、什么指标、超过什么阈值、建议先查什么』,而不是甩一个『系统异常』让人干瞪眼。一套好的告警,平时安静,一响就是真事、且立刻知道去哪查。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化离线部署,回答质量退化了怎么及时发现?",
+        "acceptedAnswer": { "@type": "Answer", "text": "离线系统最隐蔽的风险是『静默退化』——服务一直正常,但答得越来越差,而没有外网、没有用户海量反馈,很难自然暴露。三个抓手:一是建一套固定的回归评测集(几十到上百条本单位高频真实问题 + 标准答案),定期自动跑一遍,回答准确率、检索命中率、引证有效率一旦掉出阈值就告警;二是监控『空检索』和『无引证回答』的比例,这两个数字上升通常意味着数据版本没跟上或索引出了问题;三是保留用户的『点踩/纠错』入口,把负反馈汇总进周报。核心是:不能等律师投诉『AI 最近答得不对』才发现,要用评测集和质量指标提前把退化量化出来。文书查在交付时会和客户一起沉淀这套回归评测集与质量看板。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 私有化法律 AI 运维监控</div>
+    <h1>私有化法律 AI 上线后怎么运维:监控、告警与故障响应体系实战(2026)</h1>
+    <div class="meta">2026-07-12 · 文书查 · 面向信息化主任与政法信息中心运维负责人</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">很多律所和政法机关以为,私有化法律 AI 最难的是上线那一天——把模型和 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库</a>灌进内网、跑通 <a href="/blog/law-firm-rag-knowledge-base.html">RAG 检索</a>、验收通过。可真正的考验从上线之后才开始:<strong>这是一套跑在你自己机房、离线、没有厂商云端替你 7×24 盯着的系统,接下来三年,它活得好不好,只能靠你自己的监控和告警看得见。</strong>更麻烦的是,法律 AI 有个别的系统没有的隐患——就算进程一直活着、接口一直返回 200,它的<strong>回答质量也可能在你毫不知情的情况下悄悄变差</strong>。本文给出一套可以直接照着搭的私有化法律 AI 运维监控体系:四层监控指标、告警怎么分级降噪、离线环境特有的坑,以及一份运维负责人可以贴在墙上的巡检清单。</p>
+
+      <h2>一、为什么私有化上线后,监控比 SaaS 更重要</h2>
+      <p>用 SaaS 法律工具时,系统在厂商的云上,厂商有一整支 SRE 团队 7×24 盯着可用性,出了问题厂商比你先知道、先修。<a href="/blog/law-firm-private-ai-deployment-guide.html">私有化部署</a>把这份便利换成了数据不出内网的安全,但也把运维责任<strong>完整地搬到了你这边</strong>:系统在你的机房、你的 GPU 上、通常还是离线的,没有外部兜底,没有厂商替你半夜爬起来。上线验收那天一切完美,不代表三个月后还完美——GPU 会老化、显存会泄漏、数据回流管道会断、模型对新出现的问题会答非所问。</p>
+      <p>这里有一个反直觉但极其关键的点:<strong>法律 AI 的『健康』有两层,而大多数运维只盯了第一层。</strong>第一层是『系统活着』——进程在、接口通、时延正常,这是传统运维的全部;第二层是『答得对』——检索召回够不够全、引证回不回得去、有没有开始编造。第二层在 CPU、内存、QPS 曲线上<strong>完全看不出来</strong>,一套只监控基础设施的运维体系,会在律师已经开始抱怨『AI 最近答得不靠谱』时,仪表盘上还是一片绿。私有化法律 AI 的运维,本质是要把这两层都看住。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>普通系统的运维目标是『别宕机』;法律 AI 的运维目标是『别宕机,而且别在没人发现的情况下答错』。后半句,才是法律 AI 运维真正的难点。</p>
+      </div>
+
+      <h2>二、四层监控指标:从『系统活着』到『答得对、用得安全』</h2>
+      <p>建议把私有化法律 AI 的监控指标分成四层来搭,从下到上依次是基础设施、模型服务、检索质量、业务与安全。前两层保证系统活着,后两层保证它答得对、用得安全:</p>
+      <table>
+        <thead><tr><th>监控层</th><th>关键指标</th><th>盯它是为了发现什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 基础设施层</strong></td><td>GPU 利用率/显存占用、CPU/内存/磁盘、机房温度与电力、网络内联通</td><td>硬件本身的问题——私有化最容易忽略『机器和机房也要监控』</td></tr>
+          <tr><td><strong>② 模型服务层</strong></td><td>推理接口成功率/错误码、P95/P99 时延、并发排队与超时、显存 OOM 次数、许可证/证书有效期</td><td>推理服务的可用性与性能:慢、超时、崩、证书过期</td></tr>
+          <tr><td><strong>③ 检索质量层</strong></td><td>空检索比例、引证回链有效率、无答案时是否老实说没有、向量索引与数据版本是否同步</td><td>最容易漏的一层——系统正常但『答得越来越差』</td></tr>
+          <tr><td><strong>④ 业务与安全层</strong></td><td>各业务线调用量/活跃用户、按 matter/团队的权限越界尝试、审计日志完整性、异常导出行为</td><td>用得对不对、安不安全——政法与大所的合规红线</td></tr>
+        </tbody>
+      </table>
+      <p>四层里,第①②层是所有系统运维的常规操作,不再展开;真正拉开差距、也最容易被跳过的,是第③层<strong>检索质量</strong>和第④层<strong>业务与安全</strong>。下面重点讲这两层,以及离线环境特有的坑。</p>
+
+      <h2>三、检索质量监控:法律 AI 运维最大的盲区</h2>
+      <p>这是私有化法律 AI 运维里最反常识、也最重要的一环。一套 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">检索增强的法律 AI</a>,它的回答质量取决于『检索到的对不对』,而检索会因为很多原因悄悄退化:数据版本更新后向量索引没重建、新增文书没进库、切分或脱敏规则改动引入偏差、甚至只是查询分布变了。这些退化<strong>不会让系统报错</strong>,只会让答案越来越水,而离线环境又没有海量用户帮你自然暴露问题。抓手有三个:</p>
+      <ul>
+        <li><strong>建一套固定的回归评测集,定期自动跑。</strong>挑几十到上百条本单位高频真实问题,配上人工确认的标准答案,做成回归集,每天或每周自动跑一遍,监控回答准确率、检索命中率、引证有效率。任何一个指标掉出阈值就告警——这是把『答得对不对』从主观感受变成<strong>可量化、可告警的数字</strong>的唯一办法。(评测集怎么建,见 <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型验收测评方法</a>,验收用的那套集子正好复用为上线后的回归集。)</li>
+        <li><strong>盯两个『泄漏指标』:空检索比例、无引证回答比例。</strong>『查了但什么都没召回』和『答了但给不出引证来源』这两个数字一旦上升,几乎总是意味着数据版本没跟上或索引出了问题。它们是检索退化最灵敏的先行指标,比等律师投诉早得多。</li>
+        <li><strong>保留并汇总用户负反馈。</strong>在产品里放『点踩/这个答案不对』的入口,把负反馈按业务线、按问题类型汇总进周报。用户的纠错是最真实的质量信号,但不能只靠它——它是滞后的,评测集才是提前量。</li>
+      </ul>
+      <p>核心一句话:<strong>不能等律师投诉才发现 AI 退化了。</strong>要用回归评测集和泄漏指标,在质量真正影响到办案之前,把退化提前量化、提前告警。这也正是<a href="/blog/legal-ai-hallucination-citation-verification.html">幻觉与引证核验</a>从『上线前测一次』升级成『上线后持续监控』的落地方式。</p>
+
+      <h2>四、业务与安全层:政法与大所不能松的合规监控</h2>
+      <p>法律 AI 处理的是当事人隐私、案件卷宗、客户机密,私有化的初衷本就是<strong>数据安全与保密</strong>,所以运维监控必须把安全和合规审计当成一等公民,而不是事后补的日志。重点盯四类信号:</p>
+      <table>
+        <thead><tr><th>监控项</th><th>为什么要盯</th></tr></thead>
+        <tbody>
+          <tr><td><strong>权限越界尝试</strong></td><td>按 matter/团队/人做的检索层隔离(A 客户材料不能在办 B 客户时被召回)一旦出现越界访问,是利益冲突墙被击穿的信号</td></tr>
+          <tr><td><strong>审计日志完整性</strong></td><td>谁在什么时候查了什么、AI 答了什么,必须完整留痕且不可篡改;日志本身断了要立刻告警</td></tr>
+          <tr><td><strong>异常导出/批量拉取</strong></td><td>短时间大批量导出、非常规时段的高频调用,可能是数据外带的前兆</td></tr>
+          <tr><td><strong>各业务线活跃度</strong></td><td>调用量骤降往往说明某条业务线『买了没人用』,是 <a href="/blog/law-firm-ai-adoption-user-enablement.html">adoption 运营</a>要介入的信号,不完全是故障</td></tr>
+        </tbody>
+      </table>
+      <p>对政法机关,这一层还要对齐<a href="/blog/judicial-data-platform-security-compliance.html">等保三级与数据中台的合规要求</a>;对大所,它是<a href="/blog/law-firm-data-compliance-confidentiality.html">客户保密义务</a>在系统层面的落地。这层监控的价值,在平时看不出来,在出事或被审计那一刻决定你是否说得清楚。</p>
+
+      <h2>五、离线环境特有的三个坑</h2>
+      <p>私有化、离线,带来几个云端系统根本不会遇到的运维问题,提前知道能少踩很多:</p>
+      <ul>
+        <li><strong>数据回流管道断了,没人第一时间知道。</strong>私有库要靠定期把新增裁判文书、法规同步进内网来保持新鲜。这条<a href="/blog/legal-ai-continuous-operation-iteration.html">数据回流</a>管道一旦断(介质没更新、同步任务失败),系统不会报错,只会答得越来越『过时』。必须监控『最新数据版本日期』这个指标——超过 N 天没更新就告警。</li>
+        <li><strong>模型/许可证/证书悄悄到期。</strong>离线环境里,授权文件、TLS 证书、软件许可证到期不会有云端自动续期,到点直接罢工。把所有有效期做成『剩余天数』指标,提前 30 天进日报、提前 7 天告警。</li>
+        <li><strong>GPU 显存泄漏与硬件老化。</strong>长期运行的推理服务可能缓慢泄漏显存,直到某天 OOM 崩溃;GPU 也会随高温高负载老化。显存占用的长期趋势、OOM 次数、GPU 温度,都要留趋势曲线,把『缓慢恶化』在崩之前抓出来。</li>
+      </ul>
+      <p>这三个坑的共同点是:<strong>都是『静默恶化』,不会主动报错,只会在某天突然爆发或悄悄变差。</strong>对付静默恶化,唯一的办法是给它们各配一个趋势指标 + 提前量告警,而不是等它爆。</p>
+
+      <h2>六、告警怎么设,才不会变成没人看的『狼来了』</h2>
+      <p>指标建得再全,如果告警设计得差,结果就是告警刷屏、大家麻木、真出事反而被淹没。好的告警遵循三条原则:</p>
+      <table>
+        <thead><tr><th>原则</th><th>怎么做</th></tr></thead>
+        <tbody>
+          <tr><td><strong>分级</strong></td><td>P1 全所不可用(推理全挂/GPU 宕机)→ 立刻电话短信找到人;P2 局部降级(单业务线变慢/单卡故障)→ 工作时间响应;P3 趋势预警(显存缓慢泄漏/许可证 30 天到期)→ 进日报不打扰</td></tr>
+          <tr><td><strong>降噪</strong></td><td>同一故障持续期间只报一次不刷屏;能自愈的短暂抖动(一次重试成功)静默不报;给足阈值与持续时间窗口,避免瞬时毛刺误报</td></tr>
+          <tr><td><strong>可执行</strong></td><td>每条告警写清『哪台机、什么指标、超了什么阈值、先查什么』,而不是甩一句『系统异常』让人干瞪眼</td></tr>
+        </tbody>
+      </table>
+      <p>一套设计良好的告警系统,应该是<strong>平时安静,一响就是真事,而且一看就知道去哪查</strong>。判断告警设计好不好,有个简单标准:如果运维同事已经开始习惯性忽略告警群,那你的告警不是太少,而是噪声太多、该降噪了。</p>
+
+      <h2>七、给运维负责人的一页纸巡检清单</h2>
+      <div class="callout">
+        <p>把这份清单固化成每日/每周巡检项,大部分故障能在影响办案之前被发现:</p>
+        <ol>
+          <li><strong>系统活着:</strong>推理接口成功率、P95 时延、GPU 显存与温度,是否都在阈值内?</li>
+          <li><strong>答得对:</strong>回归评测集今天/本周跑分是否达标?空检索比例、无引证比例有没有异常上升?</li>
+          <li><strong>数据新鲜:</strong>私有库最新数据版本日期距今几天?回流同步任务上一次成功是什么时候?</li>
+          <li><strong>期限:</strong>许可证、证书、授权文件的剩余天数,有没有进入 30 天预警区?</li>
+          <li><strong>安全:</strong>有没有权限越界尝试、异常批量导出?审计日志是否完整无缺口?</li>
+          <li><strong>业务:</strong>各业务线调用量与活跃用户环比,有没有某条线骤降(可能是没人用而非故障)?</li>
+          <li><strong>告警复盘:</strong>过去一周的告警,有没有反复误报的该调阈值、有没有被忽略的该降级?</li>
+          <li><strong>容量:</strong>磁盘、显存、并发余量,按当前增长还能撑多久?</li>
+        </ol>
+      </div>
+      <p>把这八项做成看板 + 日报,私有化法律 AI 的运维就从『出事了才救火』变成『趋势里提前拦截』。<strong>私有化系统没有厂商替你半夜爬起来,但一套好的监控告警,等于给你请了一个不休息的运维值班员。</strong></p>
+
+      <h2>八、常见问题</h2>
+      <p class="faq-q">Q:我们信息化团队不大,搭这么一套监控是不是太重?</p>
+      <p>A:不必一步到位。优先级很清楚:先把第①②层(基础设施 + 模型服务可用性)用现成的开源监控搭起来,这部分和普通系统运维通用;再把第③层检索质量的『回归评测集 + 空检索/无引证比例』两个抓手加上,这一层投入最小、收益最大;第④层安全审计按合规要求逐步补齐。关键是别只做第①②层就以为够了——那正好漏掉了法律 AI 最独特的风险。</p>
+      <p class="faq-q">Q:回归评测集要多大、多久跑一次?</p>
+      <p>A:不追求规模,追求代表性。几十到一两百条覆盖本单位高频业务、且有人工确认标准答案的问题就够用,关键是<strong>稳定复用</strong>——每次数据更新、模型调整、索引重建后都跑一遍,对比历史跑分。频率上日跑最好,至少每周一次,数据版本一变必跑。它的价值不在大,在于把『质量退化』变成一条能报警的曲线。</p>
+      <p class="faq-q">Q:这套运维是供应商负责还是我方负责?</p>
+      <p>A:私有化的现实是运维责任在你方,但成熟供应商应当在交付时<strong>把监控看板、告警规则、回归评测集一并交付并培训</strong>,而不是丢个系统就走。签约时就把『运维监控与告警体系的交付、SLA 响应时效、远程/驻场支持方式』写进合同(参见<a href="/blog/legal-ai-vendor-due-diligence.html">供应商尽职调查</a>),避免上线后运维无人接手。</p>
+
+      <div class="cta-box">
+        <h3>私有化部署,连监控看板一起交付</h3>
+        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署,交付时一并给到四层监控看板、分级告警规则与回归评测集,并培训你的运维团队。数据不出内网,系统上线后答得对、盯得住。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-continuous-operation-iteration.html">法律 AI 上线只是开始:数据回流与持续运营</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型验收测评方法</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所知识库 RAG 落地</a> · <a href="/blog/judicial-data-platform-security-compliance.html">司法数据中台等保三级</a> · <a href="/blog/legal-ai-vendor-due-diligence.html">法律 AI 供应商尽职调查</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
