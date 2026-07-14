@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>法律 AI 私有化灾备与高可用架构实战:政法机关与大所怎么保证不宕机(2026)| 文书查</title>
+  <meta name="description" content="法律 AI 私有化部署上了生产,就成了律师庭前检索、文书生成、法官类案推送的日常依赖,一旦宕机就是业务停摆。可私有化在内网,没有公有云的自动故障转移,而法律 AI 的高可用比普通系统更难:推理要靠昂贵且稀缺的 GPU,检索要靠向量库和全量文书,数据本身还不能丢——三件事得同时活着。本文给出一套可落地的法律 AI 私有化灾备与高可用架构实战:RTO/RPO 对法律 AI 到底意味什么、按推理层/检索层/数据层分层怎么做冗余、灾备等级怎么选、常见的单点与坑、以及一份可直接照用的高可用与灾备自查清单,面向政法信息中心运维负责人与大所信息化总监。" />
+  <meta name="keywords" content="法律AI灾备,私有化AI高可用,法律AI高可用架构,政法AI容灾,法律AI RTO RPO,私有化部署容灾,法律AI不宕机,GPU高可用,法律AI业务连续性" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-private-deployment-disaster-recovery-ha.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="法律 AI 私有化灾备与高可用架构实战:政法机关与大所怎么保证不宕机(2026)" />
+  <meta property="og:description" content="法律 AI 上生产后就是律师和法官的日常依赖,私有化在内网又没有云端自动故障转移。RTO/RPO 对法律 AI 意味什么、推理层/检索层/数据层怎么分层做冗余、灾备等级怎么选、常见单点与坑,以及一份高可用与灾备自查清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-private-deployment-disaster-recovery-ha.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "法律 AI 私有化灾备与高可用架构实战:政法机关与大所怎么保证不宕机(2026)",
+    "description": "面向政法信息中心运维负责人与大所信息化总监的法律 AI 私有化灾备与高可用架构实战:RTO/RPO 对法律 AI 意味什么、按推理层/检索层/数据层分层做冗余、灾备等级怎么选、常见单点与坑,以及一份可直接照用的高可用与灾备自查清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-14",
+    "dateModified": "2026-07-14",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-private-deployment-disaster-recovery-ha.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 私有化部署的高可用,和普通信息系统的高可用有什么不一样?",
+        "acceptedAnswer": { "@type": "Answer", "text": "普通系统高可用,主要保「应用能访问」——多副本、负载均衡、数据库主从,一台挂了流量切另一台。法律 AI 要同时保三件相互独立、又缺一不可的东西都活着:一是推理层,靠昂贵且稀缺的 GPU 跑大模型,GPU 节点往往是最贵、最难堆冗余、也最容易成单点的一环;二是检索层,靠向量库和全量文书索引,检索一挂,AI 就从「有据可查」退化成「凭记忆瞎编」,比整个系统宕机更危险,因为它还在给答案、只是答案不可靠;三是数据层,几千万上亿的结构化文书和本所卷宗,一旦损坏或丢失,不是重启能解决的。所以法律 AI 的高可用不是「把应用多开几份」那么简单,而是要分层各自做冗余,尤其把 GPU 单点和检索层降级这两个普通架构不常遇到的问题单独处理。" }
+      },
+      {
+        "@type": "Question",
+        "name": "RTO 和 RPO 对法律 AI 到底意味着什么,怎么定合理?",
+        "acceptedAnswer": { "@type": "Answer", "text": "RTO(恢复时间目标)是「出故障后多久必须恢复」,RPO(恢复点目标)是「最多能容忍丢多少数据」。对法律 AI 要分开看:推理和检索服务的 RTO 取决于它嵌在业务里有多深——如果律师庭前准备、法官类案推送已经离不开它,RTO 可能要压到分钟级;如果只是辅助工具,小时级也能接受。RPO 则主要看数据:大模型权重和文书全量库是相对静态的,做好定期备份即可;真正要小 RPO 的是持续写入的部分——本所新增卷宗、用户对话与审计日志、以及增量更新进来的新文书,这些丢了要么无法追溯、要么要重新灌库。合理的做法是按数据的「变化速度」分层定 RPO,而不是给整套系统拍一个统一数字。定 RTO/RPO 之前,先跟业务方确认「这套系统停多久、丢多少,业务真的受不了」,别由 IT 单方面拍脑袋。" }
+      },
+      {
+        "@type": "Question",
+        "name": "GPU 太贵,没法给每个节点都配备用 GPU,高可用怎么办?",
+        "acceptedAnswer": { "@type": "Answer", "text": "GPU 是法律 AI 高可用里最现实的成本约束,不必追求「每个节点热备一份」。有几种务实做法:一是把推理做成多副本 + 负载均衡,平时多张卡分担流量,挂一张时其余顶上,只是并发下降而非服务中断,这样冗余是「共享」的、不是「闲置」的;二是做优雅降级——单张卡还活着时,自动降低并发、排队、或切到更小的模型保住基本可用,总比直接 502 好;三是把最贵的全量高精度模型和一个轻量兜底模型并存,极端情况下用小模型维持检索问答不断线;四是备件与快速替换预案,GPU 坏了能在 RTO 内换上、镜像能一键重新拉起。关键是想清楚「一张卡挂掉时,业务是彻底停、还是降速运行」,把它设计成后者。" }
+      },
+      {
+        "@type": "Question",
+        "name": "灾备一定要建两个机房、搞双活吗,成本太高了?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不一定,灾备是分等级的,按业务重要性和预算选,不是越高越好。最低一档是「备份可恢复」:数据和系统镜像定期备份、异地存一份、并且真做过恢复演练——这是底线,再省也不能省。往上是「冷备」:另有一套可拉起的环境,平时不跑,灾难时手动切换,RTO 是小时到天级。再往上是「热备/温备」:备用环境常态运行、数据准实时同步,RTO 压到分钟级。最高是「双活」:两套同时对外服务、互为备份,成本也最高。对多数大所,做到扎实的「备份可恢复 + 关键数据异地」就够了;对政法生产系统、尤其定了较高等保和业务连续性要求的,才需要往热备甚至双活走。选型时把 RTO/RPO 和预算摆在一起谈,别一上来就默认双活。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 灾备与高可用架构</div>
+    <h1>法律 AI 私有化灾备与高可用架构实战:政法机关与大所怎么保证不宕机(2026)</h1>
+    <div class="meta">2026-07-14 · 文书查 · 面向政法信息中心运维负责人与大所信息化总监</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">法律 AI 私有化系统一旦上了生产,就不再是「试试看」的工具,而是律师庭前检索、文书生成、法官类案推送的日常依赖。这时候有个问题会突然变得很硬:<strong>它宕机了怎么办?</strong>私有化部署在内网,没有公有云那种自动故障转移和多可用区兜底,一切冗余都得自己建。更麻烦的是,法律 AI 的高可用比普通系统难——推理要靠<strong>昂贵且稀缺的 GPU</strong>,检索要靠<strong>向量库和全量文书</strong>,数据本身还<strong>不能丢</strong>,这三件事得同时活着,少一件都不算真可用。很多单位把它当普通 Web 系统做高可用,多开几个副本就以为万事大吉,结果 GPU 一挂全线瘫痪,或者检索库坏了 AI 还在一本正经地编。本文讲清楚:RTO/RPO 对法律 AI 到底意味什么、按推理层 / 检索层 / 数据层分层怎么做冗余、灾备等级怎么选、常见的单点和坑,以及一份可以直接照用的高可用与灾备自查清单。</p>
+
+      <h2>一、先想清楚:法律 AI 的高可用,要保的不是一件事</h2>
+      <p>普通信息系统做高可用,大体就是「应用别挂」——多副本、负载均衡、数据库主从,一台出问题流量切到另一台。法律 AI 不一样,它要同时保三件<strong>相互独立、又缺一不可</strong>的东西都活着,任何一层塌了,系统对用户就是不可用甚至更糟:</p>
+      <table>
+        <thead><tr><th>层</th><th>靠什么活着</th><th>它挂了会怎样</th></tr></thead>
+        <tbody>
+          <tr><td><strong>推理层</strong></td><td>GPU 集群跑大模型</td><td>整个 AI 停摆;GPU 又贵又稀缺,往往是最难堆冗余、最容易成单点的一环</td></tr>
+          <tr><td><strong>检索层</strong></td><td>向量库 + 全文索引 + 文书数据</td><td>最危险的一种故障:AI 不报错、还在答,只是从<strong>有据可查</strong>退化成<strong>凭记忆瞎编</strong></td></tr>
+          <tr><td><strong>数据层</strong></td><td>结构化文书全量库 + 本所卷宗 + 模型权重</td><td>损坏或丢失不是重启能解决的,严重时要重新灌库甚至无法追溯</td></tr>
+        </tbody>
+      </table>
+      <p>这张表就是法律 AI 高可用和普通高可用的根本差别。第二层的「静默降级」尤其反直觉:一般系统挂了会 502,用户立刻知道;而检索层坏掉时,大模型照样输出流畅的答案,只是不再基于真实文书——<strong>一个还在给答案、但答案不可靠的系统,比一个干脆宕机的系统更危险</strong>,因为没人会警觉。所以下面的架构,核心就是把这三层拆开、各自做冗余,而不是笼统地「多开几份应用」。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>普通系统的高可用,证明的是「应用还能访问」;法律 AI 的高可用,还要额外证明「就算某一层出了问题,它要么优雅降级、要么明确停下,而绝不会一边坏着、一边继续给出看起来正常其实没有依据的答案」。</p>
+      </div>
+
+      <h2>二、RTO 与 RPO:法律 AI 该怎么定这两个数</h2>
+      <p>灾备的一切都从两个指标出发:<strong>RTO</strong>(恢复时间目标,出故障后多久必须恢复)和 <strong>RPO</strong>(恢复点目标,最多能容忍丢多少数据)。做法律 AI,这两个数不能对整套系统拍一个统一值,而要分开看:</p>
+      <h3>RTO 看「业务离不开它到什么程度」</h3>
+      <p>如果法律 AI 已经嵌进律师庭前准备、法官类案推送这些每天都在跑的关键流程,RTO 可能要压到分钟级;如果它还只是个辅助工具,小时级也能接受。定 RTO 之前,先跟业务方确认「这套系统停多久,业务真的受不了」,别由 IT 单方面拍脑袋定一个既做不到、又没必要的激进数字。</p>
+      <h3>RPO 按「数据变化快慢」分层定</h3>
+      <p>法律 AI 的数据变化速度差别很大,RPO 要跟着分层,而不是一刀切:</p>
+      <table>
+        <thead><tr><th>数据类型</th><th>变化速度</th><th>RPO 策略</th></tr></thead>
+        <tbody>
+          <tr><td>大模型权重</td><td>基本静态(除非重新微调)</td><td>一次备份长期有效,微调后再备一版即可</td></tr>
+          <tr><td>全量文书库 + 向量索引</td><td>慢(定期增量)</td><td>定期全量备份 + 增量记录,丢了可重灌</td></tr>
+          <tr><td>本所新增卷宗 / 增量新文书</td><td>快(每天写入)</td><td>小 RPO,准实时或高频备份,丢了难补</td></tr>
+          <tr><td>用户对话 + 审计日志</td><td>持续写入</td><td>小 RPO 且不可丢——审计留痕本身是<a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">安全合规</a>要求</td></tr>
+        </tbody>
+      </table>
+      <p>换句话说:模型和全量库是「相对静态、丢了能重建」,做好定期备份就行;真正要小 RPO、要盯紧的是<strong>持续写入的那几类</strong>——本所卷宗、增量文书、对话与审计日志,这些丢了要么无法追溯、要么要重新灌一遍库。把 RPO 按数据分层,既省成本又不留死角。</p>
+
+      <h2>三、分层做冗余:一层一层拆开看</h2>
+      <p>把「保三件事都活着」落到架构上,就是按层各自设计冗余。下面从用户最近的一层往数据层走。</p>
+      <h3>推理层(GPU):最贵的单点,重点在「降级」而非「热备」</h3>
+      <p>GPU 是法律 AI 高可用里最现实的成本约束——给每个节点都热备一张闲置的高端卡,多数单位既买不起也不划算。务实的做法不是追求「一比一热备」,而是让 GPU 冗余变成<strong>共享的、能降级的</strong>:</p>
+      <ul>
+        <li><strong>多副本 + 负载均衡:</strong>平时多张卡分担流量,挂一张时其余顶上,表现是并发下降而非服务中断——冗余是「共享」的,不是「闲置」的。</li>
+        <li><strong>优雅降级:</strong>单卡还活着时,自动降并发、排队、或切到更小的模型保住基本可用,总比直接 502 强。</li>
+        <li><strong>大小模型并存兜底:</strong>最贵的全量高精度模型旁边,常驻一个轻量兜底模型,极端情况下用小模型维持检索问答不断线。</li>
+        <li><strong>备件与一键拉起:</strong>GPU 坏了能在 RTO 内换上,推理服务镜像能一键重新部署,而不是现攒环境。</li>
+      </ul>
+      <p>核心是回答一个问题:<strong>一张卡挂掉时,业务是彻底停、还是降速运行?</strong>好的设计让它是后者。</p>
+      <h3>检索层:别让它「静默失败」</h3>
+      <p>检索层(向量库 + 全文索引)最怕的不是宕机,而是<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">检索</a>悄悄失效却没人发现。三个动作:一是向量库和索引做副本与定期快照,单节点故障能切换;二是<strong>把检索健康做成硬性前置检查</strong>——检索层不可用或召回明显异常时,宁可让 AI 明确提示「检索暂不可用」,也不能让它跳过检索直接凭模型记忆作答;三是索引可从原始文书<strong>一键重建</strong>,这样即使向量库整个损坏,数据层的文书还在,重建即可恢复,不至于伤筋动骨。</p>
+      <h3>数据层:高可用的最后一道底线</h3>
+      <p>数据层塌了,前面两层做得再好也白搭。这一层的重点是「不丢 + 可恢复」:全量文书库和本所卷宗做多副本存储与<strong>异地备份</strong>;备份要覆盖三样东西——文书数据、向量索引、模型权重,缺一样恢复时都会卡住;最关键的一点是<strong>定期做恢复演练</strong>——备份没演练过,等于没有备份,很多单位是真出事那天才发现备份根本恢复不出来。数据层的稳固,直接决定了整套灾备是「纸面方案」还是「真能用」。</p>
+
+      <h2>四、灾备等级怎么选:不是越高越好</h2>
+      <p>灾备是分等级的,按业务重要性和预算选。硬套「双活」既烧钱又未必需要,选错等级比不选还糟。四档从低到高:</p>
+      <table>
+        <thead><tr><th>等级</th><th>做法</th><th>大致 RTO</th><th>适合谁</th></tr></thead>
+        <tbody>
+          <tr><td><strong>备份可恢复(底线)</strong></td><td>数据 + 系统镜像定期备份、异地存一份、<strong>并真做过恢复演练</strong></td><td>天级</td><td>再省也不能省,所有单位的下限</td></tr>
+          <tr><td><strong>冷备</strong></td><td>另有一套可拉起环境,平时不跑,灾难时手动切换</td><td>小时~天级</td><td>预算有限、可容忍较长恢复的大所</td></tr>
+          <tr><td><strong>热备 / 温备</strong></td><td>备用环境常态运行、数据准实时同步,故障快速切换</td><td>分钟级</td><td>政法生产系统、业务连续性要求高的场景</td></tr>
+          <tr><td><strong>双活</strong></td><td>两套同时对外服务、互为备份</td><td>分钟内 / 近乎无感</td><td>核心政法系统 + 预算充足,成本最高</td></tr>
+        </tbody>
+      </table>
+      <p>给多数大所的实话:做到扎实的<strong>「备份可恢复 + 关键数据异地 + 演练过」</strong>,就已经甩开绝大多数只有一堆没验证过的备份的单位。对政法生产系统、尤其定了较高<a href="/blog/judicial-data-platform-security-compliance.html">等保</a>和业务连续性要求的,才有必要往热备甚至双活走。选型时务必把 RTO/RPO、预算、和这张表摆在一起谈,别一上来就默认最高档。</p>
+
+      <h2>五、常见的单点与坑</h2>
+      <p>下面这些是私有化法律 AI 灾备最容易踩的坑,提前避开能少走很多弯路:</p>
+      <table>
+        <thead><tr><th>常见坑</th><th>为什么危险 / 怎么避</th></tr></thead>
+        <tbody>
+          <tr><td><strong>只堆了推理冗余,检索是单点</strong></td><td>GPU 做了多副本,向量库却只有一份,检索一挂 AI 就开始编;检索层要同等做冗余 + 健康前置检查</td></tr>
+          <tr><td><strong>备份只备了数据,没备索引和模型</strong></td><td>恢复时发现文书在、索引和权重没了,还是跑不起来;三样都要备</td></tr>
+          <tr><td><strong>备份从没演练过恢复</strong></td><td>真出事才发现备份损坏 / 恢复流程走不通;把恢复演练做成定期动作,写进<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">运维</a>日历</td></tr>
+          <tr><td><strong>RTO/RPO 由 IT 单方拍定</strong></td><td>要么定太松业务受不了、要么定太严做不到还烧钱;必须和业务方一起定</td></tr>
+          <tr><td><strong>检索静默降级没有告警</strong></td><td>AI 还在答但已无依据,没人发现;把检索健康、召回质量接进监控告警</td></tr>
+          <tr><td><strong>灾备只在纸上,切换没预案</strong></td><td>方案漂亮但真故障时手忙脚乱;要有成文的切换手册 + 明确责任人 + 定期演练</td></tr>
+        </tbody>
+      </table>
+
+      <h2>六、给运维负责人的一页纸高可用与灾备自查清单</h2>
+      <div class="callout">
+        <p>系统上生产、或做灾备评审前,把这份清单逐条过一遍:</p>
+        <ol>
+          <li><strong>分层:</strong>推理层、检索层、数据层是否<strong>各自</strong>都有冗余方案?还是只做了应用多副本?</li>
+          <li><strong>GPU:</strong>一张卡挂掉时,业务是彻底停还是降速运行?有没有优雅降级和兜底小模型?</li>
+          <li><strong>检索:</strong>检索层不可用或召回异常时,AI 会明确提示、还是静默凭记忆作答?有没有健康前置检查?</li>
+          <li><strong>备份:</strong>文书数据、向量索引、模型权重<strong>三样</strong>是否都备了?有没有异地一份?</li>
+          <li><strong>演练:</strong>最近一次真做过恢复演练是什么时候?恢复出来能正常跑吗?</li>
+          <li><strong>RTO/RPO:</strong>是否和业务方一起定的?对持续写入的数据(卷宗 / 日志)是否单独定了小 RPO?</li>
+          <li><strong>等级:</strong>灾备等级和业务重要性、预算是否匹配?有没有硬套过高或过低的档?</li>
+          <li><strong>预案:</strong>故障切换有没有成文手册、明确责任人?告警是否覆盖检索静默降级?</li>
+          <li><strong>供应商:</strong>高可用架构设计、备份恢复方案、灾备演练支持,合同里写了没、供应商拿得出吗?</li>
+        </ol>
+      </div>
+      <p>把这九项做成上生产前的固定动作,法律 AI 就从「跑起来就行、出事再说」变成「三层都有冗余、备份演练过、故障有预案」。<strong>高可用不是买一堆硬件堆出来的,而是想清楚每一层塌了会发生什么、并为每一种塌法准备好答案。</strong></p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:法律 AI 的高可用,和普通信息系统到底差在哪?</p>
+      <p>A:普通系统高可用主要保「应用能访问」;法律 AI 要同时保推理(GPU)、检索(向量库 + 文书)、数据(全量库 + 卷宗 + 模型权重)三层都活着。尤其检索层挂掉时 AI 不报错还在答、只是没了依据,这种<strong>静默降级</strong>比整机宕机更危险,是普通架构里不常遇到的问题。所以要分层各自做冗余,而不是简单地多开副本。</p>
+      <p class="faq-q">Q:RTO 和 RPO 该定多少?</p>
+      <p>A:别对整套系统拍一个统一值。RTO 看业务离不开它到什么程度——嵌进关键流程就压到分钟级,辅助工具小时级可接受;RPO 按数据变化速度分层——模型和全量库相对静态、定期备份即可,本所新增卷宗、增量文书、对话与审计日志变化快且难补,要单独定小 RPO。定之前先和业务方确认「停多久、丢多少真的受不了」。</p>
+      <p class="faq-q">Q:一定要建双活、两个机房吗?</p>
+      <p>A:不一定。灾备分四档:备份可恢复(底线,再省不能省)、冷备、热备/温备、双活。多数大所做到「备份可恢复 + 关键数据异地 + 演练过」就够;政法生产系统、定了较高等保和业务连续性要求的,才需要往热备甚至双活走。把 RTO/RPO、预算和业务重要性放一起选,别默认最高档。</p>
+
+      <div class="cta-box">
+        <h3>私有化部署,高可用与灾备一起交付</h3>
+        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署,交付时一并给到分层高可用架构设计、推理/检索/数据三层冗余方案、备份与恢复演练支持,以及故障切换预案。数据不出内网,系统不轻易宕机。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">私有化法律 AI 运维监控告警</a> · <a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a> · <a href="/blog/legal-ai-private-deployment-tco-three-year.html">私有化三年 TCO 测算</a> · <a href="/blog/legal-ai-continuous-operation-iteration.html">上线后持续运营与数据回流</a> · <a href="/blog/legal-ai-vendor-due-diligence.html">法律 AI 供应商尽职调查</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署指南</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
