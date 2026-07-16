@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)| 文书查</title>
+  <meta name="description" content="做私有化法律 AI 的 RAG,绕不开一个决定:用哪套向量库与检索引擎接住 1.5 亿裁判文书?选纯向量库还是关键词引擎,还是必须两者混合?本文给出面向律所与政法机关的检索引擎选型实战:向量检索和关键词检索到底谁更适合法律、为什么法律 RAG 几乎一定要做混合检索(不然法条号、案号、当事人精确匹配全丢)、Milvus / Qdrant / pgvector / Elasticsearch / OpenSearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可直接照用的检索引擎选型自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。" />
+  <meta name="keywords" content="法律AI向量库选型,私有化向量数据库,法律AI检索引擎,Milvus法律,Qdrant私有化,pgvector,Elasticsearch法律检索,混合检索,法律RAG检索,类案检索向量库" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)" />
+  <meta property="og:description" content="法律 RAG 的检索层选纯向量库还是混合检索?为什么法条号、案号精确匹配丢不起?Milvus / Qdrant / pgvector / Elasticsearch 怎么按五维度比,以及一份检索引擎选型自查清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)",
+    "description": "面向律所信息化负责人、法律科技 CTO 与政法信息中心的检索引擎选型实战:向量检索与关键词检索谁更适合法律、为什么法律 RAG 几乎一定要做混合检索、Milvus/Qdrant/pgvector/Elasticsearch 主流可私有化方案对比、检索层常见坑,以及一份检索引擎选型自查清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-16",
+    "dateModified": "2026-07-16",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 的 RAG 检索,用纯向量库就够了吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不够。这是法律 AI 检索层最贵的一个误区。向量检索擅长「语义相近」——你问一个大意,它能召回意思接近但用词不同的文书,这对类案检索确实关键。但法律场景里有大量必须「一字不差精确命中」的需求:某条法条编号、某个案号、某个当事人或公司全称、某个特定罪名或案由。这些靠语义相似度反而容易漏或错,必须靠关键词/全文精确检索(BM25 那一类)来兜。所以法律 RAG 几乎一定要做混合检索——向量召回语义相近的,关键词召回精确命中的,再融合排序。只上纯向量库,法条号、案号、当事人精确匹配会成片丢失,律师一旦发现「我明明给了准确案号它却查不到」,对整套系统的信任就崩了。正确做法是把检索层设计成向量 + 关键词的混合,而不是二选一。" }
+      },
+      {
+        "@type": "Question",
+        "name": "Milvus、Qdrant、pgvector、Elasticsearch 这几套,律所私有化该怎么选?",
+        "acceptedAnswer": { "@type": "Answer", "text": "没有绝对最好,只有更适配你约束的。这几套都能私有化部署,但定位不同:pgvector 是给 PostgreSQL 加向量能力,数据量不大、已经在用 PG、想少维护一个组件时最省心;Milvus、Qdrant 是专门的向量数据库,亿级向量、高并发、要精细调索引时更能扛;Elasticsearch / OpenSearch 传统强在全文关键词检索,新版也支持向量,适合「关键词是主力、向量是补充」且要复杂过滤聚合的场景。选型别看名气或跑分,按五个维度对着自己的场景比:一是数据规模与检索性能(你的文书切片到底是百万级还是亿级,决定要不要专业向量库);二是是否原生支持混合检索与结构化过滤(法律离不开按法院/年份/案由精确过滤 + 关键词 + 向量融合);三是私有化与信创适配(能否完全离线部署、能否在国产芯片/系统上跑);四是运维复杂度与团队能力(多维护一个分布式组件,团队扛不扛得住);五是生态与长期维护。务实做法是先用「私有化 + 混合检索 + 团队运维能力」三个硬约束筛掉不合格的,圈定候选,再用真实数据量和查询做压测。" }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么法律 AI 的检索层比选哪个向量库更重要的是数据切分和 embedding?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为向量库只是「把切好、算好的向量存起来并快速找出最近的几条」,它决定的是检索快不快、扛不扛得住规模,但决定检索准不准的,是喂进去之前的两步:文书怎么切片、用什么 embedding 模型算向量。裁判文书很长、结构性强(事实、理由、裁判结果分段),切得太碎会丢上下文、切得太整会稀释语义,切分策略直接决定召回质量;embedding 模型是否在中文法律语料上表现好,直接决定「语义相近」判得准不准。这两步做砸了,再强的向量库也只是把错误的向量存得又快又稳。所以检索层选型时,别把全部注意力放在「Milvus 还是 Qdrant」上,而要先把切分策略和中文法律 embedding 定好,向量库是承接它们的容器,不是决定准确度的那一环。真正拉开类案检索质量差距的,还是底层那套覆盖全、结构化、能回链的裁判文书数据本身。" }
+      },
+      {
+        "@type": "Question",
+        "name": "检索层性能上不去、类案查得慢,通常是哪里出了问题?",
+        "acceptedAnswer": { "@type": "Answer", "text": "亿级法律文书的检索慢,常见原因不在向量库本身选错,而在几个容易忽略的点:一是索引类型和参数没调——专业向量库(如 Milvus/Qdrant)有 HNSW、IVF 等多种索引,精度和速度要按你的数据量和查询量权衡,用默认参数常常不是最优;二是没做结构化预过滤——先按法院、年份、案由把候选集缩小,再在小集合里做向量检索,比在全量上暴力算快得多,而这要求向量库支持带过滤的向量检索;三是没上混合检索的融合排序,导致要么召回不全要么排序差,需要反复查;四是硬件资源(内存/向量索引常驻)不足,大索引换入换出拖慢响应。排查顺序建议:先确认数据是否做了结构化过滤、索引参数是否按规模调过,再看硬件与内存,最后才考虑是不是要换一套向量库。多数「查得慢」是工程调优问题,不是选型问题。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 向量库与检索引擎选型</div>
+    <h1>律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)</h1>
+    <div class="meta">2026-07-16 · 文书查 · 面向律所信息化负责人 / 法律科技 CTO / 政法信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">定完了<a href="/blog/legal-ai-open-source-base-model-selection.html">大模型底座</a>、想清楚了<a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">走 RAG 还是微调</a>,私有化法律 AI 落地时还有一个绕不开的技术决定:<strong>用哪套向量库和检索引擎,去接住那 1.5 亿裁判文书、把律师真正要的类案精准找出来?</strong>这一层就是 RAG 的「检索」,它决定了 AI 回答有没有据可查、能不能回链、准不准。很多团队一上来就纠结「上 Milvus 还是 Qdrant」,却忽略了两个更要命的问题:<strong>法律检索能不能只用向量?检索准不准到底由什么决定?</strong>本文把这一层讲透:<strong>向量检索和关键词检索谁更适合法律、为什么法律 RAG 几乎一定要做混合检索、Milvus / Qdrant / pgvector / Elasticsearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可以直接照用的检索引擎选型自查清单。</strong></p>
+
+      <h2>一、先纠一个最贵的误区:法律检索不能只靠向量</h2>
+      <p>检索层选型最常见、也最贵的一个错,是把「做 RAG」直接等同于「上一个向量库」,以为语义向量检索就是全部。对法律 AI 来说,这个思路会埋大雷,因为<strong>法律检索天然是「语义」和「精确」两种需求并存</strong>:</p>
+      <ul>
+        <li><strong>需要语义检索的场景:</strong>类案检索。律师描述一个案情大意,想找「事实和争议焦点相近」的历史裁判——这里用词千差万别、同义表达极多,靠向量的语义相似度才能召回意思接近但字面不同的文书。这正是向量检索的强项。</li>
+        <li><strong>必须精确检索的场景:</strong>某条法条编号、某个具体案号、某个当事人或公司全称、某个特定罪名或案由。这些是「一字不差才算命中」的需求,靠语义相似度反而容易漏、容易召回一堆「差不多」的错项,必须靠关键词/全文精确检索(BM25 那一类)来兜底。</li>
+      </ul>
+      <p>只上纯向量库,后一类需求会成片失灵。想象一下:律师给了准确案号,系统却因为「语义相似度不够高」查不出来,或者把一堆无关的「相似」文书排在前面——这种事发生一次,律师对整套系统的信任就崩了。所以<strong>法律 RAG 几乎一定要做混合检索</strong>:向量召回语义相近的,关键词召回精确命中的,再做融合排序。检索引擎选型的第一原则,不是「选哪个向量库」,而是<strong>「这套方案能不能优雅地把向量和关键词合在一起」</strong>。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>法律检索是「大意找相似 + 关键找精确」的组合拳。把检索层设计成向量 + 关键词的混合,而不是二选一——这是法律 AI 检索区别于通用 RAG 最关键的一点。</p>
+      </div>
+
+      <h2>二、检索层在 RAG 里到底是什么位置</h2>
+      <p>先把检索层放回整条链路里看。一个法律 RAG 系统,从文书到答案,大致是这样几步,而向量库只是其中一环:</p>
+      <table>
+        <thead><tr><th>环节</th><th>它决定什么</th><th>选错的代价</th></tr></thead>
+        <tbody>
+          <tr><td><strong>数据切分(分块)</strong></td><td>每条文书怎么切成检索单元——决定召回的<strong>准确度上限</strong></td><td>大——切砸了后面全糊</td></tr>
+          <tr><td><strong>Embedding 模型</strong></td><td>把文本算成向量,中文法律语料上准不准——决定「语义相近」判得对不对</td><td>大——直接影响召回质量</td></tr>
+          <tr><td><strong>向量库 / 检索引擎</strong></td><td>把向量和关键词索引存起来、快速找出候选——决定检索<strong>快不快、扛不扛得住规模</strong></td><td>中——影响性能与运维,但换得动</td></tr>
+          <tr><td><strong>融合排序 / 重排</strong></td><td>把向量和关键词的结果合并、重新排序——决定最终<strong>排在前面的对不对</strong></td><td>中——可迭代调优</td></tr>
+        </tbody>
+      </table>
+      <p>这张表要传达一个反直觉但很重要的判断:<strong>决定「检索准不准」的,主要是切分和 embedding;向量库主要决定「快不快、扛不扛得住规模」。</strong>换句话说,向量库是承接切好、算好的向量的「容器」,它选得好能让检索又快又稳,但它不能替你把切砸的分块和不适配的 embedding 救回来。所以这一节的意思不是「向量库不重要」,而是提醒你:<strong>选检索引擎的同时,必须同步把切分策略和中文法律 embedding 定好</strong>,否则选型选得再对,检索质量也上不去。下面第三节讲向量库/引擎本身怎么比,第四节回来讲最容易被忽略的混合检索与性能。</p>
+
+      <h2>三、主流可私有化检索方案:Milvus / Qdrant / pgvector / Elasticsearch 怎么比</h2>
+      <p>目前能<strong>完全私有化、离线部署</strong>的主流检索方案,大致分三类,各有侧重,没有绝对的「谁最好」,只有「谁更适配你的约束」:</p>
+      <table>
+        <thead><tr><th>方案</th><th>定位与擅长</th><th>比较适合的场景</th></tr></thead>
+        <tbody>
+          <tr><td><strong>pgvector</strong>(PostgreSQL 扩展)</td><td>给已有的 PostgreSQL 加向量能力,和结构化数据同库</td><td>切片在百万级、已经在用 PG、想<strong>少维护一个组件</strong>、结构化过滤需求重</td></tr>
+          <tr><td><strong>Milvus / Qdrant</strong>(专业向量库)</td><td>为大规模向量检索而生,索引类型丰富、并发和性能强</td><td>切片<strong>千万到亿级</strong>、高并发、要精细调索引和带过滤的向量检索</td></tr>
+          <tr><td><strong>Elasticsearch / OpenSearch</strong></td><td>传统全文关键词检索的王牌,新版也支持向量与混合检索</td><td><strong>关键词是主力、向量是补充</strong>,且要复杂过滤、聚合、高亮</td></tr>
+        </tbody>
+      </table>
+      <p>选型别看名气或某个跑分,按下面<strong>五个维度对着自己的场景逐条比</strong>:</p>
+      <table>
+        <thead><tr><th>选型维度</th><th>看什么 / 为什么重要</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 数据规模与检索性能</strong></td><td>你的文书切片到底是百万级还是亿级?规模决定要不要上专业向量库;别拿玩具级 demo 的表现推断亿级生产的表现</td></tr>
+          <tr><td><strong>② 混合检索与结构化过滤</strong></td><td>能否原生支持向量 + 关键词融合,以及<strong>按法院/年份/案由精确过滤</strong>——法律离不开这一条(见第四节)</td></tr>
+          <tr><td><strong>③ 私有化与信创适配</strong></td><td>能否完全离线部署、数据不出内网;有<a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创要求</a>时能否在国产芯片/操作系统上稳定跑</td></tr>
+          <tr><td><strong>④ 运维复杂度与团队能力</strong></td><td>专业向量库是分布式组件,多维护一套的成本别低估;团队扛不扛得住,决定选「省心」还是「够猛」</td></tr>
+          <tr><td><strong>⑤ 生态与长期维护</strong></td><td>社区活跃度、文档、和你技术栈的契合度;私有化一用就是几年,别选一个会断更的</td></tr>
+        </tbody>
+      </table>
+      <p>为什么强调「按维度比」而不是直接给结论?因为一份写死「A 一定比 B 好」的推荐,换个数据规模、换个团队能力就不成立了。<strong>可复用的是这套方法,不是某个具体排名。</strong>务实的比法是:先用第③④②三个「硬约束」(私有化/信创、团队运维能力、必须支持混合检索)把不合格的直接筛掉,圈定 1-2 个候选;再用你<strong>真实的数据量和真实查询</strong>做一轮压测,别信厂商 demo 或社区跑分。一个常被忽略的务实结论:<strong>如果你的文书切片规模没到千万级、团队又不想多养一套分布式系统,pgvector 这类「和主数据库同库」的方案,往往比硬上 Milvus 更省心、更好维护。</strong>规模真上去了、并发压力大了,再迁到专业向量库不迟——检索层比底座好换得多。</p>
+
+      <h2>四、真正要花心思的地方:混合检索与性能调优</h2>
+      <p>选定了方案,检索层真正决定成败的两件事是<strong>混合检索怎么做</strong>和<strong>性能怎么调</strong>——这两件才是律师体感差异的来源。</p>
+      <h3>混合检索:向量召回相似,关键词兜住精确,再融合排序</h3>
+      <p>如第一节所说,法律检索必须同时要「语义相近」和「精确命中」。落地上,混合检索通常是:<strong>一路走向量检索</strong>召回语义相近的文书,<strong>一路走关键词/全文检索</strong>(BM25 那一类)召回法条号、案号、当事人、案由精确命中的文书,再把两路结果<strong>融合重排</strong>成最终列表。这里有两个要点:一是<strong>结构化过滤要前置</strong>——先按法院、审级、年份、案由把候选集缩小,再在小集合里做向量和关键词检索,又快又准;二是<strong>融合排序要能调</strong>,不同任务(类案检索 vs 精确查条文)向量和关键词的权重不一样。选检索引擎时,把「原生支持带过滤的向量检索 + 关键词检索 + 可调融合」当成硬指标,而不是事后自己拿两套系统硬拼。这也是为什么很多法律 RAG 最后是<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">向量 + 关键词</a>一起上,而不是纯向量。</p>
+      <h3>性能:亿级文书查得慢,多半是工程调优不是选型</h3>
+      <p>亿级法律文书检索慢,常见原因往往不是「向量库选错了」,而是几个容易忽略的工程点:</p>
+      <table>
+        <thead><tr><th>常见性能坑</th><th>怎么排/怎么调</th></tr></thead>
+        <tbody>
+          <tr><td><strong>索引参数没调</strong></td><td>专业向量库有 HNSW、IVF 等多种索引,精度和速度要按数据量与查询量权衡;默认参数常非最优</td></tr>
+          <tr><td><strong>没做结构化预过滤</strong></td><td>先按法院/年份/案由缩小候选集再做向量检索,远快于全量暴力算——要求引擎支持带过滤的向量检索</td></tr>
+          <tr><td><strong>缺融合排序</strong></td><td>只靠单路召回,要么不全要么排序差,律师反复查;补上混合检索的融合重排</td></tr>
+          <tr><td><strong>内存/资源不足</strong></td><td>大向量索引常需常驻内存,不够就换入换出拖慢响应;按索引规模配够内存</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>排查顺序建议:</strong>先确认有没有做结构化预过滤、索引参数是否按规模调过,再看硬件与内存,<strong>最后才考虑是不是要换一套向量库</strong>。多数「查得慢」是调优问题,不是选型问题——别一遇到慢就急着推翻重选,先把手里这套调对。</p>
+      </div>
+
+      <h2>五、检索引擎是容器,真正拉开差距的是里面的数据</h2>
+      <p>最后泼一盆冷静的水:<strong>检索引擎选得再好、调得再快,它也只是把数据高效找出来的容器,决定类案检索到底好不好用的,是里面那套裁判文书数据本身。</strong>同一套 Milvus 或混合检索方案,接一套覆盖全、结构化(法院/审级/年份/案由/当事人字段齐全)、能回链原文、跟得上法规更新的裁判文书库,和接一套残缺、无结构、无法回链的数据,产出的可用性天差地别——因为结构化字段正是「按法院/年份/案由精确过滤」能不能做的前提,而这一步直接决定混合检索快不快、准不准。这也是我们反复强调的:<strong>法律 AI 的护城河在数据,不在检索组件。</strong>向量库大家都能装,<a href="/blog/legal-data-platform-comparison-2026.html">数据底座</a>的覆盖广度、结构化深度和可回链性,才是别人抄不走的那一层。选检索引擎时别只盯着「Milvus 还是 Qdrant」,更要同步想清楚:<strong>它索引的那套文书数据,够不够全、够不够结构化、能不能回链?</strong></p>
+
+      <h2>六、给信息化负责人的一页纸检索引擎选型自查清单</h2>
+      <div class="callout">
+        <p>定检索方案、或评审供应商给的 RAG 检索架构前,把这份清单逐条过一遍:</p>
+        <ol>
+          <li><strong>不只向量:</strong>方案是不是<strong>混合检索</strong>(向量 + 关键词),而不是纯向量库?法条号、案号、当事人的精确匹配靠什么兜?</li>
+          <li><strong>结构化过滤:</strong>能不能按<strong>法院 / 审级 / 年份 / 案由</strong>做精确过滤,并且过滤能前置到向量检索之前?</li>
+          <li><strong>规模匹配:</strong>选的方案在你<strong>真实的文书切片规模</strong>(百万级?亿级?)和目标并发下,压测过吗?没到千万级是不是 pgvector 更省心?</li>
+          <li><strong>私有化 / 信创:</strong>能<strong>完全离线部署、数据不出内网</strong>吗?有国产化要求的话,在目标国产芯片/系统上验证过吗?</li>
+          <li><strong>切分与 embedding:</strong>文书<strong>切分策略</strong>定了吗?<strong>embedding 模型</strong>在中文法律语料上实测过吗?(这两步比选哪个向量库更决定准确度)</li>
+          <li><strong>融合排序:</strong>向量和关键词结果的<strong>融合重排</strong>能不能按任务调权重?类案检索和精确查条文用不用同一套排序?</li>
+          <li><strong>运维成本:</strong>这套方案多养的组件,团队<strong>运维扛得住</strong>吗?出问题查得到解法吗?</li>
+          <li><strong>可回链:</strong>检索结果能不能<strong>回链到原文书</strong>、支撑律师核验和 AI 引证?(这是法律的硬要求)</li>
+          <li><strong>数据底座:</strong>引擎索引的那套<strong>文书数据</strong>够不够全、够不够结构化、跟不跟得上法规更新?</li>
+        </ol>
+      </div>
+      <p>把这九项做成选型前的固定动作,检索层这一步就从「跟风上个向量库」变成「按法律场景真实需求选出来、能长期用的检索底座」。<strong>记住:法律 AI 的检索,向量决定「找得像」,关键词决定「找得准」,数据决定「找得到、靠得住」——三者缺一不可,而选型只是把这三件事装进一个跑得动、维护得起的容器里。</strong></p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:法律 AI 的 RAG 用纯向量库够不够?</p>
+      <p>A:不够。法律检索既要「语义相近」(类案检索,靠向量)又要「一字不差精确命中」(法条号、案号、当事人、案由,靠关键词)。只上纯向量库,精确匹配会成片丢失,律师一发现给了准确案号却查不到,信任就崩。法律 RAG 几乎一定要做向量 + 关键词的混合检索。</p>
+      <p class="faq-q">Q:Milvus、Qdrant、pgvector、Elasticsearch 到底选哪个?</p>
+      <p>A:没有绝对最好,只有更适配你约束的。按五维度对着自己场景比:数据规模与性能、是否原生支持混合检索与结构化过滤、私有化与信创适配、运维复杂度与团队能力、生态与长期维护。先用「私有化/信创 + 团队运维能力 + 必须支持混合检索」筛掉不合格的,再用真实数据量压测。没到千万级、不想多养分布式系统,pgvector 常更省心。</p>
+      <p class="faq-q">Q:类案查得慢,是不是要换向量库?</p>
+      <p>A:多半不用。亿级文书查得慢常见原因是索引参数没按规模调、没做结构化预过滤、缺融合排序、内存不足,这些都是工程调优问题。排查顺序:先看结构化过滤和索引参数,再看硬件内存,最后才考虑换引擎。别一遇到慢就急着推翻重选。</p>
+
+      <div class="cta-box">
+        <h3>检索引擎你来选,能被检索的好数据我们来供</h3>
+        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署——法院、审级、年份、案由、当事人字段齐全,天生适配混合检索的结构化过滤,支持回链原文。无论你的检索层用 Milvus、Qdrant、pgvector 还是 Elasticsearch,我们负责把那套覆盖全、结构化、能回链、可更新的法律数据喂进去,而且数据不出内网。检索引擎是容器,数据才是真正拉开类案检索差距的那一层。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a> · <a href="/blog/legal-ai-open-source-base-model-selection.html">法律 AI 大模型底座选型</a> · <a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">RAG 还是微调?技术路线怎么选</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库搭建</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型 GPU 选型</a> · <a href="/blog/legal-data-platform-comparison-2026.html">法律数据底座对比</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署指南</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
