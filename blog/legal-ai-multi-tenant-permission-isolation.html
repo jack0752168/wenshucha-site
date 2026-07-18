@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化法律 AI 的多租户与权限隔离架构:利益冲突墙 / 案件组 / 部门隔离怎么落地(2026)| 文书查</title>
+  <meta name="description" content="私有化把数据关进了自己内网,却没自动解决「所内谁能看谁」——同一家所里代理原告和代理被告的团队之间有利益冲突墙,政法机关有知情范围与部门隔离,一个「全所共用、谁都能问」的法律 AI 反而会把线下靠物理和流程隔开的敏感信息一键打通。本文讲透律所与政法机关私有化法律 AI 的多租户与权限隔离架构:为什么私有化不等于安全、权限要在数据/检索/生成/审计四层同时控住、RAG 检索为什么必须带权限过滤(不然向量库越权召回=泄密)、逻辑隔离/物理隔离/混合三种多租户模型怎么选,以及一份权限隔离架构自查清单。面向律所信息化负责人、合规官与政法信息中心。" />
+  <meta name="keywords" content="法律AI权限隔离,律所利益冲突墙,法律AI多租户,私有化AI权限控制,律所信息隔离墙,法律AI数据权限,政法AI部门隔离,法律AI访问控制,RAG权限过滤,律所AI合规" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化法律 AI 的多租户与权限隔离架构:利益冲突墙 / 案件组 / 部门隔离怎么落地(2026)" />
+  <meta property="og:description" content="私有化解决了「数据不出内网」,却没解决「所内谁能看谁」。权限隔离为什么是律所/政法 AI 能不能上线的前置合规底座?数据/检索/生成/审计四层怎么控、RAG 检索为什么必须带权限过滤、三种多租户模型怎么选,以及一份自查清单。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化法律 AI 的多租户与权限隔离架构:利益冲突墙 / 案件组 / 部门隔离怎么落地(2026)",
+    "description": "面向律所信息化负责人、合规官与政法信息中心的权限隔离架构实战:为什么私有化不等于安全、权限要在数据/检索/生成/审计四层同时控住、RAG 检索为什么必须带权限过滤、逻辑/物理/混合三种多租户模型怎么选,以及一份权限隔离架构自查清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-18",
+    "dateModified": "2026-07-18",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "私有化部署了,数据都在自己内网,还需要做权限隔离吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "需要,而且这是律所和政法机关能不能上线的前置条件。私有化解决的是「数据不出内网」这个外部边界问题,但它没解决「内网里谁能看谁」这个内部边界问题。律师所内部本来就有利益冲突墙(伦理墙):同一家所里代理原告的团队,按执业规范不能接触到代理被告团队的卷宗和策略;政法机关有知情范围控制和部门隔离。这些在线下靠物理分区、纸质卷宗和流程管住。如果私有化 AI 做成「全所一个大知识库、谁登录都能问」,等于用 AI 的检索和生成能力,把原本靠物理和流程隔开的敏感信息一键打通,制造出线下从来不存在的泄密和串味通道。一个合伙人本不该看到的另一条线的卷宗,可能因为 AI 检索时不带权限过滤,被当成「相关材料」召回并生成进答案里。所以权限隔离不是私有化的附属功能,而是私有化 AI 的合规底座——私有化管住了「对外不泄」,权限隔离才管住「对内不越」。" }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 的权限控制,和传统业务系统的权限有什么不一样?",
+        "acceptedAnswer": { "@type": "Answer", "text": "最大的不同是:传统系统的权限主要在「界面和接口」这一层——没权限的人打不开那个页面、调不到那个接口,数据本身是死的。而 RAG 法律 AI 多了一条隐蔽的泄露路径:检索层。用户问一个问题,系统会去向量库和全文索引里召回「相关」的文书片段,再喂给大模型生成答案。如果这一步的召回不带权限过滤,系统就可能把用户本无权查看的卷宗、他所案件、涉密材料当成「语义相关」召回,揉进答案里返回——界面上一个越权的按钮都没有,信息却已经泄了。所以法律 AI 的权限必须「往下沉」:不能只在界面上藏,要在检索召回的那一刻就按用户身份和案件组把不该看的过滤掉(行级/文档级的权限过滤),让大模型自始至终只拿得到这个人有权看的材料。这是法律 AI 权限设计区别于普通系统最关键、也最容易被忽略的一点。" }
+      },
+      {
+        "@type": "Question",
+        "name": "律所案件组 / 政法多部门 / 数据产品多客户,多租户模型怎么选?",
+        "acceptedAnswer": { "@type": "Answer", "text": "看隔离强度要求和运维成本的平衡,常见三种。一是逻辑隔离(共享一套系统和库,靠租户 ID、行级权限、检索过滤把数据分开):部署和运维最省,适合隔离要求中等、租户多而杂的场景,比如一个所里几十个案件组;风险是隔离全靠软件逻辑不出错,一处过滤漏了就串味。二是物理隔离(每个租户独立的库/实例甚至独立机器):隔离最硬、最容易向监管和客户证明「物理上就分开了」,适合强敏感场景,比如政法机关涉密部门、或利益冲突极敏感的两条业务线;代价是资源和运维成本高。三是混合(大多数租户走逻辑隔离,少数特别敏感的单独物理隔离)——这是律所和政法机关落地时最务实的选择:普通案件组共享,涉密/重大利益冲突的线单独隔出去。选型要先问三件事:法定/执业规范要求的隔离强度(利益冲突墙、等保分级、知情范围)、租户数量与变动频率、团队运维能力,再决定哪些走逻辑、哪些必须物理。" }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 权限隔离最容易踩的坑是什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "最容易踩、也最危险的坑是「检索旁路」——界面和菜单的权限做得很严,但底层 RAG 检索没带权限过滤,导致用户能通过提问间接读到无权查看的内容。几个典型:一是向量库检索不带权限条件,把他人案件、他部门材料按语义相似度召回进上下文,答案里就带出了越权信息;二是大模型上下文串味,多租户共用会话或缓存没隔干净,A 租户的材料残留到 B 租户的回答里;三是日志、缓存、向量索引本身成了盲区——正文权限管住了,但检索日志、提示词缓存、embedding 向量落盘时没同等加密和隔离,反而从侧门泄露;四是权限变更不同步,案件结束、人员调岗后,向量库里的旧数据没及时按新权限重建,离职或换组的人仍能检索到。防这些坑的原则是:权限必须贯穿数据、检索、生成、审计四层,任何一层留口子,前面几层白做。特别是检索层的行级/文档级过滤,要当成硬指标去验收,而不是默认它「应该有」。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 多租户与权限隔离架构</div>
+    <h1>律所私有化法律 AI 的多租户与权限隔离架构:利益冲突墙 / 案件组 / 部门隔离怎么落地(2026)</h1>
+    <div class="meta">2026-07-18 · 文书查 · 面向律所信息化负责人 / 合规官 / 政法信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">很多单位做私有化法律 AI,第一件在意的事是「数据别出内网」,做完<a href="/blog/law-firm-private-ai-deployment-guide.html">私有化部署</a>就觉得安全了。但真正让律所合规官和政法信息中心睡不着的,往往是另一个被忽略的问题:<strong>数据都在内网了,可所里谁能看谁?</strong>同一家所里,代理原告的团队和代理被告的团队之间隔着<strong>利益冲突墙</strong>;政法机关有知情范围和部门隔离。这些线下靠物理分区和流程管住的边界,一旦上了一个「全所共用、谁都能问」的 AI,就可能被 AI 的检索和生成能力一键打通——制造出线下从来不存在的泄密通道。本文把这一层讲透:<strong>为什么私有化不等于安全、权限为什么必须在数据/检索/生成/审计四层同时控住、RAG 检索为什么必须带权限过滤(不然向量库越权召回就是泄密)、逻辑隔离/物理隔离/混合三种多租户模型怎么选,以及一份可以直接照用的权限隔离架构自查清单。</strong></p>
+
+      <h2>一、先纠一个最危险的错觉:私有化解决的是「对外不泄」,不是「对内不越」</h2>
+      <p>私有化部署解决的是一条<strong>外部边界</strong>:数据、模型、推理全在自己内网,不经过任何外部云,满足「数据不出门」的硬合规。这一步很关键,但它只管住了「对外不泄」。它没有、也不可能自动解决另一条更细的<strong>内部边界</strong>:<strong>同一个内网里,不同的人、不同的团队、不同的部门,谁有权看到什么。</strong></p>
+      <p>对普通企业,内部边界或许没那么敏感;但律所和政法机关不一样,它们的业务本身就建立在严格的内部隔离之上:</p>
+      <ul>
+        <li><strong>律所的利益冲突墙(伦理墙):</strong>同一家所可能同时代理一桩纠纷的对立双方(经隔离安排),或先后服务存在冲突的客户。按执业规范,代理一方的团队<strong>不能</strong>接触另一方的卷宗、策略和沟通记录。这道墙线下靠物理分区、独立卷宗、访问审批管住。</li>
+        <li><strong>政法机关的知情范围与部门隔离:</strong>不同部门、不同密级的材料,按「谁办案谁知情、非必要不接触」控制,涉密内容还叠加<a href="/blog/legal-data-classification-grading.html">分类分级</a>与等保要求。</li>
+      </ul>
+      <p>现在把一个不做权限隔离的 AI 放进来会怎样?系统把全所/全机关的卷宗、案件材料一股脑灌进一个大知识库,谁登录都能问。<strong>那道原本靠物理和流程隔开的墙,就被 AI 的检索能力从底下掏穿了</strong>——一个本不该看到对方线材料的律师,只要问得「相关」,系统就可能把对立方的卷宗当成参考材料召回、生成进答案里。他没打开任何一个越权页面,信息却已经到手。这不是理论风险:它正是把线下从不存在的泄密路径,用 AI 造了出来。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>私有化管住了「数据不出内网」,权限隔离才管住「内网里不越界」。对律所和政法机关,后者不是加分项,而是 AI 能不能上线的<strong>前置合规底座</strong>——利益冲突墙塌了,系统再好用也不能用。</p>
+      </div>
+
+      <h2>二、法律 AI 的权限,为什么比传统系统更难做</h2>
+      <p>传统业务系统的权限,主要挡在<strong>界面和接口</strong>那一层:没权限就打不开页面、调不到接口,数据本身静静躺着。法律 RAG AI 多了一条隐蔽得多的泄露路径——<strong>检索层</strong>。用户问一个问题,系统先去向量库和全文索引里召回「相关」文书片段,再喂给大模型生成答案。<strong>如果这一步召回不带权限过滤,系统就会把用户本无权查看的材料当成「语义相关」召回、揉进答案返回——界面上一个越权按钮都没有,信息却已经泄了。</strong></p>
+      <p>所以法律 AI 的权限必须「往下沉」,不能只在界面藏。它要贯穿从数据到答案的<strong>四个层面</strong>,任何一层留口子,前面几层都白做:</p>
+      <table>
+        <thead><tr><th>层面</th><th>要控住什么</th><th>漏了会怎样</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 数据层</strong></td><td>每份文书/卷宗标好归属(哪个案件组、哪个部门、什么密级),存储与索引按归属隔离、加密</td><td>源头没打标,后面所有权限判断都无据可依</td></tr>
+          <tr><td><strong>② 检索层(最关键)</strong></td><td>召回时就按用户身份和案件组做<strong>行级/文档级过滤</strong>,不该看的根本不进候选集</td><td>越权材料被当「相关」召回进上下文=<strong>越权泄密</strong>,界面无痕</td></tr>
+          <tr><td><strong>③ 生成层</strong></td><td>大模型只拿到本人有权看的材料;多租户会话/缓存隔离,防上下文串味</td><td>A 组的材料残留进 B 组的回答,利益冲突墙形同虚设</td></tr>
+          <tr><td><strong>④ 审计层</strong></td><td>谁在什么时候问了什么、召回了哪些文书,全程留痕可倒查</td><td>出了越权也查不到、说不清,过不了合规与等保</td></tr>
+        </tbody>
+      </table>
+      <p>这张表的重点是第②层。绝大多数「私有化了还出事」的隐患,都藏在检索层——界面权限做得再严,只要 RAG 召回不带权限条件,用户就能通过<strong>提问</strong>间接读到无权查看的内容。所以选型和验收时,要把<strong>「检索召回带行级/文档级权限过滤」当成硬指标去验</strong>,而不是默认它「应该有」。</p>
+
+      <h2>三、多租户三种落地模型:逻辑隔离 / 物理隔离 / 混合怎么选</h2>
+      <p>把「不同案件组、不同部门、不同客户」这样的隔离单元叫「租户」。私有化法律 AI 的多租户,常见三种落地模型,没有绝对最好,只有更匹配你隔离强度和运维成本的:</p>
+      <table>
+        <thead><tr><th>模型</th><th>怎么隔</th><th>适合场景 / 代价</th></tr></thead>
+        <tbody>
+          <tr><td><strong>逻辑隔离</strong></td><td>共享一套系统与库,靠租户 ID、行级权限、检索过滤把数据分开</td><td>部署运维最省,适合隔离要求中等、租户多而杂(如一个所几十个案件组);风险=全靠软件逻辑不出错,一处过滤漏了就串味</td></tr>
+          <tr><td><strong>物理隔离</strong></td><td>每个租户独立的库/实例,甚至独立机器</td><td>隔离最硬、最好向监管和客户证明「物理上就分开」,适合涉密部门、极敏感的对立业务线;代价=资源与运维成本高</td></tr>
+          <tr><td><strong>混合(推荐)</strong></td><td>多数租户走逻辑隔离,少数特别敏感的单独物理隔离</td><td>律所/政法落地最务实:普通案件组共享,涉密或重大利益冲突的线单独隔出去,把成本花在刀刃上</td></tr>
+        </tbody>
+      </table>
+      <p>怎么选?先问清三件事,再决定哪些走逻辑、哪些必须物理:</p>
+      <ul>
+        <li><strong>法定/执业规范要求的隔离强度:</strong>利益冲突墙有多硬、是否涉密、等保定几级、知情范围怎么定——这决定了下限,达不到就不能上。</li>
+        <li><strong>租户数量与变动频率:</strong>案件组几十上百个、还常新建结项,纯物理隔离运维扛不住,逻辑隔离更现实。</li>
+        <li><strong>团队运维能力:</strong>物理隔离多一套就多一份运维;<a href="/blog/law-firm-ai-adoption-user-enablement.html">团队接得住吗</a>要诚实评估。</li>
+      </ul>
+      <p>一个务实结论:<strong>大多数律所和政法机关最终落在「混合」——绝大部分走逻辑隔离压成本,把物理隔离这张贵牌只打在涉密和重大利益冲突这几条最敏感的线上。</strong>关键是别走极端:全物理,成本和运维压垮自己;全逻辑,一旦检索过滤出漏洞,最敏感的那条线也跟着裸奔。</p>
+
+      <h2>四、最容易踩的坑:RAG 权限旁路</h2>
+      <p>私有化法律 AI 出事,十有八九不是「黑客进了内网」,而是<strong>权限旁路</strong>——界面菜单锁得死死的,底层检索却把不该给的材料送了出去。四个最典型、务必逐条堵死:</p>
+      <table>
+        <thead><tr><th>旁路坑</th><th>怎么泄 / 怎么堵</th></tr></thead>
+        <tbody>
+          <tr><td><strong>向量库检索不带权限</strong></td><td>按语义相似度把他人案件、他部门材料召回进上下文→答案带出越权信息。堵:检索时前置行级/文档级权限过滤,不该看的<strong>根本不进候选集</strong></td></tr>
+          <tr><td><strong>大模型上下文串味</strong></td><td>多租户共用会话/缓存没隔干净,A 的材料残留进 B 的回答。堵:按租户隔离会话与缓存,单次回答只装本人有权看的材料</td></tr>
+          <tr><td><strong>日志/缓存/向量成盲区</strong></td><td>正文权限管住了,但检索日志、提示词缓存、embedding 向量落盘时没同等加密隔离→从侧门泄。堵:把这些副产物纳入同一套<a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">加密与隔离</a>范围</td></tr>
+          <tr><td><strong>权限变更不同步</strong></td><td>案件结项、人员调岗后,向量库旧数据没按新权限重建→换组/离职的人仍能检索到。堵:权限变更触发索引重建,把「谁能检索到什么」当动态状态维护</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <p><strong>验收提醒:</strong>验权限别只在界面点几下「打不开就算过」。要做<strong>提问穿透测试</strong>——用一个只属于 A 案件组的账号,反复去问 B 案件组、他部门、涉密材料里的内容,看系统会不会通过检索把答案「漏」出来。界面挡不住的,提问未必挡得住;检索层的过滤,才是真正的那道墙。</p>
+      </div>
+
+      <h2>五、隔离是底座,数据是根:权限管的是「谁能用」,数据决定「值不值得用」</h2>
+      <p>最后把两件事的关系摆正。<strong>权限隔离决定这套 AI 敢不敢在律所和政法机关上线——利益冲突墙、知情范围、等保这些红线过不了,系统再聪明也进不了门。</strong>但隔离只是底座,它管的是「谁能用、能用到哪部分」;真正决定这套系统<strong>值不值得用</strong>的,是里面那套数据够不够全、够不够结构化、能不能回链。</p>
+      <p>而且这两件事是咬合的:权限隔离要做得精细,前提是数据本身<strong>结构化、字段齐全</strong>——每份文书标清了案件组、部门、密级、审级、当事人,行级/文档级过滤才有据可依;数据一团散、无结构、无字段,权限过滤根本无从下手。这也是我们反复强调的:<strong>法律 AI 的护城河在数据。</strong>一套覆盖全国全量、字段齐全(法院/审级/年份/案由/当事人)、能回链原文的<a href="/blog/legal-data-platform-comparison-2026.html">裁判文书数据底座</a>,既撑得起类案检索的可用性,也撑得起权限隔离的精细度——而且数据不出内网。隔离让系统合规,数据让系统好用,两者缺一,律所和政法机关的 AI 都立不住。</p>
+
+      <h2>六、给信息化负责人 / 合规官的一页纸权限隔离自查清单</h2>
+      <div class="callout">
+        <p>定权限架构、或评审供应商给的多租户方案前,把这份清单逐条过一遍:</p>
+        <ol>
+          <li><strong>四层贯穿:</strong>权限是不是在<strong>数据/检索/生成/审计</strong>四层都落了,而不是只在界面藏?</li>
+          <li><strong>检索带过滤:</strong>RAG 召回时是否做<strong>行级/文档级权限过滤</strong>,不该看的根本不进候选集?(最关键一条)</li>
+          <li><strong>利益冲突墙:</strong>能否按<strong>案件组/对立业务线</strong>硬隔离,支持所里的伦理墙安排?</li>
+          <li><strong>知情范围/密级:</strong>能否对接<strong>部门、密级、等保</strong>要求,涉密材料单独隔离?</li>
+          <li><strong>多租户模型:</strong>选了逻辑/物理/混合中的哪种?最敏感的线是不是走了物理隔离?</li>
+          <li><strong>防串味:</strong>多租户<strong>会话与缓存</strong>是否隔离,单次回答只装本人有权看的材料?</li>
+          <li><strong>副产物不留后门:</strong>检索日志、提示词缓存、向量索引是否同等<strong>加密隔离</strong>?</li>
+          <li><strong>权限变更同步:</strong>结项/调岗/离职后,向量库旧数据能否按新权限<strong>及时重建</strong>?</li>
+          <li><strong>可审计:</strong>谁在何时问了什么、召回了哪些文书,是否<strong>全程留痕可倒查</strong>?</li>
+          <li><strong>穿透测试:</strong>验收有没有做<strong>提问穿透测试</strong>,而不是只点界面?</li>
+        </ol>
+      </div>
+      <p>把这十项做成上线前的固定动作,权限隔离这一步就从「以为私有化了就安全」变成「经得起利益冲突和等保检验的合规底座」。<strong>记住:私有化把数据关进了自己家,权限隔离才决定家里每个房间的门锁给谁——对律所和政法机关,这把锁配不齐,门就不能开。</strong></p>
+
+      <h2>七、常见问题</h2>
+      <p class="faq-q">Q:私有化部署了、数据在内网,还要做权限隔离吗?</p>
+      <p>A:要,而且是前置条件。私有化管的是「数据不出内网」的外部边界,管不住「内网里谁能看谁」的内部边界。律所有利益冲突墙、政法有知情范围,一个「全所共用、谁都能问」的 AI 会用检索能力把这些墙从底下掏穿,造出线下不存在的泄密路径。权限隔离是私有化 AI 的合规底座,不是附属功能。</p>
+      <p class="faq-q">Q:法律 AI 的权限和传统系统有什么不一样?</p>
+      <p>A:传统系统权限挡在界面和接口;法律 RAG 多了检索层这条隐蔽泄露路径——召回不带权限过滤,越权材料会被当「相关」召回进答案,界面无痕却已泄密。所以权限必须往下沉到检索层,做行级/文档级过滤,不能只在界面藏。</p>
+      <p class="faq-q">Q:多租户逻辑隔离、物理隔离、混合怎么选?</p>
+      <p>A:看隔离强度和运维成本。逻辑隔离省但全靠软件不出错;物理隔离硬但贵;混合最务实——多数案件组走逻辑隔离压成本,涉密和重大利益冲突的线单独物理隔离。先定法定/执业规范要求的隔离强度、租户数量与变动、团队运维能力,再决定哪些走逻辑、哪些必须物理。</p>
+
+      <div class="cta-box">
+        <h3>隔离架构你来定,经得起隔离的结构化数据我们来供</h3>
+        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署——法院、审级、年份、案由、当事人字段齐全,天生支撑行级/文档级权限过滤与案件组隔离,可回链原文,数据不出内网。无论你的权限架构走逻辑隔离、物理隔离还是混合,我们负责把那套覆盖全、结构化、能回链、可更新的法律数据喂进去,让利益冲突墙和知情范围既守得住、又用得起来。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a> · <a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">律所数据合规与保密义务</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库搭建</a> · <a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署指南</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
