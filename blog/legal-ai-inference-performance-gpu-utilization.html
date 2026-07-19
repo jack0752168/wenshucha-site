@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化法律 AI 的推理性能优化与 GPU 利用率:并发、吞吐、显存与成本怎么调(2026)| 文书查</title>
+  <meta name="description" content="律所私有化法律 AI「卡」,多数时候不是卡不够,是批处理和显存没调。本文讲透推理性能优化:先分清首 token 延迟 TTFT、生成吞吐 tokens/s、整所并发 QPS 三个指标(律师体感只对应 TTFT);法律场景上下文特别长,显存主要被 KV cache 吃掉而不是模型权重;六个可落地的优化手段(连续批处理与 PagedAttention 类推理框架、INT8/INT4 量化的精度红线、上下文裁剪与重排、prompt 缓存复用、流式输出、批量与交互分池);容量测算怎么按律师数×日均问答×峰值系数算;GPU 利用率长期低于 30% 说明调度有问题而不是卡小;以及十项推理性能自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。" />
+  <meta name="keywords" content="法律AI推理性能,私有化大模型GPU利用率,法律AI并发吞吐,vLLM 私有化部署,显存优化,KV cache,量化推理,法律AI响应延迟,律所AI性能调优,连续批处理" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化法律 AI 的推理性能优化与 GPU 利用率:并发、吞吐、显存与成本怎么调(2026)" />
+  <meta property="og:description" content="律所私有化 AI 慢,多数不是卡不够,是批处理与显存没调。TTFT / 吞吐 / 并发三个指标怎么分、KV cache 为什么才是显存大头、六个优化手段怎么用、容量怎么测算、GPU 利用率低于 30% 说明什么。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化法律 AI 的推理性能优化与 GPU 利用率:并发、吞吐、显存与成本怎么调(2026)",
+    "description": "面向律所信息化负责人、法律科技 CTO 与政法信息中心的推理性能实战:TTFT / 吞吐 / 并发三个指标怎么分、法律长上下文为什么让 KV cache 成为显存大头、六个可落地的优化手段与取舍、容量测算方法、GPU 利用率低于 30% 意味着什么,以及十项推理性能自查清单。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-19",
+    "dateModified": "2026-07-19",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所私有化法律 AI 用起来卡,是不是应该加显卡?",
+        "acceptedAnswer": { "@type": "Answer", "text": "大多数情况下不该先加卡。加卡是最贵、也最容易白花钱的一步。私有化法律 AI 的「卡」通常有三个不同的成因,对应完全不同的解法:一是排队,请求在调度队列里等着,律师感受到的是「点了半天不出字」,这是批处理和调度的问题,加卡只是把同一套低效调度复制一份;二是上下文太长,检索召回塞进去几万 token,预填充阶段本身就要算很久,首 token 自然慢,解法是压检索条数和上下文长度,不是堆算力;三是显存被 KV cache 占满,系统被迫降低并发甚至抢占重算,表现为「人一多就集体变慢」,解法是换支持分页显存管理与连续批处理的推理框架、治理上下文长度。正确顺序是:先量出首 token 延迟、生成吞吐和排队时长三个数,判断瓶颈到底在哪一段,再决定是调参数、换推理框架、改检索策略,还是真的需要加卡。以 2026 年年中的常见实践看,先做调优往往能在不加硬件的前提下拿到可观的体感改善,具体幅度需要在自己的数据和问法上实测。" }
+      },
+      {
+        "@type": "Question",
+        "name": "首 token 延迟 TTFT、生成吞吐、并发 QPS,律师体感对应哪一个?",
+        "acceptedAnswer": { "@type": "Answer", "text": "律师的体感主要对应首 token 延迟(TTFT),也就是「我按了回车,到屏幕上开始出第一个字」这段时间。这段一旦超过人的耐心阈值,律师就会认定系统「很慢」,哪怕后面生成得飞快。生成吞吐(tokens/s)决定的是「开始出字之后,字往外冒得快不快」,只要快过人的阅读速度,再快对体感的边际收益就很小。并发 QPS 是整所维度的容量指标,决定的是「上午十点全所一起用的时候,会不会开始排队」,它不直接被单个律师感知,但一旦不够,所有人的 TTFT 都会被排队时间拖垮。三者要分开量、分开优化:单请求延迟和整所吞吐是两件事,按单请求体感去买卡,很容易买爆预算却仍然在高峰期卡顿——因为高峰期的卡顿本质是排队,不是算力不足。" }
+      },
+      {
+        "@type": "Question",
+        "name": "法律 AI 的显存主要被什么吃掉?是模型权重吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "在法律场景里,模型权重通常不是变量,KV cache 才是。模型权重是一个固定占用:模型选定、精度选定,它就是那么大,不随用户多少变化。而 KV cache 是每一个正在进行的请求、每一个 token 都要占的中间状态,它随「并发请求数 × 每个请求的上下文长度」线性增长。法律场景的特殊之处正在于上下文特别长:检索召回的判例、合同、卷宗动辄几万 token,远超普通客服问答。结果就是并发一上来,KV cache 的占用可能迅速逼近甚至超过权重本身,把剩余显存吃干净;系统只能降并发、排队,或者抢占已有请求重新计算,表现出来就是「人一多就集体变慢」。所以法律 AI 的显存规划不能只算「模型放不放得下」,必须把峰值并发数乘以平均上下文长度算成 KV cache 的预算,并留出余量。这也是为什么控制召回条数、做重排裁剪上下文,在法律场景里是性价比最高的性能优化之一——它直接降的是显存压力。" }
+      },
+      {
+        "@type": "Question",
+        "name": "量化(INT8 / INT4)能省显存,法律场景可以用吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "可以用,但要划清红线并且必须实测。量化的价值很实在:降低权重占用、腾出显存给 KV cache、提高可承载的并发。代价是精度损失,而法律场景对某几类精度的容忍度极低——法条号、案号、当事人名称、金额、日期这些「一字不能错」的要素,以及引用的准确性。以 2026 年年中的常见实践看,较温和的量化档位在多数生成任务上损失有限,越激进的量化越需要谨慎;但没有任何通用结论能替代你自己的实测。务实做法是:建一套贴合本所业务的评测集(真实问法、真实检索材料、带标准答案的引用要素),对量化前后跑同一套题,重点看引用准确性和关键要素抽取的正确率,而不是只看「读起来通顺」。如果量化后引用错误率上升,宁可退回更保守的档位或用别的手段省显存——法律 AI 的错误成本不在性能账上,在执业风险上。相关的核查机制可以配合幻觉与引用核验一起做。" }
+      },
+      {
+        "@type": "Question",
+        "name": "GPU 利用率一直很低,是不是买大了、浪费了?",
+        "acceptedAnswer": { "@type": "Answer", "text": "利用率长期偏低,通常说明调度有问题,而不是卡买大了。如果 GPU 利用率长期在低位徘徊,同时律师还在抱怨慢,这基本可以断定是调度和批处理没做好:请求一个一个串着跑,卡大部分时间在等待,而不是在算。这种情况下再加卡,只会让两张卡一起闲着。正确的动作是先启用连续批处理、把并发请求真正合并起来喂给 GPU,再看利用率是否上来。另一种情况是利用率在工作时间尚可、但夜里和周末近乎为零——这不是浪费,而是机会:私有化的卡是买断成本,闲着也在折旧,应该把卷宗入库、文档向量化、批量摘要、模型评测这类不要求实时的批量任务安排到低峰时段跑,把利用率填满。判断标准也要分时看:交互高峰看的是排队时长和首 token 延迟是否达标,低峰看的是有没有把闲置算力用于批量任务,而不是笼统地追求一个平均利用率数字。" }
+      },
+      {
+        "@type": "Question",
+        "name": "私有化法律 AI 的容量怎么测算?要按多少并发准备?",
+        "acceptedAnswer": { "@type": "Answer", "text": "用一个可以自己套的算法,而不是照抄别人的配置。第一步估总量:所内会真正使用的律师人数 × 日均问答次数,注意用实际会用的人数,而不是全所花名册人数,新系统上线初期的真实活跃率通常远低于预期。第二步折算到峰值:全天的量并不是平摊的,通常集中在上午和下班前的几个小时,用一个峰值系数把日均折算成峰值时段的每秒请求数。第三步换算成并发:每个请求会占用系统一段时间(预填充加生成),用峰值请求速率乘以单请求平均占用时长,得到需要同时在跑的请求数,这才是真正要支撑的并发。第四步算显存:峰值并发数 × 平均上下文长度,估出 KV cache 预算,加上模型权重占用,再留余量。第五步反推硬件,并且一定要在自己的真实问法和真实检索材料上实测验证,不要用通用跑分数字外推——法律场景的上下文长度和检索负载,跟通用基准差别很大。最后留一条经验:宁可先按保守配置上线、用真实使用数据修正,也不要在没有任何真实负载数据时按最悲观的假设一次性买满。" }
+      },
+      {
+        "@type": "Question",
+        "name": "换更小的模型能解决卡顿吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "能缓解一部分,但常常是错误的第一步,因为它用能力换性能,而能力恰恰是法律场景最不该让的东西。换小模型确实会降低权重占用、提高生成速度,但如果瓶颈其实在排队、在超长上下文的预填充、在 KV cache 占满,换小模型的收益会远低于预期——因为这些瓶颈跟模型大小的关系没那么直接,几万 token 的上下文该算还是要算。更糟的是,小模型在长文档理解、多份判例的比对推理、引用准确性上通常明显更弱,律师会发现「快了但答得不好」,反而更不愿意用。正确顺序是:先把调度、批处理、上下文治理这些不损失能力的手段用完,量出瓶颈到底在哪一段;确实是模型规模层面的算力约束,再考虑换模型或者做量化,并且必须用自己的评测集验证能力没有掉到不可接受的水平。底座模型的选择本身也应该基于能力评测而不是速度偏好。" }
+      },
+      {
+        "@type": "Question",
+        "name": "推理框架选型重要吗?自己用最基础的方式跑模型行不行?",
+        "acceptedAnswer": { "@type": "Answer", "text": "很重要,而且这是投入产出比最高的一步之一。用最基础的方式加载模型逐个请求跑,在单人试用阶段看不出问题,但一旦多人同时使用就会暴露两个硬伤:一是请求串行、GPU 大量时间在空等,利用率低而延迟高;二是显存以粗放方式分配,碎片和预留浪费严重,能承载的并发远低于硬件理论值。以 2026 年年中的常见实践看,生产环境普遍会用成熟的推理服务框架(vLLM 一类),核心价值是两点:连续批处理,让新请求随时插入正在进行的批次,不必等整批跑完,显著提升 GPU 有效利用率;以及分页式的 KV cache 显存管理(PagedAttention 一类思路),按需分配显存块、大幅减少碎片浪费,在同样硬件上支撑更高并发。此外还有 prompt 缓存复用、流式输出等能直接改善体感的能力。选型时要一并看私有化与信创环境的兼容性、是否支持你选定的模型和量化格式、以及运维可观测性——性能指标拿不到,就没法调优。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 推理性能与 GPU 利用率</div>
+    <h1>律所私有化法律 AI 的推理性能优化与 GPU 利用率:并发、吞吐、显存与成本怎么调(2026)</h1>
+    <div class="meta">2026-07-19 · 文书查 · 面向律所信息化负责人 / 法律科技 CTO / 政法信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">私有化法律 AI 上线三个月后,最常出现在 IT 邮箱里的一句话是:<strong>「这系统怎么这么慢?」</strong>接下来的剧本几乎千篇一律——IT 去看监控,发现 GPU 没跑满,又不敢说没问题,于是提一份加卡预算。但真相往往相反:<strong>多数律所私有化 AI 的「慢」,不是卡不够,而是批处理和显存没调。</strong>更要命的是,单个律师的响应体感和整所的并发吞吐,是两件<strong>完全不同</strong>的事;按前者的体感去买卡,很容易把预算买爆,高峰期照样卡顿。真正的杠杆不在采购单上,在 <strong>KV cache、连续批处理和上下文长度治理</strong>这三件几乎不花钱的事上。本文把这一层讲透:三个最常见的误判、必须分清的三个性能指标、法律长上下文为什么让显存被 KV cache 吃掉、六个可落地的优化手段与取舍、容量怎么测算、GPU 利用率低于三成说明什么,以及一份十项推理性能自查清单。<a href="/blog/law-firm-on-prem-llm-gpu-guide.html">买什么卡</a>是上一篇的题目,这一篇讲的是<strong>买了卡之后,怎么把它跑满、跑快</strong>。</p>
+
+      <h2>一、先纠三个最贵的误判</h2>
+      <p>「系统慢」是一个体感描述,不是一个诊断。在没有量出瓶颈之前就动手,几乎必然走进这三个坑之一:</p>
+      <h3>误判一:以为要加卡</h3>
+      <p>这是最贵的一个。加卡解决的是<strong>算力不足</strong>,但律所私有化 AI 的慢,大部分时候是<strong>排队</strong>——请求在调度队列里等,GPU 其实有相当一部分时间在空转。如果调度和批处理没做对,加第二张卡只是把同一套低效逻辑复制一份,两张卡一起闲着,律师照样等。一个非常直接的自查信号:<strong>律师抱怨慢的同时,GPU 利用率却长期在低位</strong>——这基本可以断定是调度问题,不是算力问题,此时加卡就是纯粹的浪费。</p>
+      <h3>误判二:以为要换更小的模型</h3>
+      <p>换小模型确实能提高生成速度、降低权重占用,但它是<strong>用能力换性能</strong>,而能力恰恰是法律场景最不该让的东西。更关键的是,如果瓶颈在排队、在超长上下文的预填充、在 KV cache 占满,换小模型的收益会远低于预期——几万 token 的检索上下文,该算还是要算,不会因为模型小了就凭空消失。结果常常是「快了,但答得不好」,律师用两周就弃用,能力的损失是永久的,性能的收益却很有限。<a href="/blog/legal-ai-open-source-base-model-selection.html">底座模型选型</a>应该基于能力评测来定,而不是被性能焦虑倒逼。</p>
+      <h3>误判三:以为是网络</h3>
+      <p>内网部署的场景里,网络几乎从来不是大模型推理的瓶颈——真正的时间开销在 GPU 上的预填充和逐 token 生成,这两段跟带宽没什么关系。之所以老被怀疑到网络头上,是因为<strong>「点了半天不出字」的体感,和网络卡顿的体感高度相似</strong>。分辨方法也简单:如果是排队或预填充慢,现象是首字迟迟不来、但一旦开始出字就很流畅;如果真是网络问题,现象通常是出字过程本身一顿一顿的。花半天时间量一下这两段,能省下几周的错误排查。</p>
+      <div class="callout">
+        <p><strong>一句话原则:</strong>性能问题必须先<strong>量</strong>再<strong>调</strong>,最后才考虑<strong>买</strong>。跳过前两步直接买硬件,是私有化法律 AI 里最常见、也最难向合伙人交代的一笔冤枉钱。</p>
+      </div>
+
+      <h2>二、先分清三个指标:律师体感只对应其中一个</h2>
+      <p>「快」这个字,在推理性能里至少对应三个互不相同的指标。它们的优化手段不同、瓶颈位置不同,混为一谈就必然调错方向:</p>
+      <table>
+        <thead><tr><th>指标</th><th>它衡量什么</th><th>谁在意 / 优化杠杆</th></tr></thead>
+        <tbody>
+          <tr><td><strong>首 token 延迟(TTFT)</strong></td><td>按下回车,到屏幕上出第一个字的时间。包含排队时间 + 上下文预填充时间</td><td><strong>律师体感只对应这一项</strong>。杠杆=压上下文长度、减少排队、prompt 缓存</td></tr>
+          <tr><td><strong>生成吞吐(tokens/s)</strong></td><td>开始出字之后,字往外冒的速度</td><td>只要快过人的阅读速度,再快边际收益极小。杠杆=模型规模、量化、批处理效率</td></tr>
+          <tr><td><strong>整所并发(QPS / 同时在跑请求数)</strong></td><td>系统同时能扛住多少人一起用而不排队</td><td>IT 与预算在意。杠杆=连续批处理、显存(KV cache)预算、分池调度</td></tr>
+        </tbody>
+      </table>
+      <p>这张表最重要的一句话是:<strong>律师的「慢」几乎全部落在 TTFT 上。</strong>他不知道也不关心 tokens/s,他只知道按了回车之后要盯着空白屏幕等多久。而高峰期 TTFT 变差,主因通常不是模型算得慢,而是<strong>排队</strong>——也就是并发容量不够。这就解释了本文开头那个反直觉的主线:</p>
+      <p><strong>单请求延迟和整所吞吐是两件事。</strong>你在深夜一个人测试时,TTFT 很漂亮,于是按这个体感去推算「再买两张卡就能撑全所」;但上午十点全所一起用时,卡顿的成因是排队而非算力,加卡如果没配上正确的批处理调度,并不会等比例地缩短队列。<strong>按单请求体感买卡,会买爆预算却仍然卡顿</strong>——这是私有化法律 AI 预算失控最常见的路径。</p>
+
+      <h2>三、法律场景的特殊性:显存主要被 KV cache 吃掉,不是权重</h2>
+      <p>要理解为什么调度和上下文治理是杠杆,得先看清一件事:<strong>推理时的显存,到底被谁占了。</strong></p>
+      <p>很多人的直觉停留在「模型多大,就要多大显存」。这在单人试用时大致成立,但一进入多人并发就完全失效。显存构成大致是三块:</p>
+      <table>
+        <thead><tr><th>显存构成</th><th>特点</th><th>随什么增长</th></tr></thead>
+        <tbody>
+          <tr><td><strong>模型权重</strong></td><td>固定占用,模型和精度选定就定死了,不随用户数变化</td><td>不增长(除非换模型或改量化档位)</td></tr>
+          <tr><td><strong>KV cache(法律场景的大头)</strong></td><td>每个进行中的请求、每个 token 都要占的中间状态,用完才释放</td><td><strong>并发请求数 × 每个请求的上下文长度</strong>,线性增长</td></tr>
+          <tr><td><strong>激活值与运行时开销</strong></td><td>计算过程中的临时占用、框架预留与显存碎片</td><td>随批次大小变化;粗放的显存管理会额外浪费不少</td></tr>
+        </tbody>
+      </table>
+      <p>关键在第二行。<strong>法律场景的上下文特别长</strong>——这是它和普通客服问答、通用助手最本质的区别。律师问一个类案问题,系统要从<a href="/blog/law-firm-rag-knowledge-base.html">知识库</a>里检索召回若干篇判例、合同条款或卷宗片段塞进上下文,动辄几万 token;而一次普通的客服问答可能只有几百 token。<strong>两个数量级的差距,直接体现在 KV cache 的占用上。</strong></p>
+      <p>后果是:<strong>并发一上来,KV cache 的占用可能迅速逼近甚至超过模型权重本身</strong>,把剩余显存吃干净。系统这时只有三条路——降低并发让人排队、抢占已有请求把它的 KV cache 丢掉稍后重算、或者直接拒绝新请求。三条路对律师而言都是同一个体感:<strong>人一多就集体变慢。</strong></p>
+      <div class="callout">
+        <p><strong>由此推出一条最反直觉、也最省钱的结论:</strong>在法律场景里,<strong>把检索召回的条数从二十条压到五条精准的</strong>,对性能的改善往往超过加半张卡——因为它同时降低了预填充时间(TTFT 变好)和 KV cache 占用(并发容量变大),而且如果重排做得好,答案质量还会一起变好。<strong>这几乎是私有化法律 AI 里唯一一个「性能、成本、质量三赢」的动作。</strong></p>
+      </div>
+
+      <h2>四、六个可落地的优化手段与取舍</h2>
+      <p>按「不损失能力优先、花钱最少优先」排序,这六项是私有化法律 AI 性能调优的主力。以 2026 年年中的常见实践看,前三项通常就能拿到大部分收益,具体幅度必须在自己的数据和问法上实测:</p>
+      <table>
+        <thead><tr><th>手段</th><th>怎么起作用</th><th>取舍 / 注意</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 连续批处理 + 分页显存管理</strong><br/>(vLLM 一类推理框架)</td><td>新请求随时插进正在跑的批次,不必等整批结束,GPU 有效利用率显著提升;KV cache 按块分配,大幅减少碎片浪费,同样硬件支撑更高并发</td><td>投入产出比最高的一步。选型要一并看私有化 / <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境</a>兼容性、是否支持你选定的模型与量化格式、可观测性是否够(指标拿不到就没法调)</td></tr>
+          <tr><td><strong>② 上下文裁剪与重排</strong><br/>(把召回条数压下来)</td><td>直接缩短预填充时间、直接降低 KV cache 占用。TTFT 和并发一起改善</td><td>法律场景收益最大的一项。前提是<a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">检索与重排</a>够准——压条数不是随机砍,是靠重排把最相关的留下,砍错了会掉召回</td></tr>
+          <tr><td><strong>③ prompt 缓存复用</strong></td><td>系统提示词、固定的角色设定与格式要求这些每次都一样的前缀,缓存起来跨请求复用,省掉重复预填充</td><td>对有长固定前缀的法律应用收益明显。多租户场景下务必确认缓存<strong>按租户隔离</strong>,别让<a href="/blog/legal-ai-multi-tenant-permission-isolation.html">权限隔离</a>从缓存这条侧门破功</td></tr>
+          <tr><td><strong>④ 量化(INT8 / INT4)</strong></td><td>降低权重占用,腾出显存给 KV cache,提高可承载并发</td><td><strong>有精度红线。</strong>法条号、案号、当事人、金额、日期这些一字不能错的要素,以及引用准确性,必须用自建评测集实测量化前后的正确率。越激进的档位越要谨慎;错误成本不在性能账上,在执业风险上,可配合<a href="/blog/legal-ai-hallucination-citation-verification.html">引用核验</a>机制一起看</td></tr>
+          <tr><td><strong>⑤ 长文档分段 + 流式输出</strong></td><td>流式让字一出来就往屏幕上推,不必等整段生成完;长文档分段处理避免一次性塞爆上下文</td><td><strong>改善的是体感而非真实吞吐</strong>——但律师的满意度本来就建立在体感上,这是性价比极高的「感知优化」。分段要注意跨段的一致性</td></tr>
+          <tr><td><strong>⑥ 批量任务与交互任务分池</strong></td><td>卷宗入库、向量化、批量摘要这类不要求实时的任务,与律师的交互问答分开资源池或错峰调度</td><td>防止一个大批量作业把交互请求全部挤到队尾。没分池的话,一次夜间任务跑过了点,第二天上午全所都在等</td></tr>
+        </tbody>
+      </table>
+      <p>顺序建议很明确:<strong>①②③ 是不损失能力的纯赚项,先做完;④ 涉及精度取舍,必须评测后再决定;⑤ 见效快且几乎零风险,可以随时做;⑥ 是运维纪律问题,一旦有批量作业就必须做。</strong>把这六项走完还不达标,再谈加卡,那时候的预算申请也才站得住脚。</p>
+
+      <h2>五、容量怎么测算:一个可以自己套的方法</h2>
+      <p>不要照抄别人的配置单,法律场景的上下文长度和检索负载跟通用基准差别太大,外推必错。下面这个五步法可以直接套自己的数:</p>
+      <ol>
+        <li><strong>估总量:</strong>所内<strong>会真正使用</strong>的律师人数 × 日均问答次数。注意是实际活跃人数,不是全所花名册——新系统上线初期的真实活跃率通常远低于预期,按花名册算会一次性买多。</li>
+        <li><strong>折算峰值:</strong>全天用量不是平摊的,通常集中在上午和下班前几个小时。用一个<strong>峰值系数</strong>把日均折算成峰值时段的每秒请求数。系数取多少?先用一个保守估计,上线后用真实日志修正——这是唯一可靠的办法。</li>
+        <li><strong>换算并发:</strong>每个请求会占用系统一段时间(预填充 + 生成)。<strong>峰值请求速率 × 单请求平均占用时长 = 需要同时在跑的请求数</strong>,这才是真正要支撑的并发,也是所有显存计算的输入。</li>
+        <li><strong>算显存:</strong><strong>峰值并发数 × 平均上下文长度 → KV cache 预算</strong>,加上模型权重占用与运行时开销,再留一段余量。法律场景务必用真实的检索上下文长度,而不是拍脑袋的「几千 token」。</li>
+        <li><strong>反推硬件并实测验证:</strong>用上面的显存和吞吐需求反推配置,然后<strong>必须在自己的真实问法和真实检索材料上压测</strong>。任何通用跑分数字在这里都只有参考意义。</li>
+      </ol>
+      <p>一条经验之谈:<strong>宁可先按保守配置上线、用真实使用数据修正,也不要在零真实负载数据的情况下按最悲观假设一次性买满。</strong>私有化的硬件是买断成本,买多了就是持续折旧的沉没成本;而真实用量数据,只有上线之后才有。这一点在算<a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO</a> 时尤其关键。</p>
+
+      <h2>六、性能与成本:利用率低于三成,问题在调度不在卡</h2>
+      <p>私有化的账和云上的账完全不同:云上是按用量付费,不用就不花钱;<strong>私有化的卡是买断的,闲着也在折旧</strong>。所以性能优化在私有化场景里,同时就是成本优化——同一张卡承载的有效工作量越大,单位成本越低。</p>
+      <p>由此有两条判断标准,要分时段看,不要笼统地追求一个平均利用率数字:</p>
+      <ul>
+        <li><strong>交互高峰期:</strong>看的是<strong>排队时长和 TTFT 是否达标</strong>。如果此时 GPU 利用率长期低于三成、律师却在抱怨慢,<strong>这就是调度和批处理没做好的铁证</strong>——请求在串着跑,卡大部分时间在等待而不是在算。这种状态下加卡纯属浪费,先去启用连续批处理、把并发请求真正合并起来喂给 GPU,再看利用率是否上来。</li>
+        <li><strong>低峰期与夜间:</strong>利用率近乎为零不是浪费,而是<strong>机会</strong>。把卷宗入库、文档向量化、批量摘要、模型评测、索引重建这些不要求实时的批量任务安排到低峰跑,把利用率填满。买断的算力闲着就是白折旧,填满它等于凭空多出一份产能。</li>
+      </ul>
+      <p>另外一句必须说的:<strong>性能指标拿不到,就无从调优。</strong>TTFT、生成吞吐、排队时长、显存占用、GPU 利用率这几个数,应该是常态化采集并可回溯的,而不是出了问题才临时去抓。这属于<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">监控告警体系</a>的一部分,建议在系统上线的同一天就建起来——晚建一天,就多一天只能靠猜的排查。</p>
+
+      <h2>七、推理引擎是容器,数据才是护城河</h2>
+      <p>把这一整套调优做完,系统会变快、变省、变得扛得住全所并发。但要把话说清楚:<strong>推理性能决定的是这套 AI 好不好用,不是它值不值得用。</strong></p>
+      <p>推理框架、显存管理、批处理调度,本质上都是<strong>容器</strong>——它们决定材料能以多快的速度被送进模型、答案能以多快的速度回到律师屏幕上。但容器里装的是什么,决定了这套系统对律师到底有没有价值。同一套调优得当的推理栈,喂进去残缺的、无结构的、无法回链的数据,律师得到的只是<strong>更快地拿到不可信的答案</strong>——这比慢更糟,因为快而错的东西更容易被直接采信。</p>
+      <p>而且这两件事是咬合的:上一节说过,法律场景性能优化里性价比最高的动作是<strong>把召回条数压下来</strong>,而能不能只召回五条就够准,取决于底层数据是否<strong>结构化、字段齐全、可精确过滤</strong>。法院、审级、年份、案由、当事人这些字段齐全,检索才能先精确圈定范围再做语义排序,五条就能覆盖律师真正要的类案;数据一团散、无字段可过滤,就只能靠语义粗筛召回二十条兜底,上下文被撑爆,性能和质量一起掉。<strong>这就是为什么我们反复说:法律 AI 的护城河在数据。</strong>一套覆盖全国全量、字段齐全、能回链原文的<a href="/blog/legal-data-platform-comparison-2026.html">裁判文书数据底座</a>(文书查 1.5 亿+ 裁判文书),既撑得起类案检索的准确性,也直接决定了你的推理栈能调到多快、多省——而且数据不出内网。</p>
+
+      <h2>八、给信息化负责人 / 法律科技 CTO 的一页纸性能自查清单</h2>
+      <div class="callout">
+        <p>在批任何一笔加卡预算之前,把这十条逐条过一遍:</p>
+        <ol>
+          <li><strong>先量再调:</strong>有没有分别量出 <strong>TTFT、生成吞吐、排队时长</strong>三个数,判断瓶颈到底在哪一段?</li>
+          <li><strong>指标可回溯:</strong>这几个数是<strong>常态化采集</strong>的,还是出了事才临时去抓?</li>
+          <li><strong>连续批处理:</strong>用的是成熟推理服务框架(vLLM 一类),还是最基础的串行加载方式?</li>
+          <li><strong>分页显存管理:</strong>KV cache 是<strong>按块按需分配</strong>,还是粗放预留、碎片浪费严重?</li>
+          <li><strong>上下文治理:</strong>检索召回条数压过没有?有没有靠<strong>重排</strong>把二十条压到五条精准的?</li>
+          <li><strong>prompt 缓存:</strong>固定的系统提示词前缀有没有跨请求复用?多租户下缓存<strong>按租户隔离</strong>了吗?</li>
+          <li><strong>量化红线:</strong>如果做了量化,有没有用<strong>自建评测集</strong>验过法条号、案号、当事人、金额、日期和引用准确性?</li>
+          <li><strong>体感优化:</strong>流式输出开了吗?长文档有没有分段处理避免撑爆上下文?</li>
+          <li><strong>分池调度:</strong>批量入库 / 向量化任务和律师交互问答<strong>分开资源池或错峰</strong>了吗?</li>
+          <li><strong>利用率分时看:</strong>高峰期利用率是否长期低于三成(=调度问题)?低峰期有没有<strong>拿批量任务填满</strong>闲置算力?</li>
+        </ol>
+      </div>
+      <p>把这十项做成加卡预算的前置门槛,性能这件事就从「一慢就买卡」变成「先调后买、每一分硬件钱都花在真瓶颈上」。<strong>记住那句反直觉的话:大多数律所私有化 AI 的卡顿,是排队问题不是算力问题;而排队问题,加卡治不好。</strong></p>
+
+      <h2>九、常见问题</h2>
+      <p class="faq-q">Q:系统卡,是不是该加显卡?</p>
+      <p>A:大多数情况不该先加。先量出 TTFT、生成吞吐和排队时长三个数:如果 GPU 利用率长期在低位而律师还喊慢,那是调度和批处理的问题,加卡只是把低效逻辑复制一份。正确顺序是调参数、换推理框架、压上下文,最后才谈加卡。</p>
+      <p class="faq-q">Q:TTFT、吞吐、并发,律师体感对应哪个?</p>
+      <p>A:只对应 TTFT(按回车到出第一个字)。生成吞吐只要快过阅读速度,再快边际收益极小;并发 QPS 是整所容量指标,律师感知不到,但它不够时所有人的 TTFT 都会被排队拖垮。单请求延迟和整所吞吐是两件事,别用前者的体感去推后者的采购。</p>
+      <p class="faq-q">Q:显存主要被什么吃掉?</p>
+      <p>A:法律场景里是 KV cache,不是模型权重。权重是固定占用,KV cache 随「并发数 × 上下文长度」线性增长。而法律检索召回动辄几万 token,比普通问答高两个数量级,所以并发一上来 KV cache 就可能吃干显存,表现为人一多就集体变慢。这也是压召回条数为什么这么值钱。</p>
+      <p class="faq-q">Q:量化能用吗?法律场景的红线在哪?</p>
+      <p>A:能用,但必须实测。红线是法条号、案号、当事人、金额、日期这类一字不能错的要素,以及引用准确性。用贴合本所业务的评测集跑量化前后同一套题,重点看引用错误率而不是「读起来通顺」。错了就退回更保守的档位——法律 AI 的错误成本在执业风险上,不在性能账上。</p>
+      <p class="faq-q">Q:GPU 利用率一直很低,是不是买大了?</p>
+      <p>A:通常是调度有问题而不是卡大了。高峰期利用率低于三成还喊慢,基本可断定是请求在串行跑;先开连续批处理再看。夜里利用率为零不是浪费而是机会——把卷宗入库、向量化、批量摘要挪到低峰跑,买断的算力闲着就是白折旧。</p>
+      <p class="faq-q">Q:换更小的模型能解决卡顿吗?</p>
+      <p>A:能缓解一点,但常常是错误的第一步——它用能力换性能。如果瓶颈在排队和长上下文预填充,几万 token 该算还是要算,换小模型收益远低于预期,却会明显削弱长文档理解和引用准确性,律师会觉得「快了但答得不好」。先把不损失能力的手段用完。</p>
+
+      <div class="cta-box">
+        <h3>推理栈你来调,调得动的结构化数据我们来供</h3>
+        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署——法院、审级、年份、案由、当事人字段齐全,支持先精确过滤再语义排序,让检索能用五条精准结果替代二十条兜底召回,直接压下上下文长度与 KV cache 占用,可回链原文,数据不出内网。无论你用哪套推理框架、怎么调批处理和显存,我们负责把那套覆盖全、结构化、能回链、可更新的法律数据喂进去,让系统既跑得快,又答得准。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API/MCP 定价</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型 GPU 选型</a> · <a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库搭建</a> · <a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">RAG 还是微调</a> · <a href="/blog/legal-ai-open-source-base-model-selection.html">开源底座模型选型</a> · <a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">私有化监控与告警</a> · <a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO 测算</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署指南</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
