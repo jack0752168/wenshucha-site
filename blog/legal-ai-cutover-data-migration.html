@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化法律 AI 的上线切换与数据迁移实战:从旧系统平滑割接到新平台(2026)| 文书查</title>
+  <meta name="description" content="法律 AI 上线切换怎么做才不出事?本文只讲割接那几周:律所系统数据迁移的四类对象、卷宗数据迁移与数据清洗去重、并行运行期设计、按业务线灰度切流顺序、回滚触发条件表、割接周时间线与上线后两周观察指标,附十项自查清单。" />
+  <meta name="keywords" content="法律AI上线切换,律所系统数据迁移,私有化AI割接,法律AI灰度上线,卷宗数据迁移,律所知识库迁移,法律AI并行运行,旧案例库迁移,律所AI上线计划,数据清洗去重" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-cutover-data-migration.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化法律 AI 的上线切换与数据迁移实战:从旧系统平滑割接到新平台(2026)" />
+  <meta property="og:description" content="买完、装完、调完之后,怎么把人和数据真正搬过去而不出事:四类迁移对象、清洗去重、并行运行、灰度切流、回滚触发条件与割接周时间线。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-cutover-data-migration.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化法律 AI 的上线切换与数据迁移实战:从旧系统平滑割接到新平台(2026)",
+    "description": "面向律所信息化主任、法律科技 CTO 与法院信息中心的割接实战:四类迁移对象、数据清洗去重、并行运行期设计、灰度切流顺序、回滚触发条件表与割接周时间线。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-20",
+    "dateModified": "2026-07-20",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-cutover-data-migration.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "法律 AI 上线切换可以一次性全量切吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不建议。一次性全量切意味着数据迁移、检索索引重建、权限映射、律师习惯改变四件事同时发生,一旦出问题无法定位是哪一环,也没有可回退的对照系。以 2026 年年中的常见实践,私有化法律 AI 的割接普遍采用「先并行运行、再按业务线灰度切流」的方式,把风险拆成几批分别暴露。" }
+      },
+      {
+        "@type": "Question",
+        "name": "律所系统数据迁移到底要搬哪几类东西?",
+        "acceptedAnswer": { "@type": "Answer", "text": "通常分四类:一是卷宗文档(PDF、Word、扫描件);二是结构化案件字段(案号、案由、当事人、承办人、状态、时间轴);三是检索索引(全文索引与向量索引);四是权限与组织架构(部门、案件组、角色、利益冲突墙)。前两类是搬运问题,后两类是重建问题——检索索引不能直接拷贝,必须在新平台重新构建;权限也不能照搬旧系统的账号表,要重新映射到新平台的权限模型。" }
+      },
+      {
+        "@type": "Question",
+        "name": "旧库数据能不能原样搬进新平台?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不能。旧库沉淀多年,普遍存在同一份文书多个版本、重复归档、扫描件 OCR 质量参差、涉密与保密标记缺失或不一致等问题。原样搬进去,检索层会把脏数据放大成错误答案,而且很难追溯到底是模型问题还是数据问题。迁移前必须做一轮清洗与去重,并把涉密标记的继承规则定义清楚。" }
+      },
+      {
+        "@type": "Question",
+        "name": "新旧系统并行运行要跑多久,以谁为准?",
+        "acceptedAnswer": { "@type": "Answer", "text": "以 2026 年年中的常见实践,并行期通常覆盖两到六周,至少要跨过一个完整的业务周期(含月末结案、报表、归档高峰)。并行期内必须明确写死一条:旧系统是唯一权威数据源,新平台只读;所有落到案卷的正式动作仍在旧系统完成。含糊不清的「两边都能写」是并行期最大的事故来源,会造成两边数据分叉且无法合并。" }
+      },
+      {
+        "@type": "Question",
+        "name": "灰度切流应该按什么顺序放?",
+        "acceptedAnswer": { "@type": "Answer", "text": "按「错了代价从小到大」排序:先放内部知识检索(答错了律师自己会发现,不进案卷),再放案件工作台(有内部复核环节),最后才放涉及对客户产出的场景(意见书、检索报告等对外交付物)。反过来先放对外产出,等于把最不能出错的环节放在系统最不稳的时候。" }
+      },
+      {
+        "@type": "Question",
+        "name": "回滚触发条件应该在什么时候定?",
+        "acceptedAnswer": { "@type": "Answer", "text": "必须在切流之前定,并且写成一张有明确阈值、明确判定人、明确回滚动作的表。事中临时判断「要不要回滚」几乎一定会拖延——现场压力下所有人都倾向于再等等看。提前定义的价值在于把判断变成对照阈值执行,而不是开会讨论。" }
+      },
+      {
+        "@type": "Question",
+        "name": "割接期间律师端要准备什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "至少三件:一是明确告知切换时间窗和影响范围;二是给出「回不去」时的替代路径(旧系统入口是否保留、保留多久、谁能开);三是设一个当班响应人,割接周内问题有人接。很多割接技术上没出错,却被律师端的措手不及判定为失败。" }
+      },
+      {
+        "@type": "Question",
+        "name": "上线后两周应该盯哪些指标?",
+        "acceptedAnswer": { "@type": "Answer", "text": "盯四类:使用类(日活律师数、人均检索次数、是否持续下滑)、质量类(空检索率、无引证输出比例、人工纠错反馈数)、性能类(首 token 延迟、高峰期排队)、安全类(权限越界告警、异常导出)。其中最容易被忽略的是空检索率和无引证输出比例——它们是迁移后索引缺漏的直接信号,而系统本身不会报错。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 法律 AI 上线切换与数据迁移</div>
+    <h1>律所私有化法律 AI 的上线切换与数据迁移实战:从旧系统平滑割接到新平台(2026)</h1>
+    <div class="meta">2026-07-20 · 文书查 · 面向律所信息化主任 / 法律科技 CTO / 法院信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">私有化法律 AI 的项目文档里,通常有很厚的选型、部署、调优章节,却几乎没人写<strong>割接那几周</strong>——买完、装完、调完之后,怎么把人和数据真正搬过去而不出事。这一段最容易翻车也最难补救:数据搬错了要重来,律师第一周被坑一次,后面半年都不愿再打开。本文只讲这几周,范围严格限定在<strong>数据搬迁、并行运行、灰度切流、回滚</strong>四件事。相邻题目各有专文:选型与部署方案见<a href="/blog/law-firm-private-ai-deployment-guide.html">私有化部署完全指南</a>,上线前怎么验收见<a href="/blog/legal-ai-acceptance-testing-evaluation.html">验收测试与评测</a>,切完之后长期怎么迭代见<a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与迭代</a>,怎么让律师真正用起来见<a href="/blog/law-firm-ai-adoption-user-enablement.html">用户推广与赋能</a>,宕机与冗余见<a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用</a>,成本见<a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO 测算</a>。</p>
+
+      <h2>一、三个典型翻车</h2>
+      <p>割接失败的样子高度雷同,基本逃不出这三种:</p>
+      <p><strong>第一种,一次性全量切。</strong>周五晚上停旧系统,周一早上全所用新平台。这一刀同时改变了四件事:数据位置、检索索引、权限模型、律师习惯。周一出问题时没人说得清是哪一环,更糟的是没有对照系,你甚至无法证明「这个结果比以前差」。</p>
+      <p><strong>第二种,旧库脏数据原样搬。</strong>旧系统跑了五到十年,里面是同一份起诉状的多个版本、重复归档的证据包、早年扫得糊掉的 PDF。这些在旧系统里只是「翻起来烦」,搬进法律 AI 就是另一回事:检索层把它们当成对等语料召回,模型基于错误版本生成内容,而<strong>系统不会报错</strong>。脏数据在旧系统里是噪音,在 AI 里是错误答案。</p>
+      <p><strong>第三种,律师没准备好、也回不去。</strong>技术上切得干干净净,但没人提前告诉律师什么时候切、哪些会变、出问题找谁;旧系统入口当天就关了。第一个撞上问题的合伙人无路可退,当天中午项目口碑就定了。</p>
+      <p>三者的共同点是:<strong>把不可逆的动作放在了信息最少的时候。</strong></p>
+
+      <h2>二、要搬的其实是四类对象,难的是后两类</h2>
+      <p>很多迁移计划只写了「历史卷宗导入」,那只是四分之一。实际要处理的是:</p>
+      <table>
+        <thead><tr><th>类别</th><th>内容</th><th>性质</th><th>主要风险</th></tr></thead>
+        <tbody>
+          <tr><td>卷宗文档</td><td>PDF / Word / 扫描件 / 邮件附件</td><td>搬运</td><td>体量大、版本混乱、OCR 质量不齐</td></tr>
+          <tr><td>结构化案件字段</td><td>案号、案由、当事人、承办人、状态、时间轴</td><td>搬运 + 字段映射</td><td>旧系统字段口径与新平台对不上,枚举值缺失</td></tr>
+          <tr><td>检索索引</td><td>全文索引 + 向量索引</td><td><strong>重建</strong></td><td>不能拷贝,必须重跑;切分与 embedding 变了,召回质量随之变</td></tr>
+          <tr><td>权限与组织架构</td><td>部门、案件组、角色、利益冲突墙</td><td><strong>重建 + 映射</strong></td><td>照搬旧账号表会造出越权通道,且界面上看不出来</td></tr>
+        </tbody>
+      </table>
+      <p>前两类是工程量问题,给够时间就能做完;后两类是设计问题。</p>
+      <p><strong>检索索引必须重建,不能迁移。</strong>新平台的切分策略、embedding 模型、混合检索配置都和旧系统不同,索引是这些配置的产物而非独立资产。迁移完成后召回质量要重新验证一遍——见<a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a>与<a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库建设</a>。</p>
+      <p><strong>权限是四类里最危险的一类。</strong>旧系统权限往往是多年层层打补丁攒出来的,里面有大量「临时开一下没关」的授权。原样映射等于把历史遗留一次性放大——AI 的检索能力会把线下靠物理和流程隔开的东西一键打通。正确做法是<strong>按当前组织架构重新定义权限,而不是导入旧账号表</strong>,详见<a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离架构</a>。</p>
+
+      <h2>三、数据清洗与去重:迁移前必须做的四件事</h2>
+      <p>清洗不是可选项,也不该在割接周现做。以 2026 年年中的常见实践,这四项须在正式迁移前完成并出报告:</p>
+      <ul>
+        <li><strong>版本收敛。</strong>同一份文书的多个版本,要定一条机器可执行的规则挑出主版本(如归档时间 + 文件名规范 + 是否带签章),其余降权或不入检索库。不定规则,等于让检索层随机决定律师看到哪一版。</li>
+        <li><strong>OCR 质量分级。</strong>扫描件按识别置信度分档,低于阈值的单独标记。低质量 OCR 的处理不是丢弃,而是<strong>入库但不参与生成引证</strong>——可检索、可点开看原件,但不作为模型作答依据。</li>
+        <li><strong>重复归档去重。</strong>同一份材料在多个案件下重复存在很常见。按内容指纹去重,保留一份主体加多条关联关系,而不是留多份副本——副本会让同一事实在召回里反复出现,模型会误判它更重要。</li>
+        <li><strong>涉密标记继承。</strong>最容易漏的一项。旧系统的密级标记可能挂在文件夹上,也可能只存在于线下台账。迁移时必须明确:<strong>标记缺失的默认按高密级处理,而非默认公开。</strong>见<a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a>。</li>
+      </ul>
+      <div class="callout">
+        <p><strong>一条经验:</strong>清洗报告要给出「入库 / 降权 / 不入库」三类的数量与占比,并让业务方签字确认。没有这份确认,上线后有人说「我那份材料搜不到」就会变成无法收敛的扯皮。</p>
+      </div>
+
+      <h2>四、并行运行期怎么设计</h2>
+      <p>并行运行不是「多一个备份」,而是<strong>造一个可比较的对照系</strong>:同样的检索,两边各给什么、差异在哪。三个必须提前拍板的问题:</p>
+      <table>
+        <thead><tr><th>问题</th><th>建议做法</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>跑多久</td><td>两到六周,至少跨过一个完整业务周期</td><td>要覆盖月末结案、报表、归档高峰,平时不出的问题都在高峰出</td></tr>
+          <tr><td>以谁为准</td><td>旧系统是唯一权威数据源</td><td>并行期不是「两个都算数」,必须有且只有一个真相源</td></tr>
+          <tr><td>双写还是只读</td><td><strong>新平台只读</strong>,增量数据单向同步过去</td><td>双写会造成两边分叉且无法合并,是并行期最常见的事故</td></tr>
+        </tbody>
+      </table>
+      <p>「只读怎么验证写入路径」是常见质疑。答案是写入放到灰度阶段按业务线验证,而不是在并行期用全所数据去赌。并行期要验的是<strong>检索与生成质量</strong>。</p>
+      <p>并行期还要跑<strong>抽样对照评测</strong>:选一组固定的真实检索问题(建议五十到一百条,覆盖主要业务线),每周在两个系统各跑一遍,记录召回是否缺漏、引证是否可溯源。这组题后面会作为长期回归集用,不是一次性投入。方法见<a href="/blog/legal-ai-hallucination-citation-verification.html">幻觉与引证核验</a>。</p>
+
+      <h2>五、灰度切流:按业务线放,顺序不能反</h2>
+      <p>切流顺序只有一条原则:<strong>按「答错了代价从小到大」放。</strong></p>
+      <table>
+        <thead><tr><th>批次</th><th>场景</th><th>为什么放这个位置</th></tr></thead>
+        <tbody>
+          <tr><td>第一批</td><td>内部知识检索(类案查找、法规查询、所内知识库)</td><td>答错律师当场就能发现,不进案卷、不对外,试错成本最低</td></tr>
+          <tr><td>第二批</td><td>案件工作台(要素抽取、材料摘要、内部底稿辅助)</td><td>有内部复核环节兜底,错误不会直接流出</td></tr>
+          <tr><td>第三批</td><td>对客户产出(意见书、检索报告等对外交付物)</td><td>代价最高,必须等前两批稳定后再放</td></tr>
+        </tbody>
+      </table>
+      <p>每批内部再按人群分层:先信息化团队用一周,再放一个愿意配合的业务部门(劳动争议、合同纠纷这类案件量大、争议点标准化的部门最合适),稳定后全所铺开。工作台的能力边界见<a href="/#workbench">律师工作台:案件胜算量化</a>。</p>
+      <p>反过来做——先上对外产出,因为「那个最能体现价值」——是割接期最贵的决定:系统最不稳的时候,承担了最不能错的活。</p>
+
+      <h2>六、回滚触发条件表:必须切流前定好</h2>
+      <p>事中判断「要不要回滚」几乎一定拖延,现场压力下所有人都倾向于再等等看。提前定义的意义,是把判断从开会讨论变成<strong>对照阈值执行</strong>。这张表建议原样带进项目文档:</p>
+      <table>
+        <thead><tr><th>触发条件</th><th>参考阈值</th><th>判定人</th><th>动作</th></tr></thead>
+        <tbody>
+          <tr><td>检索质量塌陷</td><td>回归集通过率低于并行期基线一定幅度</td><td>项目技术负责人</td><td>立即回滚该批次</td></tr>
+          <tr><td>权限越界</td><td>出现任意一例确认的越权访问</td><td>合规官</td><td>立即全量回滚,不分批</td></tr>
+          <tr><td>数据缺失</td><td>抽查发现整类材料未入库</td><td>数据负责人</td><td>回滚该批次,补迁后重切</td></tr>
+          <tr><td>性能不可用</td><td>高峰期响应超出约定上限并持续</td><td>运维负责人</td><td>降级或回滚,视批次</td></tr>
+          <tr><td>业务方明确反对</td><td>试点部门负责人书面提出</td><td>项目负责人</td><td>暂停后续批次</td></tr>
+        </tbody>
+      </table>
+      <p>三条配套约定:<strong>回滚路径必须演练过</strong>,没演练的方案等于没有;旧系统入口在最后一批稳定运行满一个业务周期前不关闭;每次回滚都要出原因说明,否则同一个坑会在下一批重演。</p>
+
+      <h2>七、割接周时间线</h2>
+      <p>以一次典型的批次切换为例,时间线通常是这样的:</p>
+      <table>
+        <thead><tr><th>时间</th><th>动作</th><th>产出</th></tr></thead>
+        <tbody>
+          <tr><td>T-14 天</td><td>清洗完成,存量数据迁移与索引重建</td><td>清洗报告 + 入库量核对</td></tr>
+          <tr><td>T-10 天</td><td>权限重新定义并映射,越权抽测</td><td>权限矩阵 + 抽测记录</td></tr>
+          <tr><td>T-7 天</td><td>并行运行,回归集对照评测</td><td>差异清单 + 基线数据</td></tr>
+          <tr><td>T-3 天</td><td>发切换通知,明确影响范围与当班响应人</td><td>用户通知 + 值班表</td></tr>
+          <tr><td>T-1 天</td><td>增量数据最后一次同步,回滚演练</td><td>演练记录</td></tr>
+          <tr><td>T 日</td><td>本批次切流,现场值守</td><td>切换记录</td></tr>
+          <tr><td>T+1 至 T+5</td><td>每日核对指标,收集反馈</td><td>日报</td></tr>
+          <tr><td>T+14</td><td>批次评审,决定是否放下一批</td><td>评审结论</td></tr>
+        </tbody>
+      </table>
+      <p>注意 T-1 的增量同步:并行期越长,存量迁移与切换日之间的增量越多,漏掉这一步会让新平台缺最近几周的数据,而这恰恰是律师最常检索的部分。</p>
+
+      <h2>八、上线后两周盯什么</h2>
+      <p>切完不是结束,接下来两周的指标决定要不要往下放一批:</p>
+      <ul>
+        <li><strong>使用类:</strong>日活律师数、人均检索次数。首周高、第二周断崖下滑,说明第一次体验没达标,不是「大家在适应」。</li>
+        <li><strong>质量类:</strong>空检索率、无引证输出比例、人工纠错数。<strong>空检索率是迁移遗漏最直接的信号</strong>——本该有结果却查不到,系统不报错,只有这个指标会动。</li>
+        <li><strong>性能类:</strong>首 token 延迟、高峰期排队情况。</li>
+        <li><strong>安全类:</strong>权限越界告警、异常导出。</li>
+      </ul>
+      <p>采集与告警怎么搭,见<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">运维监控与告警体系</a>。割接期别另起炉灶做临时看板,直接用长期监控体系,省得上线后再搬一次。</p>
+
+      <h2>九、割接十项自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li>四类迁移对象(文档 / 结构化字段 / 索引 / 权限)是否都有明确负责人和验收标准?</li>
+          <li>清洗报告是否出了「入库 / 降权 / 不入库」的量与占比,并由业务方签字?</li>
+          <li>涉密标记缺失时的默认规则,是否明确为按高密级处理?</li>
+          <li>权限是按当前组织架构重新定义的,还是照搬了旧账号表?</li>
+          <li>并行期是否明确写死「旧系统为唯一权威源、新平台只读」?</li>
+          <li>回归评测集是否已建立并跑出并行期基线?</li>
+          <li>灰度顺序是否为「内部检索 → 案件工作台 → 对客户产出」?</li>
+          <li>回滚触发条件表是否已定,且回滚路径演练过?</li>
+          <li>旧系统入口保留到什么时候、谁有权关闭,是否白纸黑字?</li>
+          <li>割接周是否有当班响应人,律师问题有明确的报障入口?</li>
+        </ol>
+      </div>
+
+      <h2>十、常见问题</h2>
+      <p class="faq-q">Q:并行期能不能压到一周?</p>
+      <p>A:可以压,但要清楚代价:一周大概率跨不过月末结案与归档高峰,而高峰恰恰是问题集中暴露的时候。前提是回归评测集足够扎实,且接受第一批灰度承担更多试错。</p>
+      <p class="faq-q">Q:历史卷宗必须全量迁吗?</p>
+      <p>A:不一定。常见做法是按时间和业务线分层:近三到五年的核心业务线全量入检索库,更早的先入库不建索引,按需再补。一次性全量建索引会显著拉长割接周期,收益却集中在近几年数据上。</p>
+      <p class="faq-q">Q:旧系统什么时候能下线?</p>
+      <p>A:建议最后一批稳定运行满一个业务周期后再走正式下线,期间保留只读访问。下线前确认归档与审计要求——有些材料的留存义务不随系统更换而终止。</p>
+      <p class="faq-q">Q:割接要不要停机?</p>
+      <p>A:按批次灰度做通常不需要整体停机,只在增量同步窗口内限制写入。需要停机窗口的是一次性全量切方案——这也是不建议它的原因之一。</p>
+
+      <div class="cta-box">
+        <h3>把割接方案先过一遍再动手</h3>
+        <p>提供当前旧系统情况与数据量级,1 个工作日内反馈迁移与割接方案建议。演示阶段不收费。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-acceptance-testing-evaluation.html">验收测试与评测</a> · <a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与迭代</a> · <a href="/#workbench">律师工作台</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
