@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>律所私有化法律 AI 的算力容量规划与扩容实战:多少 GPU 够用、什么时候该加(2026)| 文书查</title>
+  <meta name="description" content="律所AI算力规划怎么做?本文只讲容量这一层:从所里多少律师、什么使用形态,推出要多少卡、多少显存、什么时候触发扩容。含日活与峰值并发的推算口径、显存=权重+KV cache 的可自算公式、长文档对容量的放大效应、检索层与存储带宽的容量账、扩容触发指标(P95 排队时延/显存水位/检索QPS)、四步扩容顺序、一张容量规划表模板与十项自查清单。" />
+  <meta name="keywords" content="律所AI算力规划,私有化法律AI GPU数量,法律大模型并发容量,律所AI扩容,私有化AI容量评估,法律AI推理并发,GPU显存规划,KV cache 显存估算,法律AI峰值并发,私有化部署容量规划" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://wenshucha.com/blog/legal-ai-capacity-planning-scaling.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="律所私有化法律 AI 的算力容量规划与扩容实战:多少 GPU 够用、什么时候该加(2026)" />
+  <meta property="og:description" content="从所里多少律师、什么使用形态,推出要多少卡、多少显存、什么时候触发扩容:并发推算口径、显存自算公式、长上下文放大效应、扩容触发指标与四步扩容顺序。" />
+  <meta property="og:url" content="https://wenshucha.com/blog/legal-ai-capacity-planning-scaling.html" />
+  <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "律所私有化法律 AI 的算力容量规划与扩容实战:多少 GPU 够用、什么时候该加(2026)",
+    "description": "面向律所信息化负责人与法律科技 CTO 的容量规划实战:使用形态画像与峰值并发推算、推理显存的可自算公式、长上下文的容量放大效应、检索与存储层的容量账、扩容触发指标、四步扩容顺序与容量规划表模板。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-22",
+    "dateModified": "2026-07-22",
+    "mainEntityOfPage": "https://wenshucha.com/blog/legal-ai-capacity-planning-scaling.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "律所做私有化法律 AI,到底要几张 GPU 才够?",
+        "acceptedAnswer": { "@type": "Answer", "text": "没有和律师人数直接挂钩的固定数字,只能推算。链路是:全所律师数乘以真实渗透率得到日活人数,再乘以人均每日会话数得到日会话量,折算到最忙的那一两个小时并乘峰值系数,得到峰值并发会话数;再用单卡实测吞吐反推需要几张卡。显存另算一遍,取两者中更紧的那个作为结论。任何跳过使用形态、直接按人头给卡数的报价都不可信。" }
+      },
+      {
+        "@type": "Question",
+        "name": "显存怎么估算?有没有可以自己算的公式?",
+        "acceptedAnswer": { "@type": "Answer", "text": "有。单节点显存需求约等于:权重显存 + 并发数 × 平均上下文长度 × 每 token 的 KV cache 字节数 + 激活与框架开销。权重显存 = 参数量 × 每参数字节数(FP16 约 2 字节、INT8 约 1 字节、INT4 约 0.5 字节)。每 token 的 KV cache 字节数 = 2 × 层数 × KV 头数 × 每头维度 × 精度字节数,这些参数在模型配置文件里都能查到。最后按经验预留 10% 到 15% 的余量,实际值以本所实测为准。" }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么按峰值买卡通常是错的?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为法律 AI 的使用曲线极不均匀,峰值往往只出现在开庭前和交底稿前的少数时段,按最高的那一瞬间配置硬件,意味着一天里大部分时间算力闲置,而这笔钱在三年周期里会被电费和运维成本继续放大。更划算的做法是按稳态峰值配置,再用排队、限流与错峰任务吸收尖刺,把真正的扩容留给趋势性增长。" }
+      },
+      {
+        "@type": "Question",
+        "name": "什么指标出现时才应该真的加卡?",
+        "acceptedAnswer": { "@type": "Answer", "text": "建议看三个:一是繁忙时段的排队等待时延 P95 连续多日超出约定上限,二是显存水位在峰值时段持续贴近上限导致请求被拒或上下文被截断,三是吞吐已接近单卡实测上限而利用率长期偏高。三者需要同时排除检索层瓶颈和调度配置问题才成立。单看 GPU 利用率数字高低最容易误判。" }
+      },
+      {
+        "@type": "Question",
+        "name": "GPU 利用率一直很低,是不是说明卡买多了?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不一定。利用率低更常见的原因是批处理没开或批大小设得太保守、请求被检索层卡住迟迟进不了推理、以及并发本身就没起来。先把调度和检索排除掉再下结论,否则可能把一个软件配置问题误判成硬件冗余,反过来在下一轮又误判成硬件不足。" }
+      },
+      {
+        "@type": "Question",
+        "name": "长文档场景为什么特别吃容量?",
+        "acceptedAnswer": { "@type": "Answer", "text": "因为 KV cache 随上下文长度线性增长,而法律场景的上下文天生比一般问答长得多:动辄几十页的合同、成册的卷宗、多篇判决拼在一起做类案比对。同样的卡,处理短问答能扛住的并发,换成长文档审阅可能只剩几分之一。容量规划必须按业务类型分别估算,再按流量占比加权,不能用一个平均值糊过去。" }
+      },
+      {
+        "@type": "Question",
+        "name": "扩容应该按什么顺序做?",
+        "acceptedAnswer": { "@type": "Answer", "text": "从不花钱的往花钱的走:先做量化与批处理调度、上下文长度治理这类软件侧优化;再在现有节点加卡;再加推理节点做横向扩展;最后才是拆分读写与业务隔离,把长文档批处理、交互问答、批量抽取分到不同资源池。跳过前两步直接加卡,多数情况下买回来的算力仍然跑不满。" }
+      },
+      {
+        "@type": "Question",
+        "name": "检索层需要单独做容量规划吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "必须单独算。很多律所的实际瓶颈不在 GPU 而在检索层:向量库和全文检索吃的是 CPU、内存与磁盘 IO,索引规模上来后内存不够就会退化到频繁读盘,表现是整体变慢,但监控上 GPU 一片空闲。检索层的容量口径是并发查询数、单次查询延迟与索引常驻内存,和推理层完全是两本账。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .formula{background:#0e1b2e;color:#e8edf5;border-radius:10px;padding:18px 22px;margin:20px 0;
+      font-family:"SF Mono",Menlo,Consolas,monospace;font-size:14px;line-height:1.9;overflow-x:auto}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 算力容量规划与扩容</div>
+    <h1>律所私有化法律 AI 的算力容量规划与扩容实战:多少 GPU 够用、什么时候该加(2026)</h1>
+    <div class="meta">2026-07-22 · 文书查 · 面向律所信息化负责人 / 法律科技 CTO / 政法信息中心</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">本文只讲容量这一层:<strong>从「所里有多少律师、他们怎么用」推出「要多少卡、多少显存、什么时候该加」</strong>。不是选型——买什么卡见<a href="/blog/law-firm-on-prem-llm-gpu-guide.html">内网大模型 GPU 选型</a>;不是单机调优——把一张卡跑满见<a href="/blog/legal-ai-inference-performance-gpu-utilization.html">推理性能与 GPU 利用率</a>;不是算钱——见<a href="/blog/legal-ai-private-deployment-tco-three-year.html">私有化 TCO 测算</a>;不是宕机冗余——见<a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用</a>;也不是指标怎么采——见<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">运维监控与告警</a>。边界很窄:<strong>容量从哪来、什么信号说明不够了、不够了按什么顺序补。</strong></p>
+
+      <h2>一、三个真实的翻车场景</h2>
+      <p><strong>第一种,按峰值买卡,钱一次烧光。</strong>立项时按「万一大家同时用」推配置,一次采购到位。半年后翻监控,一天里真正压到高位的不超过两小时;钱已花在硬件上,想补检索层内存时预算没了。<strong>峰值是排队策略的依据,不是采购基线。</strong></p>
+      <p><strong>第二种,按「人头 × 1」估算,早高峰照样排队。</strong>另一种极端是拿律师总数除以某个系数。但法律 AI 的使用高度集中:开庭前一天、月末交底稿、大案组集体检索的那个下午,请求挤在很窄的时间窗里,按平均值配的容量在这些时刻变成十几秒起步的排队(见<a href="/blog/law-firm-ai-adoption-user-enablement.html">用户导入与推广</a>)。</p>
+      <p><strong>第三种,检索层先崩,却一直在加 GPU。</strong>用户说变慢,IT 看 GPU 利用率不高又不敢说没事,于是加卡;还慢,再加。真瓶颈在检索层:索引涨上来内存放不下,查询频繁读盘,请求进推理前就等了很久(见<a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a>)。</p>
+      <p>共同点:<strong>把容量当成一个采购数字,而不是一条从使用形态推到硬件的可复算链路。</strong></p>
+
+      <h2>二、先画使用形态,再谈卡</h2>
+      <p>容量规划的起点不是模型参数量,是<strong>人的行为</strong>,至少问清四件事:</p>
+      <table>
+        <thead><tr><th>要素</th><th>问什么</th><th>为什么影响容量</th></tr></thead>
+        <tbody>
+          <tr><td>日活律师数</td><td>全所人数 × 真实渗透率</td><td>注册数虚高,按它配会过量</td></tr>
+          <tr><td>人均频次</td><td>每天几次会话</td><td>决定日会话总量</td></tr>
+          <tr><td>时段分布</td><td>高峰在哪几小时</td><td>决定峰值系数,最易忽略</td></tr>
+          <tr><td>业务形态占比</td><td>短问答 / 长文档 / 批量抽取</td><td>单位算力消耗差一个量级</td></tr>
+        </tbody>
+      </table>
+      <p>推算链路本身很简单,难在数据要真实:</p>
+      <div class="formula">日会话量 = 律师数 × 渗透率 × 人均每日会话数<br/>
+峰值并发 = 日会话量 ÷ 工作小时数 × 峰值系数 × 会话占用时长</div>
+      <p><strong>渗透率和峰值系数最该实测、最不该拍脑袋。</strong>渗透率在推广初期通常远低于预期;峰值系数在法律行业往往偏高,因为律师的节奏被开庭日、举证期限、交付节点推着走。首期按保守渗透率配一套能跑的,把埋点做好,用真实曲线校正后再定第二期。</p>
+
+      <h2>三、容量要分三层各算一遍</h2>
+      <p>私有化法律 AI 至少有三层容量,三本账互不通用,任一层见底整体就见底:</p>
+      <table>
+        <thead><tr><th>层</th><th>吃什么资源</th><th>容量口径</th><th>见底表现</th></tr></thead>
+        <tbody>
+          <tr><td>推理层</td><td>GPU 显存与算力</td><td>并发会话数、输出速度、上下文长度</td><td>排队、被拒、截断</td></tr>
+          <tr><td>检索层</td><td>CPU、内存、磁盘 IO</td><td>并发查询、单查延迟、索引常驻内存</td><td>变慢但 GPU 空闲</td></tr>
+          <tr><td>存储带宽</td><td>磁盘容量、网络吞吐</td><td>语料与索引体积、并发读取带宽</td><td>入库变慢、重建拖累</td></tr>
+        </tbody>
+      </table>
+      <p>最常被低估的是<strong>中间那层</strong>。裁判文书这类语料入库后索引体积往往比原始文本还大,而向量索引要快就得尽量常驻内存;内存不够,查询退化成读盘,延迟从毫秒变成秒。规划时把索引常驻内存单独列一行,别塞进「服务器内存」含混带过(见<a href="/blog/judgment-corpus-private-deployment-architecture.html">文书私有库架构</a>与<a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库</a>)。</p>
+      <p>第三层要留<strong>一次性峰值</strong>:换 embedding、重建索引、批量导入卷宗对磁盘带宽的压力远高于日常,按日常水位配就会被一次全量重建拖垮(见<a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理与升级</a>)。</p>
+
+      <h2>四、显存怎么估:一条可以自己算的式子</h2>
+      <p>显存是容量规划里唯一能算准的部分,由公开参数决定,不需要猜:</p>
+      <div class="formula">总显存 ≈ 权重显存 + 并发数 × 平均上下文长度 × 每 token KV 字节数 + 激活与框架开销<br/><br/>
+权重显存 = 参数量 × 每参数字节数(FP16≈2,INT8≈1,INT4≈0.5)<br/>
+每 token KV 字节数 = 2 × 层数 × KV 头数 × 每头维度 × 精度字节数</div>
+      <p>第二行决定<strong>装不装得下</strong>,第三行决定<strong>能扛多少并发</strong>。层数、KV 头数、每头维度在模型配置文件里都查得到。三点:</p>
+      <ul>
+        <li><strong>权重是固定成本,KV cache 是可变成本。</strong>后者随「并发数 × 上下文长度」<strong>线性增长</strong>,才是真正的变量。只算权重就以为够,一上并发必崩。</li>
+        <li><strong>量化腾出的显存直接换成并发。</strong>权重从 FP16 降到 INT8,空出的部分能装更多 KV cache,代价是要用自建回归集验证效果。</li>
+        <li><strong>预留余量。</strong>激活值、框架开销、显存碎片都占地方,按常见部署经验留 10% 到 15% 并以实测为准。卡到 99% 会在峰值时以「随机报错」惩罚你。</li>
+      </ul>
+      <p>算力侧另有一条口径:<strong>单卡实测输出速度 ÷ 单会话可接受的输出速度 ≈ 能撑的并发数</strong>。显存与算力各出一个上限,<strong>取更小的</strong>;差很远说明配置不均衡。见<a href="/blog/law-firm-on-prem-llm-gpu-guide.html">GPU 选型实战</a>与<a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创国产化栈部署</a>。</p>
+
+      <h2>五、长文档:法律场景特有的容量放大器</h2>
+      <p>式子里的<strong>平均上下文长度</strong>在法律场景下会被显著抬高:一般问答只有一两千 token,而律所的日常输入是几十页的合同、成册卷宗、多篇判决拼起来做类案比对,再加 RAG 召回的参考段落。上下文翻几倍,KV cache 就翻几倍,<strong>并发按同样比例往下掉</strong>。</p>
+      <p>由此得到一个反直觉的结论:<strong>瓶颈往往不是「人多」而是「文档长」</strong>。容量必须按业务形态<strong>分别估算再加权</strong>:</p>
+      <table>
+        <thead><tr><th>业务形态</th><th>上下文特征</th><th>对容量的影响</th><th>规划建议</th></tr></thead>
+        <tbody>
+          <tr><td>短问答 / 法条检索</td><td>短输入短输出</td><td>并发高、单位消耗低</td><td>同一资源池承载</td></tr>
+          <tr><td>长文档审阅 / 比对</td><td>超长输入、中等输出</td><td>KV cache 主要消耗方</td><td>单独估算,限长分段</td></tr>
+          <tr><td>批量要素抽取</td><td>中等长度任务量大</td><td>吃吞吐不吃时延</td><td>放非高峰跑</td></tr>
+          <tr><td>长文书生成</td><td>输出长</td><td>长时间占住槽位</td><td>槽位单独限额</td></tr>
+        </tbody>
+      </table>
+      <p>三条实操建议:<strong>给上下文设上限、超长输入改分段</strong>,这是最省钱的优化;<strong>批量任务挪到夜间</strong>,让白天的交互流量独享算力;<strong>召回条数不是越多越好</strong>,它抬高上下文长度,边际收益却很快见顶。</p>
+
+      <h2>六、什么信号说明真的该扩容了</h2>
+      <p>「变慢了」不是依据,「利用率高」也不是。可用的触发条件只有几条,且都要求<strong>连续多日、已排除软件侧问题</strong>:</p>
+      <table>
+        <thead><tr><th>触发指标</th><th>判定口径</th><th>先排除什么</th><th>扩容动作</th></tr></thead>
+        <tbody>
+          <tr><td>排队时延 P95</td><td>繁忙时段连续多日超上限</td><td>批处理配置、上下文失控</td><td>加卡或加节点</td></tr>
+          <tr><td>显存水位</td><td>峰值贴顶,出现拒绝或截断</td><td>能否先量化、先限长</td><td>换大显存卡或加节点</td></tr>
+          <tr><td>吞吐触顶</td><td>输出速度接近单卡实测上限</td><td>是否长任务占住槽位</td><td>横向加节点</td></tr>
+          <tr><td>检索 QPS 与延迟</td><td>延迟随索引增长上台阶</td><td>索引是否放不下内存</td><td>加内存 / 扩检索节点</td></tr>
+          <tr><td>趋势线</td><td>日活与会话量连续数月上行</td><td>是否一次性活动的高峰</td><td>提前排采购</td></tr>
+        </tbody>
+      </table>
+      <p>最后一行值得单独说:<strong>扩容有交付周期</strong>。等 P95 报警才立项,中间几个月律师都在忍受排队。做法是把日活与会话量做成月度趋势看板,稳态峰值占到额定容量一定比例就启动流程(见<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">运维监控与告警</a>)。</p>
+
+      <h2>七、扩容顺序:从不花钱的开始</h2>
+      <p>确认要扩容后按下面顺序走,每步做完重测再进入下一步:</p>
+      <table>
+        <thead><tr><th>步骤</th><th>动作</th><th>成本</th><th>典型收益</th><th>代价</th></tr></thead>
+        <tbody>
+          <tr><td>第一步</td><td>量化 + 批处理 + 上下文治理</td><td>几乎为零</td><td>腾显存、提吞吐</td><td>需回归验证</td></tr>
+          <tr><td>第二步</td><td>现有节点加卡</td><td>低</td><td>并发上台阶</td><td>受槽位与供电限制</td></tr>
+          <tr><td>第三步</td><td>横向加推理节点</td><td>中</td><td>容量线性扩展</td><td>需负载均衡与路由</td></tr>
+          <tr><td>第四步</td><td>拆分资源池与读写分离</td><td>高</td><td>互不干扰</td><td>运维复杂度上升</td></tr>
+        </tbody>
+      </table>
+      <p><strong>第一步排最前面的理由:</strong>不用采购、不停业务、当天见效。量化腾出的显存全变成并发;连续批处理让卡在等待期间处理别的请求;上下文治理砍掉可变成本的分母。三件事叠加,常能把加卡推迟一整个采购周期。</p>
+      <p><strong>第四步是规模上来后的必经之路:</strong>交互问答、长文档批处理、离线抽取分进不同资源池,互不抢显存(见<a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离架构</a>)。另有一条纪律常被跳过:<strong>每次扩容都当一次变更来管</strong>,加卡看似只是「插上去」,实际牵动驱动、并行策略与路由(见<a href="/blog/legal-ai-cutover-data-migration.html">上线切换与数据迁移</a>)。</p>
+
+      <h2>八、一张容量规划表模板</h2>
+      <p>把上面的推算收敛到一张表,立项与复盘都用:</p>
+      <table>
+        <thead><tr><th>字段</th><th>填写说明</th></tr></thead>
+        <tbody>
+          <tr><td>律师数 / 渗透率 / 日活</td><td>分开填,渗透率注明预估还是实测</td></tr>
+          <tr><td>时段分布与峰值系数</td><td>注明数据来源与统计周期</td></tr>
+          <tr><td>业务形态占比</td><td>短问答 / 长文档 / 批量任务</td></tr>
+          <tr><td>平均与 P95 上下文长度</td><td>分形态填,长文档单列</td></tr>
+          <tr><td>模型与精度</td><td>参数量、量化方案、层数、KV 头</td></tr>
+          <tr><td>权重显存 / KV 显存</td><td>按第四节公式算出,过程留档</td></tr>
+          <tr><td>单卡实测吞吐</td><td>注明上下文长度与批大小</td></tr>
+          <tr><td>推理层结论</td><td>节点数、单节点卡数、并发上限</td></tr>
+          <tr><td>检索层结论</td><td>索引体积、常驻内存、延迟目标</td></tr>
+          <tr><td>存储与带宽</td><td>语料索引占用、重建峰值</td></tr>
+          <tr><td>扩容触发线</td><td>各指标阈值、动作与判定人</td></tr>
+          <tr><td>预留周期</td><td>本期能撑多久,下期何时启动</td></tr>
+        </tbody>
+      </table>
+      <p>最后两行是它和普通配置单的区别:<strong>要写「什么时候会不够」,而不只是「现在够不够」</strong>。见<a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO 测算</a>与<a href="/blog/law-firm-ai-roi-calculation.html">法律 AI 投入产出测算</a>。</p>
+
+      <h2>九、容量规划十项自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li>日活用的是实测渗透率,还是拿注册数顶替?</li>
+          <li>峰值系数有数据来源吗?是否覆盖开庭前这类高峰?</li>
+          <li>推理、检索、存储带宽三本账是否分别算过?</li>
+          <li>显存是否按「权重 + KV cache + 余量」逐项算过?</li>
+          <li>长文档是否单独估算,而非用平均上下文长度糊过去?</li>
+          <li>单卡吞吐是实测的吗?测试参数是否贴合真实业务?</li>
+          <li>显存与算力各自推出的并发上限,是否取了更小的那个?</li>
+          <li>扩容触发线是否写死为具体阈值,并明确判定人?</li>
+          <li>加卡之前,量化、批处理调度、上下文治理做完了吗?</li>
+          <li>索引重建、批量导入的一次性峰值,预算里留位置了吗?</li>
+        </ol>
+      </div>
+
+      <h2>十、常见问题</h2>
+      <p class="faq-q">Q:到底要几张卡,能给个直接的数吗?</p>
+      <p>A:给不了。链路是律师数 × 渗透率 × 人均会话数 → 峰值并发,再用实测吞吐与显存公式各推一次取更紧的。</p>
+      <p class="faq-q">Q:GPU 利用率只有两三成,是不是买多了?</p>
+      <p>A:更常见的是批处理没开、请求卡在检索层、并发没起来。排除调度与检索再下结论。</p>
+      <p class="faq-q">Q:先买够三年,还是先小后大?</p>
+      <p>A:除非有强制的上线规模,否则先配一套能跑的,趋势看板做扎实再定第二期。硬件买早了折旧和电费都在跑。</p>
+      <p class="faq-q">Q:量化会不会影响回答质量?</p>
+      <p>A:可能会,须用自建回归集验证,别看公开榜单;要专门比对引证类题目。见<a href="/blog/legal-ai-open-source-base-model-selection.html">开源底座选型</a>。</p>
+      <p class="faq-q">Q:检索层的容量怎么估?</p>
+      <p>A:索引体积、常驻内存比例、并发查询与延迟目标。核心是索引能否放进内存,放不下就退化成读盘。</p>
+      <p class="faq-q">Q:能用排队限流代替扩容吗?</p>
+      <p>A:短期可以。稳态峰值超容量时,排队只会变成持续等待。看 P95 是偶发还是常态。</p>
+      <p class="faq-q">Q:多部门共用一套,容量怎么分?</p>
+      <p>A:先分资源池再谈配额,至少把交互流量与批量任务隔开。见<a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离</a>与<a href="/#onpremise">私有化部署方案</a>。</p>
+      <p class="faq-q">Q:小所人少,这套还有必要做吗?</p>
+      <p>A:必要,可简化到三样:写明来源的推算过程、一次单卡吞吐实测、一条扩容触发线。见<a href="/blog/law-firm-private-ai-deployment-guide.html">律所私有化部署指南</a>与<a href="/#api-pricing">API / MCP 定价</a>。</p>
+
+      <div class="cta-box">
+        <h3>容量方案先算一遍再采购</h3>
+        <p>提供律师人数、使用形态与拟用模型,1 个工作日内反馈容量推算建议。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-inference-performance-gpu-utilization.html">推理性能与 GPU 利用率</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">GPU 选型</a> · <a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年 TCO</a> · <a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备高可用</a> · <a href="/#workbench">工作台</a> · <a href="/#api-pricing">API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
