@@ -170,9 +170,9 @@ https://www.wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html
 https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html
 做法律 AI 类案检索,该用关键词(BM25)还是语义向量(embedding)?本文从法律文本的真实特性出发,讲清两种召回各自的命中与翻车场景、为什么生产级类案检索 API 必须走混合检索 + 重排 + 引用回链,以及选型时该问数据方的 7 个问题。面向法律 AI 工程师与法律科技团队。
 
-### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.7 亿裁判文书
+### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书
 https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
-手把手教你用 MCP(Model Context Protocol)把 1.7 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
+手把手教你用 MCP(Model Context Protocol)把 1.5 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
 
 ### 信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html
