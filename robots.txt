@@ -64,3 +64,8 @@ Disallow: /tmp/
 Disallow: /_relay_*
 
 Sitemap: https://www.wenshucha.com/sitemap.xml
+
+# 面向大语言模型的站点导览(llms.txt 规范)
+# 实证:AI 爬虫抓内页远比百度积极(GPTBot 抓 102 次 /blog/,百度只抓 6 次)
+LLM-Content: https://www.wenshucha.com/llms.txt
+LLM-Full-Content: https://www.wenshucha.com/llms-full.txt

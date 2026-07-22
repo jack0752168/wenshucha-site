@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文书查怎么收费_私有化部署要求_法律AI选型该问什么 - 采购决策指南</title>
+<meta name="description" content="律所与政法机关采购裁判文书数据与法律 AI 前该弄清的事:文书查怎么收费(按部署方式与数据范围计,非按席位)、私有化部署对硬件与网络的实际要求、法律 AI 选型该问供应商的 12 个问题、数据来源与合规口径、以及从接触到交付的完整采购流程与周期。">
+<meta name="keywords" content="文书查怎么收费,裁判文书数据采购,法律AI私有化部署要求,法律AI选型,类案检索系统采购,法律大模型采购,司法数据采购,律所AI采购">
+<link rel="canonical" href="https://www.wenshucha.com/buyers-guide/">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:title" content="采购决策指南:文书查怎么收费、私有化部署要求、选型该问什么 | 文书查">
+<meta property="og:description" content="讲清收费模型、部署硬件要求、选型该问供应商的 12 个问题,以及采购流程与周期。面向律所信息化负责人与政法信息中心。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.wenshucha.com/buyers-guide/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"采购决策指南","item":"https://www.wenshucha.com/buyers-guide/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"文书查","legalName":"深圳星谱网络科技有限公司","url":"https://www.wenshucha.com/","description":"面向中国大陆律所、法院与政府法务部门的裁判文书智能检索与法律 AI 服务商,提供自建裁判文书数据底座、类案检索、AI 法律助手与私有化离线部署。","address":{"@type":"PostalAddress","addressCountry":"CN","addressRegion":"广东省","addressLocality":"深圳市","streetAddress":"宝安区新安街道诺铂广场 1715"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","telephone":"+86-131-6872-7779","email":"chenjiaxin@wenshucha.com","areaServed":"CN","availableLanguage":["zh-CN"]},"identifier":"粤ICP备2025437990号-2"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"文书查怎么收费?","acceptedAnswer":{"@type":"Answer","text":"分三种形态计价,不按席位数收费。一、在线检索与 AI 助手:免注册试用,每天有免费额度,适合个人律师与小团队评估。二、数据接口与 license:按数据范围(案由/年份/地域)与调用量计,适合要在数据上盖自有产品的机构。三、私有化离线部署:按数据范围、部署规模与定制程度一次性计价,含三年迭代。私有化部署因涉及硬件环境与定制范围,不设标准价目表,需按需求评估后报价。可联系商务 131-6872-7779 或 chenjiaxin@wenshucha.com。"}},
+{"@type":"Question","name":"私有化部署对硬件有什么要求?","acceptedAnswer":{"@type":"Answer","text":"取决于三件事,而不是律所规模:一是并发量(同时使用的律师数,决定 GPU 数量);二是平均上下文长度(法律文档偏长,KV cache 随并发与上下文线性增长,长文档场景对显存的放大效应往往大于人数);三是检索层索引能否常驻内存(索引放不下内存会导致查询频繁读盘,此时加 GPU 无效)。推理层、检索层、存储带宽必须分三本账各算一遍。实际配置需按本所使用形态测算,可提供容量规划表模板。"}},
+{"@type":"Question","name":"数据来源是什么?合规吗?","acceptedAnswer":{"@type":"Answer","text":"数据来源于中国裁判文书网公开生效裁判文书,当事人个人信息(姓名、身份证号、联系方式、住址等)已做脱敏处理。判决数据集的统计口径需注意:样本仅含已获赔付的判决,不含败诉样本,因此任何基于本站数据的比例统计均不代表整体胜诉率。私有化部署场景下数据存放于机构内网,不出内网。"}},
+{"@type":"Question","name":"数据更新到什么时候?多久更新一次?","acceptedAnswer":{"@type":"Answer","text":"数据覆盖范围与最新更新时点会随批次变化,采购前请向商务索取当期的数据覆盖说明(含各案由、各年份、各地域的实际收录情况)。私有化部署可约定增量同步的频率与方式。建议在合同中明确写入数据截止时点与更新条款,这也是选型时应向任何供应商确认的事项。"}},
+{"@type":"Question","name":"可以先试用再决定吗?","acceptedAnswer":{"@type":"Answer","text":"可以。智能检索系统与 AI 法律助手均免注册即可试用,AI 助手每天有免费额度。建议用本所真实经办过的案件去试:挑三到五个已知结果的案子,看系统能否找到你当年找到的类案,以及能否找到你当年漏掉的。这比看演示更能判断数据深度。"}},
+{"@type":"Question","name":"和其他法律数据平台怎么选?","acceptedAnswer":{"@type":"Answer","text":"建议不要横向比宣传口径,而是用同一套问题去问所有候选供应商,答案的具体程度本身就是筛选器。核心问的是四件事:数据能不能溯源到原文并核验、统计口径是否说得清样本边界、能否私有化部署且数据不出内网、AI 的答案是否附可验证的案例引用。这些问题在本页有完整清单。"}},
+{"@type":"Question","name":"采购流程和周期是怎样的?","acceptedAnswer":{"@type":"Answer","text":"典型流程五步:需求澄清(使用形态与并发量)、数据覆盖核验(用本所真实案件试)、方案与报价、POC 试点(建议选一个业务组小范围跑)、正式部署与交付培训。周期取决于是否私有化部署与定制范围,在线服务可即时开通,私有化部署需按环境评估。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:54px 0 48px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:700px;margin:0 0 26px}
+.btns a{display:inline-block;text-decoration:none;font-weight:700;padding:12px 26px;border-radius:9px;margin:6px 10px 6px 0}
+.btn-gold{background:var(--accent);color:var(--navy)}
+.btn-ghost{border:1px solid #5b6b82;color:#fff}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:42px 0 14px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;margin:22px 0 6px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+.card{background:#fff;border:1px solid #e6eaf0;border-radius:12px;padding:20px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+.tldr{background:#fff;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.tldr strong{color:var(--navy)}
+ol.q{padding-left:22px}
+ol.q li{margin:10px 0}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/case-search/">智能检索</a><a href="https://www.wenshucha.com/legal-ai/">AI 助手</a><a href="https://www.wenshucha.com/data/">裁判数据</a><a href="https://www.wenshucha.com/blog/">洞察</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>采购决策指南：怎么收费、部署要什么、<br/>以及选型该问供应商哪些问题</h1>
+  <p>写给要为本所或本单位做选型的人。不讲产品卖点，只讲你签字前需要弄清的事——包括那些我们答不上来、应该由你向所有候选方（含我们）追问的部分。</p>
+  <div class="btns">
+    <a class="btn-gold" href="mailto:chenjiaxin@wenshucha.com?subject=%E9%87%87%E8%B4%AD%E5%92%A8%E8%AF%A2">📩 索取数据覆盖说明与报价</a>
+    <a class="btn-ghost" href="https://tob.wenshucha.com/cases">先自己试一遍 →</a>
+  </div>
+</div></section>
+
+<main class="wrap">
+
+<div class="tldr">
+  <strong>一句话版本：</strong>我们不按席位收费，按「用什么形态 + 覆盖多少数据」计价；私有化部署没有标准价目表，因为硬件配置取决于并发量和文档长度而不是律所规模；数据来源是裁判文书网公开生效文书，样本只含获赔判决——这一点会影响你怎么读统计数字，下面会讲清楚。
+</div>
+
+<h2>一、怎么收费</h2>
+
+<p>三种形态，按需求选，<strong>不按席位数收费</strong>（法律场景里使用频次差异极大，按人头计价对客户不划算）。</p>
+
+<table>
+  <thead><tr><th>形态</th><th>怎么计价</th><th>适合谁</th></tr></thead>
+  <tbody>
+    <tr><td><strong>在线检索 + AI 助手</strong></td><td>免注册试用，每天有免费额度；超出部分按用量</td><td>个人律师、小团队；以及正式采购前的评估阶段</td></tr>
+    <tr><td><strong>数据接口 / license</strong></td><td>按数据范围（案由 / 年份 / 地域）与调用量计</td><td>要在数据上盖自有产品的机构、法律科技公司、研究机构</td></tr>
+    <tr><td><strong>私有化离线部署</strong></td><td>按数据范围、部署规模与定制程度一次性计价，含三年迭代</td><td>大型律所、法院 / 检察院 / 司法局等对数据不出内网有硬要求的单位</td></tr>
+  </tbody>
+</table>
+
+<h3>为什么私有化不挂标准价目表</h3>
+<p>不是不愿意报，是<strong>报了也不准</strong>。同样是「一百人的所」，一个主做非诉尽调、另一个主做诉讼类案检索，前者文档长、并发低，后者反过来——两者需要的硬件差出一大截。挂一个标准价，要么虚高吓走你，要么低报后期加价，两种都不体面。</p>
+<p>可以给你的是：<strong>一张能自己填的容量规划表</strong>，你按本所实际使用形态填完，配置和预算范围自己就出来了。索取方式在页尾。</p>
+
+<h2>二、私有化部署要什么</h2>
+
+<p><strong>结论先行：配置取决于三件事，都不是「你所有多少人」。</strong></p>
+
+<div class="grid">
+  <div class="card"><h3>① 并发量</h3><p>同时在用的律师数，决定 GPU 数量。注意法律 AI 的使用高度集中——开庭前、月末交底稿那几天是峰值，一天里真正压到高位的往往不超过两小时。<strong>按峰值买卡会一次烧光预算</strong>。</p></div>
+  <div class="card"><h3>② 平均上下文长度</h3><p>法律文档偏长，显存主要被 KV cache 吃掉而不是模型权重，而 KV cache 随并发与上下文长度线性增长。<strong>瓶颈往往不是「人多」，是「文档长」</strong>。</p></div>
+  <div class="card"><h3>③ 检索层索引能否常驻内存</h3><p>索引放不下内存 → 查询频繁读盘 → 卡在等数据。<strong>这种情况下加 GPU 完全无效</strong>，很多项目在这里白花钱。</p></div>
+</div>
+
+<p>所以推理层、检索层、存储带宽<strong>必须分三本账各算一遍</strong>。这三本账怎么算、显存公式怎么套、什么指标触发扩容，我们写过一篇完整的：<a href="https://www.wenshucha.com/blog/legal-ai-capacity-planning-scaling.html">私有化法律 AI 容量规划与扩容</a>；性能调优见 <a href="https://www.wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html">律所本地大模型 GPU 选型与推理性能</a>。</p>
+
+<h2>三、数据来源与口径（请务必看这段）</h2>
+
+<div class="card">
+  <h3>来源</h3>
+  <p>中国裁判文书网公开生效裁判文书。当事人个人信息（姓名、身份证号、联系方式、住址等）已做脱敏处理。</p>
+  <h3>⚠️ 统计口径的边界</h3>
+  <p>我们的判决数据集<strong>样本仅含已获赔付的判决，不含败诉样本</strong>。这意味着：任何基于这批数据算出来的比例，<strong>都不代表整体胜诉率</strong>。</p>
+  <p>我们把这条写在这里，是因为这类数据被误读为「胜诉率」的情况在行业里很常见。你在评估任何一家供应商的数据统计时，都该追问这个问题：<strong>这个百分比的分母是什么？</strong></p>
+  <h3>数据截止与更新</h3>
+  <p>覆盖范围与最新更新时点随批次变化。<strong>采购前请索取当期的数据覆盖说明</strong>，含各案由、各年份、各地域的实际收录情况。私有化部署可约定增量同步的频率与方式，建议写进合同。</p>
+</div>
+
+<h2>四、选型该问供应商的 12 个问题</h2>
+
+<p>下面这份清单适用于<strong>所有</strong>候选供应商，包括我们。我们不做横向对比表——那种表格是谁做谁赢，参考价值有限。更有用的做法是拿同一套问题去问每一家，<strong>答案的具体程度本身就是筛选器</strong>：能给出具体口径的，和只会说「海量」「全面」「领先」的，一问就分开了。</p>
+
+<h3>数据层（4 问）</h3>
+<ol class="q">
+  <li>数据覆盖到哪一年？各案由、各地域的收录是否均衡？<strong>能不能给一张分年份分案由的实际收录表</strong>？</li>
+  <li>每一条结果<strong>能不能溯源到原文</strong>并自行核验？案号是否真实可查？</li>
+  <li>你们对外发布的统计数字，<strong>分母是什么、样本有什么边界</strong>？</li>
+  <li>更新频率是多少？增量怎么同步？<strong>这些能不能写进合同</strong>？</li>
+</ol>
+
+<h3>AI 层（4 问）</h3>
+<ol class="q">
+  <li>AI 的答案<strong>附不附案例引用</strong>？引用的案号能不能点开核验？（法律场景里，不能核验的答案等于不能用）</li>
+  <li>幻觉怎么控？<strong>有没有引证核验环节</strong>，还是纯靠模型自觉？</li>
+  <li>用的是通用大模型还是接了自建判决库？<strong>数据从哪来</strong>？</li>
+  <li>能不能叠加本所历史卷宗做微调？<strong>微调数据存在哪</strong>？</li>
+</ol>
+
+<h3>交付层（4 问）</h3>
+<ol class="q">
+  <li>能不能私有化部署？<strong>部署后数据是否完全不出内网</strong>？</li>
+  <li>硬件配置<strong>怎么算出来的</strong>？能不能给测算过程而不只给结论？</li>
+  <li>验收标准是什么？<strong>怎么判定「做到了」</strong>？</li>
+  <li>三年内的迭代和运维怎么约定？<strong>后续加数据、换模型要不要另付费</strong>？</li>
+</ol>
+
+<div class="card">
+  <h3>💡 一个比看演示更有效的验证方法</h3>
+  <p>挑 <strong>3-5 个本所真实经办过、且你知道结果的案子</strong>，拿去让每家系统检索。看两件事：</p>
+  <p>① 它能不能找到你当年找到的那些类案；② <strong>它能不能找到你当年漏掉的</strong>。</p>
+  <p>第二条才是真正区分数据深度的。演示都是准备过的，你自己的案子不是。</p>
+</div>
+
+<h2>五、采购流程与周期</h2>
+
+<table>
+  <thead><tr><th>步骤</th><th>做什么</th><th>你该拿到什么</th></tr></thead>
+  <tbody>
+    <tr><td>1. 需求澄清</td><td>使用形态、并发量、文档长度、是否必须离线</td><td>容量规划表（可自己填）</td></tr>
+    <tr><td>2. 数据覆盖核验</td><td>用本所真实案件试检索</td><td>当期数据覆盖说明</td></tr>
+    <tr><td>3. 方案与报价</td><td>按澄清结果出配置与预算</td><td>含硬件测算过程的方案书</td></tr>
+    <tr><td>4. POC 试点</td><td><strong>建议选一个业务组小范围跑</strong>，别一上来全所铺</td><td>可量化的验收标准</td></tr>
+    <tr><td>5. 部署与交付</td><td>环境搭建、数据导入、培训</td><td>运维文档 + 迭代条款</td></tr>
+  </tbody>
+</table>
+
+<p>在线服务可即时开通；私有化部署周期取决于环境评估与定制范围。<strong>POC 这一步别省</strong>——法律 AI 的效果和本所的业务结构强相关，小范围跑一轮拿到的信息，比任何演示都实在。</p>
+
+<div class="cta">
+  <h3 style="color:#fff;margin-top:0">拿当期数据覆盖说明 + 容量规划表</h3>
+  <p style="color:#cfd8e6">告诉我们业务形态和大致并发，我们回一份可核对的覆盖说明与配置测算，不绕圈子。</p>
+  <a href="mailto:chenjiaxin@wenshucha.com?subject=%E9%87%87%E8%B4%AD%E5%92%A8%E8%AF%A2&body=%E5%8D%95%E4%BD%8D%EF%BC%9A%0A%E4%B8%9A%E5%8A%A1%E5%BD%A2%E6%80%81%EF%BC%88%E8%AF%89%E8%AE%BC%2F%E9%9D%9E%E8%AF%89%2F%E6%B3%95%E9%99%A2%EF%BC%89%EF%BC%9A%0A%E5%A4%A7%E8%87%B4%E5%B9%B6%E5%8F%91%E4%BA%BA%E6%95%B0%EF%BC%9A%0A%E6%98%AF%E5%90%A6%E5%BF%85%E9%A1%BB%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2%EF%BC%9A%0A">📩 chenjiaxin@wenshucha.com</a>
+  <a class="ghost" href="tel:+8613168727779">📞 131-6872-7779</a>
+</div>
+
+<h2>六、常见问题</h2>
+
+<details><summary>可以先试用再决定吗？</summary><p>可以。<a href="https://tob.wenshucha.com/cases">智能检索</a>与 <a href="https://tob.wenshucha.com/ai">AI 助手</a>均免注册试用，AI 助手每天有免费额度。建议用本所真实案件试，见上面第四节那个方法。</p></details>
+
+<details><summary>数据能买断吗？</summary><p>数据 license 与私有化部署都可以约定数据交付范围。具体形态（全量打包 / 按案由分批 / API 调用）按需求谈，联系商务说明用途即可。</p></details>
+
+<details><summary>我们是政府单位，有等保和信创要求</summary><p>私有化部署场景下数据存放于内网，不出内网。等保与信创的具体适配要求请在需求澄清阶段提出，相关技术考量可先看 <a href="https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创国产化栈上的法律 AI 部署</a> 与 <a href="https://www.wenshucha.com/blog/judicial-data-platform-security-compliance.html">司法数据平台的安全与合规</a>。</p></details>
+
+<details><summary>预算有限，能先做小一点吗？</summary><p>能，而且建议这么做。先用在线服务或小范围 POC 验证真实使用频次，再按实测数据定配置——比按人头拍脑袋估算省钱得多。<a href="https://www.wenshucha.com/blog/law-firm-ai-roi-calculation.html">律所 AI 的 ROI 怎么算</a> 里有测算方法。</p></details>
+
+<details><summary>怎么判断项目做成了？</summary><p>验收标准应该在合同里写死，而不是交付后再讨论。可参考 <a href="https://www.wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html">法律 AI 的验收测试与效果评估</a>，以及 <a href="https://www.wenshucha.com/blog/legal-ai-tender-technical-specifications.html">招标技术参数怎么写</a>。</p></details>
+
+<section class="links">
+  <h2>延伸阅读</h2>
+  <a href="https://www.wenshucha.com/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a>
+  <a href="https://www.wenshucha.com/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a>
+  <a href="https://www.wenshucha.com/blog/legal-ai-vendor-due-diligence.html">法律 AI 供应商尽调</a>
+  <a href="https://www.wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html">律所 AI 采购的坑</a>
+  <a href="https://www.wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html">私有化部署三年 TCO</a>
+  <a href="https://www.wenshucha.com/case-search/">裁判文书智能检索系统</a>
+  <a href="https://www.wenshucha.com/legal-ai/">AI 法律助手</a>
+</section>
+
+<div class="dis">数据来源于中国裁判文书网公开生效裁判文书，当事人个人信息已脱敏。判决数据集样本仅含已获赔付的判决，不含败诉样本，任何基于本站数据的比例统计均不代表整体胜诉率。本页所述配置要点为一般性技术考量，实际方案以按需评估结果为准。</div>
+
+</main>
+
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>
