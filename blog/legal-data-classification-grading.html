@@ -141,7 +141,7 @@
 <body>
   <header><div class="wrap">
     <a class="logo" href="/">文书查</a>
-    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#onpremise">API/MCP</a></nav>
   </div></header>
 
   <section class="hero"><div class="wrap">
@@ -204,7 +204,7 @@
           <tr><td><strong>能不能用于训练</strong></td><td>高等级、强敏感数据一般<strong>禁止用于会对外的模型训练/微调</strong>;可用于训练的通常只有已脱敏或本就公开的数据</td></tr>
         </tbody>
       </table>
-      <p>把这张表倒过来看就明白了:为什么律所和政法机关的 AI <strong>几乎必然要私有化离线</strong>?因为它们手里最有价值的那批数据(卷宗、办案数据、敏感个人信息)几乎都落在重要数据这一级,而重要数据的保护基调就是本地化。这也是<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库为什么要本地部署</a>、<a href="/blog/law-firm-rag-knowledge-base.html">律所知识库为什么要在检索层做权限隔离</a>这些问题背后的同一个根:分级结果不同,技术路线就不同。相对地,公开裁判文书这类一般数据,可以放心地作为<a href="/#api-pricing">类案数据底座</a>接进来做检索,不受这套高等级约束的拖累。</p>
+      <p>把这张表倒过来看就明白了:为什么律所和政法机关的 AI <strong>几乎必然要私有化离线</strong>?因为它们手里最有价值的那批数据(卷宗、办案数据、敏感个人信息)几乎都落在重要数据这一级,而重要数据的保护基调就是本地化。这也是<a href="/blog/judgment-corpus-private-deployment-architecture.html">裁判文书私有库为什么要本地部署</a>、<a href="/blog/law-firm-rag-knowledge-base.html">律所知识库为什么要在检索层做权限隔离</a>这些问题背后的同一个根:分级结果不同,技术路线就不同。相对地,公开裁判文书这类一般数据,可以放心地作为<a href="/#onpremise">类案数据底座</a>接进来做检索,不受这套高等级约束的拖累。</p>
 
       <h2>六、分类分级落地五步法</h2>
       <p>别指望一次做到完美。务实的路线是分五步,先把高风险的识别准、隔离好,其余在运行中迭代:</p>
@@ -243,7 +243,7 @@
         <h3>要把分类分级落成一套能过测评、能跑 AI 的私有化方案?我们从数据底座到合规落地陪你走一遍</h3>
         <p>文书查提供 1.5 亿份真实、可回链裁判文书的公开类案数据底座(属一般数据,可放心接入检索),并支持等保、信创适配的私有化离线部署,配合本单位卷宗/合同等高等级数据在同一套架构下按分级隔离治理。把你的数据现状和场景发来,我们协助设计分类分级到技术措施的落地映射,1 个工作日内反馈。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
-        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#api-pricing" style="color:var(--accent-2)">API / MCP</a></p>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#onpremise" style="color:var(--accent-2)">API / MCP</a></p>
       </div>
 
       <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台:等保三级合规架构</a> · <a href="/blog/law-firm-rag-knowledge-base.html">律所知识库怎么建:三库一体 RAG 落地</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库架构</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型怎么验收</a> · <a href="/#onpremise">私有化部署方案</a></p>

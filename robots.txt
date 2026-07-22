@@ -63,4 +63,4 @@ Disallow: /*.bak$
 Disallow: /tmp/
 Disallow: /_relay_*
 
-Sitemap: https://wenshucha.com/sitemap.xml
+Sitemap: https://www.wenshucha.com/sitemap.xml

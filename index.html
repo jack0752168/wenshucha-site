@@ -318,6 +318,10 @@
     footer{background:var(--navy);color:rgba(255,255,255,.6);padding:40px 0;text-align:center;font-size:13.5px}
     footer .logo{justify-content:center;margin-bottom:14px;font-size:18px}
     footer a:hover{color:var(--accent-2)}
+    footer nav{text-align:left}
+    footer nav a{color:rgba(255,255,255,.62);text-decoration:none}
+    footer nav a:hover{color:var(--accent-2);text-decoration:underline}
+    @media(max-width:640px){footer nav{text-align:center}}
     footer .meta{margin-top:8px;line-height:2}
   </style>
 </head>
@@ -514,27 +518,8 @@
     </section>
 
     <!-- API -->
-    <section class="block alt">
-      <div class="wrap">
-        <div class="shead" id="api">
-          <div class="tag">API 数据接口</div>
-          <h2>标准化接口，按需调用</h2>
-          <p>提供裁判文书检索、详情查询与增量同步接口，按版本提供不同调用额度，满足从轻量集成到大规模应用的不同需求。</p>
-        </div>
-        <div class="tablewrap">
-          <table>
-            <thead>
-              <tr><th>接口</th><th>描述</th><th>标准版</th><th>专业版</th><th>高级版</th><th>旗舰版</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>搜索接口</td><td>按关键词或语法规则检索裁判文书</td><td>2,000 次/天</td><td>6,000 次/天</td><td>10,000 次/天</td><td class="hi">20,000 次/天</td></tr>
-              <tr><td>文书详情接口</td><td>查询单篇文书的完整信息与正文</td><td>2,000 次/天</td><td>6,000 次/天</td><td>10,000 次/天</td><td class="hi">20,000 次/天</td></tr>
-              <tr><td>增量同步接口</td><td>按日期增量拉取最新裁判文书</td><td>—</td><td class="q">支持</td><td class="q">支持</td><td class="hi q">支持</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+    <!-- API 接口/调用额度表已撤(Jack:「API接口跟定价也撤了…太多了,有点分散注意力了」)。
+         重心是检索系统与 AI 助手,API 需求走商务对接。 -->
 
     <!-- ABOUT -->
     <section class="block">
@@ -657,6 +642,40 @@
 
   <footer>
     <div class="wrap">
+      <!-- 站点导航:百度蜘蛛 98% 的抓取都停在首页,内页靠这里才有入口。
+           验证过 /data/ 曾完全无内链 → 40 个数据页零抓取。别删。 -->
+      <nav aria-label="站点导航" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px;padding:0 0 26px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px;line-height:2">
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">产品</div>
+          <a href="/case-search/">裁判文书智能检索系统</a><br />
+          <a href="/legal-ai/">AI 法律助手</a><br />
+          <a href="https://tob.wenshucha.com/cases">打开检索应用</a><br />
+          <a href="https://tob.wenshucha.com/ai">打开 AI 助手</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">裁判数据</div>
+          <a href="/data/">裁判文书数据规模</a><br />
+          <a href="/data/labor/">各地劳动争议判决数据</a><br />
+          <a href="/data/labor/beijing.html">北京</a> ·
+          <a href="/data/labor/shanghai.html">上海</a> ·
+          <a href="/data/labor/shenzhen.html">深圳</a> ·
+          <a href="/data/labor/guangzhou.html">广州</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">洞察文章</div>
+          <a href="/blog/">全部文章（41 篇）</a><br />
+          <a href="/blog/law-firm-private-ai-deployment-guide.html">律所私有化 AI 部署指南</a><br />
+          <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库怎么建</a><br />
+          <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引用核验</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">解决方案</div>
+          <a href="#deploy">私有化部署</a><br />
+          <a href="#clients">客户案例</a><br />
+          <a href="/blog/judicial-data-platform-construction.html">司法数据平台建设</a><br />
+          <a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a>
+        </div>
+      </nav>
       <a class="logo" href="#top"><span class="mark">文</span> 文书查</a>
       <div class="meta">
         <strong style="color:var(--accent-2)">商务对接</strong>&nbsp; Jack &nbsp;·&nbsp;

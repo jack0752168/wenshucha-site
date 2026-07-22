@@ -134,7 +134,7 @@
 <body>
   <header><div class="wrap">
     <a class="logo" href="/">文书查</a>
-    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#api-pricing">API/MCP</a></nav>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#onpremise">API/MCP</a></nav>
   </div></header>
 
   <section class="hero"><div class="wrap">
@@ -216,7 +216,7 @@ resp = requests.post(
 )
 for hit in resp.json().get("data", []):
     print(hit["case_no"], hit["court"], hit["url"])</code></pre>
-      <p>返回的每条记录都带结构化字段(案号、法院、审级、案由、当事人脱敏、裁判结果)和回链原文的 URL,直接可以喂进你的检索/重排/grounding 流程。完整字段与端点见开发者文档与 <a href="/#api-pricing">API/MCP 定价页</a>。</p>
+      <p>返回的每条记录都带结构化字段(案号、法院、审级、案由、当事人脱敏、裁判结果)和回链原文的 URL,直接可以喂进你的检索/重排/grounding 流程。完整字段与端点见开发者文档与 <a href="/#onpremise">API/MCP 定价页</a>。</p>
 
       <h2>五、MCP vs REST API:怎么选</h2>
       <table>
@@ -257,7 +257,7 @@ for hit in resp.json().get("data", []):
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 试用申请 <a href="https://paileme.wenshucha.com/tob/api-trial" style="color:var(--accent-2)" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a></p>
       </div>
 
-      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型:文书查 vs 北大法宝 vs 无讼 vs Alpha</a> · <a href="/#workbench">律师工作台:案件胜算量化</a> · <a href="/#api-pricing">裁判文书 API / MCP 定价</a></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型:文书查 vs 北大法宝 vs 无讼 vs Alpha</a> · <a href="/case-search/">律师工作台:案件胜算量化</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
     </article>
   </div>
 
