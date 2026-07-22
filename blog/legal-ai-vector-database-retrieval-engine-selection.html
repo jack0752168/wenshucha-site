@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e1b2e" />
 
   <title>律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)| 文书查</title>
-  <meta name="description" content="做私有化法律 AI 的 RAG,绕不开一个决定:用哪套向量库与检索引擎接住 1.5 亿裁判文书?选纯向量库还是关键词引擎,还是必须两者混合?本文给出面向律所与政法机关的检索引擎选型实战:向量检索和关键词检索到底谁更适合法律、为什么法律 RAG 几乎一定要做混合检索(不然法条号、案号、当事人精确匹配全丢)、Milvus / Qdrant / pgvector / Elasticsearch / OpenSearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可直接照用的检索引擎选型自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。" />
+  <meta name="description" content="做私有化法律 AI 的 RAG,绕不开一个决定:用哪套向量库与检索引擎接住 1.6 亿裁判文书?选纯向量库还是关键词引擎,还是必须两者混合?本文给出面向律所与政法机关的检索引擎选型实战:向量检索和关键词检索到底谁更适合法律、为什么法律 RAG 几乎一定要做混合检索(不然法条号、案号、当事人精确匹配全丢)、Milvus / Qdrant / pgvector / Elasticsearch / OpenSearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可直接照用的检索引擎选型自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。" />
   <meta name="keywords" content="法律AI向量库选型,私有化向量数据库,法律AI检索引擎,Milvus法律,Qdrant私有化,pgvector,Elasticsearch法律检索,混合检索,法律RAG检索,类案检索向量库" />
   <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
@@ -134,7 +134,7 @@
 
   <div class="wrap">
     <article>
-      <p class="lead">定完了<a href="/blog/legal-ai-open-source-base-model-selection.html">大模型底座</a>、想清楚了<a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">走 RAG 还是微调</a>,私有化法律 AI 落地时还有一个绕不开的技术决定:<strong>用哪套向量库和检索引擎,去接住那 1.5 亿裁判文书、把律师真正要的类案精准找出来?</strong>这一层就是 RAG 的「检索」,它决定了 AI 回答有没有据可查、能不能回链、准不准。很多团队一上来就纠结「上 Milvus 还是 Qdrant」,却忽略了两个更要命的问题:<strong>法律检索能不能只用向量?检索准不准到底由什么决定?</strong>本文把这一层讲透:<strong>向量检索和关键词检索谁更适合法律、为什么法律 RAG 几乎一定要做混合检索、Milvus / Qdrant / pgvector / Elasticsearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可以直接照用的检索引擎选型自查清单。</strong></p>
+      <p class="lead">定完了<a href="/blog/legal-ai-open-source-base-model-selection.html">大模型底座</a>、想清楚了<a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">走 RAG 还是微调</a>,私有化法律 AI 落地时还有一个绕不开的技术决定:<strong>用哪套向量库和检索引擎,去接住那 1.6 亿裁判文书、把律师真正要的类案精准找出来?</strong>这一层就是 RAG 的「检索」,它决定了 AI 回答有没有据可查、能不能回链、准不准。很多团队一上来就纠结「上 Milvus 还是 Qdrant」,却忽略了两个更要命的问题:<strong>法律检索能不能只用向量?检索准不准到底由什么决定?</strong>本文把这一层讲透:<strong>向量检索和关键词检索谁更适合法律、为什么法律 RAG 几乎一定要做混合检索、Milvus / Qdrant / pgvector / Elasticsearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可以直接照用的检索引擎选型自查清单。</strong></p>
 
       <h2>一、先纠一个最贵的误区:法律检索不能只靠向量</h2>
       <p>检索层选型最常见、也最贵的一个错,是把「做 RAG」直接等同于「上一个向量库」,以为语义向量检索就是全部。对法律 AI 来说,这个思路会埋大雷,因为<strong>法律检索天然是「语义」和「精确」两种需求并存</strong>:</p>
@@ -232,7 +232,7 @@
 
       <div class="cta-box">
         <h3>检索引擎你来选,能被检索的好数据我们来供</h3>
-        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署——法院、审级、年份、案由、当事人字段齐全,天生适配混合检索的结构化过滤,支持回链原文。无论你的检索层用 Milvus、Qdrant、pgvector 还是 Elasticsearch,我们负责把那套覆盖全、结构化、能回链、可更新的法律数据喂进去,而且数据不出内网。检索引擎是容器,数据才是真正拉开类案检索差距的那一层。</p>
+        <p>文书查提供 1.6 亿+ 结构化裁判文书私有化部署——法院、审级、年份、案由、当事人字段齐全,天生适配混合检索的结构化过滤,支持回链原文。无论你的检索层用 Milvus、Qdrant、pgvector 还是 Elasticsearch,我们负责把那套覆盖全、结构化、能回链、可更新的法律数据喂进去,而且数据不出内网。检索引擎是容器,数据才是真正拉开类案检索差距的那一层。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#onpremise" style="color:var(--accent-2)">API/MCP 定价</a></p>
       </div>

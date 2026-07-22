@@ -63,7 +63,7 @@
       },
       {
         "@type": "Question",
-        "name": "1.5 亿裁判文书库能整套落到信创环境的本地机房吗?",
+        "name": "1.6 亿裁判文书库能整套落到信创环境的本地机房吗?",
         "acceptedAnswer": { "@type": "Answer", "text": "可以。私有化部署的本意就是把数据和模型整套落到客户内网,信创只是把底座换成国产软硬件。裁判文书库与检索能力适配到国产数据库(达梦/人大金仓/openGauss)和国产存储后,在内网提供同样的检索 API/MCP 接口形态;大模型与向量检索适配到国产算力卡。数据不出域、自主可控、可审计,正好契合涉密政企对私有化的核心诉求。具体适配范围和工期需结合你方的信创栈型号一事一议。" }
       }
     ]
@@ -140,7 +140,7 @@
 
   <div class="wrap">
     <article>
-      <p class="lead">越来越多的法律 AI 招标里,出现了一句话:"须适配信创环境"。对政府、法院、检察院和很多国企,这不是加分项,而是<strong>入围资格本身</strong>——系统能不能在国产 CPU、国产操作系统、国产数据库、国产算力卡上跑起来,直接决定你方案进不进得了门。这篇是写给信息中心主任和技术负责人的:把信创栈一层一层拆开,讲清每层对一套"法律大模型 + 1.5 亿裁判文书库"私有化部署到底意味着什么、适配真正卡人的难点在哪、信创和等保两套合规怎么一起过,最后给一份能直接拿去对照招标文件的适配选型清单。</p>
+      <p class="lead">越来越多的法律 AI 招标里,出现了一句话:"须适配信创环境"。对政府、法院、检察院和很多国企,这不是加分项,而是<strong>入围资格本身</strong>——系统能不能在国产 CPU、国产操作系统、国产数据库、国产算力卡上跑起来,直接决定你方案进不进得了门。这篇是写给信息中心主任和技术负责人的:把信创栈一层一层拆开,讲清每层对一套"法律大模型 + 1.6 亿裁判文书库"私有化部署到底意味着什么、适配真正卡人的难点在哪、信创和等保两套合规怎么一起过,最后给一份能直接拿去对照招标文件的适配选型清单。</p>
 
       <h2>一、先说清楚:信创管的是什么</h2>
       <p>信创(信息技术应用创新)的本质,是把 IT 基础设施从底层做<strong>国产自主可控替代</strong>。它不是某一个产品,而是一整条技术栈的国产化要求。对法律 AI 这种"大模型 + 大数据"的系统,信创会逐层落到下面这些环节:</p>
@@ -193,7 +193,7 @@
         <li><strong>信创整机本地部署。</strong>把整套法律 AI 落到客户自有机房的信创整机集群上,数据完全不出域。这是涉密、政法、核心国企最常见的选择,自主可控程度最高。</li>
         <li><strong>政务云上的信创资源池。</strong>部署在地方政务云提供的信创资源池里,底座由政务云保证国产化,你的系统适配到它提供的国产 OS/数据库/算力资源。这种方式起步快,但要先确认政务云提供的具体型号,适配口径以它为准。</li>
       </ul>
-      <p>两类形态对应的适配范围、工期、运维边界都不同。立项时第一件事不是选模型,而是<strong>先问清楚甲方的信创栈到底是哪些型号</strong>——CPU 架构、OS 版本、数据库品牌、算力卡型号——这四个答案决定了整个适配方案的形状。这套私有化部署的整体架构,可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p>
+      <p>两类形态对应的适配范围、工期、运维边界都不同。立项时第一件事不是选模型,而是<strong>先问清楚甲方的信创栈到底是哪些型号</strong>——CPU 架构、OS 版本、数据库品牌、算力卡型号——这四个答案决定了整个适配方案的形状。这套私有化部署的整体架构,可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库的本地化部署架构</a>。</p>
 
       <h2>六、信创适配选型清单(对照招标文件用)</h2>
       <div class="callout">
@@ -213,7 +213,7 @@
       <p>A:不用从头,但要按层评估。架构层(x86→ARM)、OS、数据库这几层适配相对成熟、路径清晰;真正要重点投入和实测的是大模型/向量检索迁到国产算力卡这一层。建议先做一个小范围的适配验证(POC),用真实场景压一遍,确认质量和性能,再排整体工期。</p>
       <p class="faq-q">Q:信创环境下,数据安全是不是天然就更好?</p>
       <p>A:信创解决的是"底座自主可控",不等于数据安全自动达标。数据安全要靠等保那套——加密、脱敏、访问控制、审计——来落实。两者叠加才完整。法律数据敏感度高,这条线不能省。</p>
-      <p class="faq-q">Q:1.5 亿裁判文书库整套迁到信创内网,现实吗?</p>
+      <p class="faq-q">Q:1.6 亿裁判文书库整套迁到信创内网,现实吗?</p>
       <p>A:现实,这正是私有化部署的本意——数据和模型整套落到客户内网,信创只是把底座换成国产软硬件。具体适配范围、工期与性能,取决于你方的信创栈型号,需要一事一议。</p>
 
       <div class="cta-box">
@@ -223,7 +223,7 @@
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a></p>
       </div>
 
-      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署:GPU 选型实战</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台:等保三级合规架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署:GPU 选型实战</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/blog/judicial-data-platform-security-compliance.html">司法机关数据中台:等保三级合规架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
     </article>
   </div>
 

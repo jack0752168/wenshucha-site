@@ -197,7 +197,7 @@
       <p>核心原则:<strong>事实与证据部分由案卷回填、绝不生成,法律部分基于可溯源检索生成草稿、检察官逐段核对。</strong>AI 负责把重复性的格式、表述、引用初稿做出来,检察官负责判断与定稿。审查报告与起诉书之间还能做一致性校验——比如起诉书认定的事实与证据,是否都在审查报告里有支撑。</p>
 
       <h3>② 每一处引用都能回链原文</h3>
-      <p>受控生成的硬指标是<strong>可溯源</strong>:生成草稿里引用的每一条法条、每一个类案,都带一个能回链到本地底座原始法条文本或原始裁判文书的链接,检察官一点就能核对。做不到这一点的文书生成,就是在赌大模型的记忆——而大模型的记忆会编造法条,这在检察场景是不可接受的。这也是为什么文书辅助生成必须挂在一套<strong>全量、可溯源的本地法律数据底座</strong>之上,而不是单买一个生成模型。底座的检索质量,直接决定生成质量的上限。这一点的工程实现,我们在 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库:本地化部署的数据架构</a> 里有完整拆解。</p>
+      <p>受控生成的硬指标是<strong>可溯源</strong>:生成草稿里引用的每一条法条、每一个类案,都带一个能回链到本地底座原始法条文本或原始裁判文书的链接,检察官一点就能核对。做不到这一点的文书生成,就是在赌大模型的记忆——而大模型的记忆会编造法条,这在检察场景是不可接受的。这也是为什么文书辅助生成必须挂在一套<strong>全量、可溯源的本地法律数据底座</strong>之上,而不是单买一个生成模型。底座的检索质量,直接决定生成质量的上限。这一点的工程实现,我们在 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库:本地化部署的数据架构</a> 里有完整拆解。</p>
 
       <h2>五、为什么必须本地化部署在检察专线</h2>
       <p>检察院 AI 系统要读在办案件的卷宗、证据、讯问笔录与当事人个人信息——这些都是高度敏感的未公开数据,绝不能流向外网或厂商云端。因此系统必须与统一业务应用系统在同一检察专线/政法内网<strong>本地化部署</strong>:</p>
@@ -239,7 +239,7 @@
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
       </div>
 
-      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院 AI 智能审判辅助怎么落地:量刑参考 + 文书辅助生成实战</a> · <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统怎么建</a> · <a href="/blog/judicial-data-platform-construction.html">数字法治政府:司法数据中台建设方案</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库:本地化部署的数据架构</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院 AI 智能审判辅助怎么落地:量刑参考 + 文书辅助生成实战</a> · <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统怎么建</a> · <a href="/blog/judicial-data-platform-construction.html">数字法治政府:司法数据中台建设方案</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库:本地化部署的数据架构</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
     </article>
   </div>
 

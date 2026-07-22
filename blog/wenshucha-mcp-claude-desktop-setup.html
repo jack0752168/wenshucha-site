@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0e1b2e" />
 
-  <title>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书(2026 实战)| 文书查</title>
-  <meta name="description" content="手把手教你用 MCP(Model Context Protocol)把 1.5 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。" />
+  <title>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书(2026 实战)| 文书查</title>
+  <meta name="description" content="手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。" />
   <meta name="keywords" content="文书查 MCP,Claude Desktop 法律,裁判文书 MCP,法律 MCP server,Claude 接入裁判文书,类案检索 MCP,法律 AI MCP,Cursor 法律,裁判文书 API 接入,法律大模型数据源" />
   <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
@@ -16,7 +16,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书(2026 实战)" />
+  <meta property="og:title" content="5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书(2026 实战)" />
   <meta property="og:description" content="申请试用 key、改配置、验证连接、第一次类案检索——法律 AI 开发者用 MCP 接入裁判文书的最快路径。" />
   <meta property="og:url" content="https://wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html" />
   <meta property="og:image" content="https://wenshucha.com/og-image.svg" />
@@ -26,7 +26,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书(2026 实战)",
+    "headline": "5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书(2026 实战)",
     "description": "面向法律 AI 开发者与法律科技团队的 MCP 接入实战:申请 key、改 claude_desktop_config.json、验证连接、第一次类案检索。",
     "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
     "publisher": {
@@ -49,7 +49,7 @@
       {
         "@type": "Question",
         "name": "什么是 MCP?为什么法律 AI 要用 MCP 接入裁判文书?",
-        "acceptedAnswer": { "@type": "Answer", "text": "MCP(Model Context Protocol,模型上下文协议)是一种让 AI 助手调用外部工具和数据源的开放标准。把文书查的 MCP 服务接到 Claude Desktop、Cursor 等客户端后,AI 就能在对话里直接检索 1.5 亿+ 裁判文书,返回带原文链接的结果,而不是凭训练记忆编造判例。对法律 AI 来说,这把会编法条的通用模型变成了能引用真实判决的可溯源助手。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "MCP(Model Context Protocol,模型上下文协议)是一种让 AI 助手调用外部工具和数据源的开放标准。把文书查的 MCP 服务接到 Claude Desktop、Cursor 等客户端后,AI 就能在对话里直接检索 1.6 亿+ 裁判文书,返回带原文链接的结果,而不是凭训练记忆编造判例。对法律 AI 来说,这把会编法条的通用模型变成了能引用真实判决的可溯源助手。" }
       },
       {
         "@type": "Question",
@@ -139,13 +139,13 @@
 
   <section class="hero"><div class="wrap">
     <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 文书查 MCP 接入 Claude Desktop</div>
-    <h1>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书</h1>
+    <h1>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书</h1>
     <div class="meta">2026-06-21 · 文书查 · 面向法律 AI 开发者与法律科技团队</div>
   </div></section>
 
   <div class="wrap">
     <article>
-      <p class="lead">通用大模型最致命的法律短板,是<strong>它会"一本正经地编判例"</strong>——案号像模像样,引用的法条却对不上,你根本不敢拿去办案。解决办法不是换一个更大的模型,而是给它接一个能查真实判决的数据源。本文用最短的路径演示:如何用 <strong>MCP(Model Context Protocol)</strong>把文书查的 1.5 亿+ 裁判文书接进 Claude Desktop,让 AI 在对话里直接检索、返回<strong>带原文链接</strong>的真实判例。全程改一个配置文件,不到 5 分钟。</p>
+      <p class="lead">通用大模型最致命的法律短板,是<strong>它会"一本正经地编判例"</strong>——案号像模像样,引用的法条却对不上,你根本不敢拿去办案。解决办法不是换一个更大的模型,而是给它接一个能查真实判决的数据源。本文用最短的路径演示:如何用 <strong>MCP(Model Context Protocol)</strong>把文书查的 1.6 亿+ 裁判文书接进 Claude Desktop,让 AI 在对话里直接检索、返回<strong>带原文链接</strong>的真实判例。全程改一个配置文件,不到 5 分钟。</p>
 
       <h2>一、先搞清楚:MCP 到底解决什么问题</h2>
       <p>MCP 是一种让 AI 助手调用外部工具和数据的开放协议。你可以把它理解成"给大模型装的标准化数据接口"——装上之后,Claude / Cursor 这类客户端就能在回答前先去外部数据源查一遍,再基于查到的真实内容作答。</p>
@@ -153,7 +153,7 @@
       <table>
         <thead><tr><th></th><th>不接数据源(裸用大模型)</th><th>接入文书查 MCP 之后</th></tr></thead>
         <tbody>
-          <tr><td><strong>判例来源</strong></td><td>凭训练记忆生成,可能是编的</td><td>实时检索 1.5 亿+ 真实裁判文书</td></tr>
+          <tr><td><strong>判例来源</strong></td><td>凭训练记忆生成,可能是编的</td><td>实时检索 1.6 亿+ 真实裁判文书</td></tr>
           <tr><td><strong>可溯源</strong></td><td>无法核对,案号常对不上</td><td>每条结果回链法院原文,可点开验证</td></tr>
           <tr><td><strong>时效</strong></td><td>停在训练截止日</td><td>数据每日同步,新判决约 24 小时内可查</td></tr>
           <tr><td><strong>能不能办案用</strong></td><td>不敢</td><td>可作为类案检索与初判的起点</td></tr>

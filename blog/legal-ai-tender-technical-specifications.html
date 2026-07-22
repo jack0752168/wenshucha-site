@@ -157,7 +157,7 @@
       <h2>一、为什么"技术参数怎么写"是采购里最高杠杆的一步</h2>
       <p>很多单位把精力放在评标打分、商务谈判上,却忽略了:<strong>招标文件的技术参数,才是整个采购的"游戏规则"</strong>。规则定得准,优质供应商才进得来、滥竽充数的才进不来;规则定歪了,后面再怎么评标都是在一堆不合适的投标里挑。法律 AI 这类专业系统尤其如此,因为它有三个特点,让"参数写得对不对"格外致命:</p>
       <ul>
-        <li><strong>能力差异藏在水面下。</strong>两家厂商的 PPT 可能长得几乎一样,都说"基于大模型、支持类案检索、可私有化"。但一家背后是 1.5 亿份可回链原文的真实裁判文书语料,另一家是爬来的残缺数据加一个套壳模型——这个差距,只有把参数写到"语料规模 + 可回链 + 更新频率"这种层面,才逼得出来。</li>
+        <li><strong>能力差异藏在水面下。</strong>两家厂商的 PPT 可能长得几乎一样,都说"基于大模型、支持类案检索、可私有化"。但一家背后是 1.6 亿份可回链原文的真实裁判文书语料,另一家是爬来的残缺数据加一个套壳模型——这个差距,只有把参数写到"语料规模 + 可回链 + 更新频率"这种层面,才逼得出来。</li>
         <li><strong>出错的代价是法律责任。</strong>法律 AI 编一个不存在的判例、把败诉案当胜诉案引,后果不是体验差,是办案出错、是执业风险。所以参数里必须包含"<strong>引用可核验</strong>"这类别的行业不需要、法律行业不可省的硬要求。</li>
         <li><strong>合规是入围资格,不是加分项。</strong>对党政机关、法院、检察院、国企,私有化、等保、信创往往是"不满足就出局"的实质性条款,写漏了等于把项目暴露在合规风险里。</li>
       </ul>
@@ -190,7 +190,7 @@
           <tr><td>脱敏与隐私</td><td>涉及个人信息的内容具备脱敏处理能力,符合个人信息保护相关要求</td></tr>
         </tbody>
       </table>
-      <div class="callout"><p><strong>为什么数据要写得比模型还硬?</strong>模型是可替换、可升级的部件;数据底座的真实性、完整性、可回链性,直接决定这套系统会不会编案例、能不能被信任。把大量参数花在"模型参数量"上、却对"语料从哪来、能不能回链"含糊其辞,是本末倒置。相关架构可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p></div>
+      <div class="callout"><p><strong>为什么数据要写得比模型还硬?</strong>模型是可替换、可升级的部件;数据底座的真实性、完整性、可回链性,直接决定这套系统会不会编案例、能不能被信任。把大量参数花在"模型参数量"上、却对"语料从哪来、能不能回链"含糊其辞,是本末倒置。相关架构可参考 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库的本地化部署架构</a>。</p></div>
 
       <h3>模块 2 · 模型与推理能力</h3>
       <table>
@@ -299,12 +299,12 @@
 
       <div class="cta-box">
         <h3>要起草一份法律 AI 招标技术参数?我们可以帮你把"硬指标"落到能验收</h3>
-        <p>文书查提供 1.5 亿份真实裁判文书的私有化数据底座 + 引证回链与核验能力,支持离线私有化、等保与信创适配。把你的采购场景和需求发来,我们可协助梳理可验收的技术参数清单,并用你的真实业务做一轮实测,1 个工作日内反馈。</p>
+        <p>文书查提供 1.6 亿份真实裁判文书的私有化数据底座 + 引证回链与核验能力,支持离线私有化、等保与信创适配。把你的采购场景和需求发来,我们可协助梳理可验收的技术参数清单,并用你的真实业务做一轮实测,1 个工作日内反馈。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化部署方案</a> · <a href="/#onpremise" style="color:var(--accent-2)">API / MCP</a></p>
       </div>
 
-      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> · <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 系统的 5 个坑</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境法律 AI 私有化适配</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库部署架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/court-ai-procurement-checklist.html">地方法院信息中心 AI 系统采购清单</a> · <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 系统的 5 个坑</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a> · <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境法律 AI 私有化适配</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库部署架构</a> · <a href="/#onpremise">私有化部署方案</a></p>
     </article>
   </div>
 

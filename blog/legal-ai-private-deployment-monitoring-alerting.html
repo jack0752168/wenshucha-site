@@ -134,7 +134,7 @@
 
   <div class="wrap">
     <article>
-      <p class="lead">很多律所和政法机关以为,私有化法律 AI 最难的是上线那一天——把模型和 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库</a>灌进内网、跑通 <a href="/blog/law-firm-rag-knowledge-base.html">RAG 检索</a>、验收通过。可真正的考验从上线之后才开始:<strong>这是一套跑在你自己机房、离线、没有厂商云端替你 7×24 盯着的系统,接下来三年,它活得好不好,只能靠你自己的监控和告警看得见。</strong>更麻烦的是,法律 AI 有个别的系统没有的隐患——就算进程一直活着、接口一直返回 200,它的<strong>回答质量也可能在你毫不知情的情况下悄悄变差</strong>。本文给出一套可以直接照着搭的私有化法律 AI 运维监控体系:四层监控指标、告警怎么分级降噪、离线环境特有的坑,以及一份运维负责人可以贴在墙上的巡检清单。</p>
+      <p class="lead">很多律所和政法机关以为,私有化法律 AI 最难的是上线那一天——把模型和 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库</a>灌进内网、跑通 <a href="/blog/law-firm-rag-knowledge-base.html">RAG 检索</a>、验收通过。可真正的考验从上线之后才开始:<strong>这是一套跑在你自己机房、离线、没有厂商云端替你 7×24 盯着的系统,接下来三年,它活得好不好,只能靠你自己的监控和告警看得见。</strong>更麻烦的是,法律 AI 有个别的系统没有的隐患——就算进程一直活着、接口一直返回 200,它的<strong>回答质量也可能在你毫不知情的情况下悄悄变差</strong>。本文给出一套可以直接照着搭的私有化法律 AI 运维监控体系:四层监控指标、告警怎么分级降噪、离线环境特有的坑,以及一份运维负责人可以贴在墙上的巡检清单。</p>
 
       <h2>一、为什么私有化上线后,监控比 SaaS 更重要</h2>
       <p>用 SaaS 法律工具时,系统在厂商的云上,厂商有一整支 SRE 团队 7×24 盯着可用性,出了问题厂商比你先知道、先修。<a href="/blog/law-firm-private-ai-deployment-guide.html">私有化部署</a>把这份便利换成了数据不出内网的安全,但也把运维责任<strong>完整地搬到了你这边</strong>:系统在你的机房、你的 GPU 上、通常还是离线的,没有外部兜底,没有厂商替你半夜爬起来。上线验收那天一切完美,不代表三个月后还完美——GPU 会老化、显存会泄漏、数据回流管道会断、模型对新出现的问题会答非所问。</p>
@@ -225,7 +225,7 @@
 
       <div class="cta-box">
         <h3>私有化部署,连监控看板一起交付</h3>
-        <p>文书查提供 1.5 亿+ 结构化裁判文书私有化部署,交付时一并给到四层监控看板、分级告警规则与回归评测集,并培训你的运维团队。数据不出内网,系统上线后答得对、盯得住。</p>
+        <p>文书查提供 1.6 亿+ 结构化裁判文书私有化部署,交付时一并给到四层监控看板、分级告警规则与回归评测集,并培训你的运维团队。数据不出内网,系统上线后答得对、盯得住。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a> · <a href="/#onpremise" style="color:var(--accent-2)">API/MCP 定价</a></p>
       </div>

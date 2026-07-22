@@ -30,9 +30,9 @@ https://www.wenshucha.com/blog/court-similar-case-recommendation-system.html
 https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html
 后端工程师怎么把裁判文书数据接进自己的产品?本文用 Python / Node.js 完整示例讲清裁判文书 API 接入:鉴权、检索、分页、按案由/法院/年份过滤、回链原文、错误重试与限流,以及接 REST API 还是 MCP 的选型。面向要在数据上盖产品的后端与法律 AI 工程师。
 
-### 1.5 亿裁判文书私有库:本地化部署的数据架构(2026)
+### 1.6 亿裁判文书私有库:本地化部署的数据架构(2026)
 https://www.wenshucha.com/blog/judgment-corpus-private-deployment-architecture.html
-把 1.5 亿+ 裁判文书放进律所或法院自己的机房,要解决的不是「拷一份数据」,而是一整套数据架构:存储、全文检索、向量检索、结构化字段、离线增量更新、权限与审计、与法律大模型的 RAG 对接。本文给出 1.5 亿条规模裁判文书私有库本地化部署的技术架构与资源测算,面向律所 IT 与法律科技团队。
+把 1.6 亿+ 裁判文书放进律所或法院自己的机房,要解决的不是「拷一份数据」,而是一整套数据架构:存储、全文检索、向量检索、结构化字段、离线增量更新、权限与审计、与法律大模型的 RAG 对接。本文给出 1.6 亿条规模裁判文书私有库本地化部署的技术架构与资源测算,面向律所 IT 与法律科技团队。
 
 ### 数字法治政府:司法数据中台建设方案(2026)
 https://www.wenshucha.com/blog/judicial-data-platform-construction.html
@@ -144,7 +144,7 @@ https://www.wenshucha.com/blog/legal-ai-tender-technical-specifications.html
 
 ### 律所私有化法律 AI 的向量库与检索引擎怎么选:Milvus / Qdrant / pgvector / Elasticsearch 选型实战(2026)
 https://www.wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html
-做私有化法律 AI 的 RAG,绕不开一个决定:用哪套向量库与检索引擎接住 1.5 亿裁判文书?选纯向量库还是关键词引擎,还是必须两者混合?本文给出面向律所与政法机关的检索引擎选型实战:向量检索和关键词检索到底谁更适合法律、为什么法律 RAG 几乎一定要做混合检索(不然法条号、案号、当事人精确匹配全丢)、Milvus / Qdrant / pgvector / Elasticsearch / OpenSearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可直接照用的检索引擎选型自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。
+做私有化法律 AI 的 RAG,绕不开一个决定:用哪套向量库与检索引擎接住 1.6 亿裁判文书?选纯向量库还是关键词引擎,还是必须两者混合?本文给出面向律所与政法机关的检索引擎选型实战:向量检索和关键词检索到底谁更适合法律、为什么法律 RAG 几乎一定要做混合检索(不然法条号、案号、当事人精确匹配全丢)、Milvus / Qdrant / pgvector / Elasticsearch / OpenSearch 这几套主流可私有化方案怎么按五个维度比、检索层最容易埋的坑,以及一份可直接照用的检索引擎选型自查清单。面向律所信息化负责人、法律科技 CTO 与政法信息中心。
 
 ### 法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)
 https://www.wenshucha.com/blog/legal-ai-vendor-due-diligence.html
@@ -170,9 +170,9 @@ https://www.wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html
 https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html
 做法律 AI 类案检索,该用关键词(BM25)还是语义向量(embedding)?本文从法律文本的真实特性出发,讲清两种召回各自的命中与翻车场景、为什么生产级类案检索 API 必须走混合检索 + 重排 + 引用回链,以及选型时该问数据方的 7 个问题。面向法律 AI 工程师与法律科技团队。
 
-### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.5 亿裁判文书
+### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书
 https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
-手把手教你用 MCP(Model Context Protocol)把 1.5 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
+手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
 
 ### 信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html

@@ -158,7 +158,7 @@
 
       <h2>为什么微调离不开私有库这层底座</h2>
       <p>很多团队把「微调本所模型」当成一个独立项目去立项,这是认知误区。微调出来的模型,推理时仍然要靠检索去拿真实事实——它学到的是<strong>怎么写</strong>,不是<strong>具体某个案子的事实</strong>。如果底下没有一层能召回真实判决与本所卷宗的检索系统,微调得再好的模型,面对「帮我找近三年北京类似判例」这种问题照样无能为力,甚至会自信地编造。</p>
-      <p>所以正确的架构是<strong>两层叠加</strong>:底层是全量裁判文书 + 法规构成的公共知识底座(解决「全国怎么判」),上面叠本所历史卷宗(解决「本所怎么打」),两层都接入混合检索;微调只是在这套检索底座之上,再给模型套一层「按本所风格输出」的适配。脱离底座谈微调,等于先盖二楼再想地基。底座怎么建,见 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a>。</p>
+      <p>所以正确的架构是<strong>两层叠加</strong>:底层是全量裁判文书 + 法规构成的公共知识底座(解决「全国怎么判」),上面叠本所历史卷宗(解决「本所怎么打」),两层都接入混合检索;微调只是在这套检索底座之上,再给模型套一层「按本所风格输出」的适配。脱离底座谈微调,等于先盖二楼再想地基。底座怎么建,见 <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库的本地化部署架构</a>。</p>
 
       <h2>数据准备:微调项目 70% 的工作在这里</h2>
       <p>微调的效果上限,几乎完全由数据质量决定。「我们卷宗多」不等于「能微调」——卷宗是原始素材,微调要的是从里面加工出来的<strong>指令样本对</strong>。这一步占整个项目 70% 以上的工作量,也是最容易被低估的地方。</p>
@@ -243,7 +243,7 @@
         <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
       </div>
 
-      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.5 亿裁判文书私有库的本地化部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">内网大模型 GPU 选型实战</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿裁判文书私有库的本地化部署架构</a> · <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">内网大模型 GPU 选型实战</a> · <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a> · <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化如何满足客户保密义务</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
     </article>
   </div>
 
