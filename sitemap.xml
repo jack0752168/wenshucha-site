@@ -4,295 +4,257 @@
 
   <!-- 主站(中文) -->
   <url>
-    <loc>https://wenshucha.com/</loc>
+    <loc>https://www.wenshucha.com/</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://wenshucha.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.wenshucha.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://sinoverdict.wenshucha.com/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://wenshucha.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.wenshucha.com/"/>
   </url>
 
-  <!-- 重要锚点(提升 sitelink 触发) -->
   <url>
-    <loc>https://wenshucha.com/#workbench</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#api-pricing</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#api</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#types</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#solution</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#faq</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://wenshucha.com/#about</loc>
-    <lastmod>2026-06-04</lastmod>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- 洞察 / 博客(SEO 长文) -->
-  <url>
-    <loc>https://wenshucha.com/blog/</loc>
+    <loc>https://www.wenshucha.com/blog/</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-capacity-planning-scaling.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-capacity-planning-scaling.html</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-model-version-management-upgrade.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-model-version-management-upgrade.html</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-cutover-data-migration.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-cutover-data-migration.html</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html</loc>
     <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selection.html</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-open-source-base-model-selection.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-open-source-base-model-selection.html</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-private-deployment-disaster-recovery-ha.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-private-deployment-disaster-recovery-ha.html</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-data-security-audit-mlps-evaluation.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-data-security-audit-mlps-evaluation.html</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-private-deployment-monitoring-alerting.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-private-deployment-monitoring-alerting.html</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-vendor-due-diligence.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-vendor-due-diligence.html</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-private-deployment-tco-three-year.html</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-rag-vs-finetune-technical-route.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-rag-vs-finetune-technical-route.html</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-continuous-operation-iteration.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-continuous-operation-iteration.html</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-ai-adoption-user-enablement.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-ai-adoption-user-enablement.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-data-classification-grading.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-data-classification-grading.html</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-rag-knowledge-base.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-rag-knowledge-base.html</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-acceptance-testing-evaluation.html</loc>
     <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-tender-technical-specifications.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-tender-technical-specifications.html</loc>
     <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-hallucination-citation-verification.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html</loc>
     <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html</loc>
+    <loc>https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/judgment-api-integration-python-nodejs.html</loc>
+    <loc>https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-empirical-research-data-access.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-empirical-research-data-access.html</loc>
     <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-ai-startup-data-foundation.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-ai-startup-data-foundation.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/lawyer-workbench-case-win-rate.html</loc>
+    <loc>https://www.wenshucha.com/blog/lawyer-workbench-case-win-rate.html</loc>
     <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html</loc>
+    <loc>https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html</loc>
     <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html</loc>
+    <loc>https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/judicial-data-platform-security-compliance.html</loc>
+    <loc>https://www.wenshucha.com/blog/judicial-data-platform-security-compliance.html</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html</loc>
+    <loc>https://www.wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/legal-data-platform-comparison-2026.html</loc>
+    <loc>https://www.wenshucha.com/blog/legal-data-platform-comparison-2026.html</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-llm-finetune-case-archive.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-llm-finetune-case-archive.html</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/court-ai-trial-assistance-sentencing-document.html</loc>
+    <loc>https://www.wenshucha.com/blog/court-ai-trial-assistance-sentencing-document.html</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/judgment-corpus-private-deployment-architecture.html</loc>
+    <loc>https://www.wenshucha.com/blog/judgment-corpus-private-deployment-architecture.html</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-ai-procurement-pitfalls.html</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/court-similar-case-recommendation-system.html</loc>
+    <loc>https://www.wenshucha.com/blog/court-similar-case-recommendation-system.html</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-data-compliance-confidentiality.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-data-compliance-confidentiality.html</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-private-ai-deployment-guide.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-private-ai-deployment-guide.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/court-ai-procurement-checklist.html</loc>
+    <loc>https://www.wenshucha.com/blog/court-ai-procurement-checklist.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-ai-roi-calculation.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-ai-roi-calculation.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/judicial-data-platform-construction.html</loc>
+    <loc>https://www.wenshucha.com/blog/judicial-data-platform-construction.html</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -311,7 +273,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html</loc>
+    <loc>https://www.wenshucha.com/blog/law-firm-on-prem-llm-gpu-guide.html</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
