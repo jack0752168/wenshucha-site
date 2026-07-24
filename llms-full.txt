@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-23。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-07-24。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(41 篇)
+## 洞察文章(42 篇)
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
@@ -113,6 +113,10 @@ https://www.wenshucha.com/blog/legal-ai-model-version-management-upgrade.html
 ### 律所私有化法律 AI 的多租户与权限隔离架构:利益冲突墙 / 案件组 / 部门隔离怎么落地(2026)
 https://www.wenshucha.com/blog/legal-ai-multi-tenant-permission-isolation.html
 私有化把数据关进了自己内网,却没自动解决「所内谁能看谁」——同一家所里代理原告和代理被告的团队之间有利益冲突墙,政法机关有知情范围与部门隔离,一个「全所共用、谁都能问」的法律 AI 反而会把线下靠物理和流程隔开的敏感信息一键打通。本文讲透律所与政法机关私有化法律 AI 的多租户与权限隔离架构:为什么私有化不等于安全、权限要在数据/检索/生成/审计四层同时控住、RAG 检索为什么必须带权限过滤(不然向量库越权召回=泄密)、逻辑隔离/物理隔离/混合三种多租户模型怎么选,以及一份权限隔离架构自查清单。面向律所信息化负责人、合规官与政法信息中心。
+
+### 私有化法律 AI 的语料更新交付:断网内网里判决库怎么增量更新(2026)
+https://www.wenshucha.com/blog/legal-ai-offline-corpus-update-delivery.html
+私有化判决库上线之后怎么更新?本文只讲离线环境的语料更新这一层:四种更新通道(移动介质/单向光闸/白名单专线/驻场)的适用边界、一个合格增量包该包含什么、判决被撤下与更正这类最容易漏的变更类型、embedding 与索引的连带更新、更新窗口的预检-灰度-回滚流程、更新到没到的抽样对账口径,以及合同里必须写死的六条更新条款与十项自查清单。
 
 ### 律所私有化法律 AI 该选哪个大模型底座:DeepSeek / Qwen / GLM 开源模型选型实战(2026)
 https://www.wenshucha.com/blog/legal-ai-open-source-base-model-selection.html

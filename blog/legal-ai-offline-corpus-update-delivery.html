@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>私有化法律 AI 的语料更新交付:断网内网里判决库怎么增量更新(2026)| 文书查</title>
+  <meta name="description" content="私有化判决库上线之后怎么更新?本文只讲离线环境的语料更新这一层:四种更新通道(移动介质/单向光闸/白名单专线/驻场)的适用边界、一个合格增量包该包含什么、判决被撤下与更正这类最容易漏的变更类型、embedding 与索引的连带更新、更新窗口的预检-灰度-回滚流程、更新到没到的抽样对账口径,以及合同里必须写死的六条更新条款与十项自查清单。" />
+  <meta name="keywords" content="私有化判决库更新,离线环境数据增量同步,法律AI语料更新,内网数据包分发,判决书增量包,单向光闸数据导入,私有化部署数据更新,法律AI数据交付,判决库版本管理,离线增量更新" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://www.wenshucha.com/blog/legal-ai-offline-corpus-update-delivery.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="私有化法律 AI 的语料更新交付:断网内网里判决库怎么增量更新(2026)" />
+  <meta property="og:description" content="离线环境的判决语料更新是另一本账:四种更新通道、增量包该长什么样、撤下与更正怎么处理、索引与向量的连带更新、预检-灰度-回滚窗口、抽样对账口径与合同条款。" />
+  <meta property="og:url" content="https://www.wenshucha.com/blog/legal-ai-offline-corpus-update-delivery.html" />
+  <meta property="og:image" content="https://www.wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "私有化法律 AI 的语料更新交付:断网内网里判决库怎么增量更新(2026)",
+    "description": "面向律所信息化负责人与政法信息中心的离线语料更新实战:四种更新通道的适用边界、合格增量包的构成、撤下与更正类变更的处理、embedding 与索引的连带更新、更新窗口的预检与回滚流程、抽样对账口径与合同必写条款。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-24",
+    "dateModified": "2026-07-24",
+    "mainEntityOfPage": "https://www.wenshucha.com/blog/legal-ai-offline-corpus-update-delivery.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "私有化部署之后,判决语料还能更新吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "能,但更新方式和在线系统完全不同。内网环境没有外网连接,更新只能以数据包的形式通过约定通道送进去,常见的有加密移动介质、单向光闸、白名单专线和驻场导入四种。关键不在于能不能更新,而在于合同里有没有把更新频率、交付方式、校验方式和失败回滚写清楚。没写清楚的项目,通常在上线半年后就变成一座停在交付日那天的静态库。" }
+      },
+      {
+        "@type": "Question",
+        "name": "一个合格的语料增量包应该包含什么?",
+        "acceptedAnswer": { "@type": "Answer", "text": "至少五部分:一是包清单,写明基线版本号、目标版本号、生成时间与覆盖的数据区间;二是数据文件本身,按新增、修订、撤下三类分开存放而不是混在一起;三是逐文件的哈希校验值与整包签名;四是字段与口径的变更说明,任何字段含义调整都要显式声明;五是回滚说明,写清楚这一版从哪个基线来、失败时退回到哪里。缺少校验和回滚说明的包不应该被允许进入生产环境。" }
+      },
+      {
+        "@type": "Question",
+        "name": "判决书会被撤下或更正吗?更新时要怎么处理?",
+        "acceptedAnswer": { "@type": "Answer", "text": "会。文书上网之后仍可能因为程序性事由被更正、补正或不再公开,也可能因为后续裁判导致原文书状态变化。这意味着增量更新不能只做追加,必须支持修订与撤下两类变更,并在本地留下变更痕迹以备审计。只做追加的系统会长期保留已经不该继续对外呈现的内容,这在律所和政法单位是合规问题,不只是数据问题。" }
+      },
+      {
+        "@type": "Question",
+        "name": "更新语料之后,检索索引和向量需要一起更新吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "需要,而且这部分工作量常常被严重低估。新增文本要切分、向量化并写入索引;修订文本要先删除旧向量再写入新向量,否则同一份文书会以两个版本同时被召回;撤下文本要同时从全文索引和向量索引中移除。更重要的是向量必须和 embedding 模型版本绑定,一旦换了 embedding 模型,增量写入的向量与存量向量就不在同一个空间里,必须整体重建。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么验证一次更新是不是真的生效了?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不要只看导入脚本返回成功。建议做四项对账:一是计数对账,核对本次新增、修订、撤下的条数与包清单是否一致;二是边界抽查,取本次数据区间最早和最晚的若干条,确认能在系统里检索到;三是随机抽样,随机取若干条比对正文与关键字段是否与源一致;四是撤下验证,确认本次撤下的条目已经检索不到。四项都过才算更新完成。" }
+      },
+      {
+        "@type": "Question",
+        "name": "更新窗口应该怎么安排,才不影响业务?",
+        "acceptedAnswer": { "@type": "Answer", "text": "把更新拆成预检、灰度、切换、观察四段。预检在隔离环境里做完整性与校验和验证,不碰生产;灰度在生产环境里先导入并建索引,但不切换对外的检索版本;切换是一个可以在秒级完成的指向变更;观察期内保留上一版本可回退。这样任何一步失败都不需要在业务时间里抢修。窗口本身尽量避开开庭前和交付节点这类高峰时段。" }
+      },
+      {
+        "@type": "Question",
+        "name": "更新频率定成多久比较合适?",
+        "acceptedAnswer": { "@type": "Answer", "text": "取决于业务对新鲜度的真实需求,而不是越快越好。类案检索和实证研究类场景通常按月或按季更新就足够,而涉及最新裁判口径的业务可能需要更密的节奏。频率越高,单位交付成本和内网操作次数越多,风险敞口也越大。务实的做法是定一个常规节奏,再约定一条紧急更新通道用于个别必须尽快同步的情况。" }
+      },
+      {
+        "@type": "Question",
+        "name": "合同里关于数据更新必须写死哪些条款?",
+        "acceptedAnswer": { "@type": "Answer", "text": "建议至少写死六条:更新频率与每次交付的时限、交付通道与介质形式、增量包必须包含的内容与校验方式、更新失败时的回滚责任与响应时限、字段口径变更的提前告知期,以及服务期结束后本地已交付数据的处置与继续使用边界。这六条决定了系统在第二年、第三年还是不是活的,和上线当天的功能演示同样重要,却经常在采购阶段被整体略过。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .formula{background:#0e1b2e;color:#e8edf5;border-radius:10px;padding:18px 22px;margin:20px 0;
+      font-family:"SF Mono",Menlo,Consolas,monospace;font-size:14px;line-height:1.9;overflow-x:auto}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/#onpremise">私有化方案</a><a href="/#onpremise">API/MCP</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 离线语料更新交付</div>
+    <h1>私有化法律 AI 的语料更新交付:断网内网里判决库怎么增量更新(2026)</h1>
+    <div class="meta">2026-07-24 · 文书查 · 面向律所信息化负责人 / 政法信息中心 / 法律科技 CTO</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">本文只讲一件事:<strong>私有化判决库上线之后,新的判决怎么进到那台不联网的机器里</strong>。不是首次搬数据——见<a href="/blog/legal-ai-cutover-data-migration.html">割接与数据迁移</a>;不是模型换版本——见<a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理与升级</a>;不是上线后的整体运营——见<a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与数据回流</a>;也不是库本身怎么搭——见<a href="/blog/judgment-corpus-private-deployment-architecture.html">文书私有库架构</a>。边界很窄:<strong>更新从哪条通道进来、一个包里该有什么、进来之后怎么验、验不过怎么退。</strong></p>
+
+      <h2>一、三个真实的翻车场景</h2>
+      <p><strong>第一种,库停在了交付日。</strong>系统上线时数据是新的,验收顺利通过。半年后律师在系统里查不到一个他明明知道存在的近期判决,IT 去追才发现:合同里写了「提供数据服务」,但没写更新频率、没写交付方式、没有人被指定负责这件事。<strong>一个不更新的判决库,是一份会自己过期的资产。</strong></p>
+      <p><strong>第二种,包进来了,没人知道对不对。</strong>移动硬盘拿到内网,导入脚本跑完提示成功,于是宣布更新完成。两个月后偶然发现某个月份的数据只进来了一半——传输中断过,而脚本对「文件少了几个」并不敏感。<strong>没有校验和对账的导入,等于把数据完整性交给运气。</strong></p>
+      <p><strong>第三种,更新把检索搞崩,回不去了。</strong>为了让新数据可检索,更新时顺手重建了索引,中途失败,旧索引已经被覆盖。业务停摆一整天,因为没有人预先定义过「退回上一版」是什么动作。<strong>在断网环境里,回滚能力必须在更新之前就存在。</strong></p>
+      <p>三者的共同点是同一个认知错位:<strong>把语料更新当成一次文件拷贝,而不是一次有版本、有校验、有回滚的发布。</strong></p>
+
+      <h2>二、为什么离线更新是另一本账</h2>
+      <p>在线系统的数据更新是一个后台任务:定时拉取、失败重试、异常告警,出了问题工程师随时能连上去看。私有化环境把这三件事全拿掉了,于是同一件事的性质变了:</p>
+      <table>
+        <thead><tr><th>维度</th><th>在线系统</th><th>私有化离线环境</th></tr></thead>
+        <tbody>
+          <tr><td>触发方式</td><td>定时自动拉取</td><td>人工按窗口执行,次数有限</td></tr>
+          <tr><td>失败处理</td><td>自动重试,几乎无感</td><td>重试成本高,一次失败可能等下一个窗口</td></tr>
+          <tr><td>校验依据</td><td>可随时回源比对</td><td>只能靠包内自带的清单与哈希</td></tr>
+          <tr><td>问题定位</td><td>工程师远程接入</td><td>需驻场或由甲方 IT 代为操作</td></tr>
+          <tr><td>审计要求</td><td>系统日志即可</td><td>介质、经手人、时间均需留痕</td></tr>
+        </tbody>
+      </table>
+      <p>结论很直接:<strong>离线更新的可靠性不能依赖执行时的人,只能依赖包本身的自洽性</strong>。包必须能自证「我是完整的、我从哪个版本来、我要去哪个版本、我失败了应该退回哪里」。这一点和<a href="/blog/judicial-data-platform-security-compliance.html">司法数据平台的安全合规要求</a>是同一个方向:所有动作可追溯、可复核。</p>
+
+      <h2>三、四种更新通道,先选对再谈频率</h2>
+      <p>通道决定了更新频率的上限,所以它必须在方案阶段就定下来,而不是上线后再商量:</p>
+      <table>
+        <thead><tr><th>通道</th><th>典型形式</th><th>可行节奏</th><th>要注意什么</th></tr></thead>
+        <tbody>
+          <tr><td>加密移动介质</td><td>专用加密硬盘寄送或专人交接</td><td>月度 / 季度</td><td>介质登记、交接签字、用后销毁或归还</td></tr>
+          <tr><td>单向导入设备</td><td>光闸 / 摆渡区,只进不出</td><td>周度 / 月度</td><td>单次容量与格式限制,大包需分卷</td></tr>
+          <tr><td>白名单专线</td><td>受控网络到指定地址的定向通道</td><td>可到日度</td><td>需网络与安全部门审批,变更成本高</td></tr>
+          <tr><td>驻场导入</td><td>工程师到场执行</td><td>按次</td><td>成本最高,适合重大版本与重建</td></tr>
+        </tbody>
+      </table>
+      <p>一个常见的误判是:采购时按最理想的通道谈频率,落地时才发现安全部门只批了移动介质,于是「每周更新」自动降级为「有空再说」。<strong>先确认通道的审批可行性,再写更新频率</strong>,这条顺序反过来的项目,后面的更新条款基本都是空的。参见<a href="/blog/legal-ai-tender-technical-specifications.html">招标技术需求书怎么写</a>与<a href="/blog/legal-ai-vendor-due-diligence.html">供应商尽职调查</a>。</p>
+
+      <h2>四、一个合格的增量包长什么样</h2>
+      <p>把「一堆数据文件」变成「一次可发布、可回滚的更新」,差别就在包结构。可复用的最小结构如下:</p>
+      <div class="formula">update-2026Q3/<br/>
+&nbsp;&nbsp;manifest.json        # 基线版本 → 目标版本、生成时间、覆盖区间、三类条数<br/>
+&nbsp;&nbsp;data/added/          # 新增文书<br/>
+&nbsp;&nbsp;data/modified/       # 修订文书(含变更原因)<br/>
+&nbsp;&nbsp;data/removed.list    # 撤下清单(只给标识,不给正文)<br/>
+&nbsp;&nbsp;schema-changes.md    # 字段与口径变更说明,无变更也要显式写「无」<br/>
+&nbsp;&nbsp;checksums.txt        # 逐文件哈希<br/>
+&nbsp;&nbsp;package.sig          # 整包签名<br/>
+&nbsp;&nbsp;ROLLBACK.md          # 失败时退回哪个基线、怎么退</div>
+      <p>其中三处最容易被省掉,而它们恰恰是出事时唯一能救人的东西:</p>
+      <ul>
+        <li><strong>manifest 里的版本对</strong>。写清「从 A 到 B」而不只是「这是第三季度的包」。有了版本对,包就不能被乱序导入——这是内网环境里非常现实的风险,因为包可能积压几个月才一起处理。</li>
+        <li><strong>三类变更分开放</strong>。新增、修订、撤下混在一个目录里,导入逻辑就只能猜;分开之后,每一类对应一个明确动作,失败时也能按类重试。</li>
+        <li><strong>字段变更说明必须显式存在</strong>。哪怕本次没有任何字段调整,也要写一行「无变更」。一旦允许缺省,某次真的改了口径时,没有人会发现——这类问题的表现是「统计数字突然变了但查不出原因」,排查成本极高。见<a href="/blog/legal-data-classification-grading.html">数据分类分级</a>。</li>
+      </ul>
+
+      <h2>五、三件最容易漏的事</h2>
+      <h3>1. 撤下与更正:更新不只是追加</h3>
+      <p>裁判文书上网之后并非永久静止:可能因程序性事由被更正或补正,也可能因为符合不公开的情形而不再对外呈现。<strong>因此增量更新必须同时支持修订与撤下,而不能只做追加。</strong>只追加的系统会长期保留已经不该继续呈现的内容,对律所和政法单位来说这是合规问题,不只是数据陈旧问题。落地上需要三件事:撤下清单只传标识不传正文、本地保留变更痕迹以备审计、检索层与向量层同步移除。</p>
+      <h3>2. 索引与向量的连带更新</h3>
+      <p>语料入库只是第一步。新增文本要切分、向量化、写入索引;修订文本要<strong>先删旧向量再写新向量</strong>,否则同一份文书会以两个版本同时被召回,用户看到的是自相矛盾的检索结果;撤下文本要同时从全文索引和向量索引移除。更关键的一条:<strong>向量必须与 embedding 模型版本绑定</strong>——换了 embedding 模型,增量写入的向量与存量向量不在同一个空间里,此时能做的只有整体重建,而重建属于重大版本,应当走驻场通道并单独安排窗口。参见<a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a>与<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">语义检索与关键词检索之别</a>。</p>
+      <h3>3. 容量与带宽的一次性峰值</h3>
+      <p>更新窗口内的资源消耗和日常完全不是一个量级:解压、校验、写入、建索引会同时压满磁盘与内存,而这段时间业务还在跑。规划时要给更新窗口单独留资源余量,并明确它是否需要错峰。见<a href="/blog/legal-ai-capacity-planning-scaling.html">算力容量规划与扩容</a>与<a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">运维监控与告警</a>。</p>
+
+      <h2>六、更新窗口:预检、灰度、切换、观察</h2>
+      <p>把一次更新拆成四段,任何一段失败都不必在业务时间里抢修:</p>
+      <table>
+        <thead><tr><th>阶段</th><th>做什么</th><th>失败时</th></tr></thead>
+        <tbody>
+          <tr><td>预检</td><td>隔离环境校验签名、哈希、清单条数、版本对是否衔接</td><td>直接退回,不进生产</td></tr>
+          <tr><td>灰度</td><td>生产环境导入并建索引,但不切换对外版本</td><td>丢弃新版本,业务无感</td></tr>
+          <tr><td>切换</td><td>把检索指向新版本,秒级完成</td><td>指回旧版本</td></tr>
+          <tr><td>观察</td><td>约定观察期内保留上一版本可回退</td><td>按 ROLLBACK 执行回退</td></tr>
+        </tbody>
+      </table>
+      <p>这套流程的核心不在技术,在于<strong>切换是一个独立且可逆的动作</strong>。凡是「导入即生效」的设计,都等于把回滚能力放弃掉了。观察期长度按更新规模定,重大版本应当更长,并与<a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用</a>的备份节奏对齐:更新前的那次备份,是最后一道防线。</p>
+
+      <h2>七、怎么证明「更新真的到了」</h2>
+      <p>导入脚本返回成功不等于更新成功。建议固定做四项对账,并把结果写进更新记录:</p>
+      <div class="callout">
+        <ol>
+          <li><strong>计数对账</strong>:新增、修订、撤下三类的实际处理条数,与 manifest 声明是否一致。</li>
+          <li><strong>边界抽查</strong>:取本次数据区间最早与最晚的若干条,确认在系统里能检索到。</li>
+          <li><strong>随机抽样</strong>:随机取若干条,比对正文与关键字段是否与源一致。</li>
+          <li><strong>撤下验证</strong>:确认本次撤下的条目已检索不到,且向量层同步移除。</li>
+        </ol>
+      </div>
+      <p>四项都过才算完成。这份记录同时是审计材料,也是下次出问题时的定位起点。<strong>把对账结果写成一页纸,由甲方 IT 与厂商双方签字</strong>,是成本最低、效果最好的一条实践——它让「更新有没有做」从口头承诺变成可查证的事实。见<a href="/blog/legal-ai-acceptance-testing-evaluation.html">验收测评怎么做</a>与<a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a>。</p>
+
+      <h2>八、合同里必须写死的六条</h2>
+      <p>更新条款决定了系统在第二年、第三年还是不是活的,重要性不亚于功能演示,却经常在采购阶段被整体略过:</p>
+      <table>
+        <thead><tr><th>条款</th><th>写死什么</th></tr></thead>
+        <tbody>
+          <tr><td>更新频率与时限</td><td>常规节奏 + 每次交付的最迟时间 + 紧急更新通道</td></tr>
+          <tr><td>交付通道与介质</td><td>约定通道形式、分卷规则、交接与登记方式</td></tr>
+          <tr><td>包内容与校验</td><td>manifest、三类变更、哈希与签名为强制项</td></tr>
+          <tr><td>失败回滚责任</td><td>谁判定失败、多久响应、回滚到哪个基线</td></tr>
+          <tr><td>口径变更告知</td><td>字段与统计口径调整的提前告知期</td></tr>
+          <tr><td>服务期后处置</td><td>已交付数据的继续使用边界与处置方式</td></tr>
+        </tbody>
+      </table>
+      <p>最后一条尤其值得在签字前问清楚:私有化的价值之一就是数据在自己机房里,但<strong>服务期结束后已交付语料的使用边界必须白纸黑字</strong>,否则三年后会变成一个谁都不愿意先开口的问题。参见<a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的五个坑</a>与<a href="/blog/law-firm-data-compliance-confidentiality.html">私有化与客户保密义务</a>。</p>
+
+      <h2>九、语料更新十项自查清单</h2>
+      <div class="callout">
+        <ol>
+          <li>更新频率写进合同了吗?是否与获批的通道相匹配?</li>
+          <li>通道的安全审批走完了吗,还是只停留在方案里?</li>
+          <li>增量包是否包含 manifest、哈希与签名?</li>
+          <li>新增、修订、撤下三类变更是否分开交付?</li>
+          <li>字段口径变更说明是否每次都有,哪怕写「无变更」?</li>
+          <li>导入前是否在隔离环境做过预检?</li>
+          <li>切换是否是独立可逆动作,而非「导入即生效」?</li>
+          <li>更新前的备份是否确认可用,而不只是存在?</li>
+          <li>四项对账是否形成书面记录并双方确认?</li>
+          <li>embedding 换版时的整体重建方案是否提前约定?</li>
+        </ol>
+      </div>
+
+      <h2>十、常见问题</h2>
+      <p class="faq-q">Q:内网机器完全断网,还能定期更新吗?</p>
+      <p>A:能,通道决定节奏。移动介质通常按月或按季,单向导入设备可到周度,白名单专线能到日度但审批成本最高。</p>
+      <p class="faq-q">Q:更新一次要停机多久?</p>
+      <p>A:按「灰度 + 切换」设计的话,对外中断只发生在切换那一刻;导入和建索引都在不影响现有版本的前提下完成。</p>
+      <p class="faq-q">Q:能不能只做追加,不处理撤下?</p>
+      <p>A:不建议。文书状态会变化,只追加会长期保留不该继续呈现的内容,这是合规风险,不只是数据陈旧。</p>
+      <p class="faq-q">Q:更新包很大,介质装不下怎么办?</p>
+      <p>A:分卷交付,并在 manifest 里写明总卷数与顺序;导入端必须校验卷齐全后再开始处理,避免半包入库。</p>
+      <p class="faq-q">Q:换了 embedding 模型,增量还能继续写吗?</p>
+      <p>A:不能混写。新旧向量不在同一空间,必须整体重建,并按重大版本单独安排窗口。见<a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库</a>。</p>
+      <p class="faq-q">Q:甲方 IT 自己就能执行更新吗?</p>
+      <p>A:可以,前提是包自洽、流程写成 SOP、回滚步骤明确。真正需要驻场的是重建索引和跨大版本升级。</p>
+      <p class="faq-q">Q:怎么防止旧包被重复导入?</p>
+      <p>A:靠 manifest 的版本对做前置校验,基线不匹配就拒绝执行。内网里包积压是常态,这条校验必须有。</p>
+      <p class="faq-q">Q:更新记录要保存多久?</p>
+      <p>A:至少覆盖整个服务期,并包含经手人与介质编号,以满足审计要求。见<a href="/blog/judicial-data-platform-construction.html">司法数据平台建设</a>与<a href="/#onpremise">私有化部署方案</a>。</p>
+
+      <div class="cta-box">
+        <h3>把更新条款一起谈进方案里</h3>
+        <p>提供部署环境与可用通道,1 个工作日内反馈一份可落地的语料更新交付方案。</p>
+        <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">私有化方案详情</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-ai-cutover-data-migration.html">割接与数据迁移</a> · <a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理</a> · <a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与数据回流</a> · <a href="/blog/judgment-corpus-private-deployment-architecture.html">文书私有库架构</a> · <a href="/case-search/">裁判文书智能检索系统</a> · <a href="/#onpremise">API / MCP 定价</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
