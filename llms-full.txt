@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-24。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-07-26。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(42 篇)
+## 洞察文章(43 篇)
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
@@ -25,6 +25,10 @@ https://www.wenshucha.com/blog/court-ai-trial-assistance-sentencing-document.htm
 ### 法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)
 https://www.wenshucha.com/blog/court-similar-case-recommendation-system.html
 类案同判要落地,靠的是一套能在办案系统里自动推准类案的系统。本文讲清类案推送系统的四层技术架构(数据底座/检索模型/相似度算法/法官界面)、语义检索与关键词检索的差别、强制检索与全员检索的合规要求、本地化部署与等保三级,以及法院信息处可直接照问供应商的采购清单。
+
+### 政法机关 AI 项目怎么走政府采购:采购方式、预算编制与单一来源论证(2026)
+https://www.wenshucha.com/blog/government-legal-ai-procurement-budget-process.html
+法院、检察院、司法局要上私有化法律 AI,卡在政府采购流程和预算怎么编?本文讲清公开招标 / 竞争性磋商 / 单一来源三条路怎么选、预算概算科目怎么分、单一来源采购怎么论证、技术需求书哪几条必须写死、评标与验收怎么设,面向政法机关信息中心与采购负责人的实操参考。
 
 ### 裁判文书 API 接入实战:Python / Node.js 代码示例(2026 后端工程师指南)
 https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html
