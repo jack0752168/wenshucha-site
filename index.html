@@ -643,40 +643,83 @@
 
   <footer>
     <div class="wrap">
-      <!-- 站点导航:百度蜘蛛 98% 的抓取都停在首页,内页靠这里才有入口。
-           验证过 /data/ 曾完全无内链 → 40 个数据页零抓取。别删。 -->
-      <nav aria-label="站点导航" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px;padding:0 0 26px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px;line-height:2">
+      <!-- 站点导航 / HTML sitemap:百度蜘蛛 98% 的抓取都停在首页,42 篇文章 + 41 个数据页
+           全靠这里才有唯一入口(百度 13 个月从没抓过 /sitemap.xml,内页发现只能靠首页链接)。
+           验证过 /data/ 曾完全无内链 → 40 个数据页零抓取。此处必须覆盖全部内页,别精简。 -->
+      <nav aria-label="站点导航" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:22px;padding:0 0 26px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px;line-height:1.95">
         <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">产品</div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">产品与检索</div>
           <a href="/case-search/">裁判文书智能检索系统</a><br />
           <a href="/legal-ai/">AI 法律助手</a><br />
+          <a href="/buyers-guide/">采购决策指南</a><br />
+          <a href="/data/">裁判文书数据规模</a><br />
+          <a href="#onpremise">私有化部署方案</a><br />
           <a href="https://tob.wenshucha.com/cases">打开检索应用</a><br />
           <a href="https://tob.wenshucha.com/ai">打开 AI 助手</a>
         </div>
         <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">裁判数据</div>
-          <a href="/data/">裁判文书数据规模</a><br />
-          <a href="/data/labor/">各地劳动争议判决数据</a><br />
-          <a href="/data/labor-report/">全国劳动争议赔偿数据报告</a><br />
-          <a href="/data/labor/beijing.html">北京</a> ·
-          <a href="/data/labor/shanghai.html">上海</a> ·
-          <a href="/data/labor/shenzhen.html">深圳</a> ·
-          <a href="/data/labor/guangzhou.html">广州</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">洞察文章</div>
-          <a href="/blog/">全部文章（42 篇）</a><br />
-          <a href="/blog/law-firm-private-ai-deployment-guide.html">律所私有化 AI 部署指南</a><br />
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">律所私有化部署</div>
+          <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a><br />
+          <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署实战</a><br />
+          <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化部署与客户保密义务</a><br />
           <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库怎么建</a><br />
-          <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引用核验</a>
+          <a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调:历史卷宗</a><br />
+          <a href="/blog/law-firm-ai-adoption-user-enablement.html">律所 AI 落地培训与 adoption</a><br />
+          <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的 5 个坑</a><br />
+          <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a><br />
+          <a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台:案件胜算区间</a>
         </div>
         <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">解决方案</div>
-          <a href="#onpremise">私有化部署</a><br />
-          <a href="/buyers-guide/">采购决策指南</a><br />
-          <a href="#clients">客户案例</a><br />
-          <a href="/blog/judicial-data-platform-construction.html">司法数据平台建设</a><br />
-          <a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">技术选型</div>
+          <a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">RAG 还是微调:技术路线</a><br />
+          <a href="/blog/legal-ai-open-source-base-model-selection.html">开源底座选型 DeepSeek/Qwen/GLM</a><br />
+          <a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a><br />
+          <a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理与升级</a><br />
+          <a href="/blog/legal-ai-capacity-planning-scaling.html">算力容量规划与扩容</a><br />
+          <a href="/blog/legal-ai-inference-performance-gpu-utilization.html">推理性能与 GPU 利用率</a><br />
+          <a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年总拥有成本 TCO 测算</a><br />
+          <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境国产化适配</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">部署运维</div>
+          <a href="/blog/legal-ai-cutover-data-migration.html">上线切换与数据迁移</a><br />
+          <a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用架构</a><br />
+          <a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">监控告警与故障响应</a><br />
+          <a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与数据回流</a><br />
+          <a href="/blog/legal-ai-offline-corpus-update-delivery.html">断网内网语料增量更新</a><br />
+          <a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离</a><br />
+          <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型验收测评</a><br />
+          <a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">法院·检察院·政府</div>
+          <a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a><br />
+          <a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院智能审判辅助</a><br />
+          <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统</a><br />
+          <a href="/blog/procuratorate-ai-case-pushing-indictment.html">检察院 AI 系统落地</a><br />
+          <a href="/blog/judicial-data-platform-construction.html">司法数据中台建设</a><br />
+          <a href="/blog/judicial-data-platform-security-compliance.html">司法数据中台等保三级</a>
+        </div>
+        <div>
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">数据·API·对比</div>
+          <a href="/blog/">全部文章(42 篇)</a><br />
+          <a href="/blog/judgment-api-integration-python-nodejs.html">裁判文书 API 接入实战</a><br />
+          <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿判决私有库架构</a><br />
+          <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义 vs 关键词</a><br />
+          <a href="/blog/wenshucha-mcp-claude-desktop-setup.html">文书查接入 Claude Desktop(MCP)</a><br />
+          <a href="/blog/legal-empirical-research-data-access.html">法学实证研究数据接入</a><br />
+          <a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a><br />
+          <a href="/blog/legal-data-platform-comparison-2026.html">文书查 vs 法宝 vs 无讼 vs Alpha</a><br />
+          <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a><br />
+          <a href="/blog/legal-ai-vendor-due-diligence.html">供应商尽职调查清单</a><br />
+          <a href="/blog/legal-ai-tender-technical-specifications.html">招投标技术参数模板</a><br />
+          <a href="/blog/legal-ai-startup-data-foundation.html">创业团队数据底座选型</a>
+        </div>
+        <div style="grid-column:1/-1">
+          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">各地劳动争议赔偿数据(41 城)</div>
+          <a href="/data/labor/">各地劳动争议判决数据总览</a> ·
+          <a href="/data/labor-report/">全国劳动争议赔偿数据报告</a><br />
+          <a href="/data/labor/beijing.html">北京</a> · <a href="/data/labor/shanghai.html">上海</a> · <a href="/data/labor/shenzhen.html">深圳</a> · <a href="/data/labor/guangzhou.html">广州</a> · <a href="/data/labor/chongqing.html">重庆</a> · <a href="/data/labor/tianjin.html">天津</a> · <a href="/data/labor/hangzhou.html">杭州</a> · <a href="/data/labor/nanjing.html">南京</a> · <a href="/data/labor/suzhou.html">苏州</a> · <a href="/data/labor/wuhan.html">武汉</a> · <a href="/data/labor/chengdu.html">成都</a> · <a href="/data/labor/xian.html">西安</a> · <a href="/data/labor/zhengzhou.html">郑州</a> · <a href="/data/labor/jinan.html">济南</a> · <a href="/data/labor/qingdao.html">青岛</a> · <a href="/data/labor/ningbo.html">宁波</a> · <a href="/data/labor/wenzhou.html">温州</a> · <a href="/data/labor/shaoxing.html">绍兴</a> · <a href="/data/labor/hefei.html">合肥</a> · <a href="/data/labor/nanchang.html">南昌</a> · <a href="/data/labor/changsha.html">长沙</a> · <a href="/data/labor/nanning.html">南宁</a> · <a href="/data/labor/liuzhou.html">柳州</a> · <a href="/data/labor/kunming.html">昆明</a> · <a href="/data/labor/haikou.html">海口</a> · <a href="/data/labor/xiamen.html">厦门</a> · <a href="/data/labor/foshan.html">佛山</a> · <a href="/data/labor/dongguan.html">东莞</a> · <a href="/data/labor/zhongshan.html">中山</a> · <a href="/data/labor/kunshan.html">昆山</a> · <a href="/data/labor/luoyang.html">洛阳</a> · <a href="/data/labor/jiaozuo.html">焦作</a> · <a href="/data/labor/shenyang.html">沈阳</a> · <a href="/data/labor/dalian.html">大连</a> · <a href="/data/labor/changchun.html">长春</a> · <a href="/data/labor/jiutai.html">九台</a> · <a href="/data/labor/haerbin.html">哈尔滨</a> · <a href="/data/labor/tangshan.html">唐山</a> · <a href="/data/labor/yantai.html">烟台</a> · <a href="/data/labor/xinjiangwulumuqi.html">乌鲁木齐</a>
         </div>
       </nav>
       <a class="logo" href="#top"><span class="mark">文</span> 文书查</a>
