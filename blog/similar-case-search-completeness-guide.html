@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0e1b2e" />
+
+  <title>类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)| 文书查</title>
+  <meta name="description" content="律师、检察官、法官助理做类案检索,最怕的不是查不到,是以为查全了。本文讲清「类案」怎么四维锁定、检索该按什么顺序收窄、三种检索式各自会漏什么、七条漏检自查清单怎么用、检索结果怎么固定才经得起复核,以及挑检索工具该问哪七个问题。面向真正用工具办案的人。" />
+  <meta name="keywords" content="类案检索,类案检索怎么做,类案检索方法,裁判文书检索技巧,检索式怎么写,类案检索报告,类案检索 漏检,案例检索 律师,检察官 类案检索,法官助理 类案检索" />
+  <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <meta name="applicable-device" content="pc,mobile" />
+
+  <link rel="canonical" href="https://www.wenshucha.com/blog/similar-case-search-completeness-guide.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)" />
+  <meta property="og:description" content="最怕的不是查不到,是以为查全了。四维锁定类案、五步收窄顺序、三种检索式的漏检模式、七条漏检自查清单、结果固定要素表。" />
+  <meta property="og:url" content="https://www.wenshucha.com/blog/similar-case-search-completeness-guide.html" />
+  <meta property="og:image" content="https://www.wenshucha.com/og-image.svg" />
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)",
+    "description": "面向律师、检察官与法官助理的类案检索实操方法:四维锁定类案、逐层收窄顺序、三种检索式的漏检模式、七条漏检自查清单与检索结果固定要素。",
+    "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "文书查",
+      "logo": { "@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg" }
+    },
+    "datePublished": "2026-07-27",
+    "dateModified": "2026-07-27",
+    "mainEntityOfPage": "https://www.wenshucha.com/blog/similar-case-search-completeness-guide.html"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "同一个案由检索出来的就是类案吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不是。案由只是入口,它锁定的是法律关系的大类,不保证争议焦点相同。判断是不是类案,至少要同时看四个维度:法律关系是否同类、争议焦点是否同一、关键事实是否可比、适用的法律与司法解释是否同一版本。只按案由捞出来的结果里,往往大部分争议焦点和你手上的案子并不一致,拿去说理反而会被对方指出不可比。" }
+      },
+      {
+        "@type": "Question",
+        "name": "检索应该先输关键词还是先筛条件?",
+        "acceptedAnswer": { "@type": "Answer", "text": "先筛条件,后输关键词。正确顺序是:案由 → 法院层级与地域 → 审理程序与生效状态 → 时间区间(对齐法条修订)→ 最后才用关键词在已收窄的集合里找争议焦点表述。一上来就打一串关键词,等于让系统在全库里做字面匹配,同义表述、简称、不同书写习惯的判决会被直接排除在外,而你根本不会知道漏了什么。" }
+      },
+      {
+        "@type": "Question",
+        "name": "只检索对自己有利的案例可以吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不建议,这是最常见也最贵的错误。对方和法官都会做同样的检索,不利案例不会因为你没查就不存在。正确做法是主动检索相反结论的判决,搞清楚它们和本案在事实或法律适用上的差别,把这个差别写进代理意见或审查报告——这既是防守,也常常是最有说服力的进攻点。检察机关在审查起诉和量刑建议环节同样适用这个原则。" }
+      },
+      {
+        "@type": "Question",
+        "name": "检索结果怎么固定才经得起复核?",
+        "acceptedAnswer": { "@type": "Answer", "text": "每一条被引用的案例至少要记录:案号、审理法院、审理程序(一审/二审/再审)、裁判日期、生效状态、争议焦点摘要、以及可回溯到原文的路径。只截图不记案号,复核的人无法自己找回原文;只记标题不记生效状态,可能引用了已被二审改判的一审判决。检索条件本身也要记录——用了什么范围、什么时间区间、什么检索式,别人才能复现同一结果。" }
+      },
+      {
+        "@type": "Question",
+        "name": "什么情况下必须做类案检索?",
+        "acceptedAnswer": { "@type": "Answer", "text": "在法院内部,最高人民法院关于统一法律适用加强类案检索的指导意见列举了应当检索的情形,通常包括拟提交专业法官会议或审判委员会讨论的案件、缺乏明确裁判规则或尚未形成统一裁判规则的案件、院庭长依审判监督管理权限要求检索的案件等,具体以现行有效文本为准。对律师和检察官而言虽无同等强制要求,但只要案件要过会、要说服合议庭、或要提出量刑建议,类案检索都是必要功课。" }
+      },
+      {
+        "@type": "Question",
+        "name": "用 AI 做类案检索靠谱吗?",
+        "acceptedAnswer": { "@type": "Answer", "text": "把 AI 当成缩短筛选时间的工具是靠谱的,把它当成可以直接引用的结论来源不靠谱。可用的做法是:让 AI 归纳争议焦点、生成候选检索式、把几十份判决的裁判要点压成摘要;不可用的做法是直接采信它复述的案号和裁判结果。任何要写进文书的案例,都必须回到原文核对案号、生效状态与裁判理由。选工具时优先看它给出的每条结论能不能一键回溯到真实裁判文书原文。" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0e1b2e;--navy-2:#16294a;--ink:#1f2937;--muted:#5b6b80;
+      --accent:#c8a35a;--accent-2:#e0c178;--bg:#f7f8fb;--card:#ffffff;--line:#e6e9f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;color:var(--navy);line-height:1.4}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+    header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:14px 0}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    header .logo{color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:19px}
+    header .logo:hover{text-decoration:none}
+    header nav a{color:rgba(255,255,255,.82);font-size:14.5px;margin-left:20px}
+    .hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:48px 0 56px}
+    .hero .wrap{max-width:820px}
+    .crumb{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px}
+    .crumb a{color:rgba(255,255,255,.75)}
+    .hero h1{color:#fff;font-size:34px;line-height:1.32;margin-bottom:16px}
+    .hero .meta{font-size:14px;color:rgba(255,255,255,.7)}
+    article{background:var(--card);margin:-32px auto 0;border-radius:16px;box-shadow:0 12px 40px rgba(14,27,46,.10);
+      padding:48px 52px;position:relative}
+    article .lead{font-size:18px;color:var(--navy);font-weight:500;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid var(--line)}
+    article h2{font-size:24px;margin:40px 0 16px;padding-left:14px;border-left:4px solid var(--accent)}
+    article h3{font-size:18px;margin:28px 0 12px}
+    article p{margin:14px 0;color:#33404f}
+    article ul,article ol{margin:14px 0 14px 24px}
+    article li{margin:8px 0;color:#33404f}
+    article strong{color:var(--navy)}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+    th{background:#f0e9d6;color:var(--navy);font-weight:600}
+    .callout{background:#f7f8fb;border:1px solid var(--line);border-left:4px solid var(--accent);
+      border-radius:8px;padding:18px 22px;margin:24px 0}
+    .cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;
+      padding:32px;margin:40px 0 8px;text-align:center}
+    .cta-box h3{color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.85);margin-bottom:20px}
+    .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
+    .btn:hover{text-decoration:none;transform:translateY(-2px)}
+    .faq-q{font-weight:600;color:var(--navy);margin-top:20px}
+    footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;line-height:2;margin-top:40px}
+    @media(max-width:640px){article{padding:32px 22px;margin-top:-20px}.hero h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="/">文书查</a>
+    <nav><a href="/blog/">洞察</a><a href="/case-search/">检索系统</a><a href="/legal-ai/">AI 助手</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div class="crumb"><a href="/">首页</a> › <a href="/blog/">洞察</a> › 类案检索怎么才算查全了</div>
+    <h1>类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)</h1>
+    <div class="meta">面向律师 / 检察官 / 法官助理 · 2026 更新</div>
+  </div></section>
+
+  <div class="wrap">
+    <article>
+      <p class="lead">做类案检索,最危险的从来不是「查不到」——查不到你自己知道,会继续找。真正会出事的是<strong>「以为查全了」</strong>:检索式打进去,几十条结果整整齐齐,挑三条写进代理意见,直到对方当庭甩出一份相反判决,或者过会时被追问「这个口径本院去年是怎么判的」,才发现漏的那部分恰恰是决定性的。本文不讲检索引擎的技术原理(那是 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">语义检索 vs 关键词检索</a> 那篇的事),也不讲法院怎么建类案推送系统(见 <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统</a>),只讲坐在电脑前的办案人:怎么把类案捞全、怎么自己查出漏检、怎么把结果固定成经得起复核的东西。文中涉及的规范性文件按通行理解归纳,具体以现行有效文本为准,不构成法律意见。</p>
+
+      <h2>一、先把「类案」定义清楚:同案由 ≠ 类案</h2>
+      <p>大量无效检索的起点,是把案由当成了类案的判断标准。案由锁定的是法律关系的<strong>大类</strong>,它只回答「这属于哪一类纠纷」,不回答「这和我手上的案子可比吗」。同一个「买卖合同纠纷」项下,争议焦点可能是质量异议期限,也可能是所有权保留,也可能是逾期付款违约金过高,彼此之间几乎不能互相印证。</p>
+      <p>判断是不是类案,至少要同时锁定四个维度:</p>
+      <table>
+        <thead><tr><th>维度</th><th>要问自己的问题</th><th>不一致的后果</th></tr></thead>
+        <tbody>
+          <tr><td>法律关系</td><td>当事人之间是同一类法律关系吗(合同/侵权/劳动/行政)</td><td>根本不可比,引用即被否</td></tr>
+          <tr><td>争议焦点</td><td>法院真正要裁的那个问题是同一个吗</td><td>看着像,说理时对不上</td></tr>
+          <tr><td>关键事实</td><td>影响裁判结论的那几个事实要素是否可比</td><td>对方一句「事实不同」就废掉</td></tr>
+          <tr><td>法律适用</td><td>适用的法条与司法解释是同一版本吗</td><td>修法前后口径可能相反</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>一句话检验:</strong>把候选案例的争议焦点抄下来,和你自己案子的争议焦点并排放。念一遍,如果需要加「大致上」「类似地」才通顺,它多半不是类案,是同案由案例。</div>
+
+      <h2>二、顺序错了后面全白干:先收窄,再关键词</h2>
+      <p>最普遍的操作习惯是打开检索框,直接敲一串关键词。这个动作等于让系统在全库范围内做字面匹配——而裁判文书的表述习惯极其分散,同一件事,不同法院可能写成「解除劳动合同」「违法解除」「终止劳动关系」,你敲哪一个,另外两种写法就静静地留在结果之外。<strong>更糟的是,你不会收到任何提示说自己漏了。</strong></p>
+      <p>正确的顺序是先把总体收窄到一个「可比集合」,最后才让关键词在这个集合里干活:</p>
+      <ol>
+        <li><strong>案由</strong>——定大类。拿不准就先选上一级案由,宁宽勿窄。</li>
+        <li><strong>法院层级与地域</strong>——先看本院/本地中院及本省高院的口径,再看上级与最高法。地方裁判尺度差异是真实存在的,跨省案例说服力天然弱一档。</li>
+        <li><strong>审理程序与生效状态</strong>——排除未生效、被改判、被再审撤销的。这一步不做,后面全是雷。</li>
+        <li><strong>时间区间</strong>——对齐相关法条与司法解释的修订节点。修法前的判决不能直接拿来论证修法后的问题。</li>
+        <li><strong>关键词 / 争议焦点表述</strong>——在已收窄的集合里找具体说法,并且一次换一个同义词多跑几遍。</li>
+      </ol>
+      <p>这套顺序之所以有效,是因为前四步用的都是<strong>结构化字段</strong>(案由、法院、程序、日期),字段确定、不存在表述差异;而关键词是自然语言,天然有歧义。把确定的事先做完,不确定的留到最后一小步,漏检面积会小一个数量级。检索系统应支持这种逐层收窄,并在每一层显示还剩多少篇——否则你不知道自己是不是筛过头了。</p>
+
+      <h2>三、三种检索式写法,各自会漏什么</h2>
+      <p>同一个案子,检索式可以有三种写法,它们的漏检模式完全不同。成熟的做法是三种都跑一遍,互相补盲区。</p>
+      <table>
+        <thead><tr><th>写法</th><th>怎么写</th><th>典型漏检</th><th>补救</th></tr></thead>
+        <tbody>
+          <tr><td>关键词式</td><td>直接用争议焦点里的核心词组合</td><td>漏掉同义表述、简称、口语化写法</td><td>列同义词表,每个跑一遍</td></tr>
+          <tr><td>要件式</td><td>按请求权/构成要件逐项拆成条件</td><td>漏掉法院用其他路径论证同一结论的判决</td><td>补一轮只按结论检索</td></tr>
+          <tr><td>反向式</td><td>假设自己是对方,检索能打自己的案例</td><td>——(它本身就是用来补盲区的)</td><td>必须做,见第四节第 5 条</td></tr>
+        </tbody>
+      </table>
+      <p>要件式最容易被高估。它逻辑严密、看着专业,但法院的说理路径未必和你拆的要件一一对应——同样判你赢,有的法院从合同解释切入,有的从公平原则切入,要件拆得越细,越可能把后者筛掉。所以要件式跑完,必须再跑一轮<strong>只锁结论、放宽路径</strong>的检索。</p>
+
+      <h2>四、漏检自查清单:七条,每次都过一遍</h2>
+      <p>这是本文最实用的部分。检索完先别急着写,按下面七条自查,任何一条答不上来就回去补检索。</p>
+      <ol>
+        <li><strong>同一事实的其他案由表述</strong>——同一笔事实,有没有可能被立成另一个案由?(如既可走合同纠纷也可走不当得利)换案由再检一遍。</li>
+        <li><strong>二审与再审的反向检索</strong>——手上的有利案例是一审判决吗?去查它有没有被二审改判、被再审提起。<strong>引用一份已被改判的一审判决,是最伤信誉的错误。</strong></li>
+        <li><strong>本地口径 vs 上级口径</strong>——本院/本地中院怎么判、本省高院怎么判、最高法怎么判,三层都查。三层不一致时,这个不一致本身就是重要论点。</li>
+        <li><strong>时间切片</strong>——相关法条或司法解释在案涉期间有无修订?修订前后各检一次,确认口径是否变化。</li>
+        <li><strong>相反结论必检</strong>——主动检索支持对方的判决。对方和法官都会做这件事,你没查不代表它不存在。找到之后,把它与本案的事实差别或法律适用差别写清楚,这往往比再多找三个有利案例更有说服力。</li>
+        <li><strong>样本量与代表性</strong>——只找到两三份就下结论「本地普遍这么判」是危险的。同时要清楚自己看的样本是怎么来的:公开渠道的裁判文书本身存在选择性公开,任何基于检索结果的比例统计都只描述<strong>已公开且被你检到的那部分</strong>,不等于整体裁判倾向,更不能表述成胜诉率。</li>
+        <li><strong>检索条件可复现</strong>——你用的范围、时间区间、检索式记下来了吗?换个人按同样条件跑,应该得到同样的结果。记不下来,说明这次检索无法被复核。</li>
+      </ol>
+      <div class="callout"><strong>给检察官的补充:</strong>审查起诉与量刑建议环节做类案检索,第 3 条(本地口径)与第 5 条(相反结论)的权重要再往上提——量刑区间的说服力高度依赖本地同类案件的实际判罚分布,而不是全国平均。相关工作流可参考 <a href="/blog/procuratorate-ai-case-pushing-indictment.html">检察院 AI 类案推送与起诉书辅助</a>。</div>
+
+      <h2>五、结果怎么固定:截图不算数</h2>
+      <p>检索做得再好,结果固定不下来也等于没做。判断标准很简单:<strong>三个月后另一个人拿着你的记录,能不能自己把每一条原文找回来。</strong>只有截图和标题是做不到的。每条被引用的案例,至少记录下面这些字段:</p>
+      <table>
+        <thead><tr><th>必记字段</th><th>为什么</th></tr></thead>
+        <tbody>
+          <tr><td>案号</td><td>唯一定位,复核的人靠它找回原文</td></tr>
+          <tr><td>审理法院 + 审理程序</td><td>决定说服力层级;一审二审再审不同权重</td></tr>
+          <tr><td>裁判日期</td><td>对齐法条版本,判断时效性</td></tr>
+          <tr><td>生效状态</td><td>是否被改判/再审,直接决定能不能引用</td></tr>
+          <tr><td>争议焦点摘要</td><td>证明它与本案可比,而不只是同案由</td></tr>
+          <tr><td>原文回溯路径</td><td>让复核者一键看到全文,而不是相信你的转述</td></tr>
+          <tr><td>本次检索条件</td><td>范围、时间区间、检索式,保证可复现</td></tr>
+        </tbody>
+      </table>
+      <p>把这七项排成一张表,就是一份检索报告的骨架;正式出报告时再补检索目的、过程说明与结论意见即可。检索系统若支持勾选案例一键生成结构化报告,这一步能从半小时压到几分钟——省下的不只是时间,更是字段不会漏、案号不会抄错。</p>
+
+      <h2>六、什么时候「必须」做类案检索</h2>
+      <p>法院系统内部有明确要求。最高人民法院关于统一法律适用加强类案检索的指导意见列举了<strong>应当进行类案检索</strong>的情形,通行理解包括:拟提交专业法官会议或者审判委员会讨论的案件;缺乏明确裁判规则或者尚未形成统一裁判规则的案件;院长、庭长根据审判监督管理权限要求进行检索的案件;以及其他需要进行类案检索的案件。检索范围通常按指导性案例、最高法典型案例与生效裁判、本省高院参考性案例与生效裁判、上一级法院及本院生效裁判的顺序展开,并优先检索近年案例。<strong>以上以现行有效文本为准。</strong></p>
+      <p>律师和检察官虽无同等的强制要求,但触发条件其实高度重合:只要案件要过会、要说服合议庭、要提量刑建议、或者要向客户解释「这个诉求大概能到什么程度」,类案检索都是绕不开的功课。法院端的类案检索怎么嵌进审判流程,可参考 <a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院 AI 审判辅助:量刑参考与文书辅助</a>。</p>
+
+      <h2>七、挑检索工具:该问的七个问题</h2>
+      <p>市面上的检索产品各有侧重,与其比参数,不如拿下面七个问题去问每一家——这些问题直接对应上文的每一个漏检风险点,答不上来的地方就是你将来要自己人肉补的地方。</p>
+      <ol>
+        <li><strong>能不能逐层收窄并实时显示剩余篇数?</strong>——对应第二节的顺序问题。看不到剩多少,就不知道有没有筛过头。</li>
+        <li><strong>结构化字段全不全?</strong>——案号、法院、案由、审理程序、裁判日期、生效状态是否都能作为筛选条件,而不只是全文搜索。</li>
+        <li><strong>能不能查到同一案件的上下审级?</strong>——对应自查清单第 2 条,这是引用安全的底线。</li>
+        <li><strong>同义表述能不能被一起召回?</strong>——语义检索能补关键词的盲区,但要能看到它为什么召回这一篇。</li>
+        <li><strong>每条结果能不能一键回溯原文?</strong>——不能回溯的结论不能写进文书。</li>
+        <li><strong>能不能勾选案例直接生成检索报告?</strong>——对应第五节,决定你每周省几个小时。</li>
+        <li><strong>AI 给的答案带不带案例引用?</strong>——带引用且可点开原文的才可用,复述型答案只能当线索。参考 <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉怎么治:引证核验</a>。</li>
+      </ol>
+      <p>这七个问题不涉及任何厂商偏好,拿去问谁都成立。想看更完整的选型对照,可参考 <a href="/buyers-guide/">法律 AI 选型该问的问题清单</a> 与 <a href="/blog/legal-data-platform-comparison-2026.html">法律数据平台 2026 对比</a>。</p>
+
+      <h2>八、常见坑速查</h2>
+      <ul>
+        <li><strong>拿案由当类案标准</strong> → 结果看着多,可比的没几个。</li>
+        <li><strong>一上来就打关键词</strong> → 同义表述的判决静默丢失,你不会收到提示。</li>
+        <li><strong>只用一种检索式</strong> → 要件式漏说理路径不同的,关键词式漏表述不同的。</li>
+        <li><strong>引用未核生效状态的一审判决</strong> → 被对方指出已改判,信誉直接受损。</li>
+        <li><strong>只查有利案例</strong> → 对方和法官都会查,不利案例不会因为你没查而消失。</li>
+        <li><strong>用两三份判决论证「普遍这么判」</strong> → 样本不足,且公开本身有选择性,不能表述成胜诉率。</li>
+        <li><strong>只截图不记案号和检索条件</strong> → 无法复核、无法复现,等于没做。</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>用真实判决库把上面这套流程跑一遍</h3>
+        <p>文书查的检索系统支持按案由、法院层级、审理程序、裁判日期逐层收窄并实时显示剩余篇数,结果卡直接给出案号 / 法院 / 案由 / 裁判日期,可勾选案例一键生成检索报告,每条都能回溯裁判文书原文。免注册即可试用。</p>
+        <a class="btn" href="/case-search/">🔍 打开检索系统试一遍</a>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或试试 <a href="/legal-ai/" style="color:var(--accent-2)">AI 法律助手</a>(问答 / 起草 / 审查 / 阅卷,答案附案例引用) · 机构私有化部署与批量授权请联系 131 6872 7779 · chenjiaxin@wenshucha.com · <a href="/#onpremise" style="color:var(--accent-2)">私有化方案</a></p>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a> · <a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台:案件胜算怎么算</a> · <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统</a> · <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a></p>
+    </article>
+  </div>
+
+  <footer>
+    文书查 · 全国全量裁判文书数据服务 · 深圳星谱网络科技有限公司<br/>
+    商务对接 Jack · <a href="tel:+8613168727779">131 6872 7779</a> · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">ICP备2025437990号-2</a>
+  </footer>
+</body>
+</html>
