@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-26。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-07-28。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(43 篇)
+## 洞察文章(44 篇)
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
@@ -177,6 +177,10 @@ https://www.wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html
 ### 类案检索 API:语义向量 vs 关键词,到底哪种更准?
 https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html
 做法律 AI 类案检索,该用关键词(BM25)还是语义向量(embedding)?本文从法律文本的真实特性出发,讲清两种召回各自的命中与翻车场景、为什么生产级类案检索 API 必须走混合检索 + 重排 + 引用回链,以及选型时该问数据方的 7 个问题。面向法律 AI 工程师与法律科技团队。
+
+### 类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)
+https://www.wenshucha.com/blog/similar-case-search-completeness-guide.html
+律师、检察官、法官助理做类案检索,最怕的不是查不到,是以为查全了。本文讲清「类案」怎么四维锁定、检索该按什么顺序收窄、三种检索式各自会漏什么、七条漏检自查清单怎么用、检索结果怎么固定才经得起复核,以及挑检索工具该问哪七个问题。面向真正用工具办案的人。
 
 ### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书
 https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
