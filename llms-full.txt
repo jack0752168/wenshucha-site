@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-28。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-07-29。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,11 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(44 篇)
+## 洞察文章(45 篇)
+
+### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
+https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
+AI 阅卷已经进了不少检察院、法院和律所的日常办案流程,但真正决定它是帮手还是隐患的,是办案人知不知道它在哪里会静默出错。本文讲清 AI 阅卷的四层能力各自会错在哪、哪些判断永远不能交给它、六个最容易翻车的地方、一套可执行的五步核验流程,以及采购或试用时该问的七个问题。面向真正翻卷宗办案的人。
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
