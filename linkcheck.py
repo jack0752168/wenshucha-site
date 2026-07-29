@@ -83,6 +83,23 @@ def main() -> int:
             if frag and tgt is not None and frag not in ids_of(tgt):
                 errors.append(f"{rel}: 死锚点 href=\"{href}\" → {tgt.relative_to(SITE)} 里没有 id=\"{frag}\"")
 
+    # 口径哨兵(白杨实体一致性):AI 会跨页交叉比对品牌事实,对不上直接扣可信度。
+    # 旧口径出现即拦(1.5/1.7 亿是废弃口径;竞品数字不用这两个值,已核实无误伤)。
+    BANNED = ["1.5 亿", "1.5亿", "1.7 亿", "1.7亿"]
+    for f in html_files + [p for p in (SITE/"llms.txt", SITE/"llms-full.txt") if p.exists()]:
+        txt = f.read_text(encoding="utf-8", errors="ignore")
+        for b in BANNED:
+            if b in txt:
+                errors.append(f"{f.relative_to(SITE)}: 旧数据口径「{b}」(现行口径 1.6 亿,Jack 2026-07-22 定案)")
+    idx = SITE / "index.html"
+    if idx.exists():
+        home = idx.read_text(encoding="utf-8", errors="ignore")
+        for must, why in [("1.6 亿", "数据规模现行口径"),
+                          ("131-6872-7779", "商务电话(实体一致性)"),
+                          ("chenjiaxin@wenshucha.com", "商务邮箱(实体一致性)")]:
+            if must not in home:
+                errors.append(f"index.html: 缺「{must}」({why})")
+
     # robots.txt: Sitemap 必须 www(非 www 会吃 301,蜘蛛就不读了 —— 2026-07-22 实证 13 个月 0 读取)
     robots = SITE / "robots.txt"
     if robots.exists():
