@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-29。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-07-31。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(45 篇)
+## 洞察文章(47 篇)
 
 ### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
 https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
@@ -29,6 +29,14 @@ https://www.wenshucha.com/blog/court-ai-trial-assistance-sentencing-document.htm
 ### 法院类案推送系统怎么建:从数据底座到模型到法官界面(2026)
 https://www.wenshucha.com/blog/court-similar-case-recommendation-system.html
 类案同判要落地,靠的是一套能在办案系统里自动推准类案的系统。本文讲清类案推送系统的四层技术架构(数据底座/检索模型/相似度算法/法官界面)、语义检索与关键词检索的差别、强制检索与全员检索的合规要求、本地化部署与等保三级,以及法院信息处可直接照问供应商的采购清单。
+
+### 质证意见怎么写:从对方证据目录倒推攻击点的实操方法(2026)
+https://www.wenshucha.com/blog/cross-examination-opinion-evidence-challenge.html
+质证意见写成「真实性不认可、合法性不认可、关联性不认可」三连,等于什么也没说。本文讲质证意见真正的读者与目标是什么,怎么把对方的证据目录改写成一张攻击矩阵,三性各自的真问题与常见误用,比三性更管用的第四问(证明目的与待证事实的落差),六种典型可攻击形态,怎么用同类裁判文书的认证段找出「法院真的采纳过的质证角度」,以及当庭表达与书面质证意见的分工。
+
+### 举证清单怎么做才不漏项:证据目录、要件矩阵与提交前自查(2026)
+https://www.wenshucha.com/blog/evidence-list-proof-checklist-litigation.html
+办案人整理证据最常犯的错不是漏了某份材料,是从手里有什么正推、而不是从待证事实倒推——于是清单看起来很齐,要件却缺一格。本文讲清证据目录 / 举证清单 / 自查清单三份东西的分工与字段,怎么用「要件—证据」矩阵把空白格逼出来,六个最常见的漏项形态,怎么用同类裁判文书的认证段反推自己该补什么证据,以及交材料前一晚的五步自查。
 
 ### 政法机关 AI 项目怎么走政府采购:采购方式、预算编制与单一来源论证(2026)
 https://www.wenshucha.com/blog/government-legal-ai-procurement-budget-process.html
