@@ -59,9 +59,17 @@ User-agent: Google-Extended
 Allow: /
 
 # 屏蔽噪音
-Disallow: /*.bak$
+# 2026-07-31:原规则写成 /*.bak$,而实际备份文件名是 index.html.bak_seo_20260604 这类
+# (.bak 在中间不在结尾),10 份首页副本因此一直公开可抓。改成通配前后缀,并显式列出
+# 已隔离的旧站残留路径,防止再被抓进索引。文件本体已移出 webroot(服务器 /www/backup/)。
+Disallow: /*.bak
+Disallow: /*.bak*
 Disallow: /tmp/
 Disallow: /_relay_*
+Disallow: /_phptest.php
+Disallow: /es-demo.html
+Disallow: /index_en_back.html
+Disallow: /files/
 
 Sitemap: https://www.wenshucha.com/sitemap.xml
 
