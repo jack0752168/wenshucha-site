@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-07-31。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-08-01。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(47 篇)
+## 洞察文章(48 篇)
 
 ### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
 https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
@@ -169,6 +169,10 @@ https://www.wenshucha.com/blog/legal-ai-vector-database-retrieval-engine-selecti
 ### 法律 AI 供应商怎么评估:私有化选型的厂商尽职调查清单(2026)
 https://www.wenshucha.com/blog/legal-ai-vendor-due-diligence.html
 律所和政法机关买私有化法律 AI,评标常常只看产品演示和报价,却漏掉了对供应商这家公司本身的尽职调查。产品会 demo,公司会不会活到服务期结束、数据来源合不合法、源代码断供了怎么办,才是三五百万项目真正的风险点。本文给出一份可直接照用的法律 AI 供应商尽调清单:主体与资质、财务与持续经营、团队与交付能力、数据来源合法性、客户案例可核验、服务与续约、退出与锁定、知识产权与源码托管八个维度,面向律所信息化主任、政法信息中心与采购委员会。
+
+### 代理词怎么写才有用:争议焦点、说理落点与类案援引的实操方法(2026)
+https://www.wenshucha.com/blog/legal-brief-argument-similar-case-citation.html
+代理词写成事实陈述加法律条文罗列,法官一句也用不上。本文讲代理词真正的读者与目标是什么,怎么按争议焦点而不是按证据顺序搭骨架,一份能被采纳的代理词包含哪些部分,类案援引的三个层次与四种常见错误,怎么把检索结果转换成一段可用的论证,以及定稿前的五步自查。
 
 ### 法律数据怎么分类分级:律所与政法机关 AI 落地前必做的合规底座(2026)
 https://www.wenshucha.com/blog/legal-data-classification-grading.html
