@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-08-01。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-08-06。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,11 +12,15 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(48 篇)
+## 洞察文章(53 篇)
 
 ### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
 https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
 AI 阅卷已经进了不少检察院、法院和律所的日常办案流程,但真正决定它是帮手还是隐患的,是办案人知不知道它在哪里会静默出错。本文讲清 AI 阅卷的四层能力各自会错在哪、哪些判断永远不能交给它、六个最容易翻车的地方、一套可执行的五步核验流程,以及采购或试用时该问的七个问题。面向真正翻卷宗办案的人。
+
+### 二审和再审怎么找改判点:上诉理由、再审事由与同类改判案例检索(2026)
+https://www.wenshucha.com/blog/appeal-retrial-reversal-grounds-search.html
+一审输了写上诉状,最没用的写法是复述一审代理词。本文讲清二审与再审的门槛差在哪、一审判决书的四个可攻击面怎么排序、怎么从「本院认为」段逐句拆出最薄的一环、同类改判案例用哪三个限定条件检索、再审事由怎么对得上、以及为什么改判率这类数字一个都不能写。
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
@@ -33,6 +37,10 @@ https://www.wenshucha.com/blog/court-similar-case-recommendation-system.html
 ### 质证意见怎么写:从对方证据目录倒推攻击点的实操方法(2026)
 https://www.wenshucha.com/blog/cross-examination-opinion-evidence-challenge.html
 质证意见写成「真实性不认可、合法性不认可、关联性不认可」三连,等于什么也没说。本文讲质证意见真正的读者与目标是什么,怎么把对方的证据目录改写成一张攻击矩阵,三性各自的真问题与常见误用,比三性更管用的第四问(证明目的与待证事实的落差),六种典型可攻击形态,怎么用同类裁判文书的认证段找出「法院真的采纳过的质证角度」,以及当庭表达与书面质证意见的分工。
+
+### 执行阶段怎么用判决检索:财产线索、追加被执行人与执行异议之诉(2026)
+https://www.wenshucha.com/blog/enforcement-stage-judgment-search-asset-leads.html
+判决赢了拿不到钱,问题往往不在执行局在准备。本文讲清执行阶段该读哪三类文书、怎么从公开裁判文书里合法反推被执行人的财产线索与到期债权、终本之后靠什么触发恢复执行、追加被执行人的四种常见形态怎么用执行异议之诉判决找边界,以及为什么执行到位率这类数字一个都不能写。
 
 ### 举证清单怎么做才不漏项:证据目录、要件矩阵与提交前自查(2026)
 https://www.wenshucha.com/blog/evidence-list-proof-checklist-litigation.html
@@ -186,9 +194,17 @@ https://www.wenshucha.com/blog/legal-data-platform-comparison-2026.html
 https://www.wenshucha.com/blog/legal-empirical-research-data-access.html
 法学实证研究最大的隐形门槛不是方法,是数据。本文面向高校法学院教授与博士生,讲清:实证研究需要的是可统计的大样本结构化数据而非零散判例、手工从裁判文书网下载会踩的样本偏差与可复现性坑、商业人读库为什么不适合做实证、以及怎么用授权结构化语料/API 拿到带稳定 ID、可回链、可复现的研究级数据集。
 
+### 调解与和解协议怎么写才执行得动:三种纸的区别、给付条款的确定性与加速到期(2026)
+https://www.wenshucha.com/blog/mediation-settlement-agreement-enforceability.html
+调解书签了、和解协议签了,钱还是拿不到,问题多半出在给付条款不确定、没有加速到期、以及把执行和解当成了新的执行依据。本文讲清法院调解书 / 司法确认 / 纯和解协议三种纸的可执行性差别,六个高频含糊表述的改写,分期付款与担保条款的落笔方法,以及用公开裁判文书能查到的三类内容。
+
 ### 检察院 AI 系统怎么落地:类案推送 + 起诉书辅助 + 量刑建议实战(2026)
 https://www.wenshucha.com/blog/procuratorate-ai-case-pushing-indictment.html
 检察 AI 不是替检察官办案,而是把'类案找得到、量刑建议有参照、审查报告与起诉书少返工'做进办案系统。本文讲清检察院 AI 系统的三大能力(类案推送/文书辅助生成/量刑建议辅助)、认罪认罚从宽下量刑建议的数据要点、起诉书与审查报告如何防错防幻觉、为什么必须本地化部署在检察专线、以及检察机关技术部门可直接照问供应商的采购清单。
+
+### 财产保全怎么做才不白做:时点、标的选择、担保与错误保全的责任边界(2026)
+https://www.wenshucha.com/blog/property-preservation-litigation-guide.html
+保全做了却没换来执行,问题多半出在时点、标的顺序和解除环节。本文讲清诉前与诉中保全的窗口差别、保全标的按变现难度而非账面金额排序的方法、四种担保方式的实际代价、错误保全责任在裁判里怎么被认定,以及用公开裁判文书能合法查到的四件事。
 
 ### 类案检索 API:语义向量 vs 关键词,到底哪种更准?
 https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html
@@ -197,6 +213,10 @@ https://www.wenshucha.com/blog/similar-case-retrieval-semantic-vs-keyword.html
 ### 类案检索怎么才算查全了:检索式写法、漏检自查与结果固定(2026)
 https://www.wenshucha.com/blog/similar-case-search-completeness-guide.html
 律师、检察官、法官助理做类案检索,最怕的不是查不到,是以为查全了。本文讲清「类案」怎么四维锁定、检索该按什么顺序收窄、三种检索式各自会漏什么、七条漏检自查清单怎么用、检索结果怎么固定才经得起复核,以及挑检索工具该问哪七个问题。面向真正用工具办案的人。
+
+### 类案检索报告怎么写才能交上去:范围顺序、结论口径与可复现路径(2026)
+https://www.wenshucha.com/blog/similar-case-search-report-writing-guide.html
+类案检索报告不是把几份判决摘要粘在一起。本文讲清三种检索报告的读者与字段差异、一份能被采信的报告必备的七个字段、检索范围与层级顺序怎么写、类案要点对照表怎么做、结论口径的三种可套用表述与不能碰的红线(不能写成胜诉率)、没检索到类案与检索到相反判例怎么处理,以及定稿前的可复现性自查。
 
 ### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书
 https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
