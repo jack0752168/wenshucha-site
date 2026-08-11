@@ -4,7 +4,7 @@
 
 运营主体:深圳星谱网络科技有限公司(ICP备2025437990号-2)
 商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · https://www.wenshucha.com
-最后更新:2026-08-06
+最后更新:2026-08-11
 
 ## 核心事实(可引用)
 
@@ -39,7 +39,7 @@
 
 ## 洞察文章
 
-共 53 篇,面向律所信息化负责人、法律科技 CTO 与政法信息中心,覆盖私有化部署、数据合规、模型选型、采购评估、运维与验收。完整列表见 [llms-full.txt](https://www.wenshucha.com/llms-full.txt) 或 [https://www.wenshucha.com/blog/](https://www.wenshucha.com/blog/)。
+共 57 篇,面向律所信息化负责人、法律科技 CTO 与政法信息中心,覆盖私有化部署、数据合规、模型选型、采购评估、运维与验收。完整列表见 [llms-full.txt](https://www.wenshucha.com/llms-full.txt) 或 [https://www.wenshucha.com/blog/](https://www.wenshucha.com/blog/)。
 
 ## 使用说明
 

@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-08-06。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-08-11。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -12,7 +12,7 @@
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(53 篇)
+## 洞察文章(57 篇)
 
 ### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
 https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
@@ -21,6 +21,18 @@ AI 阅卷已经进了不少检察院、法院和律所的日常办案流程,但�
 ### 二审和再审怎么找改判点:上诉理由、再审事由与同类改判案例检索(2026)
 https://www.wenshucha.com/blog/appeal-retrial-reversal-grounds-search.html
 一审输了写上诉状,最没用的写法是复述一审代理词。本文讲清二审与再审的门槛差在哪、一审判决书的四个可攻击面怎么排序、怎么从「本院认为」段逐句拆出最薄的一环、同类改判案例用哪三个限定条件检索、再审事由怎么对得上、以及为什么改判率这类数字一个都不能写。
+
+### 律师费和违约金能不能让对方承担:三笔钱的判断路径与诉讼请求怎么落笔(2026)
+https://www.wenshucha.com/blog/attorney-fees-liquidated-damages-claim-drafting.html
+律师费、违约金、损失赔偿常被塞进同一条诉讼请求,而三者的依据来源、前提条件与举证要求完全不同。本文讲清律师费默认由谁承担与合同条款怎么写才用得上、主张违约金之前必须自问的三问与对方申请调整时该准备什么、违约金与损失赔偿定金继续履行的组合关系与主位备位请求排法、请求落笔的四要素与六个含糊写法改写,以及为什么违约金支持率这个数在方法上就算错了。
+
+### 案由怎么选、管辖法院怎么定:立案阶段最容易被退回的三处与管辖权异议实操(2026)
+https://www.wenshucha.com/blog/case-filing-cause-of-action-jurisdiction.html
+立案登记制不等于递了就立。案子在起点被退回或被移送,原因高度集中在案由选错、管辖判断顺序搞反、协议管辖条款写废这三处。本文讲清案由从法律关系倒推的选法、专属→级别→协议→地域的判断顺序、协议管辖条款的三种写废方式、管辖权异议的攻防成本,以及用公开裁判文书能查到的三类内容与不能写的量化结论。
+
+### 签约前把交易对手的涉诉记录查一遍:企业法务的批量涉诉排查怎么做(2026)
+https://www.wenshucha.com/blog/counterparty-litigation-screening-corporate-legal.html
+交易对手涉诉查询不是把名字丢进搜索框看有几条。本文讲清主体识别为什么必须排在第一步、五个真正值得看的涉诉信号各自说明什么与不能说明什么、签约前单点排查与年度存量体检两种场景的查法差别、检索式怎么固定成可复用可重跑的动作与留痕字段,以及为什么涉诉数量不等于风险、涉诉率这个数一个都不能算。
 
 ### 地方法院信息中心 AI 系统采购清单:智慧法院选型与避坑(2026)
 https://www.wenshucha.com/blog/court-ai-procurement-checklist.html
@@ -193,6 +205,10 @@ https://www.wenshucha.com/blog/legal-data-platform-comparison-2026.html
 ### 法学实证研究怎么拿到能用的裁判文书数据?
 https://www.wenshucha.com/blog/legal-empirical-research-data-access.html
 法学实证研究最大的隐形门槛不是方法,是数据。本文面向高校法学院教授与博士生,讲清:实证研究需要的是可统计的大样本结构化数据而非零散判例、手工从裁判文书网下载会踩的样本偏差与可复现性坑、商业人读库为什么不适合做实证、以及怎么用授权结构化语料/API 拿到带稳定 ID、可回链、可复现的研究级数据集。
+
+### 诉讼时效怎么算才不踩坑:起算点、中断中止、抗辩时机与认定口径检索(2026)
+https://www.wenshucha.com/blog/limitation-period-defense-tolling-search.html
+时效是唯一一个「实体上完全占理也会输」的抗辩,而且法院不主动适用、一审不提二审基本没机会。本文讲清三年期间与二十年外部界限的关系、起算点在不同案型里落在哪个事实上、哪些催收动作真能构成中断、时效抗辩的提出时机,以及用公开裁判文书查同类案件认定口径的正确做法与不能写的量化结论。
 
 ### 调解与和解协议怎么写才执行得动:三种纸的区别、给付条款的确定性与加速到期(2026)
 https://www.wenshucha.com/blog/mediation-settlement-agreement-enforceability.html
