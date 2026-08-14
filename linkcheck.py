@@ -7,16 +7,20 @@
   · /calc 404 被天天推给百度
   这类低级错不该靠人眼,deploy 前机器挡掉,有错就拒绝上线。
 
-查四件事:
+查五件事:
   1. 站内 <a href> 指向的文件必须存在(含 /dir/ → dir/index.html)
   2. 锚点 href="#x" / "/page#x" → 目标页里必须真有 id="x"
   3. robots.txt 的 Sitemap 必须是 https://www.wenshucha.com/(带 www,否则吃 301)
   4. sitemap.xml 里声明的每个 URL,本地必须有对应文件(承诺了就得兑现)
+  5. 全站备案号必须使用完整「粤ICP备」前缀,避免主体事实不一致
 
 用法: python3 linkcheck.py [site_dir]   # 有错 exit 1(deploy 脚本据此中止)
 """
+import json
 import re
 import sys
+from collections import defaultdict
+from html import unescape
 from pathlib import Path
 
 SITE = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).parent).resolve()
@@ -24,6 +28,19 @@ HOSTS = ("https://www.wenshucha.com", "https://wenshucha.com")
 
 href_re = re.compile(r'href="([^"]+)"')
 id_re = re.compile(r'id="([^"]+)"')
+title_re = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+desc_re = re.compile(
+    r"<meta\s+[^>]*name=[\"']description[\"'][^>]*content=[\"']([^\"']*)[\"'][^>]*>",
+    re.I | re.S,
+)
+canonical_re = re.compile(
+    r"<link\s+[^>]*rel=[\"']canonical[\"'][^>]*href=[\"']([^\"']+)[\"'][^>]*>",
+    re.I,
+)
+jsonld_re = re.compile(
+    r"<script\s+[^>]*type=[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
+    re.I | re.S,
+)
 
 
 def local_target(path: str):
@@ -53,10 +70,42 @@ def ids_of(f: Path, cache={}):
 def main() -> int:
     errors = []
     html_files = [f for f in SITE.rglob("*.html") if ".git" not in f.parts]
+    titles = defaultdict(list)
+    descriptions = defaultdict(list)
 
     for f in html_files:
         txt = f.read_text(encoding="utf-8", errors="ignore")
         rel = f.relative_to(SITE)
+        # 百度验证文件是平台要求的纯文本 HTML,不按内容页规则检查。
+        is_verify = rel.name.startswith("baidu_verify_")
+        if not is_verify:
+            title_match = title_re.search(txt)
+            desc_match = desc_re.search(txt)
+            canon = canonical_re.findall(txt)
+            title = unescape(title_match.group(1)).strip() if title_match else ""
+            desc = unescape(desc_match.group(1)).strip() if desc_match else ""
+            expected = "https://www.wenshucha.com/" if rel == Path("index.html") else (
+                "https://www.wenshucha.com/" + str(rel).replace("index.html", "")
+            )
+            if not title:
+                errors.append(f"{rel}: 缺 <title>")
+            else:
+                titles[title].append(str(rel))
+            if not desc:
+                errors.append(f"{rel}: 缺 meta description")
+            else:
+                descriptions[desc].append(str(rel))
+            if canon != [expected]:
+                errors.append(f"{rel}: canonical 应唯一指向 {expected},现在是 {canon}")
+            if len(re.findall(r"<h1\b", txt, re.I)) != 1:
+                errors.append(f"{rel}: 每页必须恰好一个 H1")
+            if "REPLACE_WITH_" in txt:
+                errors.append(f"{rel}: 含未配置的 REPLACE_WITH_ 占位符")
+            for i, block in enumerate(jsonld_re.findall(txt), 1):
+                try:
+                    json.loads(block)
+                except Exception as exc:
+                    errors.append(f"{rel}: 第 {i} 个 JSON-LD 无效({exc})")
         for href in href_re.findall(txt):
             h = href.strip()
             if h.startswith(("mailto:", "tel:", "javascript:", "data:")):
@@ -83,6 +132,11 @@ def main() -> int:
             if frag and tgt is not None and frag not in ids_of(tgt):
                 errors.append(f"{rel}: 死锚点 href=\"{href}\" → {tgt.relative_to(SITE)} 里没有 id=\"{frag}\"")
 
+    for label, values in (("title", titles), ("description", descriptions)):
+        for value, files in values.items():
+            if len(files) > 1:
+                errors.append(f"重复 {label}: {', '.join(files)} → {value[:100]}")
+
     # 口径哨兵(白杨实体一致性):AI 会跨页交叉比对品牌事实,对不上直接扣可信度。
     # 旧口径出现即拦(1.5/1.7 亿是废弃口径;竞品数字不用这两个值,已核实无误伤)。
     BANNED = ["1.5 亿", "1.5亿", "1.7 亿", "1.7亿"]
@@ -91,12 +145,17 @@ def main() -> int:
         for b in BANNED:
             if b in txt:
                 errors.append(f"{f.relative_to(SITE)}: 旧数据口径「{b}」(现行口径 1.6 亿,Jack 2026-07-22 定案)")
+        if re.search(r"(?<!粤)ICP备2025437990号-2", txt):
+            errors.append(
+                f"{f.relative_to(SITE)}: 备案号缺少省份前缀,必须统一为「粤ICP备2025437990号-2」"
+            )
     idx = SITE / "index.html"
     if idx.exists():
         home = idx.read_text(encoding="utf-8", errors="ignore")
         for must, why in [("1.6 亿", "数据规模现行口径"),
                           ("131-6872-7779", "商务电话(实体一致性)"),
-                          ("chenjiaxin@wenshucha.com", "商务邮箱(实体一致性)")]:
+                          ("chenjiaxin@wenshucha.com", "商务邮箱(实体一致性)"),
+                          ("粤ICP备2025437990号-2", "完整网站备案号(实体一致性)")]:
             if must not in home:
                 errors.append(f"index.html: 缺「{must}」({why})")
 

@@ -1,5 +1,5 @@
 # 文书查 — 全国全量裁判文书数据服务
-# https://wenshucha.com
+# https://www.wenshucha.com
 
 User-agent: *
 Allow: /
@@ -70,6 +70,11 @@ Disallow: /_phptest.php
 Disallow: /es-demo.html
 Disallow: /index_en_back.html
 Disallow: /files/
+Disallow: /_wscdl/
+Disallow: /ops/
+Disallow: /deploy-to-server.sh
+Disallow: /gen_llms.py
+Disallow: /linkcheck.py
 
 Sitemap: https://www.wenshucha.com/sitemap.xml
 
