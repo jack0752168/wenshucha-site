@@ -7,12 +7,13 @@
   · /calc 404 被天天推给百度
   这类低级错不该靠人眼,deploy 前机器挡掉,有错就拒绝上线。
 
-查五件事:
+查六件事:
   1. 站内 <a href> 指向的文件必须存在(含 /dir/ → dir/index.html)
   2. 锚点 href="#x" / "/page#x" → 目标页里必须真有 id="x"
   3. robots.txt 的 Sitemap 必须是 https://www.wenshucha.com/(带 www,否则吃 301)
   4. sitemap.xml 里声明的每个 URL,本地必须有对应文件(承诺了就得兑现)
   5. 全站备案号必须使用完整「粤ICP备」前缀,避免主体事实不一致
+  6. 每个公开内容页都必须展示完整备案号,避免只有首页有主体信号
 
 用法: python3 linkcheck.py [site_dir]   # 有错 exit 1(deploy 脚本据此中止)
 """
@@ -101,6 +102,8 @@ def main() -> int:
                 errors.append(f"{rel}: 每页必须恰好一个 H1")
             if "REPLACE_WITH_" in txt:
                 errors.append(f"{rel}: 含未配置的 REPLACE_WITH_ 占位符")
+            if "粤ICP备2025437990号-2" not in txt:
+                errors.append(f"{rel}: 公开内容页缺完整备案号「粤ICP备2025437990号-2」")
             for i, block in enumerate(jsonld_re.findall(txt), 1):
                 try:
                     json.loads(block)
