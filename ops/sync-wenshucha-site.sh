@@ -9,6 +9,8 @@ STAMP=/opt/.wenshucha-site-deployed-rev
 URL=https://github.com/jack0752168/wenshucha-site.git
 REWRITE_SRC="$REPO/ops/nginx/html_wenshucha.com.conf"
 REWRITE_TARGET=/www/server/panel/vhost/rewrite/html_wenshucha.com.conf
+MCP_VHOST_SRC="$REPO/ops/nginx/mcp_wenshucha.conf"
+MCP_VHOST_TARGET=/www/server/panel/vhost/nginx/mcp_wenshucha.conf
 QUARANTINE=/www/backup/wenshucha-webroot-quarantine-auto
 
 log() { echo "[$(date '+%F %T')] $*"; }
@@ -42,6 +44,22 @@ if [ -f "$REWRITE_SRC" ] && ! cmp -s "$REWRITE_SRC" "$REWRITE_TARGET"; then
     cp "$rewrite_backup" "$REWRITE_TARGET"
     cat /tmp/wenshucha-nginx-test.log
     log "nginx rewrite 新版本无效，已回滚"
+    exit 1
+  fi
+fi
+
+# 已被百度收录的 MCP 子站也必须守住私钥/点文件 404；面板改写后自动恢复。
+if [ -f "$MCP_VHOST_SRC" ] && ! cmp -s "$MCP_VHOST_SRC" "$MCP_VHOST_TARGET"; then
+  mcp_backup="${MCP_VHOST_TARGET}.bak_autoheal"
+  cp "$MCP_VHOST_TARGET" "$mcp_backup" || exit 1
+  cp "$MCP_VHOST_SRC" "$MCP_VHOST_TARGET" || exit 1
+  if /www/server/nginx/sbin/nginx -t -c /www/server/nginx/conf/nginx.conf >/tmp/wenshucha-nginx-test.log 2>&1; then
+    /etc/init.d/nginx reload >/dev/null 2>&1
+    log "MCP nginx vhost 已自愈"
+  else
+    cp "$mcp_backup" "$MCP_VHOST_TARGET"
+    cat /tmp/wenshucha-nginx-test.log
+    log "MCP nginx vhost 新版本无效，已回滚"
     exit 1
   fi
 fi
