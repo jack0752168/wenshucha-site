@@ -7,6 +7,19 @@ set -euo pipefail
 python3 ~/wenshucha-site/gen_llms.py >/dev/null || echo '⚠️ llms 生成失败,继续'
 python3 ~/wenshucha-site/linkcheck.py ~/wenshucha-site || { echo "✗ linkcheck 未过,中止部署"; exit 1; }
 
+# 服务器 5 分钟兜底同步也版本化，避免它把运维脚本重新复制进 webroot。
+scp ~/wenshucha-site/ops/sync-wenshucha-site.sh \
+  root@114.132.74.235:/tmp/sync-wenshucha-site.sh.codex
+ssh root@114.132.74.235 '
+  incoming=/tmp/sync-wenshucha-site.sh.codex
+  target=/root/sync-wenshucha-site.sh
+  backup=/root/sync-wenshucha-site.sh.bak_before_codex_deploy
+  bash -n "$incoming" || exit 1
+  cp "$target" "$backup"
+  install -m 700 "$incoming" "$target"
+  rm -f "$incoming"
+'
+
 # nginx rewrite 也版本化:宝塔若覆盖规则,部署时自动恢复；语法失败则回滚旧配置。
 scp ~/wenshucha-site/ops/nginx/html_wenshucha.com.conf \
   root@114.132.74.235:/tmp/html_wenshucha.com.conf.codex
