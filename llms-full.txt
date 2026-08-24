@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-08-14。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-08-24。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -8,6 +8,8 @@
 - https://www.wenshucha.com/ — 文书查首页:裁判文书智能检索 + AI 法律助手
 - https://www.wenshucha.com/case-search/ — 裁判文书智能检索系统介绍
 - https://www.wenshucha.com/legal-ai/ — AI 法律助手介绍(四模组)
+- https://www.wenshucha.com/mcp/ — 裁判文书 MCP 服务:四个工具、定价与数据口径
+- https://www.wenshucha.com/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数
 - https://www.wenshucha.com/data/ — 裁判文书数据规模与字段结构
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
 - https://www.wenshucha.com/blog/ — 洞察文章总览

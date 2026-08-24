@@ -110,6 +110,11 @@ def main():
         f"- [AI 法律助手]({BASE}/legal-ai/):四个模组——法律问答(检索自建判决库作答并附案例引用与案号)、"
         "文书起草、合同审查(逐条识别风险给修改建议)、智能阅卷(梳理时间线/争议焦点/证据清单)。"
         "答案带真实案例引用,可回溯原文。每天免费 8 次,无需注册。",
+        f"- [裁判文书 MCP 服务]({BASE}/mcp/):通过标准 MCP 协议(Streamable HTTP)把 "
+        "1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等任意支持 MCP 的客户端。"
+        "四个工具:全文检索、按案号取库内正文,以及 verify_case_number(案号真实性核验)与 "
+        "verify_quote(判词溯源核验)两个反幻觉工具。免费额度每月 500 次,"
+        f"接入指南见 {BASE}/mcp/quickstart/。",
         f"- [私有化部署]({BASE}/#onpremise):面向大型律所与地方政府的离线部署,"
         "数据不出内网,可叠加本所历史卷宗做微调,权限按组织结构定制。",
         "",
@@ -146,6 +151,8 @@ def main():
         f"- {BASE}/ — 文书查首页:裁判文书智能检索 + AI 法律助手",
         f"- {BASE}/case-search/ — 裁判文书智能检索系统介绍",
         f"- {BASE}/legal-ai/ — AI 法律助手介绍(四模组)",
+        f"- {BASE}/mcp/ — 裁判文书 MCP 服务:四个工具、定价与数据口径",
+        f"- {BASE}/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数",
         f"- {BASE}/data/ — 裁判文书数据规模与字段结构",
         f"- {BASE}/data/labor/ — 各地劳动争议赔偿数据总览",
         f"- {BASE}/blog/ — 洞察文章总览",

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>裁判文书 MCP 服务_法律数据接入 Claude/Cursor_免费 500 次每月 - 文书查</title>
+<meta name="description" content="文书查 MCP 服务:把 1.6 亿条中国裁判文书记录接进 Claude、Cursor、Claude Code 等任意支持 MCP 的 AI 客户端。四个工具——全文检索、按案号取正文,以及案号核验与判词核验两个反幻觉工具。标准 Streamable HTTP 协议,粘一段配置即可接入,免费额度每月 500 次,不阉割功能、不限数据子集。">
+<meta name="keywords" content="裁判文书MCP,法律MCP,MCP服务,法律数据API,判决书API,裁判文书接口,Claude MCP,Cursor MCP,法律AI接口,反幻觉核验,案号核验,司法数据接入">
+<link rel="canonical" href="https://www.wenshucha.com/mcp/">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:title" content="裁判文书 MCP 服务 · 1.6 亿条判决记录接进你的 AI 工作流 | 文书查">
+<meta property="og:description" content="四个工具:全文检索、按案号取正文、案号核验、判词核验。标准 MCP 协议,粘一段配置即接入,免费 500 次/月。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.wenshucha.com/mcp/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"文书查 · 裁判文书 MCP 服务","description":"通过标准 MCP 协议把 1.6 亿条中国裁判文书记录接入任意 AI 客户端,提供全文检索、按案号取正文,以及案号核验与判词核验两个反幻觉工具。","applicationCategory":"DeveloperApplication","applicationSubCategory":"LegalTech","operatingSystem":"Any","url":"https://www.wenshucha.com/mcp/","brand":{"@type":"Brand","name":"文书查"},"featureList":["标准 MCP Streamable HTTP 协议","1.6 亿条裁判文书记录全文检索","按案号获取库内正文","案号真实性核验(反幻觉)","判词溯源核验(反幻觉)","每次返回附带数据口径元数据"],"audience":{"@type":"BusinessAudience","name":"法律科技开发者、律师事务所、企业法务、AI 应用开发团队"},"offers":{"@type":"Offer","priceCurrency":"CNY","price":"0","description":"免费额度每月 500 次,全部工具可用,不限数据子集"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"裁判文书 MCP 服务","item":"https://www.wenshucha.com/mcp/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"MCP 是什么?为什么法律数据要做成 MCP?","acceptedAnswer":{"@type":"Answer","text":"MCP(Model Context Protocol)是让大模型调用外部工具与数据的开放协议。做成 MCP 之后,你在 Claude、Cursor、Claude Code 里直接用自然语言提问,模型会自己调用检索工具并把带案号的真实判决拿回来,不需要你另外写代码对接 API,也不需要把判决书复制粘贴进对话框。"}},{"@type":"Question","name":"支持语义检索吗?","acceptedAnswer":{"@type":"Answer","text":"本服务是精确词汇检索(BM25),不是向量语义检索。但在 MCP 场景下这反而更实用:调用方本身就是大模型,工具描述里已写明改写规则,模型会自动把口语问题改写成法律术语再检索。相比向量召回,好处是绝大多数结果都能追溯到具体案号,不会出现看起来相关、实际不是那个案子的情况。如确实需要纯向量召回,可针对特定语料单独定制。"}},{"@type":"Question","name":"免费额度有多少?会不会阉割功能?","acceptedAnswer":{"@type":"Answer","text":"免费版每月 500 次调用,每月 1 日自动重置。四个工具全部可用,不阉割功能;数据范围是全量 1.6 亿条记录,不限子集。连接服务、拉取工具列表、参数错误、未知工具名、服务端故障均不计次。"}},{"@type":"Question","name":"反幻觉核验具体解决什么问题?","acceptedAnswer":{"@type":"Answer","text":"大模型写法律意见时常编造案号和判词。verify_case_number 用来核验一个案号是否真实存在,存在则返回标题、法院、裁判日期作为溯源凭证;verify_quote 用来核验一段判词能否命中库内正文,可锁定到某一案号。这两个工具需要判决正文才做得了,只有摘要的产品做不出来。"}},{"@type":"Question","name":"数据口径可靠吗?","acceptedAnswer":{"@type":"Answer","text":"每次调用的返回里都带 _coverage 字段,说明本次结果基于多完整的数据,包括各字段覆盖率与已知局限。记录数不等同案件数——案号存在缺失、脏值与格式未统一,因此我们不用记录数宣称案件总数。这些如实说明是刻意做的:不该在不知道数据缺了多少的情况下拿它写结论。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:54px 0 48px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:700px;margin:0 0 26px}
+.btns a{display:inline-block;text-decoration:none;font-weight:700;padding:12px 26px;border-radius:9px;margin:6px 10px 6px 0}
+.btn-gold{background:var(--accent);color:var(--navy)}
+.btn-ghost{border:1px solid #5b6b82;color:#fff}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:42px 0 14px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;margin:22px 0 6px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+.card{background:#fff;border:1px solid #e6eaf0;border-radius:12px;padding:20px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:#e6eaf0;border-radius:12px;overflow:hidden;margin:20px 0}
+.stats div{background:#fff;padding:18px 14px;text-align:center}
+.stats b{display:block;font-family:"Songti SC",serif;font-size:25px;color:var(--navy)}
+.stats span{font-size:13px;color:var(--mut)}
+pre{background:#0e1b2e;color:#dfe6f0;border-radius:10px;padding:15px 17px;overflow-x:auto;font:13px/1.6 Menlo,Consolas,monospace;margin:12px 0}
+pre b{color:var(--accent)}
+code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Consolas,monospace;color:#2c4a72}
+.tool{background:#fff;border:1px solid #e6eaf0;border-left:3px solid var(--accent);border-radius:10px;padding:16px 19px;margin:12px 0}
+.tool h3{margin:0 0 5px;font:600 15.5px Menlo,Consolas,monospace;color:#2c4a72}
+.tool p{margin:0 0 7px;font-size:14.5px}
+.tool p:last-child{margin:0}
+.tag{display:inline-block;background:#eaf3ee;color:#1f7a5a;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle}
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:14px;margin:18px 0}
+.pcard{background:#fff;border:1px solid #e6eaf0;border-radius:12px;padding:20px 18px;display:flex;flex-direction:column}
+.pcard.hi{border:2px solid var(--accent);box-shadow:0 6px 20px rgba(200,163,90,.16)}
+.pcard .pn{font-weight:700;color:var(--navy);font-size:15.5px}
+.pcard .pp{font-family:"Songti SC",serif;font-size:28px;color:var(--navy);margin:8px 0 3px}
+.pcard .pp small{font-size:13px;color:var(--mut);font-family:-apple-system,sans-serif}
+.pcard ul{margin:12px 0 0;padding-left:18px;font-size:14px;color:#3d4a5c}
+.pcard li{margin-bottom:5px}
+.note{background:#fff8e8;border:1px solid #e6d5a8;border-radius:10px;padding:15px 18px;margin:16px 0;font-size:14.5px}
+.note b{color:#8a6512}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/case-search/">智能检索</a><a href="https://www.wenshucha.com/legal-ai/">AI 助手</a><a href="https://www.wenshucha.com/mcp/">MCP 服务</a><a href="https://www.wenshucha.com/data/">裁判数据</a><a href="https://www.wenshucha.com/buyers-guide/">采购指南</a><a href="https://www.wenshucha.com/blog/">洞察</a><a href="https://www.wenshucha.com/about/">关于</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1>裁判文书 MCP 服务</h1>
+  <p>把 1.6 亿条中国裁判文书记录接进 Claude、Cursor、Claude Code —— 粘一段配置就行，不用写对接代码。四个工具里有两个专门用来治大模型编案号、编判词。</p>
+  <div class="btns">
+    <a class="btn-gold" href="https://www.wenshucha.com/mcp/quickstart/">免费开始接入 →</a>
+    <a class="btn-ghost" href="#pricing">看定价</a>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+<div class="stats">
+  <div><b>160,291,678</b><span>条裁判文书记录</span></div>
+  <div><b>4</b><span>个 MCP 工具</span></div>
+  <div><b>500</b><span>次/月 免费额度</span></div>
+  <div><b>2010–2025</b><span>年份主要覆盖</span></div>
+</div>
+
+<h2>为什么做成 MCP</h2>
+<p>法律数据接入 AI 的老办法是：申请 API key、读文档、写对接代码、处理分页与鉴权，最后还要自己把结果喂给模型。</p>
+<p>MCP 把这一整段全省掉。你在支持 MCP 的客户端里粘一段配置，然后<strong>直接用中文问</strong>——「查一下民间借贷里保证人承担连带责任的判决，找 3 个」——模型会自己选工具、自己构造检索词、自己把带案号的真实判决拿回来。</p>
+<p>更关键的是<strong>反幻觉这件事只有在 MCP 里才做得顺</strong>：模型写完一段引用后，可以立刻自己调核验工具确认案号和判词是真的，不需要你人工回查。</p>
+
+<h2>四个工具</h2>
+
+<div class="tool">
+  <h3>search_judgments</h3>
+  <p>在 1.6 亿条记录的标题与库内正文中检索，返回案号、标题、法院、裁判日期与命中片段。</p>
+  <p>可按年份区间、法院名称、省份收窄；分页上限每页 50 条。</p>
+</div>
+
+<div class="tool">
+  <h3>get_judgment</h3>
+  <p>按案号取库内正文。案号全角半角括号都能识别。</p>
+  <p>同一案号有多条记录时，会在全部命中记录中按正文长度排序，优先返回较完整的一条。</p>
+</div>
+
+<div class="tool">
+  <h3>verify_case_number<span class="tag">反幻觉</span></h3>
+  <p>核验一个案号是否真实存在。存在则返回标题、法院、裁判日期，作为可追溯的凭证。</p>
+  <p>用来堵大模型编案号——它编出来的案号，这里查不到。</p>
+</div>
+
+<div class="tool">
+  <h3>verify_quote<span class="tag">反幻觉</span></h3>
+  <p>核验一段判词能否以分词后的连续短语命中库内正文，可锁定到某一案号，回答「这段话真的是这个案子里说的吗」。</p>
+  <p>核查法律意见书、代理词里的引用有没有被改写或杜撰。<strong>这个工具需要判决正文才做得了，只有摘要的产品做不出来。</strong></p>
+</div>
+
+<h2>三步接入</h2>
+<p>协议是标准 MCP（Streamable HTTP），任何支持 MCP 的客户端都能接。以 Claude Desktop 为例：</p>
+<pre>{
+  "mcpServers": {
+    <b>"wenshucha"</b>: {
+      "type": "http",
+      "url": <b>"https://mcp.wenshucha.com/mcp"</b>,
+      "headers": { "x-api-key": <b>"你的试用 Key"</b> }
+    }
+  }
+}</pre>
+<p>粘进配置文件、重启客户端，就能开始问了。完整步骤（含 Cursor / Claude Code / curl 直调）见 <a href="https://www.wenshucha.com/mcp/quickstart/">接入指南</a>。</p>
+
+<h2 id="pricing">定价</h2>
+
+<div class="price">
+  <div class="pcard hi">
+    <div class="pn">免费版</div>
+    <div class="pp">¥0</div>
+    <div style="font-size:13px;color:#5a6677">每月 500 次调用</div>
+    <ul>
+      <li>四个工具<strong>全部可用</strong></li>
+      <li>全量 1.6 亿条，不限子集</li>
+      <li>每月 1 日自动重置</li>
+      <li>无需信用卡</li>
+    </ul>
+  </div>
+  <div class="pcard">
+    <div class="pn">个人版</div>
+    <div class="pp">¥599<small> /年</small></div>
+    <div style="font-size:13px;color:#5a6677">或 ¥49 / 月</div>
+    <ul>
+      <li>每年 10 万次调用</li>
+      <li>单人执业使用</li>
+      <li>邮件技术支持</li>
+    </ul>
+  </div>
+  <div class="pcard">
+    <div class="pn">团队版</div>
+    <div class="pp">¥2,400<small> /年</small></div>
+    <div style="font-size:13px;color:#5a6677">5 个席位</div>
+    <ul>
+      <li>每年 50 万次调用</li>
+      <li>席位可调整</li>
+      <li>用量报表</li>
+    </ul>
+  </div>
+  <div class="pcard">
+    <div class="pn">企业 / 集成</div>
+    <div class="pp">面议</div>
+    <div style="font-size:13px;color:#5a6677">商用授权 · 私有化</div>
+    <ul>
+      <li>不限调用量</li>
+      <li>嵌入自有产品的商用授权</li>
+      <li>私有化部署 / 专属实例</li>
+      <li>数据 license 另议</li>
+    </ul>
+  </div>
+</div>
+
+<p style="font-size:14.5px;color:#5a6677">个人版与团队版<strong>仅限自身执业办案使用</strong>，不含嵌入自有产品对外提供服务的授权。需要商用集成或私有化部署，请联系商务 <strong>131-6872-7779</strong>。</p>
+
+<h2>检索方式：如实说明</h2>
+<div class="note">
+  <p style="margin:0 0 8px"><b>本服务是精确词汇检索（BM25），不是向量语义检索。</b></p>
+  <p style="margin:0">意味着查询词要用简体中文的法律术语。实测：「拖欠劳动报酬」711,408 条，口语说法「老板不发工资」只有 7,965 条（少约 89 倍）；繁体「經濟性裁員」是真的 0 条。</p>
+</div>
+<p><strong>但在 MCP 场景下这基本不用你操心</strong>——调用方本身就是大模型，工具描述里已写明改写规则，模型会自动把口语改写成法律术语再检索。</p>
+<p>相比向量召回，这样做的好处是<strong>绝大多数结果都能追溯到具体案号</strong>（案号字段覆盖约 97.8%），不会出现「看起来相关、实际不是那个案子」的情况。做法律场景，可追溯比召回率更重要。</p>
+
+<h2>数据口径</h2>
+<p>每次调用的返回里都带 <code>_coverage</code> 字段，说明本次结果基于多完整的数据。这是刻意做的——你不该在不知道数据缺了多少的情况下拿它写结论。</p>
+<table>
+<tr><th>项</th><th>实测值</th><th>说明</th></tr>
+<tr><td>总记录</td><td>160,291,678 条</td><td><strong>不是案件数</strong></td></tr>
+<tr><td>案件数量</td><td>不作精确宣称</td><td>案号有缺失、脏值及格式未统一，记录数不能等同案件数</td></tr>
+<tr><td>库内正文</td><td>分层抽样约 91% 非空</td><td>按 15 个 dataset 分层加权估计；部分长文最多保留前 6,000 字</td></tr>
+<tr><td>案号 / 法院</td><td>97.8% / 97.6%</td><td>可作溯源凭证</td></tr>
+<tr><td>裁判日期</td><td>94.8%</td><td>—</td></tr>
+<tr><td>省份</td><td>86.1%</td><td>加省份筛选会排除未标注的记录</td></tr>
+</table>
+<p style="font-size:14.5px"><strong>本库无判决原文链接</strong>，溯源请用「案号 + 法院 + 裁判日期」三元组。<strong>查不到 ≠ 不存在</strong>——本库不是中国全部裁判文书。</p>
+
+<h2>常见问题</h2>
+<details><summary>MCP 是什么？为什么法律数据要做成 MCP？</summary>
+<p>MCP（Model Context Protocol）是让大模型调用外部工具与数据的开放协议。做成 MCP 之后，你在 Claude、Cursor、Claude Code 里直接用自然语言提问，模型会自己调用检索工具并把带案号的真实判决拿回来，不需要另外写代码对接 API，也不需要把判决书复制粘贴进对话框。</p></details>
+<details><summary>支持语义检索吗？</summary>
+<p>不支持向量语义检索，是精确词汇检索。但 MCP 场景下调用方就是大模型，它会自动把口语改写成法律术语，效果接近语义搜索，且每条结果可追溯案号。确实需要纯向量召回的，可针对特定语料单独定制。</p></details>
+<details><summary>免费额度会阉割功能吗？</summary>
+<p>不会。四个工具全部可用，数据范围是全量 1.6 亿条记录不限子集。连接服务、拉取工具列表、参数错误、未知工具名、服务端故障均不计次。</p></details>
+<details><summary>和直接用 API 有什么区别？</summary>
+<p>MCP 免去了写对接代码这一步，也让模型能在推理过程中自主多轮调用（先检索、再核验、再取全文）。如果你要做的是自有系统的后端集成，我们也提供 REST API，请联系商务。</p></details>
+<details><summary>数据来源合法吗？</summary>
+<p>数据源自中国裁判文书网等公开渠道的生效裁判文书。核验类工具返回的案号、法院、裁判日期可供你自行回查核对。</p></details>
+
+<div class="cta">
+  <div style="font-family:'Songti SC',serif;font-size:22px;margin-bottom:8px">先免费测，测完再谈</div>
+  <p style="color:#cfd8e6;font-size:15px;margin:0 auto 14px;max-width:52ch">500 次/月够你把整条工作流跑通。觉得不合用，不用付一分钱。</p>
+  <a href="https://www.wenshucha.com/mcp/quickstart/">获取试用 Key 与接入指南</a>
+  <a class="ghost" href="tel:13168727779">商务咨询 131-6872-7779</a>
+</div>
+
+<div class="links">
+  相关：
+  <a href="https://www.wenshucha.com/case-search/">裁判文书智能检索系统</a>
+  <a href="https://www.wenshucha.com/legal-ai/">AI 法律助手</a>
+  <a href="https://www.wenshucha.com/data/">裁判文书数据规模</a>
+  <a href="https://www.wenshucha.com/buyers-guide/">采购决策指南</a>
+</div>
+
+<div class="dis">本页数据口径于 2026-08-24 实测取得。记录数不等同案件数；库内正文覆盖率为分层抽样估计值。免费额度与定价可能调整，以商务确认为准。</div>
+
+</div>
+
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>
