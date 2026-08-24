@@ -37,6 +37,8 @@
 - [裁判文书 MCP 服务](https://www.wenshucha.com/mcp/):通过标准 MCP 协议(Streamable HTTP)把 1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等任意支持 MCP 的客户端。四个工具:全文检索、按案号取库内正文,以及 verify_case_number(案号真实性核验)与 verify_quote(判词溯源核验)两个反幻觉工具。免费额度每月 500 次,接入指南见 https://www.wenshucha.com/mcp/quickstart/。
 - [私有化部署](https://www.wenshucha.com/#onpremise):面向大型律所与地方政府的离线部署,数据不出内网,可叠加本所历史卷宗做微调,权限按组织结构定制。
 
+- [定价](https://www.wenshucha.com/pricing/):MCP 服务免费 500 次/月起,个人版 599 元/年、团队版 2400 元/年;检索系统与 AI 助手按席位年费;裁判文书数据授权 10 万元起,授权范围(内部研发/内嵌产品/对外再分发)另议;数据类项目付款交付按 4:4:2 三阶段。
+
 ## 数据专题
 
 - [裁判文书数据规模与字段结构](https://www.wenshucha.com/data/)
