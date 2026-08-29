@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>毕节劳动争议赔偿金额数据:259份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于259份毕节法院劳动争议获赔判决(2014–2022)的数据分析:判赔金额中位数17,877元,四分位区间10,061–30,690元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="毕节劳动争议赔偿,毕节劳动仲裁赔偿标准,毕节违法解除赔偿金,毕节劳动争议赔偿多少钱,毕节劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/bijie.html">
+<meta property="og:title" content="毕节劳动争议赔偿金额数据:259份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于259份毕节法院劳动争议获赔判决(2014–2022)的数据分析:判赔金额中位数17,877元,四分位区间10,061–30,690元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "毕节劳动争议判决数据集", "description": "基于259份毕节法院劳动争议获赔判决(2014–2022)的数据分析:判赔金额中位数17,877元,四分位区间10,061–30,690元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2014/2022", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "毕节劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的259份毕节劳动争议获赔判决,判赔金额四分位区间为 10,061–30,690 元,中位数 17,877 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "毕节这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为毕节法院劳动争议判决中劳动者诉请获完全或部分支持的 259 份判决,其中完全支持约 14%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "毕节劳动争议", "item": "https://www.wenshucha.com/data/labor/bijie.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>毕节劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 259 份毕节法院劳动争议<b>获赔判决</b>(2014–2022) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">17,877</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">10,061–30,690</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">14%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">259</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为毕节劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 259 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>10,061</b> 元、中位 <b>17,877</b> 元、75 分位 <b>30,690</b> 元,
+  最高一例判赔 <b>119,000</b> 元。当地样本月工资中位 1,040 元,工龄中位 8.6 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>219</td><td>85%</td></tr><tr><td>用人单位辞退/解雇</td><td>20</td><td>8%</td></tr><tr><td>协商一致解除</td><td>10</td><td>4%</td></tr><tr><td>劳动合同到期终止</td><td>5</td><td>2%</td></tr><tr><td>劳动者主动/被迫离职</td><td>5</td><td>2%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获部分支持</td><td>224</td><td>86%</td></tr><tr><td>诉请获完全支持</td><td>35</td><td>14%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2021）黔05民终6792号</span><span class="camt">判赔 119,000 元</span></div>
+      <div class="ct">张开玉、贵州黔西化窝煤业有限公司劳动争议民事二审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 17.5 年</div>
+      <p class="cx">【查明】本院对一审判决认定的事实予以确认。 【判决】一、撤销贵州省黔西市人民法院（2021）黔0581民初3757号民事判决； 二、解除上诉人张开玉与被上诉人贵州黔西化窝煤业有限公司之间的劳动关系； 三、由被上诉人贵州黔西化窝煤业有限公司于本判决生效之日起十五日内支付上诉人张开玉经济补偿金119000元； 四、驳回上诉…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2014）黔七民初字第2146号</span><span class="camt">判赔 88,013 元</span></div>
+      <div class="ct">鄢道义与贵州中联信房地产估价有限责任公司劳动争议纠纷一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获部分支持 · 工龄 4.9 年</div>
+      <p class="cx">【查明】2005年1月1日，原告与贵州中联信会计师事务所有限责任公司（原贵州毕节兴业会计师事务所）签订劳动合同，该公司聘用原告从事驾驶员工作，劳动合同约定的期限为2005年1月1日至2006年12月31日。2005年7月25日，被告贵州中联信房地产估价有限责任公司成立。原告与贵州中联信会计师事务所有限责任公司的劳动合同…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）黔七民初字第797号</span><span class="camt">判赔 82,152 元</span></div>
+      <div class="ct">何少全与贵州中烟工业有限责任公司劳动争议纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 21.9 年</div>
+      <p class="cx">【判决】一、被告贵州中烟工业有限责任公司按社保经办部门核定的标准为原告何少全补缴1992年3月至2006年12月的养老保险费，原告何少全个人应承担的部分由被告贵州中烟工业有限责任公司代扣代缴。 二、被告贵州中烟工业有限责任公司支付原告何少全解除劳动合同的经济补偿金人民币50，000.00元及额外经济补偿金…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）黔七民初字第997号</span><span class="camt">判赔 77,767 元</span></div>
+      <div class="ct">施敏与贵州中烟工业有限责任公司劳动争议纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 14.6 年</div>
+      <p class="cx">【判决】一、被告贵州中烟工业有限责任公司按社保经办部门核定的标准为原告施敏补缴1992年3月至2006年10月的养老保险费，原告施敏个人应承担的部分由被告贵州中烟工业有限责任公司代扣代缴； 二、被告贵州中烟工业有限责任公司支付原告施敏解除劳动合同的经济补偿金人民币50，000.00元及额外经济补偿金人民币…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）黔七民初字第937号</span><span class="camt">判赔 77,767 元</span></div>
+      <div class="ct">吴书贵与贵州中烟工业有限责任公司劳动争议纠纷一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 14.8 年</div>
+      <p class="cx">【判决】一、被告贵州中烟工业有限责任公司按社保经办部门核定的标准为原告吴书贵补缴1992年3月至2006年12月的养老保险费，原告吴书贵个人应承担的部分由被告贵州中烟工业有限责任公司代扣代缴。 二、被告贵州中烟工业有限责任公司支付原告吴书贵解除劳动合同的经济补偿金人民币50，000.00元及额外经济补偿金…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>毕节劳动争议赔偿金一般是多少?</summary><p>根据本站收录的259份毕节劳动争议获赔判决,判赔金额四分位区间为 10,061–30,690 元,中位数 17,877 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>毕节这组数据的样本是怎么选的?</summary><p>样本为毕节法院劳动争议判决中劳动者诉请获完全或部分支持的 259 份判决,其中完全支持约 14%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>

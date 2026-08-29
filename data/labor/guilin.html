@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>桂林劳动争议赔偿金额数据:243份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于243份桂林法院劳动争议获赔判决(2010–2022)的数据分析:判赔金额中位数11,240元,四分位区间3,952–26,343元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="桂林劳动争议赔偿,桂林劳动仲裁赔偿标准,桂林违法解除赔偿金,桂林劳动争议赔偿多少钱,桂林劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/guilin.html">
+<meta property="og:title" content="桂林劳动争议赔偿金额数据:243份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于243份桂林法院劳动争议获赔判决(2010–2022)的数据分析:判赔金额中位数11,240元,四分位区间3,952–26,343元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "桂林劳动争议判决数据集", "description": "基于243份桂林法院劳动争议获赔判决(2010–2022)的数据分析:判赔金额中位数11,240元,四分位区间3,952–26,343元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2010/2022", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "桂林劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的243份桂林劳动争议获赔判决,判赔金额四分位区间为 3,952–26,343 元,中位数 11,240 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "桂林这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为桂林法院劳动争议判决中劳动者诉请获完全或部分支持的 243 份判决,其中完全支持约 64%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "桂林劳动争议", "item": "https://www.wenshucha.com/data/labor/guilin.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>桂林劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 243 份桂林法院劳动争议<b>获赔判决</b>(2010–2022) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">11,240</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">3,952–26,343</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">64%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">243</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为桂林劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 243 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>3,952</b> 元、中位 <b>11,240</b> 元、75 分位 <b>26,343</b> 元,
+  最高一例判赔 <b>142,440</b> 元。当地样本月工资中位 2,189 元,工龄中位 1.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>用人单位辞退/解雇</td><td>95</td><td>39%</td></tr><tr><td>经济性裁员</td><td>78</td><td>32%</td></tr><tr><td>劳动合同到期终止</td><td>55</td><td>23%</td></tr><tr><td>劳动者主动/被迫离职</td><td>12</td><td>5%</td></tr><tr><td>协商一致解除</td><td>3</td><td>1%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>156</td><td>64%</td></tr><tr><td>诉请获部分支持</td><td>87</td><td>36%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2017）桂0305民初1090号</span><span class="camt">判赔 142,440 元</span></div>
+      <div class="ct">桂林高新区欧亚机电有限责任公司与覃鸣强劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 14.8 年</div>
+      <p class="cx">【查明】，覃鸣强于2002年2月28日进入欧亚机电公司工作，岗位为内勤。双方签订《劳动合同书》一份，约定合同期限为2002年2月28日至2007年6月30日。欧亚机电公司为覃鸣强缴纳了2007年至2016年11月期间的社会保险费。2016年9月21日，欧亚机电公司制定了《业务员量化考核办法》，其中第五条第3点规定：“正…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）桂0302民初908号</span><span class="camt">判赔 98,060 元</span></div>
+      <div class="ct">桂林市保安服务有限公司与蒋祖程劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 11.7 年</div>
+      <p class="cx">【查明】，被告受伤后其家属代其领取2018年8月16日至10月31日期间停工留薪期工资4179元（819元、1680元、1680元）。工资表显示2017年8月至2018年6月期间被告应发工资分别为1710元、2160元、1710元、417元（未整月上班）、2030元、1805元、1805元、1805元、1805元、18…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2017）桂03民终2440号</span><span class="camt">判赔 81,900 元</span></div>
+      <div class="ct">王瑜琳、桂林华信制药有限公司劳动争议二审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 2 年</div>
+      <p class="cx">【判决】一、持广西壮族自治区灵川县人民法院（2017）桂0323民初1052号民事判决第一项。 二、销广西壮族自治区灵川县人民法院（2017）桂0323民初1052号民事判决第二项。 三、林华信制药有限公司支付王瑜琳违法解除劳动合同的赔偿金81900元。 四、驳回王瑜琳的其他诉讼请求。 一审案件受理费10…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2017）桂0303民初第1046号</span><span class="camt">判赔 76,770 元</span></div>
+      <div class="ct">桂林市联坤商贸开发有限公司与吴建英劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 0.2 年</div>
+      <p class="cx">【判决】一、原告桂林市联坤商贸开发有限公司支付被告吴建英2015年7月1日至2015年8月31日工资及2015年9月1日至2015年10月10日生活费共计7531.95元； 二、原告桂林市联坤商贸开发有限公司支付被告吴建英违法解除劳动合同赔偿金76770.18元； 三、原告桂林市联坤商贸开发有限公司于本案…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）叠民初字第725号</span><span class="camt">判赔 75,000 元</span></div>
+      <div class="ct">桂林市桂北高温轴承制造有限公司与江凝劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 0.9 年</div>
+      <p class="cx">【判决】一、原告桂林市桂北高温轴承制造有限公司支付被告江凝违法解除劳动合同经济赔偿金60000元； 二、原告桂林市桂北高温轴承制造有限公司支付被告江凝失业保险待遇赔偿金15000元； 三、驳回原告桂林市桂北高温轴承制造有限公司其他诉讼请求。 本案案件受理费10元，由被告江凝承担。 上述应付款项，义务人应于…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>桂林劳动争议赔偿金一般是多少?</summary><p>根据本站收录的243份桂林劳动争议获赔判决,判赔金额四分位区间为 3,952–26,343 元,中位数 11,240 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>桂林这组数据的样本是怎么选的?</summary><p>样本为桂林法院劳动争议判决中劳动者诉请获完全或部分支持的 243 份判决,其中完全支持约 64%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>

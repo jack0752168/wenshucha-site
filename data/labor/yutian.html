@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>玉田劳动争议赔偿金额数据:170份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于170份玉田法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数33,000元,四分位区间29,865–36,272元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="玉田劳动争议赔偿,玉田劳动仲裁赔偿标准,玉田违法解除赔偿金,玉田劳动争议赔偿多少钱,玉田劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/yutian.html">
+<meta property="og:title" content="玉田劳动争议赔偿金额数据:170份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于170份玉田法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数33,000元,四分位区间29,865–36,272元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "玉田劳动争议判决数据集", "description": "基于170份玉田法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数33,000元,四分位区间29,865–36,272元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2013/2021", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "玉田劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的170份玉田劳动争议获赔判决,判赔金额四分位区间为 29,865–36,272 元,中位数 33,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "玉田这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为玉田法院劳动争议判决中劳动者诉请获完全或部分支持的 170 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "玉田劳动争议", "item": "https://www.wenshucha.com/data/labor/yutian.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>玉田劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 170 份玉田法院劳动争议<b>获赔判决</b>(2013–2021) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">33,000</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">29,865–36,272</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">85%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">170</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为玉田劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 170 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>29,865</b> 元、中位 <b>33,000</b> 元、75 分位 <b>36,272</b> 元,
+  最高一例判赔 <b>1,314,915</b> 元。当地样本月工资中位 1,320 元,工龄中位 1.0 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>148</td><td>87%</td></tr><tr><td>用人单位辞退/解雇</td><td>12</td><td>7%</td></tr><tr><td>协商一致解除</td><td>5</td><td>3%</td></tr><tr><td>劳动合同到期终止</td><td>4</td><td>2%</td></tr><tr><td>劳动者主动/被迫离职</td><td>1</td><td>1%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>145</td><td>85%</td></tr><tr><td>诉请获部分支持</td><td>25</td><td>15%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2015）玉民初字第2002号</span><span class="camt">判赔 1,314,915 元</span></div>
+      <div class="ct">唐山聚鑫纺织有限公司与孙秀亭、黄立民劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 1 年</div>
+      <p class="cx">【查明】，原告唐山聚鑫纺织有限公司前身为唐山荣鑫纺织有限责任公司，2001年1月唐山荣鑫纺织有限公司被批准改制为唐山聚鑫纺织有限公司。被告巴秀玉等49名员工从改制企业进入了唐山聚鑫纺织有限公司。被告巴秀玉等49名员工除孟庆斌、胡敬艳、马建伶、崔树华、章立香外其余44人与原企业签订“买断工龄”协议，办理了解除终止劳动关系…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）玉民初字第1998号</span><span class="camt">判赔 1,204,243 元</span></div>
+      <div class="ct">唐山聚鑫纺织有限公司与杨新华、孙若迅劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 1 年</div>
+      <p class="cx">【查明】，原告唐山聚鑫纺织有限公司前身为唐山荣鑫纺织有限公司，2001年1月唐山荣鑫纺织有限公司被批准改制为唐山聚鑫纺织有限公司。被告杨新华等53名员工从改制企业进入了唐山聚鑫纺织有限公司。被告杨新华等53名员工除谭成奎外其余52人与原企业签订“买段工龄”协议，办理了解除终止劳动关系手续，按照当时政策规定以及员工在企业…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）玉民初字第715号</span><span class="camt">判赔 112,840 元</span></div>
+      <div class="ct">唐山九鼎豪门酒业有限公司与张余林劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 1 年</div>
+      <p class="cx">【查明】，被告张余林于1983年7月到原告唐山九鼎豪门酒业有限公司前身工作。后原告唐山九鼎豪门酒业有限公司前身经几次变更，名称变更为唐山欧联豪门啤酒有限公司等。后被告张余林与唐山欧联豪门啤酒有限公司签订劳动合同。唐山欧联豪门啤酒有限公司于2011年11月18日更名为唐山九鼎豪门酒业有限公司。原告唐山九鼎豪门酒业有限公司…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2021）冀0229民初1043号</span><span class="camt">判赔 71,980 元</span></div>
+      <div class="ct">哈尔滨众有交通技术开发有限公司与李德全劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 7.8 年</div>
+      <p class="cx">【查明】事实如下：被告李德全自2012年6月8日到原告众有交通公司从事维修工作，双方未签订书面劳动合同，原告未给被告李德全缴纳社会保险和工伤保险，被告在原告处工作至2020年3月份。原告在2020年2月、3月未进行生产。被告李德全2020年3月以前12个月平均工资为[（8674.68元+12198.76元+10309.…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）玉民初字第3494号</span><span class="camt">判赔 52,906 元</span></div>
+      <div class="ct">劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 1 年</div>
+      <p class="cx">【查明】，原告马琳于1987年8月到玉田县磷肥厂工作，后该厂合并至唐山豪门集团公司，原告在集团公司下属的北京双合盛五星啤酒厂玉田联营厂工作。用人单位经数次股权和企业性质变更，注册为欧联公司。2001年3月1日原告与欧联公司订立无固定期限劳动合同。公司后更名为被告九鼎豪门公司，原告继续在该单位工作。2014年10至12月…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>玉田劳动争议赔偿金一般是多少?</summary><p>根据本站收录的170份玉田劳动争议获赔判决,判赔金额四分位区间为 29,865–36,272 元,中位数 33,000 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>玉田这组数据的样本是怎么选的?</summary><p>样本为玉田法院劳动争议判决中劳动者诉请获完全或部分支持的 170 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>

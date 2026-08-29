@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>平泉劳动争议赔偿金额数据:219份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于219份平泉法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数12,575元,四分位区间7,205–26,350元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="平泉劳动争议赔偿,平泉劳动仲裁赔偿标准,平泉违法解除赔偿金,平泉劳动争议赔偿多少钱,平泉劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/pingquan.html">
+<meta property="og:title" content="平泉劳动争议赔偿金额数据:219份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于219份平泉法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数12,575元,四分位区间7,205–26,350元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "平泉劳动争议判决数据集", "description": "基于219份平泉法院劳动争议获赔判决(2013–2021)的数据分析:判赔金额中位数12,575元,四分位区间7,205–26,350元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2013/2021", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "平泉劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的219份平泉劳动争议获赔判决,判赔金额四分位区间为 7,205–26,350 元,中位数 12,575 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "平泉这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为平泉法院劳动争议判决中劳动者诉请获完全或部分支持的 219 份判决,其中完全支持约 78%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "平泉劳动争议", "item": "https://www.wenshucha.com/data/labor/pingquan.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>平泉劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 219 份平泉法院劳动争议<b>获赔判决</b>(2013–2021) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">12,575</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">7,205–26,350</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">78%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">219</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为平泉劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 219 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>7,205</b> 元、中位 <b>12,575</b> 元、75 分位 <b>26,350</b> 元,
+  最高一例判赔 <b>525,815</b> 元。当地样本月工资中位 2,668 元,工龄中位 2.2 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>116</td><td>53%</td></tr><tr><td>劳动合同到期终止</td><td>64</td><td>29%</td></tr><tr><td>用人单位辞退/解雇</td><td>19</td><td>9%</td></tr><tr><td>劳动者主动/被迫离职</td><td>17</td><td>8%</td></tr><tr><td>协商一致解除</td><td>3</td><td>1%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>170</td><td>78%</td></tr><tr><td>诉请获部分支持</td><td>49</td><td>22%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2015）平民初字第3132号</span><span class="camt">判赔 525,815 元</span></div>
+      <div class="ct">原告刘云程等上列三十原告与被告河北日强集团平泉强辉矿业有限公司劳动争议纠纷一案一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 2.8 年</div>
+      <p class="cx">【查明】，原告刘云程于2012年8月到被告处工作，月平均工资4300.00元。原告侯建富2009年8月到被告处工作，月平均工资4300.00元。原告徐立臣于2013年3月到被告处工作，月平均工资4300.00元。原告丁福东于2013年3月到被告处工作，月平均工资4300.00元。原告邰宝东于2006年9月到被告处工作，…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）平民初字第2946号</span><span class="camt">判赔 197,250 元</span></div>
+      <div class="ct">原告承德红凯矿业有限公司与被告杨喜恒等16人劳动合同纠纷一案民事一审判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 1 年</div>
+      <p class="cx">【判决】一、原告承德红凯矿业有限公司于本判决生效之日起十日内支付给被告杨喜恒经济补偿金9000.00元，支付给被告丁志勇经济补偿金42750.00元，支付给被告潘晓辉经济补偿金25500.00元，支付给被告丁金东经济补偿金22500.00元，支付给被告李立民经济补偿金7500.00元，支付给被告李文奎经济…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）平民初字第3949号</span><span class="camt">判赔 132,100 元</span></div>
+      <div class="ct">原告承德红凯矿业有限公司与被告相靖龙、张文海、魏树国、潘建民、张国峰、尹庆、许玉真、王艳霞、高井林、高彦亮劳动争议纠纷一案一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 1 年</div>
+      <p class="cx">【判决】一、原告承德红凯矿业有限公司于本判决生效之日起三十日内分别为被告相靖龙、张文海、魏树国、潘建民、张国峰、尹庆、许玉真、王艳霞、高井林、高彦亮缴纳自2014年7月16日至2015年6月9日期间的养老、失业和医疗保险（单位应缴部分）。具体缴费金额由社会保险经办机构按河北省现行缴费政策核定。 二、原告承…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2016）冀0823民初1651号</span><span class="camt">判赔 81,574 元</span></div>
+      <div class="ct">原告平泉县鲁鑫矿业有限公司与被告刘建民、王云祥、王学、魏春峰、陶凤文劳动争议纠纷一案民事一审判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 0.9 年</div>
+      <p class="cx">【判决】一、原告平泉县鲁鑫矿业有限公司于本判决生效之日起三十日内为被告刘建民、王云祥、王学、魏春峰、陶凤文缴纳2014年12月31日至2015年4月30日期间的养老保险、失业保险和医疗保险（单位应缴部分）。具体缴费金额由社会保险经办机构按河北省现行缴费政策核定。 二、原告平泉县鲁鑫矿业有限公司于本判决生效…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）冀0823民初2321号</span><span class="camt">判赔 71,806 元</span></div>
+      <div class="ct">承德阔达矿业集团有限公司与张学军劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动者主动/被迫离职 · 诉请获完全支持 · 工龄 13.9 年</div>
+      <p class="cx">【查明】事实如下：被告于2006年2月1日到原告处从事机修工作，双方每年签订一次书面劳动合同，原告未给被告缴纳工作期间的养老、医疗和失业保险。2020年1月4日被告离开原告单位，离职前十二个月月平均工资为5129.00元， 【判决】一、原告承德阔达矿业集团有限公司与被告张学军于2006年2月1日至2020年1月4日存在…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>平泉劳动争议赔偿金一般是多少?</summary><p>根据本站收录的219份平泉劳动争议获赔判决,判赔金额四分位区间为 7,205–26,350 元,中位数 12,575 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>平泉这组数据的样本是怎么选的?</summary><p>样本为平泉法院劳动争议判决中劳动者诉请获完全或部分支持的 219 份判决,其中完全支持约 78%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>

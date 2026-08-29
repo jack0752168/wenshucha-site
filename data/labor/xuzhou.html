@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>徐州劳动争议赔偿金额数据:269份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于269份徐州法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数15,200元,四分位区间7,113–30,470元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="徐州劳动争议赔偿,徐州劳动仲裁赔偿标准,徐州违法解除赔偿金,徐州劳动争议赔偿多少钱,徐州劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/xuzhou.html">
+<meta property="og:title" content="徐州劳动争议赔偿金额数据:269份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于269份徐州法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数15,200元,四分位区间7,113–30,470元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "徐州劳动争议判决数据集", "description": "基于269份徐州法院劳动争议获赔判决(2013–2022)的数据分析:判赔金额中位数15,200元,四分位区间7,113–30,470元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2013/2022", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "徐州劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的269份徐州劳动争议获赔判决,判赔金额四分位区间为 7,113–30,470 元,中位数 15,200 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "徐州这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为徐州法院劳动争议判决中劳动者诉请获完全或部分支持的 269 份判决,其中完全支持约 24%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "徐州劳动争议", "item": "https://www.wenshucha.com/data/labor/xuzhou.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>徐州劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 269 份徐州法院劳动争议<b>获赔判决</b>(2013–2022) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">15,200</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">7,113–30,470</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">24%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">269</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为徐州劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 269 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>7,113</b> 元、中位 <b>15,200</b> 元、75 分位 <b>30,470</b> 元,
+  最高一例判赔 <b>260,166</b> 元。当地样本月工资中位 2,557 元,工龄中位 2.9 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>101</td><td>38%</td></tr><tr><td>用人单位辞退/解雇</td><td>77</td><td>29%</td></tr><tr><td>劳动合同到期终止</td><td>48</td><td>18%</td></tr><tr><td>劳动者主动/被迫离职</td><td>26</td><td>10%</td></tr><tr><td>协商一致解除</td><td>17</td><td>6%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获部分支持</td><td>205</td><td>76%</td></tr><tr><td>诉请获完全支持</td><td>64</td><td>24%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2017）苏03民终2606号</span><span class="camt">判赔 260,166 元</span></div>
+      <div class="ct">另案被告）与另案原告）劳动合同纠纷二审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获部分支持 · 工龄 5 年</div>
+      <p class="cx">【判决】一、爱莲超市解放南路店于判决发生法律效力之日起十日内给付陈波违法解除劳动合同赔偿金123396元；二、驳回陈波的其他诉讼请求；三、驳回爱莲超市解放南路店的诉讼请求。 案件受理费合计20元，由爱莲超市公司徐州解放南路店负担。 二审期间，陈波提交爱莲超市徐州解放南路店给陈波交的各项保险金的底单。缴费计算…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2013）贾家民初字第687号</span><span class="camt">判赔 150,800 元</span></div>
+      <div class="ct">王汝与江苏宏安集团有限公司经济补偿金纠纷一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 2.9 年</div>
+      <p class="cx">【查明】，王汝系宏安集团公司职员。1991年7月起在宏安集团公司马庄煤矿工作，2008年王汝被宏安集团公司调往贵州省宏安集团公司下属企业莆河煤矿任矿长兼总工程师职务。2010年1月1日，原被告签订劳动合同，约定合同期限为2010年1月1日至2012年12月31日，合同履行地为莆河煤矿。王汝因工作能力、水平及多方面原因不…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）苏0312民初8295号</span><span class="camt">判赔 149,098 元</span></div>
+      <div class="ct">李会与江苏彭钢钢铁控股集团有限公司劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获部分支持 · 工龄 3 年</div>
+      <p class="cx">【查明】以下事实，2017年5月，原告至被告处从事轧钢筋工作，被告没有为原告缴纳社会保险。2019年10月14日上午8时30分许，原告在工作过程中被铡把砸伤右脚，后至徐州利国医院住院治疗22天。2020年1月份原告伤愈并在被告处参加至2020年6月。2020年6月24日，徐州市铜山区人力资源和社会保障局将原告的伤情认定…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2016）苏0312民初6486、6883号</span><span class="camt">判赔 130,000 元</span></div>
+      <div class="ct">秦洪勇劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 5 年</div>
+      <p class="cx">【查明】事实如下：对于当事人双方没有争议的事实，本院予以确认。双方当事人有争议的事实是，一、被告应否全额发放原告2012年度干部奖金；二、被告解除与原告之间的劳动合同是否系合法解除。三、经济赔偿金的数额计算标准按照何种标准计算。被告认为，企业在经营过程中，出现经营困难，可以自主决定奖金的发放，不应全额发放原告奖金。对于…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2016）苏0302民初4401号</span><span class="camt">判赔 121,920 元</span></div>
+      <div class="ct">孙某某与徐州市某某金属储运有限责任公司劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 32.2 年</div>
+      <p class="cx">【查明】，原、被告对以下事实无异议，本院予以确认：1984年7月，原告进入徐州市某某再生利用总公司工作。2000年9月，经江苏徐州某某（集团）总公司批准，原告被调动到徐州市某某总公司工作。2009年12月，原告被徐州市某某总公司安排到某某公司工作。因某某公司自2016年6月起未再向原告支付工资，原告于2016年10月1…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>徐州劳动争议赔偿金一般是多少?</summary><p>根据本站收录的269份徐州劳动争议获赔判决,判赔金额四分位区间为 7,113–30,470 元,中位数 15,200 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>徐州这组数据的样本是怎么选的?</summary><p>样本为徐州法院劳动争议判决中劳动者诉请获完全或部分支持的 269 份判决,其中完全支持约 24%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>

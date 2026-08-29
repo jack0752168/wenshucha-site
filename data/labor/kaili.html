@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>凯里劳动争议赔偿金额数据:224份获赔判决的金额分布 | 文书查</title>
+<meta name="description" content="基于224份凯里法院劳动争议获赔判决(2014–2020)的数据分析:判赔金额中位数12,480元,四分位区间6,315–17,858元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta name="keywords" content="凯里劳动争议赔偿,凯里劳动仲裁赔偿标准,凯里违法解除赔偿金,凯里劳动争议赔偿多少钱,凯里劳动争议判决数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/labor/kaili.html">
+<meta property="og:title" content="凯里劳动争议赔偿金额数据:224份获赔判决的金额分布 | 文书查">
+<meta property="og:description" content="基于224份凯里法院劳动争议获赔判决(2014–2020)的数据分析:判赔金额中位数12,480元,四分位区间6,315–17,858元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "凯里劳动争议判决数据集", "description": "基于224份凯里法院劳动争议获赔判决(2014–2020)的数据分析:判赔金额中位数12,480元,四分位区间6,315–17,858元。按解除原因分类,含真实案例与裁判文书原文。样本为劳动者获支持的判决。", "creator": {"@type": "Organization", "name": "文书查 SinoVerdict", "url": "https://www.wenshucha.com"}, "temporalCoverage": "2014/2020", "variableMeasured": ["赔偿金额", "月工资", "工龄", "胜诉结果", "解除原因"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "凯里劳动争议赔偿金一般是多少?", "acceptedAnswer": {"@type": "Answer", "text": "根据本站收录的224份凯里劳动争议获赔判决,判赔金额四分位区间为 6,315–17,858 元,中位数 12,480 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。"}}, {"@type": "Question", "name": "凯里这组数据的样本是怎么选的?", "acceptedAnswer": {"@type": "Answer", "text": "样本为凯里法院劳动争议判决中劳动者诉请获完全或部分支持的 224 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。"}}, {"@type": "Question", "name": "这些数据来自哪里?可靠吗?", "acceptedAnswer": {"@type": "Answer", "text": "数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/labor/"}, {"@type": "ListItem", "position": 3, "name": "凯里劳动争议", "item": "https://www.wenshucha.com/data/labor/kaili.html"}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}
+h1{font-family:"Songti SC",serif;font-size:28px;line-height:1.3;margin:28px 0 8px}
+.sub{color:var(--mut);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:24px 0}
+.stat{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px}
+.stat .v{font-size:24px;font-weight:700;color:var(--navy)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:4px}
+h2{font-family:"Songti SC",serif;font-size:21px;margin:36px 0 12px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eef1f5}
+th{background:#f0f3f8;color:var(--navy);font-size:14px}
+.case{background:#fff;border:1px solid #e6eaf0;border-radius:10px;padding:16px;margin:12px 0}
+.case-h{display:flex;justify-content:space-between;font-size:14px}
+.cno{color:var(--mut)}.camt{color:var(--accent);font-weight:700}
+.ct{font-weight:600;margin:6px 0}
+.cmeta{color:var(--mut);font-size:13px}
+.cx{color:#3a4658;font-size:14px;margin:8px 0 0}
+.cta{background:var(--navy);color:#fff;border-radius:12px;padding:24px;margin:36px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:11px 26px;border-radius:8px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.dis{color:var(--mut);font-size:13px;margin:28px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:24px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="https://www.wenshucha.com/">文书查 SinoVerdict</a><a href="https://www.wenshucha.com/data/labor/">← 全部裁判数据</a></div></header>
+<main class="wrap">
+  <h1>凯里劳动争议赔偿金额数据</h1>
+  <div class="sub">基于 224 份凯里法院劳动争议<b>获赔判决</b>(2014–2020) · 数据来自中国裁判文书网</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">12,480</div><div class="l">判赔金额中位数(元)</div></div>
+    <div class="stat"><div class="v">6,315–17,858</div><div class="l">金额四分位区间(元)</div></div>
+    <div class="stat"><div class="v">85%</div><div class="l">诉请获完全支持占比</div></div>
+    <div class="stat"><div class="v">224</div><div class="l">获赔判决样本数</div></div>
+  </div>
+
+  <div style="background:#fff7e6;border:1px solid #f0d9a0;border-radius:8px;padding:12px 16px;font-size:14px;color:#5a4a25">
+    ⓘ 本页样本为凯里劳动争议中<b>劳动者诉请获支持(完全或部分)的判决</b>,不含被驳回的案例。
+    因此它回答的是「获赔时金额大致在什么范围」,<b>不代表整体胜诉率</b>,请勿据此认为打官司必赢。
+  </div>
+
+  <h2>赔偿金额分布</h2>
+  <p>这 224 份获赔判决中,判赔金额从低到高的四分位:
+  25 分位 <b>6,315</b> 元、中位 <b>12,480</b> 元、75 分位 <b>17,858</b> 元,
+  最高一例判赔 <b>199,392</b> 元。当地样本月工资中位 2,100 元,工龄中位 1.4 年。</p>
+
+  <h2>按解除原因看</h2>
+  <table><tr><th>解除原因</th><th>案件数</th><th>占比</th></tr><tr><td>经济性裁员</td><td>193</td><td>86%</td></tr><tr><td>用人单位辞退/解雇</td><td>16</td><td>7%</td></tr><tr><td>劳动合同到期终止</td><td>15</td><td>7%</td></tr></table>
+
+  <h2>支持程度分布</h2>
+  <table><tr><th>裁判结果</th><th>案件数</th><th>占比</th></tr><tr><td>诉请获完全支持</td><td>190</td><td>85%</td></tr><tr><td>诉请获部分支持</td><td>34</td><td>15%</td></tr></table>
+
+  <h2>真实高额判赔案例</h2>
+  <div class="case">
+      <div class="case-h"><span class="cno">（2020）黔2601民初12669号</span><span class="camt">判赔 199,392 元</span></div>
+      <div class="ct">贵州某混凝土有限公司与肖某劳动争议一审民事判决书</div>
+      <div class="cmeta">经济性裁员 · 诉请获完全支持 · 工龄 5.6 年</div>
+      <p class="cx">【查明】事实如下：原告入职被告处工作，双方于2014年9月9日签订《劳动合同书》，约定合同期限为1年，自2014年9月9日至2015年9月9日止，被告每月基本工资为3000元。随后，被告被调岗至销售部从事预拌混凝土销售工作，双方约定被告的工资按照底薪加销售业务提成的方式进行计算和发放。2020年3月1日，原、被告又签订…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2015）凯民初字第1696号</span><span class="camt">判赔 178,585 元</span></div>
+      <div class="ct">贵州其亚铝业有限公司诉杨某某劳动争议纠纷一案民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 4 年</div>
+      <p class="cx">【查明】2010年3月11日，被告杨某某与四川其亚铝业集团有限公司签订了一份《劳动合同》，约定合同期限从2010年4月10日至2014年4月10日止。在履行劳动合同期限内，四川其亚铝业集团有限公司因生产经营需要，安排被告到子公司贵州其正化工有限公司（后更名为“贵州其亚铝业有限公司”）从事工程建设及生产管理工作。2014…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2019）黔2601民初3182号</span><span class="camt">判赔 107,760 元</span></div>
+      <div class="ct">贵州润科房地产开发有限公司与彭岩滨劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获完全支持 · 工龄 3 年</div>
+      <p class="cx">【查明】，2015年12月1日，彭岩滨到润科公司工作，担任润科公司的市场部总监。彭岩滨在润科公司工作期间，彭岩滨的月平均工资为20000元。另，润科公司规定，营销总监的销售额提佣率为千分之二，销售佣金发放提留每套销售总佣金的5%作为交房佣。彭岩滨滨在职期间，共销售或办理相关手续的房屋有104套。其中，有93套是彭岩滨在…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）黔2601民初12670号</span><span class="camt">判赔 90,819 元</span></div>
+      <div class="ct">贵州某混凝土有限公司与郭某某劳动争议一审民事判决书</div>
+      <div class="cmeta">用人单位辞退/解雇 · 诉请获完全支持 · 工龄 2 年</div>
+      <p class="cx">【查明】事实如下：2012年10月20日，被告入职原告处从事搅拌车驾驶员岗位工作。2014年10月19日，原告作为甲方与被告作为乙方签订《劳动合同书》，约定合同期限自2014年10月19日至2016年10月19日止。《劳动合同书》第七条约定：“劳动保险和福利待遇经甲乙双方协商，乙方的社会保险按以下第（1）种方式办理：1…</p>
+    </div><div class="case">
+      <div class="case-h"><span class="cno">（2020）黔2601民初11010号</span><span class="camt">判赔 74,295 元</span></div>
+      <div class="ct">李俊与中国太平洋财产保险股份有限公司黔东南中心支公司劳动争议一审民事判决书</div>
+      <div class="cmeta">劳动合同到期终止 · 诉请获部分支持 · 工龄 10.7 年</div>
+      <p class="cx">【查明】原告李俊于2009年7月15日开始在被告太平洋财保黔东南中心支公司榕江点负责查勘工作。双方未签订书面劳动合同，被告亦未帮原告缴纳社会保险。口头约定工资由基本工资和提成构成。2019年1月至2019年12月期间，李俊的工资收入（工资、勘察费、绩效）共计84908.52元，平均为7075.71元/月。2019年12…</p>
+    </div>
+
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">想知道你自己的情况能赔多少?</div>
+    <div style="color:#cdd6e2;font-size:14px">输入工龄、工资、解除原因,1 分钟测算赔偿区间</div>
+    <a href="https://peilema.wenshucha.com/">免费测算赔偿 →</a>
+    <a class="ghost" href="https://www.wenshucha.com/#onpremise">企业需要全量数据/API</a>
+  </div>
+
+  <h2>常见问题</h2>
+  <details><summary>凯里劳动争议赔偿金一般是多少?</summary><p>根据本站收录的224份凯里劳动争议获赔判决,判赔金额四分位区间为 6,315–17,858 元,中位数 12,480 元。具体金额取决于工龄、月工资基数与解除合法性,以上为历史判决统计,非个案预测。</p></details><details><summary>凯里这组数据的样本是怎么选的?</summary><p>样本为凯里法院劳动争议判决中劳动者诉请获完全或部分支持的 224 份判决,其中完全支持约 85%、其余为部分支持。本数据集不含驳回案例,所以它反映的是「获赔时金额大致落在什么区间」,不代表整体胜诉率,请勿据此判断打官司一定赢。</p></details><details><summary>这些数据来自哪里?可靠吗?</summary><p>数据来自中国裁判文书网公开判决,经文书查结构化处理。每个案例标注真实案号,可回链原文核验。本页为信息性数据分析,不构成法律意见。</p></details>
+
+  <div class="dis">数据来源:中国裁判文书网公开判决,经文书查结构化处理,样本为部分收录(且仅含劳动者获支持的判决)非全量,
+  当事人个人信息已脱敏。本页为信息性数据分析,不构成法律意见或个案结果承诺,胜诉与否及金额因案而异,具体维权请咨询执业律师。</div>
+</main>
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 1.5 亿裁判文书数据 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+</body>
+</html>
