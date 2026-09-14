@@ -239,7 +239,7 @@ https://www.wenshucha.com/blog/similar-case-search-report-writing-guide.html
 
 ### 5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书
 https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
-手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
+手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:用公开测试 Key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。
 
 ### 信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html

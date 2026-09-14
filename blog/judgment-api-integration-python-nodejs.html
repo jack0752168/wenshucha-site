@@ -49,7 +49,7 @@
       {
         "@type": "Question",
         "name": "接裁判文书 API 一般需要哪些步骤?",
-        "acceptedAnswer": { "@type": "Answer", "text": "通常四步:一是拿到 API Key(申请试用 key,放进环境变量,不要硬编码进代码或前端);二是调检索接口,带上关键词与过滤条件(案由、法院层级、地域、年份、判决结果)拿到命中列表;三是按返回的稳定 ID / 文书号取全文或结构化字段,并保留回链原文的 URL;四是做好分页、限流退避与错误重试。具体接口路径、字段名以接口文档为准,本文给的是接入模式而非固定端点。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "通常四步:一是拿到 API Key(MCP 公开测试 Key 可直接用,独享 Key 加微信 131-6872-7779 当场开通;放进环境变量,不要硬编码进代码或前端);二是调检索接口,带上关键词与过滤条件(案由、法院层级、地域、年份、判决结果)拿到命中列表;三是按返回的稳定 ID / 文书号取全文或结构化字段,并保留案号、法院、裁判日期以便回查;四是做好分页、限流退避与错误重试。具体接口路径、字段名以接口文档为准,本文给的是接入模式而非固定端点。" }
       },
       {
         "@type": "Question",
@@ -307,13 +307,13 @@ for (const hit of data.items ?? []) {
       <p class="faq-q">Q:检索响应慢 / 偶发超时怎么办?</p>
       <p>A:先确认是否命中了限流(429);其次给高频查询加一层结果缓存(同样的关键词+过滤短时间内别重复打);批量场景降并发、加退避。生产建议把检索服务和模型推理拆开,互不阻塞。</p>
       <p class="faq-q">Q:能先小范围试再付费扩量吗?</p>
-      <p>A:可以。建议先申请试用 Key,用一个真实场景把"检索→回链→展示/grounding"全链路跑通,确认数据覆盖与字段满足产品需要,再谈正式额度与价格。</p>
+      <p>A:可以。建议先用公开测试 Key 或加微信开通免费版,用一个真实场景把"检索→回链→展示/grounding"全链路跑通,确认数据覆盖与字段满足产品需要,再谈正式额度与价格。</p>
 
       <div class="cta-box">
-        <h3>申请裁判文书 API 试用 Key</h3>
-        <p>提供你的产品场景与大致调用量,我们给试用 key + 接口文档,1 个工作日内反馈。先跑通再谈扩量。</p>
+        <h3>先测再买:公开测试 Key 现在就能用</h3>
+        <p>MCP 公开 Key 每个 IP 每天 20 次不用申请;REST API Key 与更多额度加微信 131-6872-7779 当场开通。先跑通再谈扩量。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
-        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="/#onpremise" style="color:var(--accent-2)">API / MCP 定价</a></p>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 查看 <a href="https://www.wenshucha.com/pricing/" style="color:var(--accent-2)">API / MCP 定价</a></p>
       </div>
 
       <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/wenshucha-mcp-claude-desktop-setup.html">5 分钟接入文书查 MCP</a> · <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义 vs 关键词</a> · <a href="/blog/legal-ai-startup-data-foundation.html">法律 AI 创业团队怎么选数据底座</a> · <a href="/#onpremise">私有化部署方案</a></p>

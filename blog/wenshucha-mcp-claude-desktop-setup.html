@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e1b2e" />
 
   <title>5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书(2026 实战)| 文书查</title>
-  <meta name="description" content="手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:申请试用 key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。" />
+  <meta name="description" content="手把手教你用 MCP(Model Context Protocol)把 1.6 亿+ 裁判文书接入 Claude Desktop / Cursor:用公开测试 Key、改 claude_desktop_config.json、验证连接、第一次类案检索。法律 AI 开发者与法律科技团队的最快上手路径。" />
   <meta name="keywords" content="文书查 MCP,Claude Desktop 法律,裁判文书 MCP,法律 MCP server,Claude 接入裁判文书,类案检索 MCP,法律 AI MCP,Cursor 法律,裁判文书 API 接入,法律大模型数据源" />
   <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
@@ -17,7 +17,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="5 分钟把文书查接入 Claude Desktop:用 MCP 让 AI 直接查 1.6 亿裁判文书(2026 实战)" />
-  <meta property="og:description" content="申请试用 key、改配置、验证连接、第一次类案检索——法律 AI 开发者用 MCP 接入裁判文书的最快路径。" />
+  <meta property="og:description" content="公开测试 Key 即刻可用、改配置、验证连接、第一次类案检索——法律 AI 开发者用 MCP 接入裁判文书的最快路径。" />
   <meta property="og:url" content="https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html" />
   <meta property="og:image" content="https://www.wenshucha.com/og-image.svg" />
 
@@ -49,7 +49,7 @@
       {
         "@type": "Question",
         "name": "什么是 MCP?为什么法律 AI 要用 MCP 接入裁判文书?",
-        "acceptedAnswer": { "@type": "Answer", "text": "MCP(Model Context Protocol,模型上下文协议)是一种让 AI 助手调用外部工具和数据源的开放标准。把文书查的 MCP 服务接到 Claude Desktop、Cursor 等客户端后,AI 就能在对话里直接检索 1.6 亿+ 裁判文书,返回带原文链接的结果,而不是凭训练记忆编造判例。对法律 AI 来说,这把会编法条的通用模型变成了能引用真实判决的可溯源助手。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "MCP(Model Context Protocol,模型上下文协议)是一种让 AI 助手调用外部工具和数据源的开放标准。把文书查的 MCP 服务接到 Claude Desktop、Cursor 等客户端后,AI 就能在对话里直接检索 1.6 亿+ 裁判文书,返回带案号、法院、裁判日期的真实结果,而不是凭训练记忆编造判例。对法律 AI 来说,这把会编法条的通用模型变成了能引用真实判决的可溯源助手。" }
       },
       {
         "@type": "Question",
@@ -58,8 +58,8 @@
       },
       {
         "@type": "Question",
-        "name": "怎么拿到文书查的试用 key?",
-        "acceptedAnswer": { "@type": "Answer", "text": "在试用申请页 paileme.wenshucha.com/tob/api-trial 提交申请,试用 key 通常 1 个工作日内发放。拿到 key 后即可用于 MCP 接入或直接调用 REST API,先在小范围验证检索效果再决定是否扩量或私有化部署。" }
+        "name": "怎么拿到文书查 MCP 的 Key?",
+        "acceptedAnswer": { "@type": "Answer", "text": "不用申请:公开测试 Key wsc_demo_public 直接印在 www.wenshucha.com/mcp/quickstart/ 上,每个 IP 每天 20 次。要独享额度加微信 131-6872-7779 当场开通:免费版 1,000 次/月不收费,开发者 Pro ¥99/月 50,000 次含 5,000 篇全文。先小范围验证再决定是否扩量或私有化部署。" }
       },
       {
         "@type": "Question",
@@ -145,7 +145,7 @@
 
   <div class="wrap">
     <article>
-      <p class="lead">通用大模型最致命的法律短板,是<strong>它会"一本正经地编判例"</strong>——案号像模像样,引用的法条却对不上,你根本不敢拿去办案。解决办法不是换一个更大的模型,而是给它接一个能查真实判决的数据源。本文用最短的路径演示:如何用 <strong>MCP(Model Context Protocol)</strong>把文书查的 1.6 亿+ 裁判文书接进 Claude Desktop,让 AI 在对话里直接检索、返回<strong>带原文链接</strong>的真实判例。全程改一个配置文件,不到 5 分钟。</p>
+      <p class="lead">通用大模型最致命的法律短板,是<strong>它会"一本正经地编判例"</strong>——案号像模像样,引用的法条却对不上,你根本不敢拿去办案。解决办法不是换一个更大的模型,而是给它接一个能查真实判决的数据源。本文用最短的路径演示:如何用 <strong>MCP(Model Context Protocol)</strong>把文书查的 1.6 亿+ 裁判文书接进 Claude Desktop,让 AI 在对话里直接检索、返回<strong>带案号可核验</strong>的真实判例。全程改一个配置文件,不到 5 分钟。</p>
 
       <h2>一、先搞清楚:MCP 到底解决什么问题</h2>
       <p>MCP 是一种让 AI 助手调用外部工具和数据的开放协议。你可以把它理解成"给大模型装的标准化数据接口"——装上之后,Claude / Cursor 这类客户端就能在回答前先去外部数据源查一遍,再基于查到的真实内容作答。</p>
@@ -154,22 +154,22 @@
         <thead><tr><th></th><th>不接数据源(裸用大模型)</th><th>接入文书查 MCP 之后</th></tr></thead>
         <tbody>
           <tr><td><strong>判例来源</strong></td><td>凭训练记忆生成,可能是编的</td><td>实时检索 1.6 亿+ 真实裁判文书</td></tr>
-          <tr><td><strong>可溯源</strong></td><td>无法核对,案号常对不上</td><td>每条结果回链法院原文,可点开验证</td></tr>
+          <tr><td><strong>可溯源</strong></td><td>无法核对,案号常对不上</td><td>每条结果附案号、法院、裁判日期,可回中国裁判文书网核对</td></tr>
           <tr><td><strong>时效</strong></td><td>停在训练截止日</td><td>数据每日同步,新判决约 24 小时内可查</td></tr>
           <tr><td><strong>能不能办案用</strong></td><td>不敢</td><td>可作为类案检索与初判的起点</td></tr>
         </tbody>
       </table>
       <p>一句话:<strong>MCP 把"会说法言法语的模型"变成"能引用真实判决的助手"。</strong>这也是法律 AI 防幻觉最实在的一招——不是靠 prompt 求它别编,而是直接喂给它可查的数据。</p>
 
-      <h2>二、准备:申请一把试用 key(1 个工作日)</h2>
-      <p>接入前你只需要一样东西:文书查的 API key。</p>
-      <ol>
-        <li>打开试用申请页 <a href="https://paileme.wenshucha.com/tob/api-trial" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a>,填写团队与用途。</li>
-        <li>试用 key 通常 <strong>1 个工作日内</strong>发放;同一把 key 既能用于 MCP 接入,也能直接调 REST API。</li>
-        <li>同时记下控制台给出的 <strong>MCP 服务地址</strong>(连接串)——下一步配置要用到。具体连接参数以控制台/开发者文档(<a href="https://mcp.wenshucha.com/" target="_blank" rel="noopener">mcp.wenshucha.com</a>)为准。</li>
-      </ol>
+      <h2>二、准备:一把 Key,现在就能用</h2>
+      <p>接入前你只需要一样东西:一把 <code>x-api-key</code>。文书查把一把<strong>公开测试 Key</strong>直接印在了网页上,不用注册、不用申请:</p>
+      <ul>
+        <li>端点:<code>https://mcp.wenshucha.com/mcp</code>(标准 MCP Streamable HTTP,远程连接,本机不用装任何包)</li>
+        <li>公开测试 Key:<code>wsc_demo_public</code>,每个 IP 每天 20 次,四个工具全开</li>
+        <li>要独享额度:加微信 <strong>131-6872-7779</strong>(备注「MCP」)当场开通——免费版 1,000 次/月不收费,开发者 Pro ¥99/月 50,000 次 + 5,000 篇判决全文。完整价目与同行对比见 <a href="https://www.wenshucha.com/pricing/" target="_blank" rel="noopener">定价页</a>,接入细节见 <a href="https://www.wenshucha.com/mcp/quickstart/" target="_blank" rel="noopener">接入指南</a>。</li>
+      </ul>
       <div class="callout">
-        <p><strong>为什么先试用再谈量?</strong> 文书查的建议是:先用一把试用 key 在你真实的几个问题上跑一遍,确认检索召回与原文回链确实能用,再决定走云端 API 扩量还是私有化离线部署。别一上来就签大单——先验证数据质量。</p>
+        <p><strong>为什么先测再谈量?</strong> 先用公开 Key 在你真实的几个问题上跑一遍,确认检索召回与返回的案号、法院、裁判日期确实能用,再决定走云端 Pro 扩量还是私有化离线部署。别一上来就签大单——先验证数据质量。</p>
       </div>
 
       <h2>三、接入 Claude Desktop:改一个配置文件</h2>
@@ -183,26 +183,23 @@
       <p>也可以在 Claude Desktop 的设置(Settings → Developer → Edit Config)里直接打开它。文件不存在就新建一个。</p>
 
       <h3>2. 加入文书查 MCP 配置</h3>
-      <p>把下面这段填进去(<code>mcpServers</code> 里已有别的服务就并列加一项),用你控制台拿到的真实地址和 key 替换占位:</p>
+      <p>把下面这段填进去(<code>mcpServers</code> 里已有别的服务就并列加一项);公开 Key 可以直接用,拿到专属 Key 后把它换掉即可:</p>
       <pre><code>{
   "mcpServers": {
     "wenshucha": {
-      "command": "npx",
-      "args": ["-y", "@wenshucha/mcp-server"],
-      "env": {
-        "WENSHUCHA_API_KEY": "&lt;你的试用 key&gt;",
-        "WENSHUCHA_API_BASE": "https://tob.wenshucha.com/api/v1"
-      }
+      "type": "http",
+      "url": "https://mcp.wenshucha.com/mcp",
+      "headers": { "x-api-key": "wsc_demo_public" }
     }
   }
 }</code></pre>
-      <p>说明:<code>command</code> / <code>args</code> 的具体形式以控制台/开发者文档给出的为准(不同分发方式可能是 npx 包,也可能是远程 SSE/HTTP 连接串);<strong>务必复制官方文档里的那一行,不要照搬本文占位</strong>——本文给的是结构示意,真实连接参数随版本更新。</p>
+      <p>说明:这是远程 HTTP 连接,不需要 npx、不需要本地安装。Cursor 在「设置 → MCP → Add Server」、Claude Code 在项目根目录 <code>.mcp.json</code>,内容相同。</p>
 
       <h3>3. 重启 Claude Desktop,验证连接</h3>
       <p>完全退出并重新打开 Claude Desktop。连接成功后,输入框旁会出现 MCP 工具图标,展开能看到 <code>wenshucha</code> 提供的检索工具。验证一句最简单的:</p>
       <pre><code>用文书查检索:近三年 劳动合同 违法解除 二倍赔偿 的二审改判案例,
-列 3 个,给案号和原文链接。</code></pre>
-      <p>如果 Claude 调起了文书查工具、返回了带案号和可点链接的结果,就说明接通了。<strong>看到真实案号 + 能点开的原文链接 = 成功。</strong></p>
+列 3 个,给案号、法院和裁判日期。</code></pre>
+      <p>如果 Claude 调起了文书查工具、返回了带案号、法院、裁判日期的结果,就说明接通了。<strong>看到真实案号 + 法院 + 裁判日期 = 成功。</strong>本库不提供原文链接,溯源请拿这三元组回中国裁判文书网核对。</p>
 
       <h2>四、接进自己的应用:用 REST API</h2>
       <p>MCP 适合在 AI 客户端里"让 AI 自己查";如果你要把检索接进自己的产品后端(做 RAG、批量检索、评测),用 REST API 更可控。基本调用示意:</p>
@@ -216,7 +213,7 @@ resp = requests.post(
 )
 for hit in resp.json().get("data", []):
     print(hit["case_no"], hit["court"], hit["url"])</code></pre>
-      <p>返回的每条记录都带结构化字段(案号、法院、审级、案由、当事人脱敏、裁判结果)和回链原文的 URL,直接可以喂进你的检索/重排/grounding 流程。完整字段与端点见开发者文档与 <a href="/#onpremise">API/MCP 定价页</a>。</p>
+      <p>返回的每条记录都带结构化字段(案号、法院、审级、案由、当事人脱敏、裁判结果)和案号、法院、裁判日期,直接可以喂进你的检索/重排/grounding 流程。完整字段与端点见开发者文档与 <a href="/#onpremise">API/MCP 定价页</a>。</p>
 
       <h2>五、MCP vs REST API:怎么选</h2>
       <table>
@@ -243,18 +240,18 @@ for hit in resp.json().get("data", []):
       <h2>七、常见问题</h2>
       <p class="faq-q">Q:接入要不要懂 MCP 协议本身?</p>
       <p>A:不用。Claude Desktop 已经把协议封装好了,你只是在配置文件里登记一个服务。会改 JSON、会复制粘贴 key 就够。</p>
-      <p class="faq-q">Q:试用 key 有什么限制?</p>
-      <p>A:试用用于验证检索效果,通常有用量配额。验证通过后可升级正式额度或转私有化部署,具体联系商务。</p>
+      <p class="faq-q">Q:公开 Key 和各档位有什么限制?</p>
+      <p>A:公开测试 Key 每个 IP 每天 20 次;免费版 1,000 次/月含 100 篇全文;开发者 Pro ¥99/月 50,000 次含 5,000 篇全文;团队版 ¥4,800/年。所有档位四个工具全开,只差次数、全文篇数和速率。开通加微信 131-6872-7779,当场发 Key。</p>
       <p class="faq-q">Q:Cursor / Cline / 自研助手能接吗?</p>
       <p>A:能。任何支持 MCP 的客户端配置方式都类似(登记服务 + 填 key);自研后端则走 REST API。</p>
       <p class="faq-q">Q:返回的判决会不会有当事人隐私问题?</p>
-      <p>A:数据均来自人民法院公开渠道,个人敏感信息已按公开口径脱敏,结果回链公开原文,合法可溯源。</p>
+      <p>A:数据均来自人民法院公开渠道,个人敏感信息已按公开口径脱敏;返回案号、法院、裁判日期,可回中国裁判文书网自行核对。</p>
 
       <div class="cta-box">
-        <h3>申请试用 key,5 分钟把判例库接进你的 AI</h3>
-        <p>提交团队与用途,1 个工作日内发放试用 key;需要私有化离线部署的律所/政府,可直接约方案与 demo。</p>
+        <h3>5 分钟把判例库接进你的 AI:公开 Key 现在就能用</h3>
+        <p>不用申请,粘一段配置就能测;要更多额度加微信 131-6872-7779 当场开通。需要私有化离线部署的律所/政府,可直接约方案与 demo。</p>
         <a class="btn" href="tel:+8613168727779">📞 联系商务 Jack · 131 6872 7779</a>
-        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · 试用申请 <a href="https://paileme.wenshucha.com/tob/api-trial" style="color:var(--accent-2)" target="_blank" rel="noopener">paileme.wenshucha.com/tob/api-trial</a></p>
+        <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.6)">或邮件 chenjiaxin@wenshucha.com · <a href="https://www.wenshucha.com/pricing/" style="color:var(--accent-2)">定价与开通</a> · <a href="https://www.wenshucha.com/mcp/quickstart/" style="color:var(--accent-2)">接入指南</a></p>
       </div>
 
       <p style="font-size:13px;color:var(--muted);margin-top:24px">相关阅读:<a href="/blog/legal-data-platform-comparison-2026.html">法律 AI 数据底座选型:文书查 vs 北大法宝 vs 无讼 vs Alpha</a> · <a href="/case-search/">律师工作台:案件胜算量化</a> · <a href="/#onpremise">裁判文书 API / MCP 定价</a></p>
