@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e1b2e" />
 
   <title>裁判文书 API 接入实战:Python / Node.js 代码示例(2026 后端工程师指南)| 文书查</title>
-  <meta name="description" content="后端工程师怎么把裁判文书数据接进自己的产品?本文用 Python / Node.js 完整示例讲清裁判文书 API 接入:鉴权、检索、分页、按案由/法院/年份过滤、回链原文、错误重试与限流,以及接 REST API 还是 MCP 的选型。面向要在数据上盖产品的后端与法律 AI 工程师。" />
+  <meta name="description" content="后端工程师怎么把裁判文书数据接进自己的产品?本文用 Python / Node.js 完整示例讲清裁判文书 API 接入:鉴权、检索、分页、按案由/法院/年份过滤、案号回查原文、错误重试与限流,以及接 REST API 还是 MCP 的选型。面向要在数据上盖产品的后端与法律 AI 工程师。" />
   <meta name="keywords" content="裁判文书 API 接入,裁判文书 API,法律数据 API,案例检索 API,Python 接入裁判文书,Node.js 法律 API,法律 AI 数据接口,类案检索 API,REST API 裁判文书,司法数据接口" />
   <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
@@ -17,7 +17,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="裁判文书 API 接入实战:Python / Node.js 代码示例(2026)" />
-  <meta property="og:description" content="鉴权、检索、分页、按案由/法院/年份过滤、回链原文、错误重试与限流——后端工程师把裁判文书数据接进产品的完整代码指南。" />
+  <meta property="og:description" content="鉴权、检索、分页、按案由/法院/年份过滤、案号回查原文、错误重试与限流——后端工程师把裁判文书数据接进产品的完整代码指南。" />
   <meta property="og:url" content="https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html" />
   <meta property="og:image" content="https://www.wenshucha.com/og-image.svg" />
 
@@ -27,7 +27,7 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "裁判文书 API 接入实战:Python / Node.js 代码示例(2026 后端工程师指南)",
-    "description": "面向后端与法律 AI 工程师的裁判文书 API 接入实战:鉴权、检索、分页、过滤、回链、重试限流,含 Python 与 Node.js 完整示例。",
+    "description": "面向后端与法律 AI 工程师的裁判文书 API 接入实战:鉴权、检索、分页、过滤、回查、重试限流,含 Python 与 Node.js 完整示例。",
     "author": { "@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司" },
     "publisher": {
       "@type": "Organization",
@@ -64,7 +64,7 @@
       {
         "@type": "Question",
         "name": "接口返回的判决能直接展示给用户吗?要注意什么?",
-        "acceptedAnswer": { "@type": "Answer", "text": "可以展示检索结果与结构化字段,但要保留并展示回链原文,让用户能核对到原始判决,不要让摘要冒充权威来源;涉及个人信息的字段按合规要求脱敏处理。对法律 AI 产品,务必用检索到的真实判决做 grounding,而不是让模型凭记忆生成判例,否则会编造不存在的案号与裁判要旨。涉密或政企内网场景,可走私有化部署把数据落到本地。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "可以展示检索结果与结构化字段,但要保留并展示案号回查原文,让用户能核对到原始判决,不要让摘要冒充权威来源;涉及个人信息的字段按合规要求脱敏处理。对法律 AI 产品,务必用检索到的真实判决做 grounding,而不是让模型凭记忆生成判例,否则会编造不存在的案号与裁判要旨。涉密或政企内网场景,可走私有化部署把数据落到本地。" }
       }
     ]
   }
@@ -140,14 +140,14 @@
 
   <div class="wrap">
     <article>
-      <p class="lead">如果你要在裁判文书数据上盖一个产品——类案检索、案件研判、合规尽调、法律 RAG 问答——最先要打通的,不是模型,而是<strong>把一份干净、可过滤、可回链的判决数据稳定地拉进你的服务</strong>。这篇是写给后端工程师的接入实战:鉴权怎么放、检索怎么调、分页和过滤怎么写、原文怎么回链、限流和重试怎么兜底,Python 与 Node.js 两种语言都给可直接改的骨架。文中的接口路径与字段名一律用占位,<strong>以你拿到的接口文档为准</strong>,本文教的是接入模式,不是某个固定端点。</p>
+      <p class="lead">如果你要在裁判文书数据上盖一个产品——类案检索、案件研判、合规尽调、法律 RAG 问答——最先要打通的,不是模型,而是<strong>把一份干净、可过滤、可回查的判决数据稳定地拉进你的服务</strong>。这篇是写给后端工程师的接入实战:鉴权怎么放、检索怎么调、分页和过滤怎么写、原文怎么回查、限流和重试怎么兜底,Python 与 Node.js 两种语言都给可直接改的骨架。文中的接口路径与字段名一律用占位,<strong>以你拿到的接口文档为准</strong>,本文教的是接入模式,不是某个固定端点。</p>
 
       <h2>一、接入前先想清楚三件事</h2>
       <p>动手写代码之前,先把这三个决定定下来,能省掉后面大半返工:</p>
       <ul>
         <li><strong>你要的是"检索"还是"全量"?</strong>多数产品要的是按需检索(给关键词+条件拿命中),而训练/统计场景要的是批量导出。两种走法不一样:检索走 API 实时调用,批量走数据集交付或带游标的分页拉取。先确认自己属于哪类。</li>
         <li><strong>过滤维度有哪些?</strong>裁判文书真正值钱的不是全文搜索,而是能按<strong>案由、法院层级、地域、年份、判决结果</strong>精确切片。接入前列出你产品需要的过滤维度,确认数据源是否有对应的结构化字段。</li>
-        <li><strong>要不要回链原文?</strong>任何严肃的法律产品,检索结果都必须能回链到原始判决供核对。接入时就要把原文链接 / 稳定 ID 一起存下来,别等产品上线才发现摘要无法溯源。</li>
+        <li><strong>要不要案号回查原文?</strong>任何严肃的法律产品,检索结果都必须能回查到原始判决供核对。接入时就要把原文链接 / 稳定 ID 一起存下来,别等产品上线才发现摘要无法溯源。</li>
       </ul>
 
       <h2>二、鉴权:API Key 怎么放才安全</h2>
@@ -161,7 +161,7 @@
       </div>
 
       <h2>三、Python 接入示例(requests)</h2>
-      <p>一个最小可用的检索 + 取详情 + 回链的骨架。生产里建议换成 <code>httpx</code> 并加连接池,这里用 <code>requests</code> 求清晰:</p>
+      <p>一个最小可用的检索 + 取详情 + 回查的骨架。生产里建议换成 <code>httpx</code> 并加连接池,这里用 <code>requests</code> 求清晰:</p>
       <pre><code><span class="c"># pip install requests</span>
 import os, time, requests
 
@@ -209,7 +209,7 @@ if __name__ == "__main__":
                             year_from=2022, year_to=2025, size=10)
     for hit in data.get("items", []):       <span class="c"># 列表字段名以文档为准</span>
         print(hit.get("case_no"), hit.get("court"), hit.get("source_url"))
-        <span class="c"># source_url = 回链原文,务必存下来供用户核对</span></code></pre>
+        <span class="c"># source_url = 案号回查原文,务必存下来供用户核对</span></code></pre>
 
       <h2>四、Node.js 接入示例(fetch)</h2>
       <p>等价骨架,Node 18+ 自带 <code>fetch</code>。BFF / 实时检索服务这样写最顺:</p>
@@ -266,9 +266,9 @@ for (const hit of data.items ?? []) {
 
       <h2>六、把结果接进你的产品:三种典型用法</h2>
       <h3>1)接进检索 / 类案功能</h3>
-      <p>最直接:用户输入 → 调 <code>search</code> → 渲染命中列表(带案由、法院、年份、回链)。要做"类案"而非"关键词匹配",检索侧的召回与重排是关键,展开见我们的 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a>。</p>
+      <p>最直接:用户输入 → 调 <code>search</code> → 渲染命中列表(带案由、法院、年份、回查)。要做"类案"而非"关键词匹配",检索侧的召回与重排是关键,展开见我们的 <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义向量 vs 关键词</a>。</p>
       <h3>2)接进法律 RAG / 问答</h3>
-      <p>让大模型回答前先检索真实判决,把命中片段作为上下文喂给模型,并要求<strong>每个结论都回链到检索到的原文</strong>。绝不能让模型凭记忆生成判例——那会编造不存在的案号和裁判要旨。这是 grounding,不是 prompt 技巧。</p>
+      <p>让大模型回答前先检索真实判决,把命中片段作为上下文喂给模型,并要求<strong>每个结论都回查到检索到的原文</strong>。绝不能让模型凭记忆生成判例——那会编造不存在的案号和裁判要旨。这是 grounding,不是 prompt 技巧。</p>
       <h3>3)接进批处理 / 实证统计</h3>
       <p>按案由+年份批量拉结构化字段做计量分析。这类场景对"覆盖可表征 + 可固定快照"要求高,展开见 <a href="/blog/legal-empirical-research-data-access.html">法学实证研究数据接入指南</a>。</p>
 
@@ -291,7 +291,7 @@ for (const hit of data.items ?? []) {
           <li>Key 在服务端环境变量里,前端不直接持 Key,日志不打印 Key?</li>
           <li>429 / 5xx 有指数退避,4xx 直接报错不空转?超时设了没?</li>
           <li>分页拉全了没有漏页?<code>doc_id</code> 落库去重、能断点续传?</li>
-          <li>每条结果都存了回链原文,用户能核对到原始判决?</li>
+          <li>每条结果都存了案号回查原文,用户能核对到原始判决?</li>
           <li>展示给用户的字段做了必要脱敏,符合合规要求?</li>
           <li>字段名、过滤参数都对齐了接口文档,没照搬本文占位?</li>
         </ol>
@@ -307,7 +307,7 @@ for (const hit of data.items ?? []) {
       <p class="faq-q">Q:检索响应慢 / 偶发超时怎么办?</p>
       <p>A:先确认是否命中了限流(429);其次给高频查询加一层结果缓存(同样的关键词+过滤短时间内别重复打);批量场景降并发、加退避。生产建议把检索服务和模型推理拆开,互不阻塞。</p>
       <p class="faq-q">Q:能先小范围试再付费扩量吗?</p>
-      <p>A:可以。建议先用公开测试 Key 或加微信开通免费版,用一个真实场景把"检索→回链→展示/grounding"全链路跑通,确认数据覆盖与字段满足产品需要,再谈正式额度与价格。</p>
+      <p>A:可以。建议先用公开测试 Key 或加微信开通免费版,用一个真实场景把"检索→回查→展示/grounding"全链路跑通,确认数据覆盖与字段满足产品需要,再谈正式额度与价格。</p>
 
       <div class="cta-box">
         <h3>先测再买:公开测试 Key 现在就能用</h3>

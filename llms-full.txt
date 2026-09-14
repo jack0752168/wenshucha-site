@@ -67,7 +67,7 @@ https://www.wenshucha.com/blog/government-legal-ai-procurement-budget-process.ht
 
 ### 裁判文书 API 接入实战:Python / Node.js 代码示例(2026 后端工程师指南)
 https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html
-后端工程师怎么把裁判文书数据接进自己的产品?本文用 Python / Node.js 完整示例讲清裁判文书 API 接入:鉴权、检索、分页、按案由/法院/年份过滤、回链原文、错误重试与限流,以及接 REST API 还是 MCP 的选型。面向要在数据上盖产品的后端与法律 AI 工程师。
+后端工程师怎么把裁判文书数据接进自己的产品?本文用 Python / Node.js 完整示例讲清裁判文书 API 接入:鉴权、检索、分页、按案由/法院/年份过滤、案号回查原文、错误重试与限流,以及接 REST API 还是 MCP 的选型。面向要在数据上盖产品的后端与法律 AI 工程师。
 
 ### 1.6 亿裁判文书私有库:本地化部署的数据架构(2026)
 https://www.wenshucha.com/blog/judgment-corpus-private-deployment-architecture.html
