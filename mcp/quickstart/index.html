@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>裁判文书 MCP 接入指南_Claude/Cursor 配置与工具文档_免费试用 - 文书查</title>
-<meta name="description" content="文书查 MCP 服务完整接入文档:端点地址、公开试用 Key、Claude Desktop / Cursor / Claude Code 配置示例、curl 直调示例,以及四个工具(search_judgments、get_judgment、verify_case_number、verify_quote)的参数说明与数据口径。免费额度每月 500 次,粘一段配置即可开始。">
+<meta name="description" content="文书查 MCP 服务完整接入文档:端点地址、公开试用 Key、Claude Desktop / Cursor / Claude Code 配置示例、curl 直调示例,以及四个工具(search_judgments、get_judgment、verify_case_number、verify_quote)的参数说明与数据口径。公开测试 Key 即刻可用(每个 IP 每天 20 次,不用申请),要独享额度加微信当场开通;粘一段配置即可开始。">
 <meta name="keywords" content="MCP接入指南,裁判文书MCP配置,Claude MCP配置,Cursor MCP,法律数据API文档,判决书检索接口,mcp.json配置,案号核验API">
 <link rel="canonical" href="https://www.wenshucha.com/mcp/quickstart/">
 <meta name="robots" content="index,follow,max-snippet:-1">
@@ -89,7 +89,7 @@ footer a{color:#fff}
 </div>
 
 <div class="note">
-<p style="margin:0"><b>关于这把公开 Key：</b>它是<strong>所有访客共用</strong>的，额度每月 3,000 次，可能被别人用完。想要一把<strong>独享 500 次/月的专属 Key</strong>，发邮件到 <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> 或打 131-6872-7779，说一句你的用途就行，不收费。</p>
+<p style="margin:0 0 6px"><b>关于这把公开 Key：</b>所有访客共用，<strong>每个 IP 每天 20 次</strong>、全站每月 5,000 次，够你把接入跑通、看几十条带案号的真实结果。不用注册、不用申请。</p><p style="margin:0">要更多：<strong>加微信 131-6872-7779（备注「MCP」）当场开通</strong>——免费版独享 1,000 次/月不收费；开发者 Pro ¥99/月 5 万次 + 5,000 篇全文。<a href="https://www.wenshucha.com/pricing/">看完整定价 →</a></p>
 </div>
 
 <h3>先验证连通</h3>
@@ -210,26 +210,29 @@ footer a{color:#fff}
 <p><strong>2. 记录数 ≠ 案件数。</strong>同一案件可能有多条记录，案号也存在缺失、脏值与未统一格式，因此不使用原始案号基数宣称案件总数。</p>
 <p><strong>3. 查不到 ≠ 不存在。</strong>本库不是中国全部裁判文书。<code>verify_case_number</code> 返回 not_found 只代表本库没有。</p>
 
-<h2>六、免费额度</h2>
+<h2>六、额度与档位</h2>
 <table>
 <tr><th>项</th><th>说明</th></tr>
-<tr><td>公开 Key <code>wsc_demo_public</code></td><td><strong>3,000 次 / 月</strong>，所有访客共用，可能被用完</td></tr>
-<tr><td>专属 Key（免费申请）</td><td><strong>500 次 / 月</strong> 独享，每月 1 日自动重置</td></tr>
+<tr><td>公开 Key <code>wsc_demo_public</code></td><td><strong>每个 IP 每天 20 次</strong>，全站共用每月 5,000 次；不用申请</td></tr>
+<tr><td>免费版（加微信开通，¥0）</td><td><strong>1,000 次 / 月</strong>独享，含 100 篇判决全文；每月 1 日自动重置</td></tr>
+<tr><td>开发者 Pro（¥99/月 · ¥990/年）</td><td><strong>50,000 次 / 月</strong>，5,000 篇全文，10 次/秒</td></tr>
+<tr><td>团队版（¥4,800/年）</td><td><strong>300,000 次 / 月</strong>，50,000 篇全文，30 次/秒，最多 5 把 Key，可开发票</td></tr>
 <tr><td>可用工具</td><td>全部 4 个，不阉割功能</td></tr>
 <tr><td>数据范围</td><td>全量 1.6 亿条记录，不限子集</td></tr>
 <tr><td>不计次的操作</td><td>连接服务、拉取工具列表、参数错误、未知工具名、服务端故障</td></tr>
-<tr><td>余额查询</td><td>每次调用的返回里都有 <code>_quota</code> 字段</td></tr>
+<tr><td>全文计量</td><td>只有 <code>get_judgment</code> 且真的返回正文才算 1 篇；检索与两个核验工具不占全文额度</td></tr>
+<tr><td>余额查询</td><td>每次调用的返回里都有 <code>_quota</code> 字段（调用次数、全文篇数、公开 Key 另有当日 IP 用量）</td></tr>
 </table>
-<p>额度用完会返回明确提示，不会静默失败。需要更多额度、商用授权或私有化部署，见 <a href="https://www.wenshucha.com/mcp/#pricing">定价</a> 或直接联系我们。</p>
+<p>额度用完会返回明确提示（含开通方式），不会静默失败。开通任何档位都是<strong>加微信 131-6872-7779（备注「MCP」）</strong>，当场发 Key、不用重启。完整价目见 <a href="https://www.wenshucha.com/pricing/">定价页</a>。</p>
 
 <div class="cta">
-  <div style="font-family:'Songti SC',serif;font-size:21px;margin-bottom:8px">要一把专属 Key？</div>
-  <p style="color:#cfd8e6;font-size:15px;margin:0 auto 14px;max-width:50ch">发一封邮件说明用途即可，不收费、不用填表单。</p>
-  <a href="mailto:chenjiaxin@wenshucha.com?subject=申请文书查%20MCP%20专属试用%20Key&amp;body=用途简述：%0D%0A公司/团队：%0D%0A联系方式：">发邮件申请</a>
-  <a class="ghost" href="tel:13168727779">131-6872-7779</a>
+  <div style="font-family:'Songti SC',serif;font-size:21px;margin-bottom:8px">测完想要更多额度？</div>
+  <p style="color:#cfd8e6;font-size:15px;margin:0 auto 14px;max-width:50ch">加微信 131-6872-7779，备注「MCP」和你要的档位，当场开通。免费版不收费，Pro ¥99/月。</p>
+  <a href="https://www.wenshucha.com/pricing/">看定价与额度</a>
+  <a class="ghost" href="tel:13168727779">微信同号 131-6872-7779</a>
 </div>
 
-<div class="dis">本页数据口径于 2026-08-24 实测取得。公开试用 Key 为共享额度，仅限评估使用；请勿用于生产环境或批量抓取。免费额度与定价可能调整，以商务确认为准。</div>
+<div class="dis">本页数据口径于 2026-08-24 实测取得。公开试用 Key 为共享额度（每 IP 每天 20 次），仅限评估使用；请勿用于生产环境或批量抓取。价格与额度如有调整提前 30 天公告，已开通账号保留原额度。</div>
 
 </div>
 
