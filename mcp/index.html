@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>裁判文书 MCP 服务_法律数据接入 Claude/Cursor_公开测试 Key 即刻可用 - 文书查</title>
-<meta name="description" content="通过标准 MCP 协议把 1.6 亿条裁判文书接入 Claude/Cursor/Claude Code。公开测试 Key 印在页面上,每个 IP 每天 20 次,不用注册;免费版 1,000 次/月 ¥0,开发者 Pro ¥99/月 5 万次含 5,000 篇判决全文,团队版 ¥4,800/年。明码标价,加微信当场开通。">
+<title>裁判文书 MCP_返回判决书正文_¥99/月5万次 - 文书查</title>
+<meta name="description" content="文书查裁判文书 MCP:调一次 get_judgment 返回的是判决书正文本体,不是摘要、不是跳转链接。开发者 Pro ¥99/月含 5 万次调用和 5,000 篇全文,折合每次约 0.002 元;公开测试 Key 印在页面上,每个 IP 每天 20 次不用注册。">
 <meta name="keywords" content="裁判文书MCP,法律MCP,MCP服务,法律数据API,判决书API,裁判文书接口,Claude MCP,Cursor MCP,法律AI接口,反幻觉核验,案号核验,司法数据接入">
 <link rel="canonical" href="https://www.wenshucha.com/mcp/">
 <meta name="robots" content="index,follow,max-snippet:-1">
-<meta property="og:title" content="裁判文书 MCP 服务 · 1.6 亿条判决记录接进你的 AI 工作流 | 文书查">
-<meta property="og:description" content="四个工具:全文检索、按案号取正文、案号核验、判词核验。标准 MCP 协议,粘一段配置即接入。公开测试 Key 即刻可用,免费版 1,000 次/月,开发者 Pro ¥99/月。">
+<meta property="og:title" content="裁判文书 MCP · 看得到判决书正文,¥99/月 5 万次 | 文书查">
+<meta property="og:description" content="返回判决书正文本体,不是摘要和链接;全文包在包月里,折合每次约 0.002 元。公开测试 Key 即刻可用。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.wenshucha.com/mcp/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"文书查 · 裁判文书 MCP 服务","description":"通过标准 MCP 协议把 1.6 亿条中国裁判文书记录接入任意 AI 客户端,提供全文检索、按案号取正文,以及案号核验与判词核验两个反幻觉工具。","applicationCategory":"DeveloperApplication","applicationSubCategory":"LegalTech","operatingSystem":"Any","url":"https://www.wenshucha.com/mcp/","brand":{"@type":"Brand","name":"文书查"},"featureList":["标准 MCP Streamable HTTP 协议","1.6 亿条裁判文书记录全文检索","按案号获取库内正文","案号真实性核验(反幻觉)","判词溯源核验(反幻觉)","每次返回附带数据口径元数据"],"audience":{"@type":"BusinessAudience","name":"法律科技开发者、律师事务所、企业法务、AI 应用开发团队"},"offers":[{"@type":"Offer","name":"免费版","priceCurrency":"CNY","price":"0","description":"每月 1,000 次调用、100 篇判决全文,四个工具全部可用,加微信开通"},{"@type":"Offer","name":"开发者 Pro","priceCurrency":"CNY","price":"99","description":"每月 99 元或每年 990 元:50,000 次调用、5,000 篇判决全文、10 次/秒"},{"@type":"Offer","name":"团队版","priceCurrency":"CNY","price":"4800","description":"每年 4,800 元:300,000 次调用、50,000 篇判决全文、30 次/秒、最多 5 把 Key"}]}</script>
@@ -78,22 +78,59 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
 </div></header>
 
 <div class="hero"><div class="wrap">
-  <h1>裁判文书 MCP 服务</h1>
-  <p>把 1.6 亿条中国裁判文书记录接进 Claude、Cursor、Claude Code —— 粘一段配置就行，不用写对接代码。四个工具里有两个专门用来治大模型编案号、编判词。</p>
+  <h1>裁判文书 MCP：调一次，拿到的是判决书正文</h1>
+  <p>不是摘要，不是跳回别家官网的链接，是整篇裁判文书正文——直接喂进你的模型。开发者 Pro <strong style="color:#e8c37a">¥99/月含 5 万次调用和 5,000 篇全文</strong>，折下来每次约 0.002 元。</p>
   <div class="btns">
-    <a class="btn-gold" href="https://www.wenshucha.com/mcp/quickstart/">免费开始接入 →</a>
-    <a class="btn-ghost" href="#pricing">看定价</a>
+    <a class="btn-gold" href="https://www.wenshucha.com/mcp/quickstart/">用公开 Key 现在就测 →</a>
+    <a class="btn-ghost" href="https://mcp.wenshucha.com/">看真实返回的正文</a>
   </div>
 </div></div>
 
 <div class="wrap">
 
 <div class="stats">
-  <div><b>160,291,678</b><span>条裁判文书记录</span></div>
-  <div><b>4</b><span>个 MCP 工具</span></div>
-  <div><b>20 次/天</b><span>公开测试 · 不用申请</span></div>
-  <div><b>2010–2025</b><span>年份主要覆盖</span></div>
+  <div><b>判决书正文</b><span>返回本体，不是摘要</span></div>
+  <div><b>¥0.002</b><span>每次调用（Pro 折算）</span></div>
+  <div><b>5,000 篇</b><span>Pro 每月全文</span></div>
+  <div><b>20 次/天</b><span>公开测试 · 不用注册</span></div>
 </div>
+
+<h2>第一：看得到判决书正文</h2>
+<p>同样调一次「取案例」，各家给你的东西不一样。法律 AI 要的是能切片、能检索、能让模型引用的判决书正文；只给摘要和链接，模型还得自己去翻原文。</p>
+<table>
+<tr><th>服务</th><th>返回什么</th></tr>
+<tr><td><strong>文书查 MCP</strong>（get_judgment）</td><td><strong>判决书正文本体</strong>，从首部到落款；全文篇数写进包月额度，不按篇另收</td></tr>
+<tr><td>北大法宝 · 威科先行 · 法意</td><td>要素段落或摘要，加一条回跳自家官网的链接；文档列出的返回字段里没有全文字段</td></tr>
+<tr><td>元典 · 得理 · 通义法睿</td><td>详情接口能取到正文，但按积分或按次单独计费</td></tr>
+</table>
+<div class="card" style="font-size:14px;line-height:1.85">
+<div style="color:#5a6677;font-size:13px;margin-bottom:6px">真实返回节选 · (2024)浙0328民初3379号 · 全文 1,259 字 · 当事人已匿名</div>
+<div style="white-space:pre-wrap">柳某某;何某某买卖合同纠纷一审民事判决书
+浙江省文成县人民法院
+民 事 判 决 书
+（2024）浙0328民初3379号
+原告：柳某某。
+委托诉讼代理人：林某某（系原告妻子）。
+被告：何某某。
+……
+本院认为，买卖合同是出卖人转移标的物的所有权于买受人，买受人支付价款的合同。根据《最高人民法院关于审理买卖合同纠纷案件适……
+……判决如下：
+被告何某某于本判决生效之日起三十日内支付原告柳某某货款29500元及利息损失（从2022年1月1日起按年利率3.1%计算至实际履行完毕之日止）。
+……</div>
+<div style="margin-top:8px"><a href="https://mcp.wenshucha.com/">看这篇的完整正文 →</a></div>
+</div>
+<p style="font-size:13.5px;color:#5a6677">如实说明：库内约 91% 的记录有正文（部分老批次缺失、调解结案法院不公开）；超长文书保留前 6,000 字。每条检索结果带 <code>has_body</code> 字段，取正文前就知道有没有。对比依据为 2026-09-14 各家官网与开放平台文档的公开信息。</p>
+
+<h2>第二：性价比</h2>
+<p>同样 1,000 次案例检索，自助可买的价格：</p>
+<table>
+<tr><th>服务</th><th>公开价</th><th>1,000 次检索</th></tr>
+<tr><td>通义法睿</td><td>¥0.8 / 次</td><td>¥800</td></tr>
+<tr><td>威科先行</td><td>¥599 / 1,000 次</td><td>¥599</td></tr>
+<tr><td>得理开放平台</td><td>¥0.2 / 次</td><td>¥200</td></tr>
+<tr><td><strong>文书查 Pro</strong></td><td><strong>¥99 / 月含 5 万次 + 5,000 篇全文</strong></td><td><strong>¥1.98</strong></td></tr>
+</table>
+<p style="font-size:13.5px;color:#5a6677">对手的一次调用可能包含语义检索或溯源链接；文书查的一次是词汇检索（BM25），AI 能力不含在内。两边价目都公开，可以自己算。完整 13 家对比见 <a href="https://www.wenshucha.com/pricing/#compare">定价页</a>。</p>
 
 <h2>为什么做成 MCP</h2>
 <p>法律数据接入 AI 的老办法是：申请 API key、读文档、写对接代码、处理分页与鉴权，最后还要自己把结果喂给模型。</p>
