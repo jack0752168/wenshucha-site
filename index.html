@@ -228,7 +228,7 @@
     .navlinks{display:flex;gap:28px}
     .navlinks a{color:rgba(255,255,255,.78);font-size:14.5px;transition:color .2s}
     .navlinks a:hover{color:var(--accent-2)}
-    @media(max-width:820px){.navlinks{display:none}}
+    @media(max-width:820px){.navlinks{display:flex;gap:16px;max-width:64%;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a[href^="#"]{display:none}.navlinks a{white-space:nowrap;font-size:13.5px}}@media(max-width:390px){.logo{font-size:18px}.navlinks{gap:13px}.navlinks a{font-size:12.5px}}
 
     /* hero */
     .hero{position:relative;background:radial-gradient(1200px 500px at 80% -10%,rgba(200,163,90,.18),transparent 60%),
