@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>股权转让纠纷裁判数据报告_25.6万条记录实证_逐年量·地域·诉请构成 - 文书查</title>
+<meta name="description" content="基于 1.6 亿条裁判文书全库现跑的股权转让纠纷主题数据页：案由口径 148,500 条、标题口径 238,139 条、并集 255,758 条记录 / 211,793 个相异案号。含逐年案件量（按全库同年收录量归一化）、省份与审级分布、六组诉请关键词交叉、两个批量诉讼簇的量化，以及分词假零、date 语义、案由空值三类口径陷阱。每个数字附检索式与检索日期（2026-09-21）。不报胜诉率。">
+<meta name="keywords" content="股权转让纠纷数据,股权转让纠纷案件量,股权转让司法大数据,公司法实证研究,股权转让判决统计,裁判文书数据报告,法学实证论文数据,第三人撤销之诉数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/equity-transfer-report/">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:title" content="股权转让纠纷裁判数据报告 · 255,758 条记录实证 | 文书查">
+<meta property="og:description" content="逐年量按全库收录量归一化后基本平稳（2022→2023 绝对值跌 68.7%，归一化只跌 5.1%）；两个批量诉讼簇占全案由相异案号的 3.45%，并贡献了 97.4% 的第三人撤销之诉。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.wenshucha.com/data/equity-transfer-report/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"股权转让纠纷裁判数据报告（2013–2025）","description":"基于自建 1.6 亿条中国裁判文书记录全库现跑的股权转让纠纷主题统计：案由口径 148,500 条记录、标题口径 238,139 条、并集 255,758 条记录与 211,793 个相异案号；含逐年量（按全库同年收录量归一化）、省份分布、审级分布、文书类型分布、六组诉请关键词交叉与两个批量诉讼簇的量化。本报告不统计胜诉率或诉请支持比例。","url":"https://www.wenshucha.com/data/equity-transfer-report/","creator":{"@type":"Organization","name":"文书查","legalName":"深圳星谱网络科技有限公司","url":"https://www.wenshucha.com/"},"temporalCoverage":"2013/2025","spatialCoverage":{"@type":"Place","name":"中国大陆"},"isBasedOn":"中国裁判文书网公开生效裁判文书","variableMeasured":["记录数","相异案号数","按全库同年收录量归一化的记录占比","审理法院所在省份","审级","文书类型","诉请关键词共现","批量诉讼簇规模"],"measurementTechnique":"Elasticsearch 全库聚合（term / match_phrase with analyzer=ik_max_word / cardinality），检索日 2026-09-21","dateModified":"2026-09-21"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"裁判数据","item":"https://www.wenshucha.com/data/"},{"@type":"ListItem","position":3,"name":"股权转让纠纷裁判数据报告","item":"https://www.wenshucha.com/data/equity-transfer-report/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"库里一共有多少股权转让纠纷的文书？","acceptedAnswer":{"@type":"Answer","text":"取决于口径，三个数都对：按案由字段精确等值「股权转让纠纷」是 148,500 条记录；按标题短语含「股权转让」是 238,139 条；两者并集 255,758 条记录、211,793 个相异案号。差距不是数据质量问题，而是 ws_new 与 2021 两个入库批次的案由字段 100% 为空（合计 96,331 条），只能靠标题路召回。写论文时必须写明用的是哪一路，并报相异案号数而不只是记录数。检索日 2026-09-21。"}},{"@type":"Question","name":"股权转让纠纷是不是从 2023 年开始大幅减少了？","acceptedAnswer":{"@type":"Answer","text":"按绝对记录数看像是：2022 年 28,341 条、2023 年 8,872 条，跌 68.7%。但同期全库该年收录量也从 1,929 万跌到 637 万。按「每万条全库记录中的股权转让记录」归一化后，2022 年是 14.69、2023 年是 13.94，只跌 5.1%。所以这主要是文书公开量收缩造成的收录效应，不是诉讼本身崩塌。任何按年画的曲线都必须先做这一步归一化。"}},{"@type":"Question","name":"这份数据里有没有批量诉讼导致的偏差？","acceptedAnswer":{"@type":"Answer","text":"有，而且不小。两个互相关联的诉讼复合体——济南产业发展投资集团有限公司（10,779 条记录 / 4,855 个相异案号）与自然人陈宏庆（6,572 条 / 4,333 个案号，横跨山东济南与河南汝州两省四院）——并集 13,798 条记录、7,307 个相异案号，占全案由相异案号的 3.45%。更极端的是：全案由 1,876 件第三人撤销之诉里，1,828 件（97.4%）来自陈宏庆一人。用这批数据做法院画像、当事人画像或结果预测，不剔除这两簇会被严重带偏。"}},{"@type":"Question","name":"为什么这份报告不报诉请支持率或胜诉率？","acceptedAnswer":{"@type":"Answer","text":"因为在本页的口径下报不准，报了就是误导。三个原因：一是并集里 124,298 条是裁定书（含大量管辖、执行、保全裁定），它们没有实体裁判结果，放进分母会稀释、剔出去又要先解决裁定/判决的批次级误标问题；二是库内正文保留前 6,000 字，长判决的主文可能落在截断之外；三是上述批量诉讼簇会把结果分布整体拉向同一模板判决。需要结果维度的统计，我们按课题单独做口径设计与人工校验，见数据报告定制。"}},{"@type":"Question","name":"「优先购买权」在库里检索为什么会出现 0 条？","acceptedAnswer":{"@type":"Answer","text":"这是分词假零，不是真的没有。索引侧按 ik_max_word 切成「优先购买/优先/购买/权」，而查询侧默认用 ik_smart 切成「优先购买/权」，短语位置对不上，match_phrase 返回 0。把查询分词器显式指定为 ik_max_word 后，同一条件命中 9,652 条记录。「确认股东资格」同理：默认 3 条，指定分词器后 1,824 条。凡是看到某个法律术语「检索为零」，先换分词器复核再下结论。"}},{"@type":"Question","name":"这些数字能直接写进论文吗？","acceptedAnswer":{"@type":"Answer","text":"可以引用，但必须连口径一起引。本页每个数字都附了检索式与检索日期（2026-09-21），并在方法与局限一节列出了六条已知缺陷：year 字段在三个批次是发布日不是落款日、2019_2 批次正文全空、正文 6,000 字截断、省份字段 13.67% 为空、相异案号用 HLL 近似算法、以及一案多文书导致记录数不等于案件数。审稿人问到的通常就是这几条，建议直接把它们写进论文的数据说明。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/case-search/">智能检索</a><a href="https://www.wenshucha.com/legal-ai/">AI 助手</a><a href="https://www.wenshucha.com/mcp/">MCP 服务</a><a href="https://www.wenshucha.com/pricing/">定价</a><a href="https://www.wenshucha.com/data/">裁判数据</a><a href="https://www.wenshucha.com/data-report/">数据报告</a><a href="https://www.wenshucha.com/buyers-guide/">采购指南</a><a href="https://www.wenshucha.com/blog/">洞察</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>股权转让纠纷裁判数据报告（2013–2025）</h1>
+  <p>面向写论文、做课题与建法律 AI 数据集的人。全部数字在 1.6 亿条裁判文书全库上现跑，
+  每个数字附检索式与检索日期，口径陷阱一条不藏。<strong>本页不报胜诉率，也不报诉请支持比例</strong>——第六节说明为什么。</p>
+  <div class="kpi">
+    <div><b>255,758</b><span>并集记录数</span></div>
+    <div><b>211,793</b><span>相异案号数</span></div>
+    <div><b>3.45%</b><span>两个批量诉讼簇占比</span></div>
+    <div><b>2026-09-21</b><span>检索日期</span></div>
+  </div>
+</div></section>
+
+<main class="wrap">
+
+<div class="warn">
+  <strong>⚠️ 先看三条边界，再看数字</strong>
+  <p><strong>一、「有多少件」这个问题没有唯一答案。</strong>案由口径 148,500 条、标题口径 238,139 条、并集 255,758 条，
+  三个数都对，取决于你问的是哪一路。原因见第一节——两个入库批次的案由字段 100% 为空。</p>
+  <p><strong>二、记录数 ≠ 案件数。</strong>一个案件常有一审判决、二审裁定、执行裁定多份文书。
+  本页所有表格同时给出<strong>记录数</strong>与<strong>相异案号数</strong>，论文里请引后者。</p>
+  <p><strong>三、这个案由里有两个超大批量诉讼簇。</strong>它们占全部相异案号的 3.45%，
+  却贡献了 97.4% 的第三人撤销之诉。做法院画像或结果预测前必须先剔除，见第五节。</p>
+</div>
+
+<h2>一、主题定义与三种口径</h2>
+<p>「股权转让纠纷」在裁判文书里有两个互不重合的识别入口，本页把两条路都跑出来并取并集。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>口径</th><th>记录数</th><th>相异案号数</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>案由口径</strong>（<code>cause</code> 字段精确等值「股权转让纠纷」）</td><td>148,500</td><td>124,034</td><td>字面纯度 100%（keyword 精确等值，不是分词 OR）</td></tr>
+<tr><td><strong>标题口径</strong>（<code>title</code> 短语含「股权转让」）</td><td>238,139</td><td>202,441</td><td>抽样纯度 40/40，见第七节</td></tr>
+<tr><td>两路交集</td><td>130,881</td><td>—</td><td></td></tr>
+<tr><td><strong>并集（本页主口径）</strong></td><td><strong>255,758</strong></td><td><strong>211,793</strong></td><td>后文除特别说明外均指此口径</td></tr>
+<tr><td>正文口径（<code>body</code> 短语含「股权转让」）</td><td>619,405</td><td>—</td><td>含大量只是提到股权转让的其他案由，<strong>不建议作为案件集</strong></td></tr>
+</tbody></table></div>
+
+<p><strong>为什么案由口径会漏掉 42% 的案件？</strong>不是数据脏，是字段缺失有批次性。
+按入库批次拆开看，<code>ws_new</code>（59,473 条）与 <code>2021</code>（36,858 条）两个批次的 <code>cause</code> 字段
+<strong>逐条为空</strong>，合计 96,331 条——占「只有标题路能捞到」那 107,258 条的 89.8%。
+换句话说，只用案由字段做筛选，等于把这两个批次对应的年代整段丢掉，而这恰好是 2019 年之前与 2020–2021 的主力批次。</p>
+
+<h2>二、逐年记录量：绝对值会骗人，归一化才不会</h2>
+
+<figure>
+  <img src="/data/equity-transfer-report/year-normalized.png" alt="股权转让纠纷逐年记录量：左图绝对记录数呈现 2023 年断崖，右图按全库同年收录量归一化后曲线基本平稳" loading="lazy" width="1634" height="634">
+  <figcaption>左：绝对记录数。右：每万条全库同年记录中的股权转让记录数。同一份数据，两种读法结论完全相反。</figcaption>
+</figure>
+
+<div class="tablewrap"><table>
+<thead><tr><th>年份（<code>year</code> 字段）</th><th>记录数</th><th>相异案号数</th><th>全库同年记录数</th><th>每万条中的占比</th></tr></thead>
+<tbody>
+<tr><td>2013</td><td>3,263</td><td>2,829</td><td>1,762,537</td><td>18.51</td></tr>
+<tr><td>2014</td><td>11,676</td><td>10,342</td><td>7,033,956</td><td>16.60</td></tr>
+<tr><td>2015</td><td>14,027</td><td>12,477</td><td>9,894,747</td><td>14.18</td></tr>
+<tr><td>2016</td><td>18,192</td><td>16,314</td><td>12,443,177</td><td>14.62</td></tr>
+<tr><td>2017</td><td>24,456</td><td>22,988</td><td>15,147,489</td><td>16.15</td></tr>
+<tr><td>2018</td><td>34,273</td><td>27,635</td><td>16,331,967</td><td><strong>20.99</strong></td></tr>
+<tr><td>2019</td><td>20,388</td><td>16,313</td><td>12,290,542</td><td>16.59</td></tr>
+<tr><td>2020</td><td>39,282</td><td>29,461</td><td>21,359,050</td><td>18.39</td></tr>
+<tr><td>2021</td><td>23,303</td><td>20,742</td><td>16,548,198</td><td>14.08</td></tr>
+<tr><td>2022</td><td>28,341</td><td>19,566</td><td>19,292,669</td><td>14.69</td></tr>
+<tr><td>2023</td><td>8,872</td><td>8,245</td><td>6,365,236</td><td><strong>13.94</strong></td></tr>
+<tr><td>2024</td><td>10,112</td><td>9,967</td><td>6,984,435</td><td>14.48</td></tr>
+<tr><td>2025</td><td>5,499</td><td>5,487</td><td>3,818,342</td><td>14.40</td></tr>
+</tbody></table></div>
+
+<p><strong>结论：2022→2023 绝对记录数跌 68.7%，归一化后只跌 5.1%。</strong>
+十三年里归一化占比的极差是 13.94–20.99（1.51 倍），而绝对值的极差是 3,263–39,282（12.0 倍）。
+所以「2023 年股权转让诉讼断崖式下跌」这个结论，在本库里主要是<strong>文书公开量收缩的收录效应</strong>，
+而不是纠纷本身减少。任何一篇按年画折线的实证论文，如果没做这一步归一化，第一轮外审就该被问住。</p>
+
+<p class="dis" style="border:none;padding-top:0;margin:8px 0 0">
+⚠️ <code>year</code> 字段派生自 <code>date</code>，而 <code>date</code> 在 <code>2024</code>、<code>2021_x</code>、<code>2022_x</code> 三个批次（占全库 12.37%）
+存的是<strong>发布/采集日而非落款日</strong>。所以上表既不是严格的「起诉年」，也不是严格的「裁判年」，
+按落款日重分桶会让 2024 行明显变小、2021 行变大。引用时请连这句一起引。</p>
+
+<h2>三、地域分布</h2>
+
+<figure>
+  <img src="/data/equity-transfer-report/province.png" alt="股权转让纠纷省份分布 Top 15 横向柱状图，山东、广东、上海、浙江、江苏居前" loading="lazy" width="1275" height="645">
+  <figcaption>省份 Top 15（记录数）。金色两条是含已知批量诉讼簇的省份，不能直接当作「该省纠纷更多」。</figcaption>
+</figure>
+
+<p>三点必须说明，否则这张图会被用错：</p>
+<ul>
+  <li><strong>省份字段 13.67% 为空</strong>（34,972 条），空值不是随机分布的，按批次聚集。</li>
+  <li><strong>同一个省有两种写法</strong>：<code>广东省</code> 14,642 + <code>广东</code> 3,912，<code>浙江省</code> 14,103 + <code>浙江</code> 3,866……
+  只认带「省」字的写法会系统性少算 20% 左右。上图已做归并。</li>
+  <li><strong>山东第一（24,565）与河南第八（11,265）都被批量诉讼簇推高</strong>：
+  仅济南市天桥区人民法院一家就贡献 10,705 条，汝州市人民法院贡献 3,492 条，见第五节。剔除后排序会变。</li>
+</ul>
+
+<h2>四、审级与文书类型</h2>
+
+<h3>审级（已归并三套编码）</h3>
+<p><code>procedure</code> 字段在库里同时存在中文全称（<code>民事一审</code>）、中文简称（<code>一审</code>）、
+纯数字码（<code>1</code>/<code>2</code>）与四位码（<code>0301</code>/<code>0302</code>）四种写法。只认其中一种会漏掉一半以上。</p>
+<div class="tablewrap"><table>
+<thead><tr><th>审级</th><th>记录数</th><th>相异案号数</th><th>归并的写法</th></tr></thead>
+<tbody>
+<tr><td>一审</td><td>139,127</td><td>120,213</td><td>民事一审 / 一审 / 1 / 0301</td></tr>
+<tr><td>二审</td><td>45,178</td><td>40,066</td><td>民事二审 / 二审 / 2 / 0302</td></tr>
+<tr><td>执行</td><td>26,383</td><td>22,625</td><td>执行实施 / 首次执行 / 执行审查 / 执行异议 / 执行复议等</td></tr>
+<tr><td>再审审查与审判监督</td><td>8,610</td><td>7,969</td><td>民事审判监督 / 再审 / 再审审查与审判监督 / 0303 / 3</td></tr>
+<tr><td>第三人撤销之诉</td><td>1,876</td><td>—</td><td>第三人撤销之诉（<strong>其中 1,828 件来自同一原告，见第五节</strong>）</td></tr>
+<tr><td>管辖类</td><td>1,817</td><td>—</td><td>民事管辖 / 民事管辖上诉 / 民事指定管辖 / 管辖</td></tr>
+<tr><td>字段为空</td><td>29,843</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+
+<h3>文书类型（按标题后缀判定）</h3>
+<p>⚠️ 这里<strong>不能</strong>用 <code>caseType</code> 字段：该字段把「案件类型」（民事案件/执行案件）与
+「文书种类」（判决/裁定）混在同一列，且民事有 <code>民事案件</code> 88,455 与 <code>民事</code> 55,239 两种写法。
+另有一个已知陷阱：部分批次的<strong>正文首行一律写「判决书」</strong>，按正文判种类会把裁定书误判成判决书，因此只信标题。</p>
+<div class="tablewrap"><table>
+<thead><tr><th>文书类型</th><th>记录数</th><th>占并集</th></tr></thead>
+<tbody>
+<tr><td>裁定书</td><td>124,298</td><td>48.6%</td></tr>
+<tr><td>判决书</td><td>95,358</td><td>37.3%</td></tr>
+<tr><td>调解书</td><td>10,438</td><td>4.1%</td></tr>
+<tr><td>决定书</td><td>445</td><td>0.2%</td></tr>
+<tr><td>标题无可识别后缀</td><td>25,219</td><td>9.9%</td></tr>
+</tbody></table></div>
+<p>裁定书比判决书多，是这个案由的结构性特征，不是数据缺陷——管辖异议、保全、撤诉、执行实施都出裁定。
+这也是本页第六节拒绝报「支持率」的直接原因之一。</p>
+
+<h2>五、批量诉讼簇：3.45% 的案号，97.4% 的第三人撤销之诉</h2>
+
+<p>这是本页最该被写进论文数据说明的一节。本案由里存在<strong>两个互相关联的超大诉讼复合体</strong>：</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>诉讼簇</th><th>记录数</th><th>相异案号数</th><th>占全案由案号</th><th>主要法院</th></tr></thead>
+<tbody>
+<tr><td>济南产业发展投资集团有限公司</td><td>10,779</td><td>4,855</td><td>2.29%</td><td>济南市天桥区法院 9,025、济南中院 1,725</td></tr>
+<tr><td>自然人 陈宏庆</td><td>6,572</td><td>4,333</td><td>2.05%</td><td>天桥区法院 1,828、济南中院 1,725、汝州市法院 2,287、平顶山中院 717</td></tr>
+<tr><td><strong>两簇并集</strong></td><td><strong>13,798</strong></td><td><strong>7,307</strong></td><td><strong>3.45%</strong></td><td>横跨山东、河南两省四家法院</td></tr>
+</tbody></table></div>
+
+<p><strong>为什么它比 3.45% 这个数字更危险：</strong></p>
+<ul>
+  <li><strong>它不是均匀摊在库里的，而是堆在特定切片上。</strong>
+  济南市天桥区人民法院这一法院切片共 10,705 条股权转让记录，其中 8,883 条正文出现「济南产业发展投资集团」，
+  <strong>占该法院该案由的 83.0%</strong>。任何「哪家法院股权转让案最多」的排行，第一名就是这么来的。</li>
+  <li><strong>它垄断了一整个程序类型。</strong>全案由 1,876 件第三人撤销之诉里，
+  1,828 件（<strong>97.4%</strong>）的原告是陈宏庆一人。用本库统计「第三人撤销之诉在公司类纠纷中的适用情况」，
+  实际上是在统计一个人的诉讼策略。</li>
+  <li><strong>它跨省，所以按省份剔除剔不干净。</strong>同一自然人同时在山东济南与河南汝州两地提起批量诉讼。</li>
+</ul>
+
+<p><strong>抽样核验</strong>（<code>random_score</code>，seed=20260921）：</p>
+<ul>
+  <li>天桥区法院切片，n=40：30 条「济南产业发展投资集团」列原告或申请执行人，
+  7 条为陈宏庆诉该集团的第三人撤销之诉，3 条正文为空（全部来自 <code>2019_2</code> 批次）。
+  <strong>可读的 37 条全部属于同一诉讼复合体（37/37）。</strong>批次分布：2022 批 25、2021 批 5、ws_new 4、2019_1 3、2019_2 3。</li>
+  <li>汝州市法院切片，n=20：20 条原告均为陈宏庆（含法院匿名化后的「陈某」「陈某某」）。
+  <strong>样本量 20 &lt; 30，不构成统计结论</strong>，仅作定性指示；该切片总量 3,492 条。</li>
+</ul>
+
+<p><strong>给研究者的处理建议</strong>：做法院层面的描述统计前，先按「同一法院 × 同一当事人 × 同一年份」聚类，
+把超过 200 件的簇单列出来，并在论文里说明是否剔除。本页所有<em>非簇</em>统计均未剔除，
+因为剔除标准本身需要随研究问题而定——这也是我们把簇的规模单独量化出来的原因。</p>
+
+<h2>六、诉请关键词交叉，以及为什么本页不报支持率</h2>
+
+<h3>六组诉请关键词共现</h3>
+<p>以下为并集内正文短语共现计数，<strong>组间互相重叠</strong>（一份判决可同时命中多组），不可相加。</p>
+<div class="tablewrap"><table>
+<thead><tr><th>关键词（正文短语）</th><th>记录数</th><th>相异案号数</th><th>占并集案号</th></tr></thead>
+<tbody>
+<tr><td>股权转让款</td><td>83,104</td><td>73,067</td><td>34.5%</td></tr>
+<tr><td>工商变更登记</td><td>25,272</td><td>22,483</td><td>10.6%</td></tr>
+<tr><td>优先购买权</td><td>9,652</td><td>8,631</td><td>4.1%</td></tr>
+<tr><td>解除股权转让</td><td>7,933</td><td>7,027</td><td>3.3%</td></tr>
+<tr><td>股权代持</td><td>3,788</td><td>3,360</td><td>1.6%</td></tr>
+<tr><td>确认股东资格</td><td>1,824</td><td>1,651</td><td>0.8%</td></tr>
+<tr><td>对赌</td><td>1,091</td><td>952</td><td>0.4%</td></tr>
+<tr><td>国有产权</td><td>317</td><td>281</td><td>0.13%</td></tr>
+<tr><td>瑕疵出资</td><td>248</td><td>212</td><td>0.10%</td></tr>
+</tbody></table></div>
+
+<div class="warn">
+  <strong>🔍 分词假零：上表有两行如果用默认检索式会得到「0 条」</strong>
+  <p>「优先购买权」用默认 <code>match_phrase</code> 检索，结果是 <strong>0 条</strong>；
+  「确认股东资格」是 <strong>3 条</strong>。两个数都是假的。</p>
+  <p>原因：索引侧按 <code>ik_max_word</code> 切词，「优先购买权」被切成
+  <code>优先购买 / 优先 / 购买 / 权</code>；查询侧默认走 <code>ik_smart</code>，切成
+  <code>优先购买 / 权</code>。两串 token 的位置序列对不上，短语匹配直接落空。
+  把查询分词器显式指定为 <code>ik_max_word</code> 之后，同一条件命中 <strong>9,652</strong> 条
+  和 <strong>1,824</strong> 条。上表用的是后者。</p>
+  <p><strong>这意味着：在任何全文库里检索到某个法律术语「零结果」，都不能直接写成「该术语从未出现」</strong>——
+  先换分词器复核，或改用词项 AND 检索取并集。这条坑同样适用于法条号（带「第」字的短语）与机构全名。</p>
+</div>
+
+<h3>为什么本页不报诉请支持比例（也不报胜诉率）</h3>
+<p>这是刻意的取舍，不是做不出来。在本页的口径下，任何一个「支持率」都会至少踩中下面三条中的一条：</p>
+<ol>
+  <li><strong>分母不干净。</strong>并集里 124,298 条是裁定书（48.6%），管辖、保全、撤诉、执行实施类裁定
+  根本没有实体裁判结果。放进分母会把比例系统性压低；要剔出去，又得先解决文书种类的批次级误标问题。
+  <strong>同一个「支持率」，按判决书做分母和按全部文书做分母，差出的不是几个百分点，是一倍以上。</strong></li>
+  <li><strong>分子取不全。</strong>库内正文保留前 6,000 字，长判决的判决主文可能整段落在截断之外，
+  用正则从正文抽「本院判决如下」会在长文书上系统性失败——而长文书恰恰是争议大、标的高的那批。</li>
+  <li><strong>簇污染。</strong>第五节那 7,307 个案号里有数千件是同一模板判决，
+  它们会把结果分布整体拉向一个方向，而这个方向只代表一个债权人的诉讼策略。</li>
+</ol>
+<p>所以本页只做「有多少、在哪里、什么程序、诉请里提到什么」这四类可核验的计数，
+把结果维度留给需要人工校验的定制统计。
+<strong>需要更细的交叉与逐案清单</strong>——比如按省份 × 审级 × 诉请类型的交叉表，
+或剔除批量诉讼簇之后的法院画像，或带人工复核的裁判结果归类——
+可以<a href="https://www.wenshucha.com/data-report/">按研究主题定制数据报告</a>，
+交付 Word + Excel + PPT + 图表，每个数字同样附检索式。</p>
+
+<h2>七、方法与局限</h2>
+
+<h3>方法</h3>
+<ul>
+  <li><strong>数据底座</strong>：自建裁判文书全库，<code>judgments</code> 索引共 160,291,678 条记录（检索日 2026-09-21），
+  来源为中国裁判文书网公开生效裁判文书，多数文书的当事人姓名已由法院匿名处理。</li>
+  <li><strong>统计方式</strong>：全部为全库实时聚合，非抽样外推。记录数取 <code>track_total_hits</code> 真值；
+  相异案号数取 <code>cardinality</code>（<code>precision_threshold=40000</code>）。</li>
+  <li><strong>纯度核验</strong>：案由口径为 <code>term</code> 精确等值，字面纯度 100%；
+  标题口径按 <code>random_score</code>（seed=20260921）抽 n=40 人工读标题，
+  <strong>40/40 标题含「股权转让纠纷」或「股权转让协议纠纷」</strong>，批次分布 ws_new 24 / 2021 14 / ws 2
+  ——与「案由字段空批次」的分布一致，说明标题路补回来的是元数据缺失的同族案件，不是话题漂移。</li>
+</ul>
+
+<h3>已知局限（六条，建议原样写进论文的数据说明）</h3>
+<ol>
+  <li><strong><code>year</code> 字段的语义不统一。</strong>它派生自 <code>date</code>，而 <code>date</code> 在
+  <code>2024</code>、<code>2021_x</code>、<code>2022_x</code> 三个批次（占全库 12.37%）是发布/采集日而非落款日。
+  第二节的逐年表因此既非严格起诉年也非严格裁判年。</li>
+  <li><strong><code>2019_2</code> 批次正文全空</strong>，本并集内涉及 8,480 条。任何基于正文的计数（第六节全部）
+  在这批上必然为零，属于系统性漏计而非真实缺席。</li>
+  <li><strong>正文 6,000 字截断。</strong>超长文书只保留前 6,000 字，影响正文短语命中与结果抽取。</li>
+  <li><strong>省份字段 13.67% 为空</strong>（34,972 条），且空值按批次聚集，不可视为随机缺失。</li>
+  <li><strong>相异案号数为近似值。</strong><code>cardinality</code> 是 HyperLogLog 近似算法，
+  在十万量级上典型误差在 1% 以内，但不是精确去重；且案号写法存在全角/半角括号差异，未做归一化前可能略有高估。</li>
+  <li><strong>记录数 ≠ 案件数 ≠ 纠纷数。</strong>一个案件常对应多份文书；一起纠纷也可能拆成多个案号。
+  本页所有表格同时给出两个数，请按研究问题选择。</li>
+</ol>
+
+<h2>八、附录：检索式（可原样复现）</h2>
+<p>以下为本页全部数字的检索式（Elasticsearch Query DSL 片段，检索日 2026-09-21）。</p>
+
+<h3>三种口径</h3>
+<pre><code>案由口径:  {"term": {"cause": "股权转让纠纷"}}
+标题口径:  {"match_phrase": {"title": "股权转让"}}
+并集口径:  {"bool": {"should": [&lt;案由口径&gt;, &lt;标题口径&gt;], "minimum_should_match": 1}}
+相异案号:  "aggs": {"d": {"cardinality": {"field": "caseNo", "precision_threshold": 40000}}}</code></pre>
+
+<h3>逐年与归一化</h3>
+<pre><code>分子: &lt;并集口径&gt; + "aggs": {"y": {"terms": {"field": "year", "size": 20, "order": {"_key": "asc"}}}}
+分母: {"range": {"year": {"gte": 2013, "lte": 2025}}} + 同一 terms 聚合
+归一化 = 分子(该年) / 分母(该年) × 10000</code></pre>
+
+<h3>正文短语（必须显式指定分词器）</h3>
+<pre><code>{"match_phrase": {"body": {"query": "优先购买权", "analyzer": "ik_max_word"}}}
+# 省略 analyzer 走默认 ik_smart，同一条件返回 0 条（假零）</code></pre>
+
+<h3>批量诉讼簇</h3>
+<pre><code>产发簇: &lt;并集&gt; ∧ {"match_phrase": {"title": {"query": "济南产业发展投资集团", "analyzer": "ik_max_word"}}}
+陈宏庆簇: &lt;并集&gt; ∧ {"match_phrase": {"title": {"query": "陈宏庆", "analyzer": "ik_max_word"}}}
+法院切片: {"terms": {"court": ["山东省济南市天桥区人民法院", "济南市天桥区人民法院"]}}
+          {"terms": {"court": ["河南省汝州市人民法院", "汝州市人民法院"]}}</code></pre>
+
+<h3>抽样</h3>
+<pre><code>{"query": {"function_score": {
+   "query": &lt;目标切片&gt;,
+   "functions": [{"random_score": {"seed": 20260921, "field": "_seq_no"}}],
+   "boost_mode": "replace"}}, "size": 40}</code></pre>
+
+<div class="cta">
+  <h3 style="color:#fff;margin-top:0">需要这个主题更细的切片，或换一个研究主题？</h3>
+  <p style="color:#cfd8e6">按研究主题在 1.6 亿全库上定制统计：逐年量、案由构成、地域审级画像、关键词交叉、裁判结果归类，
+  交付 Word + Excel + PPT + 图表，每个数字附检索式。基础版 ¥299 起，24–72 小时交付。</p>
+  <a href="https://www.wenshucha.com/data-report/">数据报告定制 →</a>
+  <a class="ghost" href="mailto:chenjiaxin@wenshucha.com?subject=%E8%82%A1%E6%9D%83%E8%BD%AC%E8%AE%A9%E7%BA%A0%E7%BA%B7%E6%95%B0%E6%8D%AE%E5%92%A8%E8%AF%A2">📩 chenjiaxin@wenshucha.com</a>
+</div>
+
+<h2>九、常见问题</h2>
+<details><summary>库里一共有多少股权转让纠纷的文书？</summary><p>取决于口径，三个数都对：按案由字段精确等值「股权转让纠纷」是 148,500 条记录；按标题短语含「股权转让」是 238,139 条；两者并集 255,758 条记录、211,793 个相异案号。差距不是数据质量问题，而是 ws_new 与 2021 两个入库批次的案由字段 100% 为空（合计 96,331 条），只能靠标题路召回。写论文时必须写明用的是哪一路，并报相异案号数而不只是记录数。检索日 2026-09-21。</p></details>
+<details><summary>股权转让纠纷是不是从 2023 年开始大幅减少了？</summary><p>按绝对记录数看像是：2022 年 28,341 条、2023 年 8,872 条，跌 68.7%。但同期全库该年收录量也从 1,929 万跌到 637 万。按「每万条全库记录中的股权转让记录」归一化后，2022 年是 14.69、2023 年是 13.94，只跌 5.1%。所以这主要是文书公开量收缩造成的收录效应，不是诉讼本身崩塌。任何按年画的曲线都必须先做这一步归一化。</p></details>
+<details><summary>这份数据里有没有批量诉讼导致的偏差？</summary><p>有，而且不小。两个互相关联的诉讼复合体——济南产业发展投资集团有限公司（10,779 条记录 / 4,855 个相异案号）与自然人陈宏庆（6,572 条 / 4,333 个案号，横跨山东济南与河南汝州两省四院）——并集 13,798 条记录、7,307 个相异案号，占全案由相异案号的 3.45%。更极端的是：全案由 1,876 件第三人撤销之诉里，1,828 件（97.4%）来自陈宏庆一人。用这批数据做法院画像、当事人画像或结果预测，不剔除这两簇会被严重带偏。</p></details>
+<details><summary>为什么这份报告不报诉请支持率或胜诉率？</summary><p>因为在本页的口径下报不准，报了就是误导。三个原因：一是并集里 124,298 条是裁定书（含大量管辖、执行、保全裁定），它们没有实体裁判结果，放进分母会稀释、剔出去又要先解决裁定/判决的批次级误标问题；二是库内正文保留前 6,000 字，长判决的主文可能落在截断之外；三是上述批量诉讼簇会把结果分布整体拉向同一模板判决。需要结果维度的统计，我们按课题单独做口径设计与人工校验，见<a href="https://www.wenshucha.com/data-report/">数据报告定制</a>。</p></details>
+<details><summary>「优先购买权」在库里检索为什么会出现 0 条？</summary><p>这是分词假零，不是真的没有。索引侧按 ik_max_word 切成「优先购买/优先/购买/权」，而查询侧默认用 ik_smart 切成「优先购买/权」，短语位置对不上，match_phrase 返回 0。把查询分词器显式指定为 ik_max_word 后，同一条件命中 9,652 条记录。「确认股东资格」同理：默认 3 条，指定分词器后 1,824 条。凡是看到某个法律术语「检索为零」，先换分词器复核再下结论。</p></details>
+<details><summary>这些数字能直接写进论文吗？</summary><p>可以引用，但必须连口径一起引。本页每个数字都附了检索式与检索日期（2026-09-21），并在第七节列出了六条已知缺陷：year 字段在三个批次是发布日不是落款日、2019_2 批次正文全空、正文 6,000 字截断、省份字段 13.67% 为空、相异案号用 HLL 近似算法、以及一案多文书导致记录数不等于案件数。审稿人问到的通常就是这几条，建议直接把它们写进论文的数据说明。</p></details>
+
+<section class="links">
+  <h2>延伸</h2>
+  <a href="https://www.wenshucha.com/data-report/">裁判文书数据定制报告</a>
+  <a href="https://www.wenshucha.com/data/labor-report/">全国劳动争议赔偿数据报告</a>
+  <a href="https://www.wenshucha.com/data/">裁判文书数据规模与字段结构</a>
+  <a href="https://www.wenshucha.com/case-search/">裁判文书智能检索系统</a>
+  <a href="https://www.wenshucha.com/mcp/">裁判文书 MCP 服务</a>
+</section>
+
+<div class="dis">
+本页为文书查基于自建裁判文书数据底座的原创统计，数据来源于中国裁判文书网公开生效裁判文书，多数文书的当事人姓名已由法院匿名处理。
+文中出现的当事人名称均直接取自公开裁判文书标题与正文，仅用于说明数据分布特征，不含任何评价。
+<strong>本页不统计胜诉率，也不统计诉请支持比例</strong>（原因见第六节）；所有比例均为库内记录的计数占比，不代表现实世界的纠纷总量。
+本页内容为数据事实呈现，不构成法律意见或诉讼建议，个案请咨询执业律师。转载引用请注明来源 wenshucha.com 及检索日期。
+统计与检索日期：2026-09-21。
+</div>
+
+</main>
+
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+<!--wsc-px-->
+<script>(function(){try{var i=new Image(1,1);i.src='/wsc.gif?p='+encodeURIComponent(location.pathname+location.search)+'&r='+encodeURIComponent(document.referrer||'')+'&w='+screen.width+'&_='+Date.now();}catch(e){}})();</script>
+<!--baidu-tongji-->
+<script>
+var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?dac6d042e01e3ea63c6f1d645d0e935e";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+</script>
+</body>
+</html>

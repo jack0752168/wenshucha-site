@@ -63,6 +63,7 @@ def collect(pattern: str, exclude_index=True):
 def main():
     blog = collect("blog/*.html")
     labor = collect("data/labor/*.html")
+    topics = collect("data/*-report/index.html", exclude_index=False)
     today = date.today().isoformat()
 
     # ---------- llms.txt:精简导览 ----------
@@ -129,6 +130,13 @@ def main():
         f"- [裁判文书数据定制报告]({BASE}/data-report/):按研究主题在 1.6 亿全库上出统计报告(逐年案件量、案由构成、地域审级画像、关键词交叉、法院观点归类、裁判结果分布),交付 Word+Excel+PPT+图表,每个数字附检索式;基础版 ¥299 起,24–72 小时交付,面向论文/课题/行业研究。",
         f"- [各地劳动争议赔偿数据]({BASE}/data/labor/):按城市聚合的赔偿金额分布、"
         "解除原因构成与真实案例(附案号),共 " + str(len(labor)) + " 个城市页。",
+        f"- [全国劳动争议赔偿数据报告]({BASE}/data/labor-report/):80,000 份已获赔付判决的赔偿金额四分位分布、"
+        "解除原因与工作年限交叉、20 个主要城市横向对比。样本不含败诉案件,任何比例不代表胜诉率。",
+        f"- [股权转让纠纷裁判数据报告]({BASE}/data/equity-transfer-report/):1.6 亿全库现跑的主题数据页(检索日 2026-09-21)。"
+        "案由口径 148,500 条 / 标题口径 238,139 条 / 并集 255,758 条记录与 211,793 个相异案号;"
+        "逐年量按全库同年收录量归一化后基本平稳(2022→2023 绝对值跌 68.7%,归一化只跌 5.1%);"
+        "两个批量诉讼簇占全案由相异案号 3.45%,并贡献 97.4% 的第三人撤销之诉;"
+        "含分词假零、date 语义、案由空值三类口径陷阱与全部检索式。本页不报胜诉率也不报诉请支持比例。",
         "",
         "## 洞察文章",
         "",
@@ -163,6 +171,7 @@ def main():
         f"- {BASE}/data/ — 裁判文书数据规模与字段结构",
         f"- {BASE}/data-report/ — 裁判文书数据定制报告:论文/课题/行业研究用的司法大数据统计,¥299 起",
         f"- {BASE}/data/labor/ — 各地劳动争议赔偿数据总览",
+        f"- {BASE}/data/equity-transfer-report/ — 股权转让纠纷裁判数据报告(全库现跑,附检索式)",
         f"- {BASE}/blog/ — 洞察文章总览",
         "",
         f"## 洞察文章({len(blog)} 篇)",
@@ -170,6 +179,14 @@ def main():
     ]
     for u, t, d in blog:
         F.append(f"### {t}")
+        F.append(f"{u}")
+        if d:
+            F.append(d)
+        F.append("")
+
+    F += [f"## 主题数据页({len(topics)} 个)", ""]
+    for u, t_, d in topics:
+        F.append(f"### {t_}")
         F.append(f"{u}")
         if d:
             F.append(d)
@@ -187,7 +204,7 @@ def main():
 
     print(f"✓ llms.txt        {(ROOT/'llms.txt').stat().st_size//1024}K")
     print(f"✓ llms-full.txt   {(ROOT/'llms-full.txt').stat().st_size//1024}K  "
-          f"({len(blog)} 篇文章 + {len(labor)} 个数据页)")
+          f"({len(blog)} 篇文章 + {len(topics)} 个主题数据页 + {len(labor)} 个城市页)")
 
 
 if __name__ == "__main__":

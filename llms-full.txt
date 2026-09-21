@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-09-18。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-09-21。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -14,6 +14,7 @@
 - https://www.wenshucha.com/data/ — 裁判文书数据规模与字段结构
 - https://www.wenshucha.com/data-report/ — 裁判文书数据定制报告:论文/课题/行业研究用的司法大数据统计,¥299 起
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览
+- https://www.wenshucha.com/data/equity-transfer-report/ — 股权转让纠纷裁判数据报告(全库现跑,附检索式)
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
 ## 洞察文章(57 篇)
@@ -245,6 +246,16 @@ https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
 ### 信创环境下的法律 AI 私有化部署:国产 CPU / 操作系统 / 数据库 / 算力卡适配实战(2026)
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html
 政府、法院、国企的法律 AI 项目越来越要求信创合规——国产 CPU(鲲鹏/飞腾/海光)、国产操作系统(麒麟/统信 UOS)、国产数据库(达梦/人大金仓/openGauss)、国产算力卡(昇腾)。本文讲清信创栈每一层对法律大模型与裁判文书库私有化部署意味着什么、适配真正的难点在哪(尤其是大模型推理上国产算力卡的模型转换)、信创+等保双合规怎么过,以及一份给信息中心主任的信创适配选型清单。
+
+## 主题数据页(2 个)
+
+### 股权转让纠纷裁判数据报告（2013–2025）
+https://www.wenshucha.com/data/equity-transfer-report/
+基于 1.6 亿条裁判文书全库现跑的股权转让纠纷主题数据页：案由口径 148,500 条、标题口径 238,139 条、并集 255,758 条记录 / 211,793 个相异案号。含逐年案件量（按全库同年收录量归一化）、省份与审级分布、六组诉请关键词交叉、两个批量诉讼簇的量化，以及分词假零、date 语义、案由空值三类口径陷阱。每个数字附检索式与检索日期（2026-09-21）。不报胜诉率。
+
+### 全国劳动争议赔偿数据报告
+https://www.wenshucha.com/data/labor-report/
+基于 80,000 份公开生效劳动争议判决（2002-2023，覆盖 1,620 个城市）的实证统计：赔偿金额四分位分布、五类解除原因的赔偿差异、工作年限与赔偿的相关性、20 个主要城市横向对比。样本仅含已获赔付判决，不代表胜诉率。数据可回溯原文核验。
 
 ## 各地劳动争议赔偿数据(80 个城市)
 
