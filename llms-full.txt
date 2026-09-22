@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-09-21。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-09-22。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -17,7 +17,7 @@
 - https://www.wenshucha.com/data/equity-transfer-report/ — 股权转让纠纷裁判数据报告(全库现跑,附检索式)
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
-## 洞察文章(57 篇)
+## 洞察文章(58 篇)
 
 ### AI 阅卷怎么用才靠得住:电子卷宗智能摘要的能力边界与核验流程(2026)
 https://www.wenshucha.com/blog/ai-case-file-review-digital-dossier.html
@@ -74,6 +74,10 @@ https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html
 ### 1.6 亿裁判文书私有库:本地化部署的数据架构(2026)
 https://www.wenshucha.com/blog/judgment-corpus-private-deployment-architecture.html
 把 1.6 亿+ 裁判文书放进律所或法院自己的机房,要解决的不是「拷一份数据」,而是一整套数据架构:存储、全文检索、向量检索、结构化字段、离线增量更新、权限与审计、与法律大模型的 RAG 对接。本文给出 1.6 亿条规模裁判文书私有库本地化部署的技术架构与资源测算,面向律所 IT 与法律科技团队。
+
+### 裁判文书数据哪里可以买到？数据授权找谁？
+https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html
+中国裁判文书网只提供公开查阅,没有对外出售批量数据或 API 的公示渠道;合规途径是向商业法律数据库或数据服务商签数据授权合同。本文讲清五类数据来源的授权凭据与风险、合规边界(个人信息/采集方式/训练数据/授权范围)、数据授权交付的形态与字段,以及签约前核验数据真实性的 8 项检查。
 
 ### 数字法治政府:司法数据中台建设方案(2026)
 https://www.wenshucha.com/blog/judicial-data-platform-construction.html

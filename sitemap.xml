@@ -637,7 +637,7 @@
   <url><loc>https://www.wenshucha.com/buyers-guide/</loc><lastmod>2026-07-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.wenshucha.com/data/labor-report/</loc><lastmod>2026-07-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.wenshucha.com/data/equity-transfer-report/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.wenshucha.com/about/</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.wenshucha.com/about/</loc><lastmod>2026-09-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.wenshucha.com/mcp/</loc><lastmod>2026-08-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.wenshucha.com/mcp/quickstart/</loc><lastmod>2026-08-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.wenshucha.com/pricing/</loc><lastmod>2026-08-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -681,4 +681,10 @@
   <url><loc>https://www.wenshucha.com/data/labor/changde.html</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.wenshucha.com/data/labor/xingyang.html</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.wenshucha.com/data/labor/loudi.html</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
