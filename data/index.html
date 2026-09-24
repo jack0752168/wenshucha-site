@@ -122,8 +122,8 @@ footer a{color:#fff}
   <section>
     <p style="background:#fff8e8;border:1px solid #e6d5a8;border-radius:10px;padding:12px 16px">📄 写论文 / 做课题需要按主题出统计报告？看 <a href="/data-report/">裁判文书数据定制报告</a>：逐年案件量、案由构成、法院观点归类，Word + Excel + PPT 交付，¥299 起。</p>
     <h2>常见问题</h2>
-    <details><summary>裁判文书数据从哪来?可靠吗?</summary><p>源自中国裁判文书网公开生效文书,经文书查结构化处理,逐条保留真实案号可回链原文核验。</p></details>
-    <details><summary>裁判文书数据库有多大?覆盖哪些范围?</summary><p>约 1.6 亿篇,覆盖 1985–2023 年刑事/民事/行政/执行/国家赔偿五大类,含案号、法院、案由、省份、判决日期、裁判结果、判决全文等字段。</p></details>
+    <details><summary>裁判文书数据从哪来?可靠吗?</summary><p>源自中国裁判文书网公开生效文书,经文书查结构化处理。约 97.8% 的记录带真实案号(法院字段 97.6%),可凭「案号 + 法院 + 裁判日期」回官方平台自行核对;本库不提供原文链接。</p></details>
+    <details><summary>裁判文书数据库有多大?覆盖哪些范围?</summary><p>160,291,678 条记录(不等于案件数,相异案号约 1.27 亿),覆盖 1985–2025 年刑事/民事/行政/执行/国家赔偿五大类,主体为 2010–2025 年、2023 年起收录量变薄。含案号、法院、案由、省份、判决日期、裁判结果、库内正文等字段。约 8.6% 的记录正文为空,另约 7.2% 的正文存的是不公开事由而非判决内容,详见<a href="/data/noncompete-report/">主题数据页第七节</a>。</p></details>
     <details><summary>裁判文书 API 怎么接入?</summary><p>标准 REST API(base tob.wenshucha.com/api/v1),组合检索 + 全文获取,curl 一行可验;另有 MCP Server 供大模型直接调用。公开测试 Key 即刻可用（无需申请），详见 <a href="/mcp/quickstart/">MCP 接入指南</a>。</p></details>
     <details><summary>能拿到全量裁判文书数据吗?多少钱?</summary><p>MCP/API 明码标价:公开测试 Key 免费即刻可用,免费版 1,000 次/月,开发者 Pro ¥99/月,详见定价页。企业级数据授权支持全量打包买断、按案由/地域/年份切片,价格与授权范围面议,联系商务 131-6872-7779。</p></details>
   </section>
@@ -136,6 +136,7 @@ footer a{color:#fff}
     <a href="https://www.wenshucha.com/data/labor/">各城市劳动争议赔偿数据</a>
     <a href="https://www.wenshucha.com/data/labor-report/">全国劳动争议赔偿数据报告</a>
     <a href="https://www.wenshucha.com/data/equity-transfer-report/">股权转让纠纷裁判数据报告</a>
+    <a href="https://www.wenshucha.com/data/noncompete-report/">竞业限制纠纷裁判数据报告</a>
   </section>
 
   <div class="dis">数据来自中国裁判文书网公开生效文书,当事人个人信息已脱敏。本页为产品与数据说明,具体覆盖与字段以实际交付为准。</div>

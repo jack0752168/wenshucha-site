@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>竞业限制纠纷裁判数据报告_37046条记录实证_逐年量·地域·诉请富集 - 文书查</title>
+<meta name="description" content="基于 1.6 亿条裁判文书全库现跑的竞业限制纠纷主题数据页：「竞业限制」29,141 条、「竞业禁止」14,900 条、并集 37,046 条记录 / 32,339 个相异案号。含逐年案件量（按全库同年收录量归一化后 2023 年不降反升）、省份与审级分布、十组诉请关键词的共现率与富集倍数，以及分词假零、样板条款污染、exists 假绿三类口径陷阱。每个数字附检索式与检索日期（2026-09-24）。不报胜诉率。">
+<meta name="keywords" content="竞业限制数据,竞业禁止案件量,竞业限制司法大数据,劳动法实证研究,竞业限制判决统计,裁判文书数据报告,法学实证论文数据,竞业限制补偿金">
+<link rel="canonical" href="https://www.wenshucha.com/data/noncompete-report/">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:title" content="竞业限制纠纷裁判数据报告 · 37,046 条记录实证 | 文书查">
+<meta property="og:description" content="绝对记录数 2022→2023 跌 65.8%，按全库同年收录量归一化后反而升 3.7%——「2023 年竞业诉讼降温」是收录效应。另：只认「竞业限制」一种写法会漏掉并集的 21.3%。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.wenshucha.com/data/noncompete-report/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"竞业限制纠纷裁判数据报告（2013–2025）","description":"基于自建 1.6 亿条中国裁判文书记录全库现跑的竞业限制纠纷主题统计：正文短语「竞业限制」29,141 条记录、「竞业禁止」14,900 条、并集 37,046 条记录与约 32,339 个相异案号；含逐年量（按全库同年收录量归一化）、省份分布、审级分布、文书类型分布、十组诉请关键词的共现率与相对全库的富集倍数。本报告不统计胜诉率或诉请支持比例。","url":"https://www.wenshucha.com/data/noncompete-report/","creator":{"@type":"Organization","name":"文书查","legalName":"深圳星谱网络科技有限公司","url":"https://www.wenshucha.com/"},"temporalCoverage":"2013/2025","spatialCoverage":{"@type":"Place","name":"中国大陆"},"isBasedOn":"中国裁判文书网公开生效裁判文书","variableMeasured":["记录数","相异案号数","按全库同年收录量归一化的记录占比","审理法院所在省份","审级","文书类型","诉请关键词共现率","诉请关键词相对全库的富集倍数"],"measurementTechnique":"Elasticsearch 全库聚合（match_phrase with analyzer=ik_max_word / terms / cardinality），检索日 2026-09-24","dateModified":"2026-09-24"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"裁判数据","item":"https://www.wenshucha.com/data/"},{"@type":"ListItem","position":3,"name":"竞业限制纠纷裁判数据报告","item":"https://www.wenshucha.com/data/noncompete-report/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"库里一共有多少竞业限制纠纷的文书？","acceptedAnswer":{"@type":"Answer","text":"按正文短语检索，「竞业限制」29,141 条记录、「竞业禁止」14,900 条，两者交集 6,995 条、并集 37,046 条记录，约 32,339 个相异案号（HLL 近似）。必须取并集：只认「竞业限制」会漏掉并集的 21.3%（7,905 条），只认「竞业禁止」会漏掉 59.8%（22,146 条）。这两个写法在司法文书里长期并行，学理上「竞业禁止」多指法定义务、「竞业限制」多指约定义务，但裁判文书并不严格区分。检索日 2026-09-24。"}},{"@type":"Question","name":"竞业限制纠纷是不是从 2023 年开始减少了？","acceptedAnswer":{"@type":"Answer","text":"按绝对记录数看像是：2022 年 6,466 条、2023 年 2,212 条，跌 65.8%。但同期全库该年收录量也从 1,929 万跌到 637 万。按「每万条全库同年记录中的本主题记录数」归一化后，2022 年是 3.35、2023 年是 3.48，不降反升 3.7%。而且归一化口径下 2022–2024 三年（3.35 / 3.48 / 3.35）是 2014 年以来的最高平台，2020 年的 1.23 才是真正的低谷。所以「2023 年竞业诉讼降温」是文书公开量收缩造成的收录效应，任何按年画的曲线都必须先做这一步归一化。"}},{"@type":"Question","name":"为什么「竞业禁止协议」用短语检索会返回 0 条？","acceptedAnswer":{"@type":"Answer","text":"这是分词假零，不是真的没有。索引侧用 ik_max_word 切词、查询侧默认用 ik_smart，两边切分边界对不上时 match_phrase 的位置校验会失败。「竞业禁止协议」默认返回 0 条，显式指定 analyzer=ik_max_word 后命中 3,816 条。「离职后」更夸张：默认 3 条，指定分词器后 13,714 条。「培训服务期」默认 0 条、指定后 356 条。凡是看到某个法律术语「检索为零」或数量异常地小，先换分词器复核再下结论。"}},{"@type":"Question","name":"关键词共现率能直接当诉请构成用吗？","acceptedAnswer":{"@type":"Answer","text":"不能，会被样板条款骗。本主题集里「加倍支付」共现率高达 47.5%，看起来像是近半数案件涉及加倍赔偿，但它在全库的出现率就有 21.35%——因为几乎每份判决书末尾都有「加倍支付迟延履行期间的债务利息」这句法定告知。它的富集倍数只有 2.2 倍，属于噪声。真正有信号的是富集倍数高的词：「保密义务」1,425 倍、「竞业限制期限」4,327 倍、「离职后」423 倍、「商业秘密」288 倍、「经济补偿」82 倍。本页第五节同时给出共现率和富集倍数两列，论文里请引后者或两者并引。"}},{"@type":"Question","name":"这份数据的地域分布说明什么？","acceptedAnswer":{"@type":"Answer","text":"高度集中。北京 5,581 条（15.3%）、广东 4,799 条（13.1%）、上海 4,279 条（11.7%），三地合计 40.1%，而这三地的全库文书总量占比远低于此。这与竞业限制条款主要出现在高技术、金融与互联网行业劳动合同中的一般认知一致。需要注意省份字段有 8.1%（2,949 条）为空，且原始数据有「广东省」与「广东」两种写法，本页已归并，未归并会低估约 20%。"}},{"@type":"Question","name":"为什么这份报告不报胜诉率或诉请支持率？","acceptedAnswer":{"@type":"Answer","text":"因为在本页口径下报不准。并集里 11.96%（4,431 条）是裁定书，没有实体裁判结果；二审占 36.85%，一份案件常有一审判决加二审判决两条记录，按记录数算结果分布会重复计数；而「支持」「驳回」这类词在同一份判决里常常同时出现（支持部分诉请、驳回其余），字面统计无法区分。需要结果维度的统计，必须做口径设计加人工校验，我们按课题单独承接，见下方数据报告定制。"}},{"@type":"Question","name":"这些数字能直接写进论文吗？","acceptedAnswer":{"@type":"Answer","text":"可以引用，但必须连口径一起引。本页每个数字都附了检索式与检索日期（2026-09-24），并在第七节列出了已知缺陷：两种写法必须取并集、year 字段在三个批次存的是公开日而非落款日、省份字段 8.1% 为空、审级字段有三套并行编码、相异案号用 HLL 近似算法、以及记录数不等于案件数。审稿人问到的通常就是这几条，建议直接把它们写进论文的数据说明。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/case-search/">智能检索</a><a href="https://www.wenshucha.com/legal-ai/">AI 助手</a><a href="https://www.wenshucha.com/mcp/">MCP 服务</a><a href="https://www.wenshucha.com/pricing/">定价</a><a href="https://www.wenshucha.com/data/">裁判数据</a><a href="https://www.wenshucha.com/data-report/">数据报告</a><a href="https://www.wenshucha.com/buyers-guide/">采购指南</a><a href="https://www.wenshucha.com/blog/">洞察</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>竞业限制纠纷裁判数据报告（2013–2025）</h1>
+  <p>面向写论文、做课题与建法律 AI 数据集的人。全部数字在 1.6 亿条裁判文书全库上现跑，
+  每个数字附检索式与检索日期，口径陷阱一条不藏。<strong>本页不报胜诉率，也不报诉请支持比例</strong>——第六节说明为什么。</p>
+  <div class="kpi">
+    <div><b>37,046</b><span>并集记录数</span></div>
+    <div><b>32,339</b><span>相异案号数（近似）</span></div>
+    <div><b>21.3%</b><span>只认一种写法的漏检率</span></div>
+    <div><b>2026-09-24</b><span>检索日期</span></div>
+  </div>
+</div></section>
+
+<main class="wrap">
+
+<div class="warn">
+  <strong>⚠️ 先看三条边界，再看数字</strong>
+  <p><strong>一、这个主题有两个并行写法，必须取并集。</strong>「竞业限制」29,141 条、「竞业禁止」14,900 条，
+  交集只有 6,995 条。只认前者漏掉并集的 21.3%，只认后者漏掉 59.8%。
+  已发表的实证研究里，只检索单一写法的占相当比例——这是本主题最常见的系统性漏检。</p>
+  <p><strong>二、记录数 ≠ 案件数。</strong>一个案件常有一审判决、二审判决、执行裁定多份文书，
+  本主题二审记录占 36.85%，重复计数尤其严重。本页所有表格同时给出<strong>记录数</strong>与<strong>相异案号数</strong>，论文里请引后者。</p>
+  <p><strong>三、关键词共现率会被样板条款骗。</strong>「加倍支付」在本主题集共现率 47.5%，看似近半数案件涉及，
+  实际它在全库的出现率就有 21.35%（判决书末尾的法定告知）。第五节给出<strong>富集倍数</strong>这一列，用它而不是共现率。</p>
+</div>
+
+<h2>一、主题定义与检索口径</h2>
+
+<p>「竞业限制」与「竞业禁止」在学理上有区分——前者通常指劳动合同或保密协议中的<em>约定</em>义务（《劳动合同法》第二十三、二十四条），
+后者常被用于指公司法上董事、高管的<em>法定</em>竞业义务（《公司法》相关条款）。
+但裁判文书并不严格遵守这一区分：同一份判决里两个词混用、或法院直接沿用当事人用语的情况很常见。
+因此本页以<strong>两个写法的并集</strong>为主口径。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>口径（<code>body</code> 短语，<code>analyzer=ik_max_word</code>）</th><th>记录数</th><th>占并集</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>正文含「竞业限制」</td><td>29,141</td><td>78.7%</td><td>约定义务的主流表述</td></tr>
+<tr><td>正文含「竞业禁止」</td><td>14,900</td><td>40.2%</td><td>含公司法语境与早期文书</td></tr>
+<tr><td>两者交集</td><td>6,995</td><td>18.9%</td><td>同一份文书内混用</td></tr>
+<tr><td><strong>并集（本页主口径）</strong></td><td><strong>37,046</strong></td><td><strong>100%</strong></td><td>相异案号约 <strong>32,339</strong> 个</td></tr>
+<tr><td>只认「竞业限制」的漏检</td><td>7,905</td><td>21.3%</td><td>——</td></tr>
+<tr><td>只认「竞业禁止」的漏检</td><td>22,146</td><td>59.8%</td><td>——</td></tr>
+</tbody></table></div>
+
+<h3>为什么不用案由字段做主口径</h3>
+<p>本库有 <code>cause</code>（案由）字段，但它在本主题上不可用作主口径。对并集集合做案由分布聚合可见：
+排名第一的是「劳动争议」11,691 条，其次是<strong>空字符串 10,805 条</strong>，
+真正标为「竞业限制纠纷」的只有 <strong>2,447 条</strong>——占并集的 6.6%。
+原因有二：一是最高法《民事案件案由规定》里「竞业限制纠纷」是 2020 年修订后才单列的四级案由，
+此前的案件一律归入「劳动争议」或「劳动合同纠纷」；二是部分入库批次的案由字段整体为空。
+<strong>只按案由字段 <code>cause = "竞业限制纠纷"</code> 检索，会丢掉 93.4% 的相关文书。</strong></p>
+
+<div class="warn">
+  <strong>🔍 分词假零：三个可复现的实例</strong>
+  <p>本库索引侧用 <code>ik_max_word</code> 切词、查询侧默认 <code>ik_smart</code>。两边切分边界不一致时，
+  <code>match_phrase</code> 的词位校验会失败并返回 0，<strong>而这个 0 长得和「真的没有」一模一样</strong>：</p>
+  <div class="tablewrap"><table>
+  <thead><tr><th>检索词</th><th>默认分词器</th><th>指定 ik_max_word</th></tr></thead>
+  <tbody>
+  <tr><td>竞业禁止协议</td><td>0</td><td>3,816</td></tr>
+  <tr><td>离职后</td><td>3</td><td>13,714</td></tr>
+  <tr><td>培训服务期</td><td>0</td><td>356</td></tr>
+  </tbody></table></div>
+  <p>本页所有数字均用<strong>两种分词器各查一次取较大值</strong>的口径。
+  凡是看到某个法律术语「检索为零」或数量小得反常，先换分词器复核再下结论。</p>
+</div>
+
+<h2>二、逐年记录量：绝对值会骗人，归一化才不会</h2>
+
+<figure>
+  <img src="/data/noncompete-report/year-normalized.png" alt="竞业限制纠纷逐年记录量：左图绝对记录数在 2023 年出现断崖式下跌，右图按全库同年收录量归一化后 2023 年不降反升" loading="lazy" width="1632" height="624">
+  <figcaption>左：绝对记录数，2022→2023 跌 65.8%。右：每万条全库同年记录中的本主题记录数，同期升 3.7%。同一份数据，两种读法结论完全相反。</figcaption>
+</figure>
+
+<div class="tablewrap"><table>
+<thead><tr><th>年份（<code>year</code> 字段）</th><th>记录数</th><th>相异案号数</th><th>全库同年记录数</th><th>每万条中的占比</th></tr></thead>
+<tbody>
+<tr><td>2013</td><td>704</td><td>625</td><td>1,762,537</td><td>3.99</td></tr>
+<tr><td>2014</td><td>2,162</td><td>1,919</td><td>7,033,956</td><td>3.07</td></tr>
+<tr><td>2015</td><td>2,576</td><td>2,236</td><td>9,894,747</td><td>2.60</td></tr>
+<tr><td>2016</td><td>2,563</td><td>2,253</td><td>12,443,177</td><td>2.06</td></tr>
+<tr><td>2017</td><td>3,111</td><td>2,911</td><td>15,147,489</td><td>2.05</td></tr>
+<tr><td>2018</td><td>3,330</td><td>2,978</td><td>16,331,967</td><td>2.04</td></tr>
+<tr><td>2019</td><td>2,569</td><td>2,230</td><td>12,290,542</td><td>2.09</td></tr>
+<tr><td>2020</td><td>2,626</td><td>2,480</td><td>21,359,050</td><td>1.23</td></tr>
+<tr><td>2021</td><td>3,599</td><td>3,305</td><td>16,548,198</td><td>2.17</td></tr>
+<tr><td>2022</td><td>6,466</td><td>4,618</td><td>19,292,669</td><td>3.35</td></tr>
+<tr><td>2023</td><td>2,212</td><td>2,118</td><td>6,365,236</td><td>3.48</td></tr>
+<tr><td>2024</td><td>2,341</td><td>2,333</td><td>6,984,435</td><td>3.35</td></tr>
+<tr><td>2025</td><td>895</td><td>892</td><td>3,818,342</td><td>2.34</td></tr>
+</tbody></table></div>
+
+<p><strong>本页最硬的一条结论。</strong>绝对记录数的极差是 704–6,466，<strong>9.18 倍</strong>；
+归一化后极差是 1.23–3.99，<strong>3.25 倍</strong>。差出来的那部分，全是全库收录量本身的起伏。</p>
+
+<p>具体到最容易被误读的 2022→2023：绝对记录数 6,466 → 2,212，<strong>跌 65.8%</strong>；
+而同期全库该年收录量从 1,929 万跌到 637 万。归一化后 3.35 → 3.48，<strong>升 3.7%</strong>。
+更进一步，归一化口径下 2022、2023、2024 三年（3.35 / 3.48 / 3.35）构成 2014 年以来的<strong>最高平台</strong>，
+真正的低谷是 2020 年的 1.23。如果只看绝对值，会得出「竞业诉讼在 2022 年见顶、此后腰斩」的结论；
+按可比口径看，恰恰相反——<strong>竞业限制争议在文书总量收缩的同时，占比反而稳定在历史高位。</strong></p>
+
+<p>⚠️ 两条必须同时写进论文的限定：一是 <code>year</code> 派生自 <code>date</code> 字段，
+而库内有三个入库批次（占全库 12.37%）存的是<strong>公开日</strong>而非裁判文书落款日，
+按年切片时这部分会系统性后移；二是 2025 年尚未收录完整，该年数字不可与往年直接比较。</p>
+
+<h2>三、地域分布：三地占四成</h2>
+
+<figure>
+  <img src="/data/noncompete-report/province.png" alt="竞业限制纠纷审理法院所在省份 top12 横向柱状图，北京、广东、上海居前三，合计占 40.1%" loading="lazy" width="1272" height="672">
+  <figcaption>省份字段原始数据有「广东省」与「广东」两种写法，本图已归并；字段为空的 2,949 条（8.1%）未计入。</figcaption>
+</figure>
+
+<div class="tablewrap"><table>
+<thead><tr><th>省份（两种写法已归并）</th><th>记录数</th><th>占比</th></tr></thead>
+<tbody>
+<tr><td>北京</td><td>5,581</td><td>15.28%</td></tr>
+<tr><td>广东</td><td>4,799</td><td>13.14%</td></tr>
+<tr><td>上海</td><td>4,279</td><td>11.72%</td></tr>
+<tr><td>江苏</td><td>2,904</td><td>7.95%</td></tr>
+<tr><td>山东</td><td>2,588</td><td>7.09%</td></tr>
+<tr><td>浙江</td><td>2,338</td><td>6.40%</td></tr>
+<tr><td>湖南</td><td>1,158</td><td>3.17%</td></tr>
+<tr><td>河南</td><td>1,049</td><td>2.87%</td></tr>
+<tr><td>辽宁</td><td>1,029</td><td>2.82%</td></tr>
+<tr><td>四川</td><td>991</td><td>2.71%</td></tr>
+<tr><td>湖北</td><td>900</td><td>2.46%</td></tr>
+<tr><td>福建</td><td>821</td><td>2.25%</td></tr>
+<tr><td><em>（省份字段为空）</em></td><td>2,949</td><td>8.08%</td></tr>
+</tbody></table></div>
+
+<p>北京、广东、上海合计 <strong>40.1%</strong>。这三地在全库文书总量中的占比远低于此，
+因此这是<strong>真实的地域集中，不是收录偏差</strong>——与竞业限制条款主要出现在高技术、金融、互联网、
+医药行业劳动合同中的一般认知一致。⚠️ 两个陷阱：一是省份两种写法（「广东省」1,049 条记为「广东」的那部分）
+不归并会低估约 20%；二是该字段记录的是<strong>审理法院所在地</strong>，不是用人单位注册地或劳动者工作地，
+做区域营商环境或产业分析时不能直接替换。</p>
+
+<h2>四、审级与文书类型</h2>
+
+<p>本库 <code>procedure</code> 字段存在<strong>三套并行编码</strong>（中文全称「民事一审」、简称「一审」、数字码「1」/「0301」），
+直接做 terms 聚合会把同一审级拆成三个桶。下表已归并：</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>审级（三套编码已归并）</th><th>记录数</th><th>占比</th></tr></thead>
+<tbody>
+<tr><td>一审</td><td>19,938</td><td>53.88%</td></tr>
+<tr><td>二审</td><td>13,634</td><td>36.85%</td></tr>
+<tr><td>再审 / 审判监督</td><td>896</td><td>2.42%</td></tr>
+<tr><td>执行</td><td>496</td><td>1.34%</td></tr>
+<tr><td>特别程序（含撤销仲裁裁决）</td><td>236</td><td>0.64%</td></tr>
+<tr><td>其他 / 管辖 / 未归类</td><td>359</td><td>0.97%</td></tr>
+<tr><td><em>（字段为空）</em></td><td>1,443</td><td>3.90%</td></tr>
+</tbody></table></div>
+
+<p><strong>二审占 36.85%，是一个值得单独讨论的数字。</strong>作为参照，本主题的二审／一审比约为 0.68。
+竞业限制案件的争点（协议效力、补偿金是否支付、违约金是否过高）高度依赖价值判断与自由裁量，
+败诉方上诉意愿强，这与该比值相符。但请注意<strong>这不能直接读成「68% 的一审案件被上诉」</strong>——
+分子分母来自不同案件集合，且一审、二审文书的公开率本身就不同（二审由中院作出，公开率通常更高）。
+要算真实上诉率，必须按案号回溯配对同一案件的一审与二审文书，那是另一套口径。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>文书类型（按<strong>标题</strong>判定）</th><th>记录数</th><th>占并集</th></tr></thead>
+<tbody>
+<tr><td>判决书</td><td>30,884</td><td>83.37%</td></tr>
+<tr><td>裁定书</td><td>4,431</td><td>11.96%</td></tr>
+<tr><td>通知书</td><td>78</td><td>0.21%</td></tr>
+<tr><td>调解书</td><td>62</td><td>0.17%</td></tr>
+<tr><td>决定书</td><td>10</td><td>0.03%</td></tr>
+</tbody></table></div>
+
+<p>⚠️ <strong>文书类型必须按标题判定，不能按正文首行，也不能用 <code>caseType</code> 字段。</strong>
+本库最大的两个入库批次在正文开头一律写「判决书」，按正文首行判定会把裁定书整批误标；
+而 <code>caseType</code> 字段混入了文书种类与案件类型两种语义，且「民事案件」「民事」两种写法并存。
+本主题集的判决书占比 83.37% 明显高于全库平均——因为竞业限制案件极少以管辖、保全类裁定的形式出现。</p>
+
+<h2>五、诉请关键词：共现率会骗人，富集倍数不会</h2>
+
+<p>下表对并集集合做关键词共现统计，并给出<strong>富集倍数</strong>＝（该词在本主题集的出现率）÷（该词在全库的出现率）。
+富集倍数把「这个词在所有判决里本来就常见」这一层剥掉，只留下主题特异的信号。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>关键词</th><th>主题集内</th><th>共现率</th><th>全库出现率</th><th>富集倍数</th></tr></thead>
+<tbody>
+<tr><td>竞业限制期限</td><td>4,265</td><td>11.5%</td><td>0.003%</td><td><strong>4,327×</strong></td></tr>
+<tr><td>保密义务</td><td>12,277</td><td>33.1%</td><td>0.02%</td><td><strong>1,425×</strong></td></tr>
+<tr><td>离职后</td><td>13,714</td><td>37.0%</td><td>0.09%</td><td><strong>423×</strong></td></tr>
+<tr><td>商业秘密</td><td>12,180</td><td>32.9%</td><td>0.11%</td><td><strong>288×</strong></td></tr>
+<tr><td>高级管理人员</td><td>6,410</td><td>17.3%</td><td>0.06%</td><td><strong>282×</strong></td></tr>
+<tr><td>经济补偿</td><td>14,304</td><td>38.6%</td><td>0.47%</td><td><strong>82×</strong></td></tr>
+<tr><td>劳动仲裁</td><td>10,070</td><td>27.2%</td><td>0.56%</td><td>49×</td></tr>
+<tr><td>显失公平</td><td>2,211</td><td>6.0%</td><td>0.29%</td><td>20×</td></tr>
+<tr><td>违约金</td><td>15,436</td><td>41.7%</td><td>7.36%</td><td>5.7×</td></tr>
+<tr><td>加倍支付</td><td>17,592</td><td><strong>47.5%</strong></td><td>21.35%</td><td><strong>2.2×</strong> ⚠️</td></tr>
+</tbody></table></div>
+
+<p><strong>请把最后两行和前六行对照着看。</strong>「加倍支付」的共现率 47.5% 是全表最高，
+按共现率排序它会稳居第一，任何「竞业限制案件近半数涉及加倍赔偿」的结论都会由此产生——
+<strong>而它是错的</strong>。这个词在全库的出现率就有 21.35%，来源是判决书主文后几乎标配的一句法定告知
+（「如果未按本判决指定的期间履行给付金钱义务，应当依照《民事诉讼法》第二百六十条之规定，加倍支付迟延履行期间的债务利息」）。
+它的富集倍数只有 2.2 倍，属于样板条款噪声。「违约金」5.7 倍同理，需要打折看待。</p>
+
+<p>相反，「竞业限制期限」4,327 倍、「保密义务」1,425 倍这种量级，才是本主题真正的特异标记。
+其中值得单拎出来的是<strong>「经济补偿」共现率 38.6%、富集 82 倍</strong>——
+考虑到《劳动合同法》第二十三条把补偿金支付设定为竞业限制条款生效的前提条件，
+这个不到四成的共现率本身就是一条可研究的线索：它可能意味着大量案件的争点恰恰在于用人单位<em>未</em>支付补偿金，
+也可能只是文书表述方式的差异。<strong>本页只提供计数，不作因果判断</strong>——要区分这两种解释，
+需要按判决理由段落做人工标注，见下方定制说明。</p>
+
+<h2>六、为什么这份报告不报胜诉率</h2>
+
+<p>这是本系列每一页都要回答的问题。对竞业限制主题，理由有三条，且都不是「做不到」而是「做了会错」：</p>
+
+<ol>
+<li><strong>分母不干净。</strong>并集里 11.96%（4,431 条）是裁定书，含管辖异议、撤销仲裁裁决、财产保全等，
+它们没有实体裁判结果。放进分母会系统性稀释；剔出去则要先解决文书类型的批次级误标问题（见第四节）。</li>
+<li><strong>同一案件被重复计数。</strong>二审记录占 36.85%，一个案件常同时有一审、二审两条记录，
+且二审往往改判或部分改判。按记录数统计结果分布，等于给上诉过的案件加权，
+而上诉与否本身与案件特征强相关（争议金额大的更可能上诉）。</li>
+<li><strong>「支持」与「驳回」在同一份判决里同时出现是常态。</strong>竞业限制案件的典型判项是
+「支持部分违约金、驳回其余诉讼请求」，或「确认协议有效但调减违约金」。
+任何基于关键词的字面统计都无法区分「全部支持」「部分支持」「全部驳回」，
+而这三者在法律意义上完全不同。第五节的「显失公平」6.0%、「调整违约金」1.3%
+恰恰说明<strong>违约金调减是一个高频但难以自动量化的争点</strong>。</li>
+</ol>
+
+<p>要拿到结果维度的可靠统计，唯一的路径是对判决主文做结构化抽取加人工校验，并明确定义「支持」的层级。
+这不是一次全库聚合能完成的，需要按课题单独设计口径。
+<strong>如果你的研究恰好需要这一层——比如按年份、地域、行业交叉的违约金调减幅度分布，
+或者剔除重复案号后的一审／二审配对结果——可以直接告诉我们研究问题，我们按课题做口径设计与逐案清单，见
+<a href="https://www.wenshucha.com/data-report/">数据报告定制</a>。</strong></p>
+
+<h2>七、方法与局限（建议原样抄进论文的数据说明）</h2>
+
+<p>数据源：文书查自建裁判文书索引，共 <strong>160,291,678 条记录</strong>，来自中国裁判文书网公开生效裁判文书，
+分 15 个入库批次。检索引擎 Elasticsearch 8.15，检索日 <strong>2026-09-24</strong>。以下六条是已知缺陷，请连同数字一起引用：</p>
+
+<ol>
+<li><strong>两种写法必须取并集。</strong>「竞业限制」与「竞业禁止」交集仅占并集的 18.9%，
+只检索任一单一写法会漏掉 21.3% 或 59.8%。这是本主题最大的系统性误差来源。</li>
+<li><strong>案由字段不可用作主口径。</strong>并集内标为「竞业限制纠纷」的只有 2,447 条（6.6%），
+另有 10,805 条案由为空字符串。该案由 2020 年才单列，此前案件归入「劳动争议」。</li>
+<li><strong><code>year</code> 字段有三个批次存的是公开日。</strong>该部分占全库 12.37%，按年切片时会系统性后移。
+2025 年尚未收录完整，不可与往年直接比较。</li>
+<li><strong>省份字段 8.1% 为空</strong>（2,949 条），且有「广东省 / 广东」两种写法必须归并；
+该字段是审理法院所在地，不是用人单位注册地。<strong><code>procedure</code> 字段有三套并行编码</strong>，
+不归并会把同一审级拆成三个桶。</li>
+<li><strong>相异案号数是 HLL 近似值</strong>（<code>cardinality</code> 聚合，<code>precision_threshold=40000</code>），
+不是精确去重计数，小数位不可信。<strong>记录数 ≠ 案件数</strong>：本主题 37,046 条记录对应约 32,339 个相异案号。</li>
+<li><strong>正文可用性按批次差异极大。</strong>全库有约 8.6% 的记录 <code>body</code> 为空字符串，
+另有 <strong>11,493,790 条（7.17%）</strong>的 <code>body</code> 存的不是判决内容，而是<em>不公开事由</em>本身
+（如「以调解方式结案的」5,648,952 条、「人民法院认为不宜在互联网公布的其他情形」2,832,246 条、
+「离婚诉讼或者涉及未成年子女抚养、监护的」2,262,977 条）。
+⚠️ <strong>用 <code>exists</code> 查询无法发现这一点</strong>——实测某个正文 100% 为空的批次，
+<code>exists(body)</code> 仍返回 4,414,931/4,414,931 = 100%。
+本主题集因为按正文短语定义，天然排除了这些记录（占位串命中仅 4 条），但做全库口径研究时必须扣除。</li>
+</ol>
+
+<h3>抽样核验</h3>
+<p>对并集集合随机抽样 <strong>n=400，seed=20260924</strong>（<code>random_score</code> 指定 seed）：</p>
+<ul>
+<li><strong>字面纯度 400/400 = 100%</strong>——每条正文确实字面含「竞业限制」或「竞业禁止」，无分词误召回。</li>
+<li>文书类型分布：判决书 341、裁定书 47、其他 11、通知书 1，与全集比例一致。</li>
+<li>正文长度：中位 4,211 字符，p90 8,659，最长 20,352。<strong>命中 6,000 字符截断的样本 0 条</strong>
+——该历史截断已于 2026-09 补齐，本主题集不受影响。</li>
+<li><strong>最大单一法院占比 15/400 = 3.8%</strong>（北京市第三中级人民法院），
+全集 top1 法院 1,043/37,046 = 2.8%。<strong>本主题不存在批量诉讼簇污染</strong>，
+这一点与股权转让纠纷主题不同（后者有两个簇占相异案号的 3.45% 并贡献 97.4% 的第三人撤销之诉，见
+<a href="https://www.wenshucha.com/data/equity-transfer-report/">股权转让纠纷数据报告</a>）。</li>
+</ul>
+
+<h2>八、附录：可复现检索式</h2>
+
+<p>以下检索式可直接对 Elasticsearch 执行复现本页数字。注意 <code>analyzer</code> 参数不可省略。</p>
+
+<details><summary>主口径：并集记录数与相异案号数</summary>
+<pre><code>POST /judgments/_search
+{
+  "size": 0,
+  "query": { "bool": { "minimum_should_match": 1, "should": [
+    { "match_phrase": { "body": { "query": "竞业限制", "analyzer": "ik_max_word" }}},
+    { "match_phrase": { "body": { "query": "竞业禁止", "analyzer": "ik_max_word" }}}
+  ]}},
+  "aggs": { "cases": { "cardinality": {
+    "field": "caseNo", "precision_threshold": 40000 }}}
+}
+// hits.total.value = 37,046   aggs.cases.value ≈ 32,339</code></pre></details>
+
+<details><summary>逐年量与归一化分母</summary>
+<pre><code>// 分子：主题集逐年
+POST /judgments/_search
+{ "size": 0, "query": { /* 同上并集 */ },
+  "aggs": { "y": { "terms": { "field": "year", "size": 200,
+                              "order": { "_count": "desc" }},
+    "aggs": { "c": { "cardinality": { "field": "caseNo",
+                     "precision_threshold": 40000 }}}}}}
+
+// 分母：全库逐年（⚠️ order 必须用 _count desc；
+//   用 _key asc + size 不足会只返回最小的若干个键，得到错误的分母）
+POST /judgments/_search
+{ "size": 0, "aggs": { "y": { "terms": {
+    "field": "year", "size": 200, "order": { "_count": "desc" }}}}}
+// 2022 = 19,292,669   2023 = 6,365,236</code></pre></details>
+
+<details><summary>富集倍数：主题集内 vs 全库</summary>
+<pre><code>// 分子
+POST /judgments/_count
+{ "query": { "bool": { "filter": [
+    { /* 并集 */ },
+    { "match_phrase": { "body": { "query": "保密义务",
+                                  "analyzer": "ik_max_word" }}}]}}}
+// = 12,277  →  12,277 / 37,046 = 33.14%
+
+// 分母
+POST /judgments/_count
+{ "query": { "match_phrase": { "body": {
+    "query": "保密义务", "analyzer": "ik_max_word" }}}}
+// = 37,272  →  37,272 / 160,291,678 = 0.0233%
+// 富集倍数 = 33.14% / 0.0233% ≈ 1,425×</code></pre></details>
+
+<details><summary>正文可用性核验（含 exists 假绿的复现）</summary>
+<pre><code>// exists 会返回 100%，即使该批次正文全为空字符串
+POST /judgments/_count
+{ "query": { "bool": { "filter": [
+    { "term": { "dataset": "2019_2" }},
+    { "exists": { "field": "body" }}]}}}
+// = 4,414,931 / 4,414,931 = 100%  ← 假绿
+
+// 正确做法：用 script_fields 取 _source 的实际长度后抽样统计
+POST /judgments/_search
+{ "size": 600, "_source": ["title"],
+  "script_fields": { "blen": { "script": { "source":
+    "params._source.body == null ? -1 : params._source.body.length()" }}},
+  "query": { "function_score": {
+    "query": { "term": { "dataset": "2019_2" }},
+    "random_score": { "seed": 20260924, "field": "_seq_no" },
+    "boost_mode": "replace" }}}
+// 实测 599/600 长度为 0</code></pre></details>
+
+<div class="cta">
+  <p style="font-size:19px;margin:0 0 6px"><strong>需要本页做不到的那一层？</strong></p>
+  <p style="color:#cfd8e6;margin:0 0 14px;font-size:15px">
+  违约金调减幅度分布、一审／二审按案号配对、按行业或企业性质的交叉表、剔除重复案号后的逐案清单——<br>
+  这些需要按课题单独设计口径并做人工校验。告诉我们研究问题，我们出口径方案与数据。</p>
+  <a href="https://www.wenshucha.com/data-report/">数据报告定制</a>
+  <a class="ghost" href="https://www.wenshucha.com/mcp/">接 MCP 自己跑</a>
+</div>
+
+<div class="links">
+  <strong style="display:block;margin-bottom:6px">相关页面：</strong>
+  <a href="https://www.wenshucha.com/data/equity-transfer-report/">股权转让纠纷裁判数据报告</a>
+  <a href="https://www.wenshucha.com/data/labor-report/">劳动争议裁判数据报告</a>
+  <a href="https://www.wenshucha.com/data/">全部裁判数据</a>
+  <a href="https://www.wenshucha.com/data-report/">数据报告定制</a>
+  <a href="https://www.wenshucha.com/buyers-guide/">数据采购指南</a>
+  <a href="https://www.wenshucha.com/blog/">研究洞察</a>
+</div>
+
+<p class="dis"><strong>引用与免责：</strong>本页数据由文书查于 2026-09-24 在自建裁判文书索引上现跑，
+索引共 160,291,678 条记录，来源为中国裁判文书网公开生效裁判文书。
+本页所有数字均为<strong>本索引在该日期上的测量值</strong>，不是对全国已公开裁判文书的普查，
+也不是对任何同行语料的比较——公开文书全集的真实规模无人能给出，因此任何「占全国 X%」的说法本页都不作。
+本页不统计胜诉率或诉请支持比例，原因见第六节。本页内容为数据统计，不构成法律意见。
+转载或在论文中引用请注明来源与检索日期。</p>
+
+</main>
+
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+
+</body>
+</html>
