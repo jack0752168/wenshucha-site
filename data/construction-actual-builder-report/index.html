@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>建设工程实际施工人裁判数据报告_52万条记录实证_逐年量·地域·法条引用迁移 - 文书查</title>
+<meta name="description" content="基于 1.6 亿条裁判文书全库现跑的「实际施工人」主题数据页：正文含该词 523,413 条记录 / 约 462,829 个相异案号（默认分词器只命中 43 条，为分词假零）。含逐年量（2023 年绝对值跌 70.1%、归一化只降 9.4%）、地域富集倍数、2004→2018→2020 三部司法解释的引用迁移、审级与文书类型、二十个关键词的富集倍数。每个数字附检索式与检索日期（2026-09-28）。不报胜诉率。">
+<meta name="keywords" content="实际施工人数据,实际施工人案件量,建设工程司法大数据,建工解释第四十三条,违法分包转包挂靠,建设工程实证研究,裁判文书数据报告,法学实证论文数据">
+<link rel="canonical" href="https://www.wenshucha.com/data/construction-actual-builder-report/">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta property="og:title" content="建设工程实际施工人裁判数据报告 · 523,413 条记录实证 | 文书查">
+<meta property="og:description" content="默认检索只命中 43 条，指定分词器后 523,413 条；只有 52.6% 落在建设工程类案由；2020 年解释（一）第四十三条施行四年后引用率 16.0%。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.wenshucha.com/data/construction-actual-builder-report/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"建设工程实际施工人裁判数据报告（2013–2025）","description":"基于自建 160,291,678 条中国裁判文书记录全库现跑的「实际施工人」主题统计：正文短语「实际施工人」523,413 条记录、约 462,829 个相异案号（默认分词器下仅命中 43 条，为分词假零）；含逐年量（按全库同年收录量归一化）、省份分布与地域富集倍数、2004 年解释第二十六条→2018 年解释（二）第二十四条→2020 年解释（一）第四十三条的引用迁移、审级与文书类型分布、二十个建设工程关键词的共现率与富集倍数。本报告不统计胜诉率。","url":"https://www.wenshucha.com/data/construction-actual-builder-report/","creator":{"@type":"Organization","name":"文书查","legalName":"深圳星谱网络科技有限公司","url":"https://www.wenshucha.com/"},"temporalCoverage":"2013/2025","spatialCoverage":{"@type":"Place","name":"中国大陆"},"isBasedOn":"中国裁判文书网公开生效裁判文书","variableMeasured":["记录数","相异案号数","按全库同年收录量归一化的记录占比","审理法院所在省份","地域富集倍数","司法解释条文引用占比","审级","文书类型","关键词共现率","关键词相对全库的富集倍数"],"measurementTechnique":"Elasticsearch 全库聚合（match_phrase with analyzer=ik_max_word / terms / cardinality），按入库批次分层抽样 n=390 seed=20260928，检索日 2026-09-28","dateModified":"2026-09-28"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"裁判数据","item":"https://www.wenshucha.com/data/"},{"@type":"ListItem","position":3,"name":"建设工程实际施工人裁判数据报告","item":"https://www.wenshucha.com/data/construction-actual-builder-report/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"库里有多少份涉及「实际施工人」的裁判文书？","acceptedAnswer":{"@type":"Answer","text":"按正文短语检索（必须指定 analyzer=ik_max_word），正文含「实际施工人」的记录 523,413 条，约 462,829 个相异案号（HLL 近似）。标题含该词的只有 1 条，因此不能用标题检索。含法条原文「没有资质的实际施工人借用」的 73,579 条（14.1%）是纯法条引文用法的上限。检索日 2026-09-28。"}},{"@type":"Question","name":"为什么我检索「实际施工人」只有几十条结果？","acceptedAnswer":{"@type":"Answer","text":"这是分词假零。本库索引侧用 ik_max_word 把「实际施工人」切成「实际/施工/工人」，查询侧默认 ik_smart 切成「实际/施/工人」，单字「施」在索引里几乎不存在，短语位置校验失败。默认分词器只命中 43 条，指定 ik_max_word 后是 523,413 条，漏检 99.99%。同样的问题会让「第四十三条」这类法条检索全部返回 0。"}},{"@type":"Question","name":"能不能按案由「建设工程施工合同纠纷」来圈定实际施工人案件？","acceptedAnswer":{"@type":"Answer","text":"不能。2022–2025 年案由字段基本齐全的四年里，含「实际施工人」的 160,096 条记录只有 52.6% 落在建设工程类案由，其余在劳务合同纠纷（12.7%）、买卖合同纠纷（7.1%）、承揽、民间借贷、劳动争议、租赁、执行异议之诉等二十多个案由。另外主题集 33.4% 的记录案由为空，2020 年空值率高达 96.9%。"}},{"@type":"Question","name":"实际施工人纠纷是不是 2023 年以后大幅减少了？","acceptedAnswer":{"@type":"Answer","text":"绝对记录数看像是：2022 年 83,881 条、2023 年 25,069 条，跌 70.1%。但同期全库该年收录量从 1,929 万跌到 637 万。按每万条全库同年记录归一化后是 43.48 → 39.38，只降 9.4%。绝对值极差 15.7 倍，归一化后只有 2.4 倍。2024 年归一化值 52.88 为全表最高，但该年记录全部来自 date 字段存公开日的批次，是最不可信的一行。"}},{"@type":"Question","name":"法院引用哪条司法解释来处理实际施工人问题？","acceptedAnswer":{"@type":"Answer","text":"剔除 date 为公开日的批次后：2004 年解释第二十六条的引用占比 2017 年达峰 19.5%，此后下降，2025 年仍有 1.6%；2018 年解释（二）第二十四条 2019 年出现、2020 年 8.5% 后回落；2020 年解释（一）第四十三条 2021 年起接替，2025 年 16.0%；第四十四条（代位权）始终不到 0.5%。任何一年写出条文全称的文书合计都不超过约 21%，所以用「引用了第四十三条」圈样本会丢掉八成以上。"}},{"@type":"Question","name":"哪些省份的实际施工人案件最多？","acceptedAnswer":{"@type":"Answer","text":"记录数前五是河南、江苏、山东、四川、安徽，合计 32.0%。但按地域富集倍数（该省在主题集的占比 ÷ 该省在全库的占比），前列是西藏 4.87、新疆 3.17、青海 2.55、宁夏 2.20；末尾是上海 0.24、天津 0.59、浙江 0.65。这与竞业限制主题（京粤沪合计 40.1%）方向相反。省份字段是审理法院所在地，11.0% 为空。"}},{"@type":"Question","name":"为什么这份报告不给实际施工人胜诉率？","acceptedAnswer":{"@type":"Answer","text":"因为在本页口径下给出来一定是错的：「实际施工人」在文书里可能是原告、被告、第三人或被提及的案外人，大量文书是材料商、工人、出租方的案件；二审记录占 33.0% 会重复计数；典型判项是「发包人在欠付工程价款范围内承担责任」式的部分支持；调解结案的文书不公开、整体不可见。结果统计需要先识别诉讼地位再人工校验，可按课题定制。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="https://www.wenshucha.com/">文书查 SinoVerdict</a>
+  <nav><a href="https://www.wenshucha.com/case-search/">智能检索</a><a href="https://www.wenshucha.com/legal-ai/">AI 助手</a><a href="https://www.wenshucha.com/mcp/">MCP 服务</a><a href="https://www.wenshucha.com/pricing/">定价</a><a href="https://www.wenshucha.com/data/">裁判数据</a><a href="https://www.wenshucha.com/data-report/">数据报告</a><a href="https://www.wenshucha.com/buyers-guide/">采购指南</a><a href="https://www.wenshucha.com/blog/">洞察</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>建设工程「实际施工人」裁判数据报告（2013–2025）</h1>
+  <p>面向写建设工程法论文、做课题与建法律 AI 数据集的人。全部数字在 1.6 亿条裁判文书全库上现跑，
+  每个数字附检索式与检索日期，口径陷阱一条不藏。<strong>本页不报胜诉率，也不报「实际施工人向发包人主张成功率」</strong>——第七节说明为什么。</p>
+  <div class="kpi">
+    <div><b>523,413</b><span>正文含「实际施工人」的记录</span></div>
+    <div><b>462,829</b><span>相异案号数（近似）</span></div>
+    <div><b>43</b><span>默认分词器下的命中数（假零）</span></div>
+    <div><b>2026-09-28</b><span>检索日期</span></div>
+  </div>
+</div></section>
+
+<main class="wrap">
+
+<div class="warn">
+  <strong>⚠️ 先看三条边界，再看数字</strong>
+  <p><strong>一、默认检索会把 52 万条变成 43 条。</strong>「实际施工人」在默认分词器下 <code>match_phrase</code> 只命中 <strong>43</strong> 条，
+  显式指定 <code>analyzer=ik_max_word</code> 后命中 <strong>523,413</strong> 条——漏检 99.99%。
+  这不是数据缺失，是分词边界对不上（第一节有复现）。任何「实际施工人案件很少」的检索结论，先查这一条。</p>
+  <p><strong>二、它不是一个案由，而是一个跨案由的身份概念。</strong>2022–2025 年案由字段基本齐全的四年里，
+  含「实际施工人」的文书只有 <strong>52.6%</strong> 落在建设工程类案由，其余分散在劳务合同（12.7%）、买卖合同（7.1%）、
+  承揽、民间借贷、劳动争议、租赁、执行异议之诉等二十多个案由。<strong>按案由检索会丢掉近一半。</strong></p>
+  <p><strong>三、记录数 ≠ 案件数。</strong>本主题二审记录占 33.0%，一个案件常有一审、二审两份判决。
+  本页表格同时给出记录数与相异案号数，论文里请引后者。</p>
+</div>
+
+<h2>一、主题定义与检索口径</h2>
+
+<p>「实际施工人」不是法律条文里的概念，而是最高人民法院司法解释创设的概念：
+2004 年《关于审理建设工程施工合同纠纷案件适用法律问题的解释》（法释〔2004〕14 号）第一条、第四条、第二十六条首次使用，
+指在转包、违法分包、借用资质（挂靠）等无效施工合同中<em>实际完成施工</em>的单位或个人；
+第二十六条第二款允许其在发包人欠付工程价款范围内直接向发包人主张权利，突破了合同相对性。
+2018 年《解释（二）》第二十四条细化了这一规则；2021 年 1 月 1 日施行的《解释（一）》（法释〔2020〕25 号）
+以第四十三条、第四十四条（代位权）取代前两者。</p>
+
+<p>因为它没有独立案由，本页以<strong>正文短语</strong>为唯一主口径：</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>口径</th><th>记录数</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>正文含「实际施工人」（<code>analyzer=ik_max_word</code>，本页主口径）</strong></td><td><strong>523,413</strong></td><td>相异案号约 <strong>462,829</strong> 个（HLL 近似）</td></tr>
+<tr><td>同一短语，默认分词器</td><td>43</td><td>分词假零，见下框</td></tr>
+<tr><td>标题含「实际施工人」</td><td>1</td><td>标题几乎从不出现该词，<strong>不能用标题检索</strong></td></tr>
+<tr><td>正文含「实际施工」（不带「人」）</td><td>764,581</td><td>含「实际施工面积 / 实际施工工期」等无关用法，不用</td></tr>
+<tr><td>其中仅以法条原文出现的上限：「没有资质的实际施工人借用」</td><td>73,579（14.1%）</td><td>合同无效条款的法条引文，见第八节抽样</td></tr>
+</tbody></table></div>
+
+<div class="warn">
+  <strong>🔍 为什么默认检索只剩 43 条：可复现的分词证据</strong>
+  <p>本库索引侧用 <code>ik_max_word</code> 切词，查询侧默认 <code>ik_smart</code>。对同一个词，两者切法不同：</p>
+  <div class="tablewrap"><table>
+  <thead><tr><th>分词器</th><th>「实际施工人」的切分</th><th>短语命中</th></tr></thead>
+  <tbody>
+  <tr><td><code>ik_max_word</code>（索引侧）</td><td>实际 / 施工 / 工人</td><td>523,413</td></tr>
+  <tr><td><code>ik_smart</code>（查询默认）</td><td>实际 / <strong>施</strong> / 工人</td><td>43</td></tr>
+  </tbody></table></div>
+  <p>查询侧切出的单字「施」在索引里几乎不存在（索引存的是「施工」），短语位置校验失败，于是返回一个<strong>看起来完全正常的小数字</strong>。
+  同样的机制也打在法条引文上：本页第四节所有「第 X 条」的检索，默认分词器<strong>全部返回 0</strong>，
+  指定 <code>ik_max_word</code> 后才是真数。凡是某个法律术语检索结果少得反常，先换分词器复核。</p>
+</div>
+
+<h3>为什么不用案由字段做主口径</h3>
+<p>两个原因，任一条都足以否决：</p>
+<ol>
+<li><strong>跨案由。</strong>2022–2025 年（案由空值率已降到 1% 以下）含「实际施工人」的 160,096 条记录中，
+建设工程类案由（施工合同 55,205、分包合同 12,511、建设工程合同 12,306、装饰装修 3,377、农村建房 578 等）合计 84,182 条，
+<strong>只占 52.6%</strong>。劳务合同纠纷 20,281（12.7%）、买卖合同纠纷 11,348（7.1%）、合同纠纷 7,103、承揽 3,427、民间借贷 2,766、
+劳动争议 2,523、租赁与建筑设备租赁合计 4,413、追偿权 1,882、追索劳动报酬 1,833、提供劳务者受害责任 1,660、案外人执行异议之诉 1,493——
+这些是<strong>材料商、班组工人、设备出租方、借款人</strong>起诉或被诉时，把某人认定为（或否认为）实际施工人的案件。
+研究「谁来承担实际施工人欠下的材料款、工资、借款」，恰恰要看这一半。</li>
+<li><strong>案由字段在 2018–2020 年大面积为空。</strong>主题集整体有 174,727 条（33.4%）案由为空字符串；按年看，
+2018 年空 80.4%、2019 年 78.1%、<strong>2020 年 96.9%</strong>，而 2022 年只有 0.7%。
+按案由画年度曲线，会得到一条 2018–2020 年「塌陷」的假趋势。</li>
+</ol>
+
+<p>反过来看渗透率：2022–2025 年案由为「建设工程施工合同纠纷」的 358,951 条记录里，正文提到「实际施工人」的有 <strong>15.4%</strong>；
+「建设工程分包合同纠纷」<strong>16.6%</strong>；而「建设工程合同纠纷」只有 3.4%、「装饰装修合同纠纷」2.3%——
+后两者多为按合同付款的常规纠纷，不涉及层层转包。</p>
+
+<h2>二、逐年记录量：绝对值会骗人，归一化才不会</h2>
+
+<figure>
+  <img src="/data/construction-actual-builder-report/year-normalized.png" alt="正文含实际施工人的记录逐年量：柱为绝对记录数，2022 年见顶后 2023 年断崖；折线为每万条全库同年记录中的占比，2023 年仅小幅回落" loading="lazy" width="1632" height="720">
+  <figcaption>柱：绝对记录数，2022→2023 跌 70.1%。折线：每万条全库同年记录中的本主题记录数，同期只降 9.4%。</figcaption>
+</figure>
+
+<div class="tablewrap"><table>
+<thead><tr><th>年份（<code>year</code> 字段）</th><th>记录数</th><th>相异案号数</th><th>全库同年记录数</th><th>每万条中的占比</th></tr></thead>
+<tbody>
+<tr><td>2013</td><td>5,355</td><td>4,716</td><td>1,762,537</td><td>30.38</td></tr>
+<tr><td>2014</td><td>19,186</td><td>17,004</td><td>7,033,956</td><td>27.28</td></tr>
+<tr><td>2015</td><td>28,473</td><td>25,341</td><td>9,894,747</td><td>28.78</td></tr>
+<tr><td>2016</td><td>40,518</td><td>36,501</td><td>12,443,177</td><td>32.56</td></tr>
+<tr><td>2017</td><td>53,680</td><td>50,559</td><td>15,147,489</td><td>35.44</td></tr>
+<tr><td>2018</td><td>61,864</td><td>54,569</td><td>16,331,967</td><td>37.88</td></tr>
+<tr><td>2019</td><td>43,838</td><td>37,672</td><td>12,290,542</td><td>35.67</td></tr>
+<tr><td>2020</td><td>47,325</td><td>46,104</td><td>21,359,050</td><td>22.16</td></tr>
+<tr><td>2021</td><td>56,397</td><td>51,733</td><td>16,548,198</td><td>34.08</td></tr>
+<tr><td>2022</td><td>83,881</td><td>59,848</td><td>19,292,669</td><td>43.48</td></tr>
+<tr><td>2023</td><td>25,069</td><td>23,963</td><td>6,365,236</td><td>39.38</td></tr>
+<tr><td>2024</td><td>36,932</td><td>36,918</td><td>6,984,435</td><td>52.88</td></tr>
+<tr><td>2025</td><td>14,214</td><td>14,194</td><td>3,818,342</td><td>37.23</td></tr>
+</tbody></table></div>
+
+<p><strong>绝对值的极差是 15.7 倍</strong>（2013 年 5,355 → 2022 年 83,881），<strong>归一化后只有 2.4 倍</strong>（2020 年 22.16 → 2024 年 52.88）。
+最容易被误读的 2022→2023：绝对记录数 83,881 → 25,069，<strong>跌 70.1%</strong>；同期全库该年收录量从 1,929 万跌到 637 万，
+归一化后 43.48 → 39.38，<strong>只降 9.4%</strong>。「实际施工人诉讼 2023 年腰斩」是文书公开量收缩造成的收录效应，不是纠纷本身的变化。</p>
+
+<p>归一化曲线的真实形状是：2013–2018 年稳步上升（30.4 → 37.9），2020 年出现一个<strong>异常低谷 22.16</strong>，
+2021–2024 年回到并超过此前水平。2020 年的低谷在本系列<a href="/data/noncompete-report/">竞业限制</a>那页同样出现（1.23，为该主题最低）。该年全库收录 2,136 万条、为历年最多，
+两个不相干的主题同年同向下陷，更可能是该年收录结构的效应，而不是两类纠纷同时减少——本页未拆解该年分母的构成，这一点只作提示。</p>
+
+<p>⚠️ 三条必须同时写进论文的限定：一是 <code>year</code> 派生自 <code>date</code> 字段，
+而 <code>2024</code>、<code>2021_x</code>、<code>2022_x</code> 三个入库批次（占全库 12.37%、占本主题集 21.9%）存的是<strong>公开日</strong>而非落款日，
+2024 行的记录<strong>全部</strong>来自这类批次，<strong>2024 年的 52.88 是全表最高值，但也是最不可信的一行</strong>；
+二是 2025 年尚未收录完整；三是 2013 年以前每年不足 1,600 条，比例噪声大，本页不作解读。</p>
+
+<h2>三、地域分布：不是经济大省说了算</h2>
+
+<p>下表给出本主题集各省记录数，以及<strong>地域富集倍数</strong>＝（该省在本主题集的占比）÷（该省在全库的占比）。
+富集倍数大于 1，说明该省法院的文书里「实际施工人」出现得比该省的文书总量应有的更多。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>省份（审理法院所在地）</th><th>记录数</th><th>主题集占比</th><th>全库占比</th><th>富集倍数</th></tr></thead>
+<tbody>
+<tr><td>河南</td><td>36,754</td><td>7.02%</td><td>5.98%</td><td>1.17</td></tr>
+<tr><td>江苏</td><td>36,656</td><td>7.00%</td><td>5.04%</td><td>1.39</td></tr>
+<tr><td>山东</td><td>36,063</td><td>6.89%</td><td>7.33%</td><td>0.94</td></tr>
+<tr><td>四川</td><td>30,067</td><td>5.74%</td><td>3.94%</td><td>1.46</td></tr>
+<tr><td>安徽</td><td>27,816</td><td>5.31%</td><td>3.66%</td><td>1.45</td></tr>
+<tr><td>辽宁</td><td>26,411</td><td>5.05%</td><td>4.77%</td><td>1.06</td></tr>
+<tr><td>广东</td><td>22,335</td><td>4.27%</td><td>5.44%</td><td>0.78</td></tr>
+<tr><td>浙江</td><td>21,083</td><td>4.03%</td><td>6.16%</td><td>0.65</td></tr>
+<tr><td>湖南</td><td>18,930</td><td>3.62%</td><td>4.34%</td><td>0.83</td></tr>
+<tr><td>云南</td><td>15,569</td><td>2.97%</td><td>2.19%</td><td>1.36</td></tr>
+<tr><td>新疆</td><td>14,483</td><td>2.77%</td><td>0.87%</td><td>3.17</td></tr>
+<tr><td>湖北</td><td>14,263</td><td>2.72%</td><td>2.68%</td><td>1.02</td></tr>
+</tbody></table></div>
+
+<p>记录数前五是河南、江苏、山东、四川、安徽，合计 32.0%。但按富集倍数排，前列是<strong>西藏 4.87、新疆 3.17、青海 2.55、宁夏 2.20、海南 1.96、贵州 1.67</strong>——
+西部与基建投资占经济比重高的省份；末尾是<strong>上海 0.24、天津 0.59、浙江 0.65、陕西 0.70、福建 0.72</strong>。
+上海法院的文书占全库 3.31%，却只贡献本主题 0.81%。另有最高人民法院 1,971 条（富集 6.42）、新疆生产建设兵团法院 2,066 条（6.11），
+前者反映此类纠纷进入再审审查的频率，后者与兵团辖区基建项目集中有关。</p>
+
+<p>这一分布与本系列<a href="/data/noncompete-report/">竞业限制</a>那页（京粤沪合计 40.1%）方向正好相反，
+提示「实际施工人」纠纷的地理分布更多跟随<strong>工程项目所在地与层层转包的施工组织方式</strong>，而不是跟随经济总量。
+<strong>本页只提供计数，不作因果解释</strong>——要区分「项目多」与「转包比例高」，需要按项目类型与发包方性质交叉。</p>
+
+<p>⚠️ 省份字段本主题集有 57,535 条（11.0%）为空或无法识别；且原始数据存在「四川省 / 四川」「新疆维吾尔自治区 / 新疆维吾尔 / 新疆」等多种写法，
+本页已按省名前缀归并，<strong>不归并会把同一省拆成二到三个桶</strong>（例如四川的第二个桶「四川」就有 7,485 条）。</p>
+
+<h2>四、法条引用迁移：新解释施行四年后仍只覆盖六分之一</h2>
+
+<figure>
+  <img src="/data/construction-actual-builder-report/citation-shift.png" alt="实际施工人文书中三条司法解释条文的引用占比逐年变化：2004 年解释第二十六条 2017 年达峰后下降，2021 年起被 2020 年解释（一）第四十三条取代" loading="lazy" width="1632" height="720">
+  <figcaption>剔除 date 字段为公开日的三个批次后的逐年引用占比（2024 年因此空缺）。三条线按条文全称短语检索，默认分词器下全部为 0。</figcaption>
+</figure>
+
+<div class="tablewrap"><table>
+<thead><tr><th>年份</th><th>记录数（净批次）</th><th>2004 解释 第二十六条</th><th>2018 解释（二）第二十四条</th><th>2020 解释（一）第四十三条</th><th>解释（一）第四十四条（代位权）</th></tr></thead>
+<tbody>
+<tr><td>2016</td><td>40,518</td><td>18.1%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td></tr>
+<tr><td>2017</td><td>53,680</td><td>19.5%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td></tr>
+<tr><td>2018</td><td>61,864</td><td>19.2%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td></tr>
+<tr><td>2019</td><td>43,838</td><td>16.2%</td><td>4.5%</td><td>0.0%</td><td>0.0%</td></tr>
+<tr><td>2020</td><td>47,325</td><td>13.2%</td><td>8.5%</td><td>0.0%</td><td>0.0%</td></tr>
+<tr><td>2021</td><td>20,296</td><td>6.1%</td><td>4.0%</td><td>5.4%</td><td>0.1%</td></tr>
+<tr><td>2022</td><td>51,384</td><td>5.4%</td><td>2.8%</td><td>8.7%</td><td>0.2%</td></tr>
+<tr><td>2023</td><td>16,210</td><td>3.8%</td><td>2.0%</td><td>12.2%</td><td>0.1%</td></tr>
+<tr><td>2025</td><td>14,214</td><td>1.6%</td><td>0.6%</td><td>16.0%</td><td>0.5%</td></tr>
+
+</tbody></table></div>
+
+<p>三条可读出来的事实：</p>
+<ol>
+<li><strong>显式引用率一直不高。</strong>任何一年，明确写出这几条条文全称的文书合计都没超过 21%。
+多数文书以「根据相关司法解释」「依照上述规定」带过，或只援引合同法 / 民法典合同编条文。
+<strong>用「引用了第四十三条」来圈定研究样本，会丢掉八成以上。</strong></li>
+<li><strong>新旧条文交接清晰。</strong>2004 年解释第二十六条的引用占比 2017 年达峰（19.5%），2019 年起被《解释（二）》第二十四条分流
+（该解释 2019-02-01 施行，<strong>2018 年及以前合计只有 1 条</strong>，时点完全吻合），2021 年《解释（一）》第四十三条接替，2025 年升到 16.0%。</li>
+<li><strong>旧条文没有消失。</strong>2025 年仍有 1.6% 的文书引用 2004 年解释第二十六条、0.6% 引用《解释（二）》第二十四条。
+一部分是按司法解释的时间效力适用旧法，一部分是当事人上诉理由里的引述。要区分这两种，只能逐篇读。
+第四十四条（代位权路径）的引用率始终不到 0.5%，远低于第四十三条。</li>
+</ol>
+
+<p>⚠️ 本节是<strong>下限</strong>：只统计写出条文全称的引用（「建设工程施工合同纠纷案件适用法律问题的解释（一）第四十三条」），
+简称写法（如「建工解释（一）第四十三条」）未计入——简称「建工解释」在 2025 年本主题集内的出现率约 2.0%，量级有限但不为零。
+另注意「解释（二）第二十四条」必须带全称检索：只写「解释（二）第二十四条」会误召回《合同法解释（二）》第二十四条（合同解除异议期），
+本页初版就在 2012–2017 年多出了约 0.3%–0.5% 的假引用，已按全称修正。</p>
+
+<h2>五、审级与文书类型</h2>
+
+<div class="tablewrap"><table>
+<thead><tr><th>审级（<code>procedure</code> 三套编码归并后）</th><th>记录数</th><th>占比</th><th>案号交叉验证</th></tr></thead>
+<tbody>
+<tr><td>一审</td><td>290,105</td><td>55.4%</td><td>案号含「初」298,653</td></tr>
+<tr><td>二审</td><td>172,666</td><td>33.0%</td><td>案号含「终」180,510</td></tr>
+<tr><td>再审 / 审判监督</td><td>14,465</td><td>2.8%</td><td>案号含「再」7,557（另有「民申」类审查案号）</td></tr>
+<tr><td>执行相关（执行审查、执行实施、执行异议、数字码 4 等）</td><td>约 9,500</td><td>约 1.8%</td><td>案号含「执」12,789</td></tr>
+<tr><td>未能归入 / 空值</td><td>约 36,700</td><td>约 7.0%</td><td>含 25,340 条 procedure 为空字符串、7,420 条含义不明的数字码 3</td></tr>
+</tbody></table></div>
+
+<p>一审由「民事一审」「一审」「1」「0301」等六种写法归并，二审同理——<strong>只认中文「民事一审」会漏掉 48.6% 的一审记录</strong>
+（149,114 / 290,105 被识别）。二审记录 / 一审记录 = 0.60，<strong>这不是上诉率</strong>：分子分母不是同一批案件，一二审文书的上网比例也不同。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>文书类型（按<strong>标题</strong>判定）</th><th>记录数</th><th>占比</th></tr></thead>
+<tbody>
+<tr><td>判决书</td><td>444,590</td><td>84.9%</td></tr>
+<tr><td>裁定书</td><td>59,745</td><td>11.4%</td></tr>
+<tr><td>调解书 / 决定书 / 通知书</td><td>384</td><td>0.1%</td></tr>
+<tr><td>标题未含上述类型词</td><td>18,694</td><td>3.6%</td></tr>
+</tbody></table></div>
+
+<p>文书类型<strong>必须按标题判</strong>，不能按正文首行判：库内最大的入库批次之一，正文首行一律写「判决书」，
+包括其中约 1,930 万份标题为裁定书的文书。调解书只有 192 条，因为以调解方式结案的文书按规定不在互联网公开，
+库内只存其不公开事由——<strong>本主题集按正文短语定义，天然看不到调解结案的实际施工人案件</strong>，这是样本层面的系统性缺口。</p>
+
+<h2>六、关键词共现：富集倍数比共现率可靠</h2>
+
+<p>下表是本主题集内二十个建设工程常用词的共现率，以及<strong>富集倍数</strong>＝（本主题集出现率）÷（全库出现率）。
+每个词都用两种分词器各查一次取较大值。</p>
+
+<div class="tablewrap"><table>
+<thead><tr><th>关键词</th><th>主题集内</th><th>共现率</th><th>全库出现率</th><th>富集倍数</th></tr></thead>
+<tbody>
+<tr><td>违法分包</td><td>151,960</td><td>29.0%</td><td>0.135%</td><td>214.6×</td></tr>
+<tr><td>借用资质</td><td>31,820</td><td>6.1%</td><td>0.029%</td><td>210.1×</td></tr>
+<tr><td>欠付工程价款</td><td>105,074</td><td>20.1%</td><td>0.117%</td><td>171.1×</td></tr>
+<tr><td>内部承包</td><td>45,188</td><td>8.6%</td><td>0.071%</td><td>121.1×</td></tr>
+<tr><td>发包人</td><td>241,006</td><td>46.0%</td><td>0.417%</td><td>110.4×</td></tr>
+<tr><td>转包</td><td>248,899</td><td>47.6%</td><td>0.469%</td><td>101.3×</td></tr>
+<tr><td>班组</td><td>87,482</td><td>16.7%</td><td>0.203%</td><td>82.2×</td></tr>
+<tr><td>劳务分包</td><td>100,693</td><td>19.2%</td><td>0.237%</td><td>81.1×</td></tr>
+<tr><td>工程结算</td><td>145,777</td><td>27.9%</td><td>0.344%</td><td>81.0×</td></tr>
+<tr><td>造价鉴定</td><td>28,901</td><td>5.5%</td><td>0.071%</td><td>77.3×</td></tr>
+<tr><td>农民工</td><td>117,977</td><td>22.5%</td><td>0.297%</td><td>75.8×</td></tr>
+<tr><td>项目经理</td><td>108,107</td><td>20.7%</td><td>0.338%</td><td>61.0×</td></tr>
+<tr><td>合同相对性</td><td>103,457</td><td>19.8%</td><td>0.330%</td><td>60.0×</td></tr>
+<tr><td>工程款</td><td>441,748</td><td>84.4%</td><td>1.779%</td><td>47.5×</td></tr>
+<tr><td>包工头</td><td>17,378</td><td>3.3%</td><td>0.074%</td><td>44.7×</td></tr>
+<tr><td>挂靠</td><td>158,019</td><td>30.2%</td><td>0.709%</td><td>42.6×</td></tr>
+<tr><td>合同无效</td><td>144,950</td><td>27.7%</td><td>0.941%</td><td>29.4×</td></tr>
+<tr><td>代位权</td><td>6,500</td><td>1.2%</td><td>0.052%</td><td>23.8×</td></tr>
+<tr><td>劳动关系</td><td>48,872</td><td>9.3%</td><td>1.461%</td><td>6.4×</td></tr>
+<tr><td>优先受偿</td><td>22,063</td><td>4.2%</td><td>1.434%</td><td>2.9×</td></tr>
+</tbody></table></div>
+
+<p>三组值得写进论文的读法：</p>
+<ul>
+<li><strong>「违法分包」214.6 倍、「借用资质」210.1 倍、「欠付工程价款」171.1 倍</strong>是本主题最强的特异信号，
+正好对应司法解释里实际施工人产生的三条路径与发包人责任的边界。另一个角度：<strong>全库含「违法分包」的 216,837 条记录里，有 70.1% 同时提到实际施工人</strong>；
+「欠付工程价款」这一比例是 55.9%。</li>
+<li><strong>「合同相对性」共现率 19.8%、富集 60 倍</strong>——约五分之一的文书在正文里讨论了突破合同相对性的问题，
+这是实际施工人制度在学理上最核心的争点，也是最适合做判决理由人工标注的切口。</li>
+<li><strong>低富集词要打折看。</strong>「优先受偿」只有 2.9 倍（全库出现率 1.43%，主要来自抵押、质押、破产语境），
+「劳动关系」6.4 倍（劳动法通用词）。共现率 4.2% 的「优先受偿」不能直接读成「4.2% 的实际施工人案件主张了工程价款优先受偿权」。</li>
+</ul>
+
+<h2>七、为什么这份报告不报胜诉率</h2>
+
+<p>实际施工人主题最常被问的是「实际施工人起诉发包人，法院支持的比例是多少」。本页不给这个数，因为在本页口径下给出来一定是错的：</p>
+
+<ol>
+<li><strong>「实际施工人」在文书里可能是原告、被告、第三人，也可能只是被提及的案外人。</strong>
+材料商起诉项目部时认定某包工头为实际施工人、劳动者诉建筑公司时公司抗辩「对方是实际施工人而非员工」、
+法院在执行异议之诉里认定案外人身份——这些文书的「胜败」和实际施工人主张权利毫无关系。
+要算「实际施工人作为原告向发包人主张」的结果，必须先逐篇识别诉讼地位与被告身份。</li>
+<li><strong>同一案件被重复计数。</strong>二审记录占 33.0%，层层转包的纠纷还常拆成多个关联案件（向转包人一案、向发包人一案），
+按记录统计结果等于给复杂案件加权。</li>
+<li><strong>判项几乎都是部分支持。</strong>典型结果是「发包人在欠付工程价款范围内承担责任」，
+而欠付范围本身常需造价鉴定（本主题集「造价鉴定」共现 5.5%）。「支持」与「驳回其他诉讼请求」同时出现是常态，字面统计无法分层。</li>
+<li><strong>调解结案的案件整体不可见</strong>（见第五节），而建设工程纠纷的调解率不低，任何结果比例都缺了这一块。</li>
+</ol>
+
+<p>要拿到结果维度的可靠统计，路径是：先按诉讼地位与被告类型筛出「实际施工人起诉发包人」这一子集，
+再对判决主文做结构化抽取加人工校验，并按一审案号配对二审结果。
+<strong>如果你的研究需要这一层——比如《解释（一）》施行前后发包人担责比例的变化、按省份的欠付范围认定方式，
+或多层转包中第几手施工人能直接起诉发包人的裁判分歧——可以直接告诉我们研究问题，我们按课题做口径设计与逐案清单，见
+<a href="https://www.wenshucha.com/data-report/">数据报告定制</a>。</strong></p>
+
+<h2>八、方法与局限（建议原样抄进论文的数据说明）</h2>
+
+<p>数据源：文书查自建裁判文书索引，共 <strong>160,291,678 条记录</strong>，来自中国裁判文书网公开生效裁判文书，
+分 15 个入库批次。检索引擎 Elasticsearch，检索日 <strong>2026-09-28</strong>。以下七条是已知缺陷，请连同数字一起引用：</p>
+
+<ol>
+<li><strong>检索必须显式指定 <code>analyzer=ik_max_word</code>。</strong>默认分词器下主口径只命中 43 条，所有「第 X 条」法条检索返回 0。</li>
+<li><strong>主口径是「正文提到」，不是「以实际施工人身份起诉」。</strong>它包含法条引文、当事人抗辩、案外人认定等用法；
+其中含法条原文「没有资质的实际施工人借用」的记录 73,579 条（14.1%），是纯引文用法的上限。</li>
+<li><strong>案由字段不可用作主口径。</strong>主题集 33.4% 案由为空，2020 年空 96.9%；2022–2025 年案由齐全时，建设工程类案由也只占 52.6%。</li>
+<li><strong><code>year</code> 字段有三个批次存的是公开日。</strong>占全库 12.37%、占本主题集 21.9%；2024 行全部来自这类批次。2025 年尚未收录完整。</li>
+<li><strong>省份字段 11.0% 为空</strong>且有多种写法须归并；该字段是审理法院所在地，不是工程项目所在地。
+<strong><code>procedure</code> 字段有三套并行编码</strong>，不归并会漏掉近半数一审。</li>
+<li><strong>相异案号数是 HLL 近似值</strong>（<code>cardinality</code>，<code>precision_threshold=40000</code>），不是精确去重。</li>
+<li><strong>调解结案的文书不可见</strong>；库内另有约 7.17% 的记录正文存的是不公开事由而非判决内容，本主题集按正文短语定义，天然排除了这部分。</li>
+</ol>
+
+<h3>抽样核验</h3>
+<p>按入库批次<strong>分层抽样</strong>：13 个批次各 30 条，共 <strong>n=390，seed=20260928</strong>（<code>random_score</code>，<code>field=_seq_no</code>）。
+分层是必要的——不分层的 <code>random_score</code> 在本库上只会抽到少数几个分片，曾经把一个 1,930 万条规模的缺陷漏报成 0。</p>
+<ul>
+<li><strong>字面纯度 390/390 = 100%</strong>，每条正文确实逐字含「实际施工人」；「实际施工工人」这类误召回 0 条。</li>
+<li><strong>语境核验（从 390 条中再随机读 40 条）</strong>：37 条是对某个具体主体实际施工人身份的主张、抗辩或认定，
+3 条只在合同无效的法条引文中出现。即约 92% 的记录与「实际施工人」这一身份实质相关。这是单人阅读判断，n=40，只作量级参考。</li>
+<li>正文长度：中位 4,875 字符，p90 10,361，最长 34,786；恰好 6,000 字符的 1 条（历史截断已于 2026-09 补齐）。</li>
+<li><strong>无批量诉讼簇污染</strong>：全集最大单一法院是山东省济南市中级人民法院 2,512 条，仅占 0.48%；
+按「单一法院单月 ≥ 主题总量 1%」的簇检测门槛（5,234 条），没有任何法院在全部年份合计就达到这个量。
+这一点与<a href="https://www.wenshucha.com/data/equity-transfer-report/">股权转让纠纷</a>主题不同（后者两个簇占相异案号的 3.45%）。</li>
+</ul>
+
+<h2>九、附录：可复现检索式</h2>
+
+<p>以下检索式可直接对 Elasticsearch 执行复现本页数字。<code>analyzer</code> 参数不可省略。</p>
+
+<details><summary>主口径与分词假零对照</summary>
+<pre><code>// 主口径
+POST /judgments/_search
+{ "size": 0, "track_total_hits": true,
+  "query": { "match_phrase": { "body": {
+      "query": "实际施工人", "analyzer": "ik_max_word" }}},
+  "aggs": { "cases": { "cardinality": {
+      "field": "caseNo", "precision_threshold": 40000 }}}}
+// hits.total.value = 523,413   aggs.cases.value ≈ 462,829
+
+// 同一短语，不指定 analyzer
+POST /judgments/_count
+{ "query": { "match_phrase": { "body": "实际施工人" }}}
+// = 43
+
+// 看切分差异
+POST /judgments/_analyze  { "field": "body", "text": "实际施工人" }
+// 实际 / 施工 / 工人
+POST /judgments/_analyze  { "analyzer": "ik_smart", "text": "实际施工人" }
+// 实际 / 施 / 工人</code></pre></details>
+
+<details><summary>逐年量与归一化分母</summary>
+<pre><code>// 分子
+POST /judgments/_search
+{ "size": 0, "query": { /* 主口径 */ },
+  "aggs": { "y": { "terms": { "field": "year", "size": 60 },
+    "aggs": { "c": { "cardinality": { "field": "caseNo",
+                     "precision_threshold": 40000 }}}}}}
+
+// 分母：全库逐年（⚠️ order 必须 _count desc 且 size 足够大；
+//   _key asc + size 不足只会返回最小的若干个键）
+POST /judgments/_search
+{ "size": 0, "aggs": { "y": { "terms": {
+    "field": "year", "size": 200, "order": { "_count": "desc" }}}}}
+// 2022 = 19,292,669   2023 = 6,365,236</code></pre></details>
+
+<details><summary>法条引用（剔除公开日批次）</summary>
+<pre><code>POST /judgments/_search
+{ "size": 0,
+  "query": { "bool": {
+    "filter": [
+      { /* 主口径 */ },
+      { "match_phrase": { "body": {
+          "query": "施工合同纠纷案件适用法律问题的解释（一）第四十三条",
+          "analyzer": "ik_max_word" }}}],
+    "must_not": [ { "terms": { "dataset": ["2024", "2021_x", "2022_x"] }}] }},
+  "aggs": { "y": { "terms": { "field": "year", "size": 60 }}}}
+// 2004 年解释用「施工合同纠纷案件适用法律问题的解释第二十六条」（无「（一）」）
+// 2018 年解释用「施工合同纠纷案件适用法律问题的解释（二）第二十四条」——
+//   只写「解释（二）第二十四条」会误召回《合同法解释（二）》</code></pre></details>
+
+<details><summary>案由分布（2022–2025）与建工案由渗透率</summary>
+<pre><code>POST /judgments/_search
+{ "size": 0, "track_total_hits": true,
+  "query": { "bool": { "filter": [
+    { /* 主口径 */ },
+    { "range": { "year": { "gte": 2022, "lte": 2025 }}}]}},
+  "aggs": { "c": { "terms": { "field": "cause", "size": 25 }}}}
+// total = 160,096；建设工程施工合同纠纷 55,205；劳务合同纠纷 20,281 …
+
+POST /judgments/_search
+{ "size": 0,
+  "query": { "bool": { "filter": [
+    { "term": { "cause": "建设工程施工合同纠纷" }},
+    { "range": { "year": { "gte": 2022, "lte": 2025 }}}]}},
+  "aggs": { "hit": { "filter": { /* 主口径 */ }}}}
+// 358,951 条中 55,205 条（15.4%）</code></pre></details>
+
+<details><summary>分层抽样</summary>
+<pre><code>// 对每个 dataset 各执行一次（seed 固定，结果可复现）
+POST /judgments/_search
+{ "size": 30, "_source": ["title", "caseNo", "court", "body"],
+  "query": { "function_score": {
+    "query": { "bool": { "filter": [
+      { /* 主口径 */ },
+      { "term": { "dataset": "ws_new" }}]}},
+    "random_score": { "seed": 20260928, "field": "_seq_no" },
+    "boost_mode": "replace" }}}</code></pre></details>
+
+<h2>十、常见问题</h2>
+<details><summary>库里有多少份涉及「实际施工人」的裁判文书？</summary><p>按正文短语检索（必须指定 analyzer=ik_max_word），正文含「实际施工人」的记录 523,413 条，约 462,829 个相异案号（HLL 近似）。标题含该词的只有 1 条，因此不能用标题检索。含法条原文「没有资质的实际施工人借用」的 73,579 条（14.1%）是纯法条引文用法的上限。检索日 2026-09-28。</p></details>
+<details><summary>为什么我检索「实际施工人」只有几十条结果？</summary><p>这是分词假零。本库索引侧用 ik_max_word 把「实际施工人」切成「实际/施工/工人」，查询侧默认 ik_smart 切成「实际/施/工人」，单字「施」在索引里几乎不存在，短语位置校验失败。默认分词器只命中 43 条，指定 ik_max_word 后是 523,413 条，漏检 99.99%。同样的问题会让「第四十三条」这类法条检索全部返回 0。</p></details>
+<details><summary>能不能按案由「建设工程施工合同纠纷」来圈定实际施工人案件？</summary><p>不能。2022–2025 年案由字段基本齐全的四年里，含「实际施工人」的 160,096 条记录只有 52.6% 落在建设工程类案由，其余在劳务合同纠纷（12.7%）、买卖合同纠纷（7.1%）、承揽、民间借贷、劳动争议、租赁、执行异议之诉等二十多个案由。另外主题集 33.4% 的记录案由为空，2020 年空值率高达 96.9%。</p></details>
+<details><summary>实际施工人纠纷是不是 2023 年以后大幅减少了？</summary><p>绝对记录数看像是：2022 年 83,881 条、2023 年 25,069 条，跌 70.1%。但同期全库该年收录量从 1,929 万跌到 637 万。按每万条全库同年记录归一化后是 43.48 → 39.38，只降 9.4%。绝对值极差 15.7 倍，归一化后只有 2.4 倍。2024 年归一化值 52.88 为全表最高，但该年记录全部来自 date 字段存公开日的批次，是最不可信的一行。</p></details>
+<details><summary>法院引用哪条司法解释来处理实际施工人问题？</summary><p>剔除 date 为公开日的批次后：2004 年解释第二十六条的引用占比 2017 年达峰 19.5%，此后下降，2025 年仍有 1.6%；2018 年解释（二）第二十四条 2019 年出现、2020 年 8.5% 后回落；2020 年解释（一）第四十三条 2021 年起接替，2025 年 16.0%；第四十四条（代位权）始终不到 0.5%。任何一年写出条文全称的文书合计都不超过约 21%，所以用「引用了第四十三条」圈样本会丢掉八成以上。</p></details>
+<details><summary>哪些省份的实际施工人案件最多？</summary><p>记录数前五是河南、江苏、山东、四川、安徽，合计 32.0%。但按地域富集倍数（该省在主题集的占比 ÷ 该省在全库的占比），前列是西藏 4.87、新疆 3.17、青海 2.55、宁夏 2.20；末尾是上海 0.24、天津 0.59、浙江 0.65。这与竞业限制主题（京粤沪合计 40.1%）方向相反。省份字段是审理法院所在地，11.0% 为空。</p></details>
+<details><summary>为什么这份报告不给实际施工人胜诉率？</summary><p>因为在本页口径下给出来一定是错的：「实际施工人」在文书里可能是原告、被告、第三人或被提及的案外人，大量文书是材料商、工人、出租方的案件；二审记录占 33.0% 会重复计数；典型判项是「发包人在欠付工程价款范围内承担责任」式的部分支持；调解结案的文书不公开、整体不可见。结果统计需要先识别诉讼地位再人工校验，可按课题定制。</p></details>
+
+<div class="cta">
+  <p style="font-size:19px;margin:0 0 6px"><strong>需要本页做不到的那一层？</strong></p>
+  <p style="color:#cfd8e6;margin:0 0 14px;font-size:15px">
+  「实际施工人起诉发包人」子集的识别、《解释（一）》施行前后发包人担责方式的对比、多层转包的裁判分歧、按一审案号配对二审结果——<br>
+  这些需要按课题单独设计口径并做人工校验。告诉我们研究问题，我们出口径方案与数据。</p>
+  <a href="https://www.wenshucha.com/data-report/">数据报告定制</a>
+  <a class="ghost" href="https://www.wenshucha.com/mcp/">接 MCP 自己跑</a>
+</div>
+
+<div class="links">
+  <strong style="display:block;margin-bottom:6px">相关页面：</strong>
+  <a href="https://www.wenshucha.com/data/noncompete-report/">竞业限制纠纷裁判数据报告</a>
+  <a href="https://www.wenshucha.com/data/equity-transfer-report/">股权转让纠纷裁判数据报告</a>
+  <a href="https://www.wenshucha.com/data/labor-report/">劳动争议裁判数据报告</a>
+  <a href="https://www.wenshucha.com/data/">全部裁判数据</a>
+  <a href="https://www.wenshucha.com/data-report/">数据报告定制</a>
+  <a href="https://www.wenshucha.com/buyers-guide/">数据采购指南</a>
+</div>
+
+<p class="dis"><strong>引用与免责：</strong>本页数据由文书查于 2026-09-28 在自建裁判文书索引上现跑，
+索引共 160,291,678 条记录，来源为中国裁判文书网公开生效裁判文书。
+本页所有数字均为<strong>本索引在该日期上的测量值</strong>，不是对全国已公开裁判文书的普查，
+也不是对任何同行语料的比较——公开文书全集的真实规模无人能给出，因此任何「占全国 X%」的说法本页都不作。
+本页不统计胜诉率或诉请支持比例，原因见第七节。司法解释条文内容以最高人民法院公布文本为准。本页内容为数据统计，不构成法律意见。
+转载或在论文中引用请注明来源与检索日期。</p>
+
+</main>
+
+<footer><div class="wrap">文书查 SinoVerdict · 深圳星谱网络科技有限公司 · 商务 131-6872-7779 · <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+
+</body>
+</html>
