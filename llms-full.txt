@@ -18,6 +18,7 @@
 - https://www.wenshucha.com/data/noncompete-report/ — 竞业限制纠纷裁判数据报告(全库现跑,附检索式与富集倍数口径)
 - https://www.wenshucha.com/data/construction-actual-builder-report/ — 建设工程实际施工人裁判数据报告(全库现跑,附检索式、分词假零与法条引用迁移)
 - https://www.wenshucha.com/data/marital-joint-debt-report/ — 夫妻共同债务裁判数据报告(全库现跑,附 2018 年解释前后逐月引用迁移与批次内对照)
+- https://www.wenshucha.com/data/medical-malpractice-report/ — 医疗损害责任纠纷裁判数据报告(现跑双口径、随机抽样与鉴定共现，附检索式)
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
 ## 洞察文章(58 篇)
@@ -254,7 +255,7 @@ https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html
 政府、法院、国企的法律 AI 项目越来越要求信创合规——国产 CPU(鲲鹏/飞腾/海光)、国产操作系统(麒麟/统信 UOS)、国产数据库(达梦/人大金仓/openGauss)、国产算力卡(昇腾)。本文讲清信创栈每一层对法律大模型与裁判文书库私有化部署意味着什么、适配真正的难点在哪(尤其是大模型推理上国产算力卡的模型转换)、信创+等保双合规怎么过,以及一份给信息中心主任的信创适配选型清单。
 
-## 主题数据页(5 个)
+## 主题数据页(6 个)
 
 ### 建设工程「实际施工人」裁判数据报告（2013–2025）
 https://www.wenshucha.com/data/construction-actual-builder-report/
@@ -271,6 +272,10 @@ https://www.wenshucha.com/data/labor-report/
 ### 夫妻共同债务裁判数据报告（2012–2025）：2018 年断点前后
 https://www.wenshucha.com/data/marital-joint-debt-report/
 基于 1.6 亿条裁判文书全库现跑的夫妻共同债务主题数据页：正文提到夫妻共同债务的记录 1,629,295 条 / 约 1,454,798 个相异案号；案由非空记录中民间借贷占 52.7%、离婚纠纷仅 7.0%。含逐年量（归一化后 2016→2020 降约 74%）、2018 年夫妻债务解释施行前后逐月引用迁移、批次内对照、地域富集倍数、审级与关键词富集。每个数字附检索式与检索日期（2026-10-01）。不报胜诉率。
+
+### 医疗损害责任纠纷裁判数据记录量、地域与鉴定共现
+https://www.wenshucha.com/data/medical-malpractice-report/
+医疗损害主题实证数据：精确案由108857条、全文182134条，并列展示2013–2025逐年量、HLL相异案号估算、地域与程序、鉴定关键词共现。附2026-10-08检索式和响应下载、案由空白与分词OR污染、563条分层抽样及公开选择局限。
 
 ### 竞业限制纠纷裁判数据报告（2013–2025）
 https://www.wenshucha.com/data/noncompete-report/

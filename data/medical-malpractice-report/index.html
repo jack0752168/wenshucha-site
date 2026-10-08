@@ -1,0 +1,189 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>医疗损害责任纠纷数据报告：108857条精确案由记录、地域与鉴定共现 - 文书查</title>
+<meta name="description" content="医疗损害主题实证数据：精确案由108857条、全文182134条，并列展示2013–2025逐年量、HLL相异案号估算、地域与程序、鉴定关键词共现。附2026-10-08检索式和响应下载、案由空白与分词OR污染、563条分层抽样及公开选择局限。">
+<link rel="canonical" href="https://www.wenshucha.com/data/medical-malpractice-report/"><meta name="robots" content="index,follow,max-snippet:-1"><meta property="og:type" content="article"><meta property="og:title" content="医疗损害主题裁判数据：案由与全文两把尺"><meta property="og:url" content="https://www.wenshucha.com/data/medical-malpractice-report/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "医疗损害责任纠纷裁判数据：记录量、地域与鉴定共现", "description": "检索日2026-10-08：精确案由108857条记录、全文182134条、并集189054条；主表采用精确案由。逐年记录量、HLL原始案号估算、地域、程序、标题识别文类和正文关键词共现。不是全国案件普查，不计算裁判结果比例。", "url": "https://www.wenshucha.com/data/medical-malpractice-report/", "creator": {"@type": "Organization", "name": "文书查", "legalName": "深圳星谱网络科技有限公司"}, "dateModified": "2026-10-08", "measurementTechnique": "Elasticsearch terms / match_phrase双analyzer并集 / cardinality HLL / 按dataset分层random_score抽样", "variableMeasured": ["记录数", "原始案号相异值（HLL估算）", "全库同年归一化记录量", "法院省份", "审理程序编码", "标题识别文书类型", "鉴定与责任关键词共现"], "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://www.wenshucha.com/data/medical-malpractice-report/queries-and-results.json"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/"}, {"@type": "ListItem", "position": 3, "name": "医疗损害主题数据", "item": "https://www.wenshucha.com/data/medical-malpractice-report/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "本库收录了多少医疗损害主题记录？", "acceptedAnswer": {"@type": "Answer", "text": "2026-10-08 检索，精确案由集合 C 为 108,857 条，标题/正文双分词器集合 F 为 182,134 条，两者并集 U 为 189,054 条。它们是不同检索口径，不能互换为全国真实案件总数。主表使用 C；C 中合格原始案号约 95,444 个，为 HLL 估算。"}}, {"@type": "Question", "name": "鉴定占比是否说明法院实际委托鉴定的比例？", "acceptedAnswer": {"@type": "Answer", "text": "不能。精确案由集合内 68,313 条正文命中“鉴定”，占 62.75%。它只说明检索共现，可能包含鉴定申请、拒绝鉴定、既往鉴定或他案引述；未读取正文的空记录也在分母中，不能解释为实际鉴定率。"}}, {"@type": "Question", "name": "2023 年记录变少能说明医疗纠纷减少吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。C 的 2022→2023 绝对记录数变动为 -69.5%，按全库同年记录归一化后的变动为 -7.6%。归一化只能校正收录规模，不能校正案由空白、公开选择或日期语义，因此不推断真实医疗纠纷增减。"}}, {"@type": "Question", "name": "为什么不用检索页面的长案由过滤器总数？", "acceptedAnswer": {"@type": "Answer", "text": "案由 text 子字段的分词 OR 查询“医疗损害责任纠纷”命中 28,703,035 条，而本页精确标签 C 只有 108,857 条，精确标签占比仅 0.379%。本页使用 keyword 字段 terms，保留全文集合单独对照。"}}, {"@type": "Question", "name": "这些统计能否直接当论文中的胜诉率？", "acceptedAnswer": {"@type": "Answer", "text": "不能。本页不计算胜诉率、诉请支持率或鉴定结论采纳率。记录可能重复、程序和类型编码不一、部分正文为空或是未公开事由，且没有统一的原告身份与裁判结果人工编码。论文应引用集合定义、检索日期与局限，并按研究问题重新清洗。"}}]}</script>
+<style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+
+.source{font-size:12px;color:var(--mut);overflow-wrap:anywhere}.tablewrap table{min-width:540px} @media(max-width:600px){h1{font-size:26px}.hero{padding:30px 0}.wrap{padding:0 16px}header nav{display:flex;flex-wrap:wrap;gap:8px}header nav a{margin-left:0}.cta{padding:22px}th,td{font-size:13px}}</style></head><body>
+<header><div class="wrap"><a href="/">文书查 SinoVerdict</a><nav><a href="/case-search/">智能检索</a><a href="/mcp/">MCP 服务</a><a href="/data/">裁判数据</a><a href="/data-report/">数据报告</a><a href="/buyers-guide/">采购指南</a></nav></div></header>
+<section class="hero"><div class="wrap"><h1>医疗损害责任纠纷裁判数据<br>记录量、地域与鉴定共现</h1><p>给法学论文和课题研究的数据说明样例。案由标签与标题/正文两条检索路并列呈现；数字均由当前索引只读查询取得，检索日期 2026-10-08。</p><div class="kpi"><div><b>108,857</b><span>精确案由记录 C</span></div><div><b>182,134</b><span>标题/正文检索 F</span></div><div><b>95,444</b><span>C 的原始案号 HLL 估算</span></div><div><b>563</b><span>15批次诊断样本 U</span></div></div></div></section><main class="wrap">
+<div class="warn"><strong>引用时，请把“口径”与“记录数”一起带走</strong><p>这是收录索引的检索统计，不是全国医疗纠纷普查。一案可有多份文书；同一纠纷的一审和二审使用不同案号，相异案号仍不等于独立纠纷数。主表采用精确案由 C，全文 F 是扩大召回的另一把尺，不能把它们之间的差全称作漏检。</p></div>
+<h2>一、主题定义：精确案由与全文分开计数</h2><p>C 在 <code>cause</code> keyword 字段上精确匹配三种完整标签：“医疗损害责任纠纷”“医疗损害赔偿纠纷”“医疗事故损害赔偿纠纷”。今天前两项分别为 108,767 与 90 条，第三项没有精确标签记录。它只保证标签归属，不保证正文完整、实体审理或记录独立。</p><p>F 在标题或正文中检索同样的三个完整名称，每个词同时使用默认 <code>ik_smart</code> 与显式 <code>ik_max_word</code> 短语查询，取逻辑并集。标题可补回案由空白记录；正文也会召回引用医疗案件的保险、行政、代理合同等文书。本页没有把短词“医疗”“责任”混成主题总数。</p>
+<div class="tablewrap"><table><thead><tr><th>口径</th><th>记录数</th><th>解释</th></tr></thead><tbody><tr><td>C：精确标签</td><td>108,857</td><td>主表分母</td></tr><tr><td>F：标题或正文完整名称</td><td>182,134</td><td>主题相关检索集合</td></tr><tr><td>C ∩ F</td><td>101,937</td><td>标签与全文均命中</td></tr><tr><td>C 中未被 F 检出</td><td>6,920</td><td>可能无正文/标题或名称省略</td></tr><tr><td>F 中不在 C</td><td>80,197</td><td>含标签空白与不同案由</td></tr><tr><td>U：C ∪ F</td><td>189,054</td><td>仅作抽样/口径诊断，不当案件普查</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>medical_cause_labels</code>, <code>definitions</code>, <code>cause_exact</code>, <code>fulltext</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>F 中精确标签 C 占 55.97%，案由空白有 74,340 条（40.82%），其余为其他标签或字段缺失。空白不能判为错案，其他标签也不能直接判为无关，须按研究问题阅读正文。F 的 <code>ws_new</code> 和 <code>2021</code> 批次分别有 50,095 和 22,184 条，而 C 中两批均为 0；今天两批的 U 各抽 40 条，案由均为空。案由标签的覆盖是时间曲线的一部分，不能把 2018–2020 的 C 低谷直接解读为诉讼低谷。F/U 尚含测试批次 <code>bench</code> 的 3 条记录；正式研究应先排除该批。主表 C 不包含 bench。</p>
+<div class="warn"><strong>产品的分词 OR 过滤器不能充当精确标签</strong><p>实测 <code>match(cause.t, "医疗损害责任纠纷", operator="or")</code> 命中 28,703,035 条，C 标签占比仅 0.379%。这是一个确定的“标签纯度”诊断；不是人工判读后的语义准确率。精确统计必须用裸 <code>cause</code> 字段 <code>terms</code>，不能加不存在的 <code>cause.keyword</code>。</p></div>
+<h2>二、逐年量：先明确时间字段，再归一化</h2><figure><img src="year-normalized.png" width="2080" height="768" loading="lazy" alt="医疗损害主题逐年精确案由和全文记录数，以及按全库同年收录量归一化的两条曲线"><figcaption>左图为原始记录量，右图为每万条全库同年记录中的命中量。两条线的差既受字段覆盖影响，也受查询口径影响。</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>索引 year</th><th>C 记录</th><th>C 案号≈</th><th>F 记录</th><th>F 案号≈</th><th>全库同年</th><th>C / 万条</th><th>F / 万条</th></tr></thead><tbody><tr><td>2013</td><td>2,839</td><td>2,799</td><td>3,421</td><td>3,030</td><td>1,762,537</td><td>16.11</td><td>19.41</td></tr><tr><td>2014</td><td>9,926</td><td>9,740</td><td>12,296</td><td>10,900</td><td>7,033,956</td><td>14.11</td><td>17.48</td></tr><tr><td>2015</td><td>12,012</td><td>11,643</td><td>15,179</td><td>13,072</td><td>9,894,747</td><td>12.14</td><td>15.34</td></tr><tr><td>2016</td><td>13,576</td><td>13,337</td><td>17,801</td><td>15,803</td><td>12,443,177</td><td>10.91</td><td>14.31</td></tr><tr><td>2017</td><td>14,282</td><td>14,089</td><td>21,095</td><td>19,855</td><td>15,147,489</td><td>9.43</td><td>13.93</td></tr><tr><td>2018</td><td>6,582</td><td>5,430</td><td>20,832</td><td>18,309</td><td>16,331,967</td><td>4.03</td><td>12.76</td></tr><tr><td>2019</td><td>4,621</td><td>2,637</td><td>13,307</td><td>11,063</td><td>12,290,542</td><td>3.76</td><td>10.83</td></tr><tr><td>2020</td><td>2,280</td><td>1,466</td><td>17,000</td><td>15,587</td><td>21,359,050</td><td>1.07</td><td>7.96</td></tr><tr><td>2021</td><td>7,753</td><td>6,438</td><td>14,274</td><td>12,303</td><td>16,548,198</td><td>4.69</td><td>8.63</td></tr><tr><td>2022</td><td>16,179</td><td>10,803</td><td>17,460</td><td>11,661</td><td>19,292,669</td><td>8.39</td><td>9.05</td></tr><tr><td>2023</td><td>4,931</td><td>4,504</td><td>5,237</td><td>4,778</td><td>6,365,236</td><td>7.75</td><td>8.23</td></tr><tr><td>2024</td><td>5,454</td><td>5,329</td><td>5,825</td><td>5,694</td><td>6,984,435</td><td>7.81</td><td>8.34</td></tr><tr><td>2025</td><td>2,980</td><td>2,880</td><td>3,141</td><td>3,040</td><td>3,818,342</td><td>7.80</td><td>8.23</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>cause_exact</code>, <code>fulltext</code>, <code>corpus_years</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>2022→2023，C 从 16,179 降到 4,931 条，变动 -69.5%；同年全库从 19,292,669 降到 6,365,236 条。C 的归一化变动为 -7.6%。该校正说明收录规模变化不可忽略，仍不能解释成真实医疗纠纷发生量：公开选择、案由覆盖、收录批次都没有被完全校正。</p>
+<p><code>year</code> 由 <code>date</code> 派生；部分批次记录的是公开/采集日期，不能统一解释为裁判落款年。特别是 <code>2024</code>、<code>2021_x</code>、<code>2022_x</code> 批次存在年份后移风险，本轮未逐份解析落款日。2025 年收录是否完整亦未取得独立普查依据。不要用此曲线识别法律生效前后因果效应。</p>
+<p>表中展示 2013–2025；C 另有 4,749 条更早的索引年份记录，包括 1970 年异常值 1 条。另有 693 条 year 缺失，以 C 总记录数 108,857 减去全部 year 桶记录数 108,164 推得；年度表未纳入这些记录，不强补年份。早期样本少于 30 的年份无法得出统计结论。未列年度值保留在 JSON 响应中，缺失年度以总数差额披露。</p>
+<p>相异案号仅在 <code>wildcard(caseNo,"*号")</code> 子集中使用 <code>cardinality(precision_threshold=40000)</code>：C 合格案号记录 107,586 条，相异原始案号约 95,444 个。HLL 是估算，非格式合格记录未进入案号分母；本轮未归一化括号与空白，也未跨审级关联同一纠纷，不能把记录数与 HLL 差额全部算作重复案件。</p>
+<h2>三、地域：法院省份，不是患者所在地</h2><figure><img src="province.png" width="1440" height="864" loading="lazy" alt="医疗损害精确案由记录的法院省份前十二位"><figcaption>取精确案由 C；分母包含空白与非标准取值，未用已知省份子集抬高百分比。</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>省份/字段状态</th><th>C 记录</th><th>占全部 C</th></tr></thead><tbody><tr><td>山东</td><td>10,080</td><td>9.26%</td></tr><tr><td>河南</td><td>9,313</td><td>8.56%</td></tr><tr><td>辽宁</td><td>6,793</td><td>6.24%</td></tr><tr><td>江苏</td><td>5,901</td><td>5.42%</td></tr><tr><td>北京</td><td>5,846</td><td>5.37%</td></tr><tr><td>上海</td><td>5,530</td><td>5.08%</td></tr><tr><td>吉林</td><td>4,476</td><td>4.11%</td></tr><tr><td>安徽</td><td>4,394</td><td>4.04%</td></tr><tr><td>湖北</td><td>4,335</td><td>3.98%</td></tr><tr><td>湖南</td><td>4,334</td><td>3.98%</td></tr><tr><td>广东</td><td>4,087</td><td>3.75%</td></tr><tr><td>四川</td><td>3,307</td><td>3.04%</td></tr><tr><td>浙江</td><td>3,282</td><td>3.01%</td></tr><tr><td>陕西</td><td>2,898</td><td>2.66%</td></tr><tr><td>河北</td><td>2,573</td><td>2.36%</td></tr><tr><td>重庆</td><td>2,467</td><td>2.27%</td></tr><tr><td>福建</td><td>1,960</td><td>1.80%</td></tr><tr><td>黑龙江</td><td>1,918</td><td>1.76%</td></tr><tr><td>广西</td><td>1,866</td><td>1.71%</td></tr><tr><td>云南</td><td>1,690</td><td>1.55%</td></tr><tr><td>江西</td><td>1,634</td><td>1.50%</td></tr><tr><td>新疆</td><td>1,474</td><td>1.35%</td></tr><tr><td>甘肃</td><td>1,404</td><td>1.29%</td></tr><tr><td>山西</td><td>1,351</td><td>1.24%</td></tr><tr><td>天津</td><td>1,345</td><td>1.24%</td></tr><tr><td>贵州</td><td>1,241</td><td>1.14%</td></tr><tr><td>内蒙古</td><td>908</td><td>0.83%</td></tr><tr><td>宁夏</td><td>515</td><td>0.47%</td></tr><tr><td>青海</td><td>263</td><td>0.24%</td></tr><tr><td>海南</td><td>187</td><td>0.17%</td></tr><tr><td>西藏</td><td>16</td><td>0.01%</td></tr><tr><td>字段空白</td><td>11,358</td><td>10.43%</td></tr><tr><td>不规范/非省份取值（未强行归并）</td><td>111</td><td>0.10%</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>cause_exact</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>省份空白 11,358 条（10.43%），另有 111 条兵团法院、最高人民法院或异常字符串等非标准值，单列而不强配省份。图表将省/市全称归并到简称；不同地区公开与收录力度不一致，不能由记录榜推断医疗风险、纠纷发生率或医院质量。</p>
+<h2>四、审理程序与文书类型：编码拆开、缺失单列</h2>
+<div class="tablewrap"><table><thead><tr><th>程序归并</th><th>C 记录</th><th>占全部 C</th><th>案号交叉检查</th></tr></thead><tbody><tr><td>一审：1/0301/一审及各类一审</td><td>67,161</td><td>61.70%</td><td>含“初” 65,307，97.24%</td></tr><tr><td>二审：2/0302/二审及各类二审</td><td>27,141</td><td>24.93%</td><td>含“终” 27,051，99.67%</td></tr><tr><td>其他程序/空白/无法归并</td><td>14,555</td><td>13.37%</td><td>不强制解释为再审或执行</td></tr></tbody></table></div>
+<details><summary>原始程序编码头部（可核验归并）</summary><div class="tablewrap"><table><thead><tr><th>原始 procedure</th><th>记录</th><th>占 C</th></tr></thead><tbody><tr><td>1</td><td>37,965</td><td>34.88%</td></tr><tr><td>民事一审</td><td>23,751</td><td>21.82%</td></tr><tr><td>2</td><td>17,818</td><td>16.37%</td></tr><tr><td>民事二审</td><td>7,634</td><td>7.01%</td></tr><tr><td>3</td><td>5,045</td><td>4.63%</td></tr><tr><td>空字符串</td><td>4,891</td><td>4.49%</td></tr><tr><td>一审</td><td>4,640</td><td>4.26%</td></tr><tr><td>二审</td><td>1,354</td><td>1.24%</td></tr><tr><td>执行实施</td><td>1,164</td><td>1.07%</td></tr><tr><td>民事审判监督</td><td>1,051</td><td>0.97%</td></tr><tr><td>4</td><td>864</td><td>0.79%</td></tr><tr><td>0301</td><td>805</td><td>0.74%</td></tr><tr><td>其他</td><td>513</td><td>0.47%</td></tr></tbody></table></div></details>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>cause_procedure_crosscheck</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>数字码 <code>3</code> 没有统一当作再审，<code>4</code> 没有直接当作全部执行。一、二审的数量是文书量，不是上诉率；本轮同时展示原始编码与案号字样交叉检查，缺口留在其他桶。不同时限定互不兼容的 <code>caseType=判决</code> 与 <code>procedure=民事一审</code>。</p>
+<div class="tablewrap"><table><thead><tr><th>标题识别文类（互斥）</th><th>C 记录</th><th>占全部 C</th></tr></thead><tbody><tr><td>决定书</td><td>57</td><td>0.05%</td></tr><tr><td>判决书</td><td>59,461</td><td>54.62%</td></tr><tr><td>裁定书</td><td>35,842</td><td>32.93%</td></tr><tr><td>调解书</td><td>1,334</td><td>1.23%</td></tr><tr><td>通知书</td><td>1,206</td><td>1.11%</td></tr><tr><td>标题未能识别</td><td>10,957</td><td>10.07%</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>cause_doctype_exclusive</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>索引没有独立的 docType 字段，本表按标题短语识别，优先顺序为判决书→裁定书→调解书→决定书→通知书，后项排除前项，余项为未识别。未以正文第一行补型：部分旧批次会把裁定正文抬头写成判决书。2025 年的 2,980 条 C 记录全部无法由标题识别；它们的标题多是“一审民事案”等，绝不能把零判决书解释为法院没有判决。可下载逐年文类缺口。</p>
+<h2>五、鉴定与责任关键词：只报共现，不报鉴定完成率</h2><p>第一组覆盖鉴定及其常见表述，第二组覆盖因果关系、过错、知情同意与举证责任。每一项使用正文短语的双 analyzer 并集；各词可在同一记录中同时出现，不能相加为百分之百。</p>
+<div class="tablewrap"><table><thead><tr><th>正文词/短语</th><th>C 命中</th><th>C 共现率</th><th>全库命中</th><th>全库共现率</th><th>相对全库富集</th></tr></thead><tbody><tr><td>鉴定</td><td>68,313</td><td>62.75%</td><td>14,559,634</td><td>9.083%</td><td>6.9 倍</td></tr><tr><td>司法鉴定</td><td>54,403</td><td>49.98%</td><td>5,623,002</td><td>3.508%</td><td>14.2 倍</td></tr><tr><td>医疗事故鉴定</td><td>7,581</td><td>6.96%</td><td>13,496</td><td>0.008%</td><td>827.1 倍</td></tr><tr><td>医疗损害鉴定</td><td>9,742</td><td>8.95%</td><td>16,043</td><td>0.010%</td><td>894.2 倍</td></tr><tr><td>鉴定意见</td><td>47,040</td><td>43.21%</td><td>4,055,986</td><td>2.530%</td><td>17.1 倍</td></tr><tr><td>因果关系</td><td>59,425</td><td>54.59%</td><td>1,178,175</td><td>0.735%</td><td>74.3 倍</td></tr><tr><td>过错</td><td>66,285</td><td>60.89%</td><td>6,188,784</td><td>3.861%</td><td>15.8 倍</td></tr><tr><td>知情同意</td><td>1,901</td><td>1.75%</td><td>10,298</td><td>0.006%</td><td>271.8 倍</td></tr><tr><td>举证责任</td><td>13,488</td><td>12.39%</td><td>2,824,919</td><td>1.762%</td><td>7.0 倍</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>cause_keywords</code>, <code>cause_keywords_repeat</code>, <code>corpus_keywords</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>“鉴定”命中 68,313 条，占 C 的 62.75%。分母含标签存在但正文为空的记录，因此该比例甚至不等于有正文记录中的提及率。它可能是当事人的申请、未启动的鉴定、外院既有意见或他案援引。富集倍数只比较词在两个收录集合的出现密度，不表示法理重要性、法院采纳概率或因果关系成立。</p>
+<p>本轮对“医疗损害责任纠纷”分别查默认与 ik_max_word，正文两路均为 140,666，标题两路均为 159,065。这个词本轮没有分词差额；不能据此推出所有医疗术语都可靠。完整查询已附，词频口径必须逐词复核，不用“取两路较大数”代替真正逻辑并集。</p>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>analyzer_counts</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<h2>六、分层抽样与语义纯度的边界</h2>
+<p>对 U 逐个非空 <code>dataset</code> 抽样，14 批各 40 条、bench 的 3 条全部检查，总 n=563。使用 <code>random_score(seed=20261008, field="_seq_no")</code> 与 <code>boost_mode="replace"</code>；按每批母体量加权，不把等额样本直接混成全库比例。批内仍可能受分片分数平手影响，这不是严格简单随机抽样。</p>
+<div class="tablewrap"><table><thead><tr><th>dataset</th><th>U 母体</th><th>n</th><th>标签/字串见证</th><th>标题/标签锚定</th><th>正文空</th><th>公开事由占位</th></tr></thead><tbody><tr><td>2019_1</td><td>3,869</td><td>40</td><td>40/40</td><td>36/40</td><td>3</td><td>0</td></tr><tr><td>2019_2</td><td>4,867</td><td>40</td><td>40/40</td><td>40/40</td><td>40</td><td>0</td></tr><tr><td>2020</td><td>1,466</td><td>40</td><td>40/40</td><td>37/40</td><td>2</td><td>0</td></tr><tr><td>2021</td><td>22,184</td><td>40</td><td>40/40</td><td>38/40</td><td>9</td><td>0</td></tr><tr><td>2021_x</td><td>9,690</td><td>40</td><td>40/40</td><td>37/40</td><td>1</td><td>0</td></tr><tr><td>2022</td><td>7,062</td><td>40</td><td>40/40</td><td>38/40</td><td>3</td><td>0</td></tr><tr><td>2022_x</td><td>4,242</td><td>40</td><td>40/40</td><td>40/40</td><td>0</td><td>0</td></tr><tr><td>2023</td><td>681</td><td>40</td><td>40/40</td><td>37/40</td><td>0</td><td>0</td></tr><tr><td>2023_2</td><td>6,966</td><td>40</td><td>40/40</td><td>38/40</td><td>0</td><td>0</td></tr><tr><td>2023_x</td><td>2,522</td><td>40</td><td>40/40</td><td>39/40</td><td>0</td><td>0</td></tr><tr><td>2024</td><td>5,855</td><td>40</td><td>40/40</td><td>36/40</td><td>0</td><td>0</td></tr><tr><td>2025</td><td>3,147</td><td>40</td><td>40/40</td><td>35/40</td><td>0</td><td>0</td></tr><tr><td>bench</td><td>3</td><td>3</td><td>3/3</td><td>3/3</td><td>0</td><td>0</td></tr><tr><td>ws</td><td>66,405</td><td>40</td><td>40/40</td><td>38/40</td><td>0</td><td>0</td></tr><tr><td>ws_new</td><td>50,095</td><td>40</td><td>40/40</td><td>37/40</td><td>0</td><td>12</td></tr></tbody></table></div>
+<p class="source">检索日期：2026-10-08；<a href="queries-and-results.json">查询与聚合响应 JSON</a> 中的键：<code>sample-summary</code>。记录数为精确计数，案号为 HLL 估算；百分比由表内分子/分母计算。</p>
+<p>563/563 能在精确标签、标题或正文找到至少一个查询名称的字面见证，这是查询执行检查。529/563 有标题或精确标签锚定；按母体加权估计 94.07%。另 34 条只在正文中见证，已发现保险、代理合同、行政等案由。这里的“锚定比例”不是人工主题纯度，不能把它宣传为 94.07% 相关案件准确率。</p>
+<p>空正文样本 58/563，分层加权估计 5.82%；公开事由占位文本 12/563，加权估计 7.95%。<code>2019_2</code> 为 40/40 空正文；<code>ws_new</code> 12/40 的正文是“以调解方式结案的”等公开事由。<code>exists(body)</code> 不能查出这些问题，字串和长度要实际读取。本轮样本最长 14,700 字，不能沿用已于 2026-09 修复的“固定 6,000/16,000 字截断率”。未对当前语料逐份核对原始源文本，仍不承诺全文完整率。</p>
+<div class="warn"><strong>最大单一原告占比：本轮无法计算</strong><p>索引没有统一身份归并后的原告字段，本轮没有全量提取并人工校验诉讼角色。匿名姓名、共同原告、医疗机构作为反诉原告/上诉人等不能直接合并。最大单一原告占比未取得，不能宣称样本没有批量诉讼簇偏差；抽样只用于展示检索与正文缺陷，不用于推出纠纷结果或全国比例。</p></div>
+<h2>七、研究引用与复现附录</h2><p>建议写作方式：“本文使用文书查收录索引，2026年10月8日检索；主口径为医疗损害完整案由 keyword 标签集合，记录与案号分别统计；年份为索引 year 而非统一落款年。扩展全文集合另列，用于识别案由空白与非主体援引。未公开文书、正文空白及当事人身份归并不足限制外推。”</p>
+<p>主查询不收钱、不写入索引。当前服务可访问字段已先由 mapping 核验，计数均检查 <code>timed_out=false</code>、<code>_shards.failed=0</code>、<code>hits.total.relation=eq</code>。主集合总量与鉴定共现重复查询相等，并用已知有量的“民间借贷纠纷”标签作上游对照。本页的百分比均是统计集合内部比例，样本小于 30 无法得出统计结论。</p>
+<details><summary>精确案由 C 的可执行查询</summary><pre><code>{
+  &quot;size&quot;: 0,
+  &quot;track_total_hits&quot;: true,
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;cause&quot;: [
+        &quot;医疗损害责任纠纷&quot;,
+        &quot;医疗损害赔偿纠纷&quot;,
+        &quot;医疗事故损害赔偿纠纷&quot;
+      ]
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;valid_caseNo&quot;: {
+      &quot;filter&quot;: {
+        &quot;wildcard&quot;: {
+          &quot;caseNo&quot;: &quot;*号&quot;
+        }
+      },
+      &quot;aggs&quot;: {
+        &quot;distinct&quot;: {
+          &quot;cardinality&quot;: {
+            &quot;field&quot;: &quot;caseNo&quot;,
+            &quot;precision_threshold&quot;: 40000
+          }
+        }
+      }
+    },
+    &quot;years&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;year&quot;,
+        &quot;size&quot;: 100,
+        &quot;order&quot;: {
+          &quot;_key&quot;: &quot;asc&quot;
+        }
+      },
+      &quot;aggs&quot;: {
+        &quot;valid_caseNo&quot;: {
+          &quot;filter&quot;: {
+            &quot;wildcard&quot;: {
+              &quot;caseNo&quot;: &quot;*号&quot;
+            }
+          },
+          &quot;aggs&quot;: {
+            &quot;distinct&quot;: {
+              &quot;cardinality&quot;: {
+                &quot;field&quot;: &quot;caseNo&quot;,
+                &quot;precision_threshold&quot;: 40000
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;province&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;province&quot;,
+        &quot;size&quot;: 1000,
+        &quot;missing&quot;: &quot;__MISSING__&quot;
+      }
+    },
+    &quot;procedure&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;procedure&quot;,
+        &quot;size&quot;: 1000,
+        &quot;missing&quot;: &quot;__MISSING__&quot;
+      }
+    },
+    &quot;caseType&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;caseType&quot;,
+        &quot;size&quot;: 1000,
+        &quot;missing&quot;: &quot;__MISSING__&quot;
+      }
+    },
+    &quot;cause&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;cause&quot;,
+        &quot;size&quot;: 3000,
+        &quot;missing&quot;: &quot;__MISSING__&quot;
+      }
+    },
+    &quot;dataset&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;dataset&quot;,
+        &quot;size&quot;: 1000,
+        &quot;missing&quot;: &quot;__MISSING__&quot;
+      }
+    }
+  }
+}</code></pre></details>
+<p><a href="queries-and-results.json" download>下载全部公开查询与聚合响应 JSON</a> · <a href="sample-summary.json" download>下载分层诊断样本汇总（不含个人文书内容）</a> · 原始逐案响应保留在本次内部执行证据中，未公开个人姓名与正文。</p>
+<div class="cta"><h3 style="color:#fff;margin-top:0">要更细的交叉与逐案清单？</h3><p>论文需要按科室、法院、程序或鉴定类型重新定义口径时，可先说明研究问题，再设计抽样和人工核验。数据交付会同时说明不能回答的部分。</p><a href="/data-report/">裁判文书数据报告定制</a><a class="ghost" href="/data/">其他主题样例</a></div>
+<h2>常见研究问题</h2>
+<details><summary>本库收录了多少医疗损害主题记录？</summary><p>2026-10-08 检索，精确案由集合 C 为 108,857 条，标题/正文双分词器集合 F 为 182,134 条，两者并集 U 为 189,054 条。它们是不同检索口径，不能互换为全国真实案件总数。主表使用 C；C 中合格原始案号约 95,444 个，为 HLL 估算。</p></details><details><summary>鉴定占比是否说明法院实际委托鉴定的比例？</summary><p>不能。精确案由集合内 68,313 条正文命中“鉴定”，占 62.75%。它只说明检索共现，可能包含鉴定申请、拒绝鉴定、既往鉴定或他案引述；未读取正文的空记录也在分母中，不能解释为实际鉴定率。</p></details><details><summary>2023 年记录变少能说明医疗纠纷减少吗？</summary><p>不能。C 的 2022→2023 绝对记录数变动为 -69.5%，按全库同年记录归一化后的变动为 -7.6%。归一化只能校正收录规模，不能校正案由空白、公开选择或日期语义，因此不推断真实医疗纠纷增减。</p></details><details><summary>为什么不用检索页面的长案由过滤器总数？</summary><p>案由 text 子字段的分词 OR 查询“医疗损害责任纠纷”命中 28,703,035 条，而本页精确标签 C 只有 108,857 条，精确标签占比仅 0.379%。本页使用 keyword 字段 terms，保留全文集合单独对照。</p></details><details><summary>这些统计能否直接当论文中的胜诉率？</summary><p>不能。本页不计算胜诉率、诉请支持率或鉴定结论采纳率。记录可能重复、程序和类型编码不一、部分正文为空或是未公开事由，且没有统一的原告身份与裁判结果人工编码。论文应引用集合定义、检索日期与局限，并按研究问题重新清洗。</p></details>
+<p class="dis">数据来源：文书查中国裁判文书收录索引。所有本页计数的检索日期为 2026-10-08。页面用于研究方法说明；未计算胜诉率、诉请支持率或真实鉴定完成率。新增数据与清洗变化可能使重查结果不同。</p></main>
+<footer><div class="wrap">文书查 · 深圳星谱网络科技有限公司<br>商务电话：<a href="tel:13168727779">131-6872-7779</a> · 邮箱：<a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br><a href="/data-report/">数据报告</a> · <a href="/about/">关于我们</a><br><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer>
+<!--wsc-px--><script>(function(){var p=new URLSearchParams(location.search);new Image().src='/px.gif?path='+encodeURIComponent(location.pathname)+'&ref='+encodeURIComponent(document.referrer)+'&w='+screen.width+'&utm_source='+encodeURIComponent(p.get('utm_source')||'')+'&utm_campaign='+encodeURIComponent(p.get('utm_campaign')||'');})();</script></body></html>
