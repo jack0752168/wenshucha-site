@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.wenshucha.com/mcp/quickstart/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"裁判文书 MCP 接入指南","description":"文书查 MCP 服务的完整接入文档:端点、鉴权、客户端配置示例、四个工具的参数说明与数据口径。","author":{"@type":"Organization","name":"文书查 SinoVerdict"},"publisher":{"@type":"Organization","name":"深圳星谱网络科技有限公司"},"url":"https://www.wenshucha.com/mcp/quickstart/","proficiencyLevel":"Beginner","dependencies":"任意支持 Model Context Protocol 的客户端"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"把裁判文书 MCP 接入 AI 客户端","totalTime":"PT3M","step":[{"@type":"HowToStep","position":1,"name":"打开客户端的 MCP 配置文件","text":"Claude Desktop 在 ~/Library/Application Support/Claude/claude_desktop_config.json;Cursor 在设置 → MCP → Add Server;Claude Code 在项目根目录 .mcp.json。"},{"@type":"HowToStep","position":2,"name":"粘贴 MCP 配置","text":"填入端点 https://mcp.wenshucha.com/mcp,并在 headers 里加 x-api-key。"},{"@type":"HowToStep","position":3,"name":"重启客户端并提问","text":"用自然语言提问,模型会自动调用 search_judgments 返回带案号的真实判决。"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"把裁判文书 MCP 接入 AI 客户端","totalTime":"PT3M","step":[{"@type":"HowToStep","position":1,"name":"选择客户端对应的配置","text":"Claude Desktop 的本机配置使用 command/args 和 mcp-remote 转接；Cursor 使用 url/headers；Claude Code 使用 type:http 和 url/headers。"},{"@type":"HowToStep","position":2,"name":"保存配置并带上公开 Key","text":"远程端点 https://mcp.wenshucha.com/mcp，鉴权头 x-api-key:wsc_demo_public。按客户端对应的示例保存，不要混用配置格式。"},{"@type":"HowToStep","position":3,"name":"重新加载客户端并提问","text":"先检索案例，再调用 get_judgment 读取裁判文书正文。"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"MCP 服务","item":"https://www.wenshucha.com/mcp/"},{"@type":"ListItem","position":3,"name":"接入指南","item":"https://www.wenshucha.com/mcp/quickstart/"}]}</script>
 <style>
 :root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
@@ -89,7 +89,7 @@ footer a{color:#fff}
 </div>
 
 <div class="note">
-<p style="margin:0 0 6px"><b>关于这把公开 Key：</b>所有访客共用，<strong>每个 IP 每天 20 次检索、5 篇判决全文</strong>，全站每月 20,000 次（其中判决全文 1,000 篇），够你把接入跑通、看几十条带案号的真实结果。不用注册、不用申请。</p><p style="margin:0">要更多：<strong>加微信 131-6872-7779（备注「MCP」）当场开通</strong>——免费版独享 1,000 次/月不收费；开发者 Pro ¥99/月 5 万次 + 5,000 篇全文。<a href="https://www.wenshucha.com/pricing/">看完整定价 →</a></p>
+<p style="margin:0 0 6px"><b>关于这把公开 Key：</b>所有访客共用，<strong>每个 IP 每天合计 20 次工具调用，其中最多取 5 篇判决全文</strong>，全站每月 20,000 次（其中判决全文 1,000 篇）。检索、取正文和核验都计入调用次数；握手和工具列表不计次。不用注册、不用申请。</p><p style="margin:0">要更多：<strong>加微信 131-6872-7779（备注「MCP」）当场开通</strong>——免费版独享 1,000 次/月不收费；开发者 Pro ¥99/月 5 万次 + 5,000 篇全文。<a href="https://www.wenshucha.com/pricing/">看完整定价 →</a></p>
 </div>
 
 <h3>先验证连通</h3>
@@ -100,37 +100,86 @@ footer a{color:#fff}
 <i># {"service":"wenshucha-mcp","ok":true,"records":160291678}</i></pre>
 
 <h2>二、三步接入</h2>
-<p>协议是标准 MCP（Streamable HTTP），任何支持 MCP 的客户端都能接。</p>
+<p>远程端点使用 MCP Streamable HTTP。<strong>各客户端的配置格式不同，请只复制自己使用的那一段。</strong></p>
+<p><a href="#claude-desktop">Claude Desktop</a> · <a href="#cursor">Cursor</a> · <a href="#claude-code">Claude Code</a> · <a href="#troubleshooting">配置报错排查</a></p>
 
-<div class="step"><div class="no">1</div>
-<b>打开客户端的 MCP 配置文件</b>
-<div style="font-size:14.5px">
-<strong>Claude Desktop</strong>：<code>~/Library/Application Support/Claude/claude_desktop_config.json</code>（Windows 在 <code>%APPDATA%\Claude\</code>）<br>
-<strong>Cursor</strong>：设置 → MCP → Add Server<br>
-<strong>Claude Code</strong>：项目根目录 <code>.mcp.json</code>
-</div>
-</div>
-
-<div class="step"><div class="no">2</div>
-<b>粘贴以下配置</b>
-<pre>{
+<h3 id="claude-desktop">Claude Desktop 桌面版</h3>
+<p>先安装 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js LTS</a>（推荐 22 或更新版本），在终端确认 <code>node --version</code> 和 <code>npx --version</code> 都能运行。打开 Settings → Developer → Edit Config：macOS 文件是 <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>，Windows 是 <code>%APPDATA%\Claude\claude_desktop_config.json</code>。</p>
+<p><strong>这份本机配置使用 command/args，通过 mcp-remote 转接到我们的远程服务。不要把下面 Cursor / Claude Code 的 HTTP 配置粘到这里。</strong>如果已有其他 MCP 服务，只在 <code>mcpServers</code> 里增加 <code>wenshucha</code>，保留其他配置。</p>
+<p>macOS：<a href="claude-desktop-macos.json" download>下载配置 JSON</a></p>
+<pre data-config="claude-desktop-macos">{
   "mcpServers": {
-    <b>"wenshucha"</b>: {
+    "wenshucha": {
+      "command": "npx",
+      "args": [
+        "-y", "mcp-remote",
+        "https://mcp.wenshucha.com/mcp",
+        "--transport", "http-only",
+        "--header", "x-api-key:wsc_demo_public"
+      ]
+    }
+  }
+}</pre>
+<p>Windows（通过 <code>cmd /c</code> 启动 npx）：<a href="claude-desktop-windows.json" download>下载配置 JSON</a></p>
+<pre data-config="claude-desktop-windows">{
+  "mcpServers": {
+    "wenshucha": {
+      "command": "cmd",
+      "args": [
+        "/c", "npx", "-y", "mcp-remote",
+        "https://mcp.wenshucha.com/mcp",
+        "--transport", "http-only",
+        "--header", "x-api-key:wsc_demo_public"
+      ]
+    }
+  }
+}</pre>
+<p>保存后完全退出并重新打开 Claude Desktop。首次连接会下载 mcp-remote，请允许一段准备时间；如果公司网络不能访问 npm，请按下面的错误说明排查。</p>
+
+<h3 id="cursor">Cursor</h3>
+<p>保存到项目的 <code>.cursor/mcp.json</code> 或全局 <code>~/.cursor/mcp.json</code>。无需安装 mcp-remote。<a href="cursor.json" download>下载配置 JSON</a></p>
+<pre data-config="cursor">{
+  "mcpServers": {
+    "wenshucha": {
+      "url": "https://mcp.wenshucha.com/mcp",
+      "headers": { "x-api-key": "wsc_demo_public" }
+    }
+  }
+}</pre>
+
+<h3 id="claude-code">Claude Code</h3>
+<p>在终端执行以下命令（只需一次），然后在 Claude Code 里用 <code>/mcp</code> 查看连接状态：</p>
+<pre>claude mcp add --transport http wenshucha https://mcp.wenshucha.com/mcp --header "x-api-key: wsc_demo_public"</pre>
+<p>或者保存以下配置到项目根目录 <code>.mcp.json</code>（首次加载按客户端提示信任项目服务）。<a href="claude-code.json" download>下载配置 JSON</a></p>
+<pre data-config="claude-code">{
+  "mcpServers": {
+    "wenshucha": {
       "type": "http",
-      "url": <b>"https://mcp.wenshucha.com/mcp"</b>,
+      "url": "https://mcp.wenshucha.com/mcp",
       "headers": {
-        "x-api-key": <b>"wsc_demo_public"</b>
+        "x-api-key": "wsc_demo_public"
       }
     }
   }
 }</pre>
-</div>
 
 <div class="step"><div class="no">3</div>
-<b>重启客户端，问一句话试试</b>
-<div style="font-size:14.5px">例如：<em>「帮我查一下民间借贷纠纷里，保证人承担连带责任的判决，找 3 个」</em><br>
-模型会自动调用 <code>search_judgments</code>，返回带案号的库内判决记录。</div>
+<b>连接成功后，检索并读取正文</b>
+<div style="font-size:14.5px">例如：<em>「用文书查查江西省建设工程的工程款案例，找 1 个有正文的，再调用 get_judgment 读取判决正文」</em><br>
+工具列表应显示 <code>search_judgments</code>、<code>get_judgment</code>、<code>verify_case_number</code>、<code>verify_quote</code>。检索再取一篇正文合计消耗 2 次调用、1 篇全文。</div>
 </div>
+
+<h3 id="troubleshooting">配置报错怎么排查</h3>
+<table>
+<tr><th>提示 / 现象</th><th>处理方法</th></tr>
+<tr><td>配置缺少 command、JSON 无效</td><td>确认选对客户端配置；Claude Desktop 本机配置用 command/args。JSON 必须使用英文双引号，不要添加注释或末尾逗号。</td></tr>
+<tr><td>npx ENOENT / 找不到命令</td><td>安装 Node.js LTS 后重新打开客户端；Windows 使用上面的 cmd 配置。macOS 如果终端能运行而客户端找不到，用终端的 which npx 得到绝对路径，替换 command。</td></tr>
+<tr><td>npm 下载失败 / 首次连接超时</td><td>在终端运行 npx -y mcp-remote https://mcp.wenshucha.com/mcp --transport http-only --header x-api-key:wsc_demo_public，查看下载或网络错误；公司网络需允许访问 npm 与 mcp.wenshucha.com。</td></tr>
+<tr><td>401 / 缺少 API key</td><td>端点必须是 https://mcp.wenshucha.com/mcp，携带 x-api-key 请求头，值为 wsc_demo_public。它不是 OAuth 服务，不需要点击登录授权。</td></tr>
+<tr><td>每日 / 本月额度已用完</td><td>这是调用时的额度提示，不是配置错误。同一出口 IP 共用当天 20 次调用、5 篇全文上限；全站也共用月额度。按提示等重置，或加微信开独享 Key。</td></tr>
+<tr><td>404 / 405</td><td>选 HTTP / Streamable HTTP，地址填写 /mcp；不要选 SSE 或填写 /sse。直接用浏览器打开 /mcp 得到 405 并不能判断 MCP 不可用，请用下面的 POST 示例验证。</td></tr>
+</table>
+<p style="font-size:13px;color:var(--mut)">配置依据：<a href="https://modelcontextprotocol.io/docs/develop/connect-local-servers" target="_blank" rel="noopener">Claude Desktop 本机配置</a> · <a href="https://github.com/punkpeye/mcp-remote" target="_blank" rel="noopener">mcp-remote 转接说明</a> · <a href="https://cursor.com/docs/mcp" target="_blank" rel="noopener">Cursor 官方文档</a> · <a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">Claude Code 官方文档</a></p>
 
 <h3>不用客户端，直接 curl 调</h3>
 <pre>curl -X POST https://mcp.wenshucha.com/mcp \
@@ -213,7 +262,7 @@ footer a{color:#fff}
 <h2>六、额度与档位</h2>
 <table>
 <tr><th>项</th><th>说明</th></tr>
-<tr><td>公开 Key <code>wsc_demo_public</code></td><td><strong>每个 IP 每天 20 次</strong>，全站共用每月 5,000 次、判决全文 500 篇；不用申请</td></tr>
+<tr><td>公开 Key <code>wsc_demo_public</code></td><td><strong>每个 IP 每天合计 20 次调用，其中最多 5 篇全文</strong>；全站共用每月 20,000 次、判决全文 1,000 篇；不用申请</td></tr>
 <tr><td>免费版（加微信开通，¥0）</td><td><strong>1,000 次 / 月</strong>独享，含 100 篇判决全文；每月 1 日自动重置</td></tr>
 <tr><td>开发者 Pro（¥99/月 · ¥990/年）</td><td><strong>50,000 次 / 月</strong>，5,000 篇全文，10 次/秒</td></tr>
 <tr><td>团队版（¥4,800/年）</td><td><strong>300,000 次 / 月</strong>，50,000 篇全文，30 次/秒，最多 5 把 Key，可开发票</td></tr>

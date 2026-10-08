@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "wenshucha": {
+      "url": "https://mcp.wenshucha.com/mcp",
+      "headers": {
+        "x-api-key": "wsc_demo_public"
+      }
+    }
+  }
+}

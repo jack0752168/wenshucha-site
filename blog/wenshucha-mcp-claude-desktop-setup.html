@@ -164,7 +164,7 @@
       <h2>二、准备:一把 Key,现在就能用</h2>
       <p>接入前你只需要一样东西:一把 <code>x-api-key</code>。文书查把一把<strong>公开测试 Key</strong>直接印在了网页上,不用注册、不用申请:</p>
       <ul>
-        <li>端点:<code>https://mcp.wenshucha.com/mcp</code>(标准 MCP Streamable HTTP,远程连接,本机不用装任何包)</li>
+        <li>端点:<code>https://mcp.wenshucha.com/mcp</code>(远程 MCP Streamable HTTP；Claude Desktop 的本机配置需通过 mcp-remote 转接)</li>
         <li>公开测试 Key:<code>wsc_demo_public</code>,每个 IP 每天 20 次,四个工具全开</li>
         <li>要独享额度:加微信 <strong>131-6872-7779</strong>(备注「MCP」)当场开通——免费版 1,000 次/月不收费,开发者 Pro ¥99/月 50,000 次 + 5,000 篇判决全文。完整价目与同行对比见 <a href="https://www.wenshucha.com/pricing/" target="_blank" rel="noopener">定价页</a>,接入细节见 <a href="https://www.wenshucha.com/mcp/quickstart/" target="_blank" rel="noopener">接入指南</a>。</li>
       </ul>
@@ -183,17 +183,21 @@
       <p>也可以在 Claude Desktop 的设置(Settings → Developer → Edit Config)里直接打开它。文件不存在就新建一个。</p>
 
       <h3>2. 加入文书查 MCP 配置</h3>
-      <p>把下面这段填进去(<code>mcpServers</code> 里已有别的服务就并列加一项);公开 Key 可以直接用,拿到专属 Key 后把它换掉即可:</p>
+      <p>先安装 Node.js LTS（推荐 22 或更新版本），确认终端能运行 <code>npx --version</code>。下面是 macOS 配置；Windows 使用<a href="/mcp/quickstart/#claude-desktop">接入指南里的 cmd 配置</a>。<code>mcpServers</code> 里已有别的服务就并列加一项，公开 Key 可以直接用，拿到专属 Key 后把它换掉即可：</p>
       <pre><code>{
   "mcpServers": {
     "wenshucha": {
-      "type": "http",
-      "url": "https://mcp.wenshucha.com/mcp",
-      "headers": { "x-api-key": "wsc_demo_public" }
+      "command": "npx",
+      "args": [
+        "-y", "mcp-remote",
+        "https://mcp.wenshucha.com/mcp",
+        "--transport", "http-only",
+        "--header", "x-api-key:wsc_demo_public"
+      ]
     }
   }
 }</code></pre>
-      <p>说明:这是远程 HTTP 连接,不需要 npx、不需要本地安装。Cursor 在「设置 → MCP → Add Server」、Claude Code 在项目根目录 <code>.mcp.json</code>,内容相同。</p>
+      <p>说明：Claude Desktop 的本机配置使用 <code>command/args</code>，由 mcp-remote 把 stdio 转接到远程服务。Cursor 与 Claude Code 使用各自的 HTTP 配置，<strong>不能把这几种客户端的配置混用</strong>。完整配置、下载文件与常见报错见<a href="/mcp/quickstart/">接入指南</a>。</p>
 
       <h3>3. 重启 Claude Desktop,验证连接</h3>
       <p>完全退出并重新打开 Claude Desktop。连接成功后,输入框旁会出现 MCP 工具图标,展开能看到 <code>wenshucha</code> 提供的检索工具。验证一句最简单的:</p>

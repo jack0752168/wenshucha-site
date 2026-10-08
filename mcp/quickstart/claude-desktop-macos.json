@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "wenshucha": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.wenshucha.com/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key:wsc_demo_public"
+      ]
+    }
+  }
+}

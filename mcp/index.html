@@ -164,7 +164,7 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
 </div>
 
 <h2>三步接入</h2>
-<p>协议是标准 MCP（Streamable HTTP），任何支持 MCP 的客户端都能接。以 Claude Desktop 为例：</p>
+<p>远程服务使用 MCP Streamable HTTP。下面是 <strong>Claude Code</strong> 的项目根目录 <code>.mcp.json</code> 配置。<strong>Claude Desktop 的本机配置格式不同</strong>，请用<a href="/mcp/quickstart/#claude-desktop">桌面版转接配置</a>；Cursor 用<a href="/mcp/quickstart/#cursor">Cursor 配置</a>。</p>
 <pre>{
   "mcpServers": {
     <b>"wenshucha"</b>: {
@@ -174,7 +174,7 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
     }
   }
 }</pre>
-<p>上面这把就是<strong>公开测试 Key</strong>——每个 IP 每天 20 次，不用注册、不用申请。粘进配置文件、重启客户端，就能开始问了。完整步骤（含 Cursor / Claude Code / curl 直调）见 <a href="https://www.wenshucha.com/mcp/quickstart/">接入指南</a>。</p>
+<p>上面这把就是<strong>公开测试 Key</strong>——每个 IP 每天合计 20 次工具调用，其中最多 5 篇全文，不用注册、不用申请。按客户端对应格式保存配置并重新加载，即可开始检索和读取正文。完整步骤与报错排查见 <a href="https://www.wenshucha.com/mcp/quickstart/">接入指南</a>。</p>
 
 <h2 id="pricing">明码标价 · 先测再买</h2>
 <p>价格、次数、全文篇数、速率全写在这里，不用联系销售就能开工。公开测试 Key 现在就能用；测完想要更多，<strong>加微信 131-6872-7779（备注「MCP」）当场开通</strong>。</p>
