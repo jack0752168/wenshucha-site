@@ -88,6 +88,7 @@ summary{font-weight:600;cursor:pointer;color:var(--navy)}
 footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
 footer a{color:#fff}
 </style>
+<script src="/assets/funnel-v1.js" defer></script>
 </head>
 <body>
 <header><div class="wrap">
@@ -243,10 +244,29 @@ footer a{color:#fff}
 
 <div class="cta" id="contact">
   <h2>把需求发过来，先看口径再决定</h2>
+  <p>填一个研究主题，我们先确认数据范围和统计方法。提交需求不代表下单，也不需要先付款。</p>
+  <form id="reportDemand" class="demand-form">
+    <label for="demand-topic">研究主题 <input id="demand-topic" name="topic" minlength="4" maxlength="200" required placeholder="例如：2020—2025年劳动争议的地域分布"></label>
+    <div class="demand-grid">
+      <label for="demand-role">你的身份 <select id="demand-role" name="role" required><option value="">请选择</option><option>学生</option><option>教师</option><option>研究人员</option><option>律所或企业</option><option>其他</option></select></label>
+      <label for="demand-institution">学校／机构（选填） <input id="demand-institution" name="institution" maxlength="120" autocomplete="organization"></label>
+      <label for="demand-email">回复邮箱 <input id="demand-email" name="email" type="email" maxlength="160" autocomplete="email" required></label>
+      <label for="demand-timeframe">时间范围／截止时间（选填） <input id="demand-timeframe" name="timeframe" maxlength="80" placeholder="例如：本月底前，统计2020—2025年"></label>
+    </div>
+    <label for="demand-purpose">希望回答什么问题 <textarea id="demand-purpose" name="purpose" minlength="10" maxlength="800" rows="3" required placeholder="说明论文／课题用途，以及需要的地域、年份、案由或图表。"></textarea></label>
+    <label class="demand-consent"><input name="consent" type="checkbox" required> 同意将以上信息用于回复本次需求。请勿填写身份证号、真实当事人姓名或未公开案情。</label>
+    <div hidden aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" maxlength="0"></label></div>
+    <button type="submit">提交研究需求</button>
+  </form>
+  <p id="reportDemandStatus" class="demand-status" role="status" aria-live="polite"></p>
   <p>商务对接 Jack · 微信同号 <strong style="color:#e0c178">131 6872 7779</strong> · chenjiaxin@wenshucha.com</p>
   <a href="mailto:chenjiaxin@wenshucha.com?subject=裁判文书数据定制报告需求&body=【研究主题】%0A【用途】%0A【时间区间】%0A【地域范围】%0A【要统计的维度】%0A【要重点回答的问题】%0A【交付格式】%0A【截止时间】%0A【联系方式】%0A">✉️ 邮件发需求</a>
   <a class="ghost" href="tel:+8613168727779">📞 131 6872 7779</a>
 </div>
+<style>
+.demand-form{text-align:left;max-width:680px;margin:24px auto}.demand-form label{display:block;margin:12px 0;font-size:14px}.demand-form input:not([type=checkbox]),.demand-form select,.demand-form textarea{display:block;width:100%;min-width:0;margin-top:5px;padding:10px;border:1px solid #b7c2d0;border-radius:7px;background:#fff;color:#1a2433;font:inherit}.demand-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.demand-form input[type=checkbox]{margin-right:7px}.demand-form .demand-consent{font-size:13px;color:#dfe6f0}.demand-form button{border:0;border-radius:8px;padding:12px 24px;background:#c8a35a;color:#0e1b2e;font:inherit;font-size:16px;font-weight:700;cursor:pointer}.demand-form button:disabled{opacity:.6}.demand-status{overflow-wrap:anywhere}.demand-success{color:#b5edc8}@media(max-width:600px){.demand-grid{grid-template-columns:1fr}.cta{padding:20px}.demand-form button{width:100%}}
+</style>
+<script src="/assets/report-demand.js" defer></script>
 
 <h2 id="faq">常见问题</h2>
 <details open><summary>数据从哪里来？和中国裁判文书网上看到的数字为什么不完全一样？</summary><p>数据来自文书查自建的 1.6 亿条裁判文书全库（源于人民法院公开裁判文书）。裁判文书网的检索计数受其检索算法、去重规则和公开状态影响，与全库聚合口径不同；我们在报告里同时给出记录数与相异案号数，并按全库年度总量做归一化，2023 年以后公开总量收缩的影响会单独说明。</p></details>

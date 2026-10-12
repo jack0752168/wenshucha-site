@@ -85,6 +85,7 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
 .gate{background:#fff8e8;border:1px solid #e6d5a8;border-radius:10px;padding:16px 18px;margin:18px 0;font-size:14.5px}
 .gate b{color:#8a6512}
 </style>
+<script src="/assets/funnel-v1.js" defer></script>
 </head>
 <body>
 <header><div class="wrap">
@@ -204,6 +205,8 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
   var f=document.getElementById('applyForm'), btn=document.getElementById('btn'), msg=document.getElementById('msg');
   var FREE=["qq.com","163.com","126.com","gmail.com","outlook.com","hotmail.com","foxmail.com","sina.com","sohu.com","yeah.net","139.com","189.cn","live.com","icloud.com","yahoo.com","aliyun.com","tom.com","21cn.com"];
   function show(k,t){msg.className='msg '+k;msg.textContent=t;msg.scrollIntoView({behavior:'smooth',block:'center'});}
+  var requestId='';
+  f.addEventListener('focusin',function(){if(window.WSCFunnel)window.WSCFunnel.event('lead_start',{surface:'mcp'});},{once:true});
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var d={};['company','industry','scale','name','title','email','phone','usecase','volume','website'].forEach(function(k){
@@ -213,6 +216,8 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
     var dom=(d.email.split('@')[1]||'').toLowerCase();
     if(FREE.indexOf(dom)>=0){ show('err','请使用企业邮箱 —— 个人邮箱（QQ/163/Gmail 等）恕不受理。'); return; }
     if(d.usecase.length<20){ show('err','用途场景请写具体一些，至少 20 字。'); return; }
+    if(!requestId)requestId=crypto.randomUUID();d.request_id=requestId;
+    if(window.WSCFunnel){var fc=window.WSCFunnel.context();if(fc)d.funnel={sid:fc.sid,source:fc.source,medium:fc.medium,campaign:fc.campaign,qa:fc.qa};}
     btn.disabled=true; btn.textContent='提交中…';
     fetch('/api/mcp-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
