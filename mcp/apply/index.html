@@ -181,12 +181,12 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
   <div class="hp"><label>请勿填写<input name="website" tabindex="-1" autocomplete="off"></label></div>
 
   <button class="submit" type="submit" id="btn">提交申请</button>
-  <div class="msg" id="msg"></div>
   <p style="font-size:13px;color:var(--mut);margin:14px 0 0">
     我们只用这些信息评估接入与联系你，不作他用、不对外提供。数据授权与私有化部署也走这个表单，
     或直接联系商务 <b>131-6872-7779</b> ／ <b>chenjiaxin@wenshucha.com</b>。
   </p>
 </form>
+<div class="msg" id="msg" role="status" aria-live="polite"></div>
 
 <div class="links">
   相关：
@@ -222,7 +222,7 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
     fetch('/api/mcp-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
       .then(function(x){
-        if(x.j&&x.j.ok){ f.style.display='none'; show('ok','已收到。我们会在两个工作日内通过你填写的企业邮箱回复；如果情况紧急，可直接致电 131-6872-7779。'); }
+        if(x.s>=200&&x.s<300&&x.j&&x.j.ok&&/^[a-f0-9-]{36}$/.test(x.j.id||'')){ f.style.display='none'; show('ok','申请已保存。我们会在两个工作日内通过你填写的企业邮箱回复；如果情况紧急，可直接致电 131-6872-7779。申请编号：'+x.j.id); }
         else { show('err',(x.j&&x.j.error)||'提交失败，请稍后重试，或直接邮件 chenjiaxin@wenshucha.com'); btn.disabled=false; btn.textContent='提交申请'; }
       })
       .catch(function(){ show('err','网络异常，提交失败。可直接邮件 chenjiaxin@wenshucha.com'); btn.disabled=false; btn.textContent='提交申请'; });
