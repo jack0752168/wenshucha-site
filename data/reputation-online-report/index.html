@@ -1,0 +1,215 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>名誉权纠纷裁判数据：逐年记录、地域与网络语境共现 - 文书查</title><meta name="description" content="2026-10-12现跑：精确案由52011条、标题/正文143592条；逐年记录、相异案号HLL估算、同年全库归一化、省份审级文类及网络词交叉。附完整检索式，不推断真实纠纷量或胜诉率。"><link rel="canonical" href="https://www.wenshucha.com/data/reputation-online-report/"><meta name="robots" content="index,follow"><meta property="og:type" content="article"><meta property="og:title" content="名誉权纠纷裁判数据：逐年记录、地域与网络语境共现"><meta property="og:url" content="https://www.wenshucha.com/data/reputation-online-report/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "名誉权纠纷裁判数据：逐年记录、地域与网络语境共现", "description": "2026-10-12现跑：精确案由52011条、标题/正文143592条；逐年记录、相异案号HLL估算、同年全库归一化、省份审级文类及网络词交叉。附完整检索式，不推断真实纠纷量或胜诉率。", "url": "https://www.wenshucha.com/data/reputation-online-report/", "dateModified": "2026-10-12", "creator": {"@type": "Organization", "name": "文书查", "legalName": "深圳星谱网络科技有限公司"}, "measurementTechnique": "Exact Elasticsearch aggregates; dual analyzer union; raw caseNo HLL estimates", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://www.wenshucha.com/data/reputation-online-report/queries-and-results.json"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/"}, {"@type": "ListItem", "position": 3, "name": "名誉权纠纷裁判数据：逐年记录、地域与网络语境共现", "item": "https://www.wenshucha.com/data/reputation-online-report/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这份报告有多少名誉权纠纷记录？", "acceptedAnswer": {"@type": "Answer", "text": "精确案由 C 为 52,011 条，标题/正文检索 F 为 143,592 条，并集 U 为 146,249 条。三种口径均在 2026-10-12 查询；它们不是全国真实案件总数。"}}, {"@type": "Question", "name": "网络语境比例代表网络名誉侵权案件占比吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。C 内 10,618 条正文命中“网络、微信、微博、平台”至少一个词，共现率 20.41%。关键词可出现在证据、转述、法律引用或无关背景中；没有逐案人工判定侵权渠道。"}}, {"@type": "Question", "name": "相异案号可以当成独立纠纷数吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。本页仅对以“号”结尾的原始 caseNo 进行 HLL 估算，没有括号与空白规范化，也没有合并一审、二审、再审。一个纠纷可以有多个案号，同一案号也可以有多份文书。"}}, {"@type": "Question", "name": "案由搜索页的 OR 数字为什么大得多？", "acceptedAnswer": {"@type": "Answer", "text": "cause.t 分词 OR 查询“名誉权纠纷”命中 28,673,899 条，其中精确“名誉权纠纷”标签只占 0.1814%。这是标签口径纯度，不是人工语义准确率。主表用 cause keyword 精确 term。"}}, {"@type": "Question", "name": "报告能提供胜诉率或实际赔偿概率吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。本页没有做统一诉讼角色归并与裁判结果人工编码，不计算胜诉率、支持率或赔偿概率。要更细的交叉表和逐案清单，可在数据报告服务中先约定主题定义、清洗与验收口径。"}}]}</script><style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+
+.source{font-size:12px;color:var(--mut);overflow-wrap:anywhere}.tablewrap table{min-width:540px} @media(max-width:600px){h1{font-size:26px}.hero{padding:30px 0}.wrap{padding:0 16px}header nav{display:flex;flex-wrap:wrap;gap:8px}header nav a{margin-left:0}.cta{padding:22px}th,td{font-size:13px}}</style></head><body><header><div class="wrap"><a href="/">文书查 SinoVerdict</a><nav><a href="/case-search/">智能检索</a><a href="/mcp/">MCP 服务</a><a href="/data/">裁判数据</a><a href="/data-report/">数据报告</a><a href="/buyers-guide/">采购指南</a></nav></div></header><section class="hero"><div class="wrap"><h1>名誉权纠纷裁判数据：逐年记录、地域与网络语境共现</h1><p>精确案由与全文口径并列，给法学论文和网络法课题的可复现数据样例。检索日期：2026-10-12。</p><div class="kpi"><div><b>52,011</b><span>精确案由 C</span></div><div><b>143,592</b><span>标题/正文 F</span></div><div><b>20.41%</b><span>C 内网络词共现率</span></div></div></div></section><main class="wrap"><div class="warn"><strong>先区分记录、案号和研究对象</strong><p>这是当前收录索引的主题查询，不是全国诉讼普查。案由标签、主题短语与网络词共现分别回答不同问题。不要把字段标签当作法官实质认定，也不要把每份文书当作独立纠纷。</p></div><h2>一、主题定义与三条检索路线</h2><p>主集合 C 使用 <code>term(cause="名誉权纠纷")</code>，只认精确标签。F 使用标题或正文短语“名誉权”，每个字段均取 ik_smart 与 ik_max_word 的逻辑并集；U 为 C∪F。宽口径可能找到涉及名誉权的合同、新闻、劳动或其他侵权纠纷，也可能只是引用法条，不能自动称为相关名誉侵权案件。</p><div class="tablewrap"><table><thead><tr><th>集合</th><th>记录数</th><th>合格原始案号记录</th><th>相异案号 HLL</th></tr></thead><tbody><tr><td>C</td><td>52,011</td><td>50,860</td><td>44,351</td></tr><tr><td>F</td><td>143,592</td><td>138,252</td><td>123,601</td></tr><tr><td>U</td><td>146,249</td><td>140,875</td><td>124,154</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>U</code>, <code>C_repeat</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>相异案号只统计原始字符串以“号”结尾的记录，precision_threshold=40000；这是概率估计，不是精确去重。两个集合的案号估值不能相减计算差集。精确案由标签本轮只发现一种名誉权取值；其他一般人格权、隐私权等标签未纳入 C。</p><div class="warn"><strong>分词 OR 的标签纯度只有 0.1814%</strong><p>在 <code>cause.t</code> 上使用默认 OR 查“名誉权纠纷”，总数为 28,673,899；与精确 C 的交集 52,011。本比例仅检查查询相对标签的精度：C 中也可能存在标签错配，非 C 中也可能涉及名誉权，未作人工语义纯度审计。</p></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>labels</code>, <code>tokenized_OR</code>, <code>tokenized_OR_and_C</code>。记录数为精确计数；相异案号为 HLL 估算。</p><h2>二、2013–2025：记录量与同年全库归一化</h2><p>归一化值 = 该年主题记录 / 同年全库记录 × 100000。分母使用全库相同 year 字段，帮助看清收录规模变化；它不能抵消非随机公开、标签缺失或年份错误。表中 year 是索引年份，在部分批次对应发布/采集年，不能直接理解为纠纷发生年或裁判落款年。</p><figure><img src="year-normalized.png" width="1500" height="1050" alt="精确案由与全文口径的年度收录量和每十万条同年全库记录的主题密度"><figcaption>上图为原始量，下图为同年收录规模校正；两条曲线是不同口径。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>year</th><th>C 记录</th><th>C 相异案号约</th><th>F 记录</th><th>全库同年分母</th><th>C/十万</th><th>F/十万</th></tr></thead><tbody><tr><td>2013</td><td>744</td><td>723</td><td>1,651</td><td>1,762,537</td><td>42.21</td><td>93.67</td></tr><tr><td>2014</td><td>3,061</td><td>2,951</td><td>6,426</td><td>7,033,956</td><td>43.52</td><td>91.36</td></tr><tr><td>2015</td><td>4,453</td><td>4,340</td><td>8,965</td><td>9,894,747</td><td>45.00</td><td>90.60</td></tr><tr><td>2016</td><td>5,507</td><td>5,386</td><td>10,982</td><td>12,443,177</td><td>44.26</td><td>88.26</td></tr><tr><td>2017</td><td>7,255</td><td>7,117</td><td>15,187</td><td>15,147,489</td><td>47.90</td><td>100.26</td></tr><tr><td>2018</td><td>3,368</td><td>2,785</td><td>20,949</td><td>16,331,967</td><td>20.62</td><td>128.27</td></tr><tr><td>2019</td><td>2,179</td><td>1,240</td><td>14,334</td><td>12,290,542</td><td>17.73</td><td>116.63</td></tr><tr><td>2020</td><td>1,338</td><td>831</td><td>15,939</td><td>21,359,050</td><td>6.26</td><td>74.62</td></tr><tr><td>2021</td><td>3,818</td><td>3,035</td><td>13,189</td><td>16,548,198</td><td>23.07</td><td>79.70</td></tr><tr><td>2022</td><td>9,101</td><td>5,696</td><td>14,537</td><td>19,292,669</td><td>47.17</td><td>75.35</td></tr><tr><td>2023</td><td>2,924</td><td>2,616</td><td>4,598</td><td>6,365,236</td><td>45.94</td><td>72.24</td></tr><tr><td>2024</td><td>3,840</td><td>3,743</td><td>6,307</td><td>6,984,435</td><td>54.98</td><td>90.30</td></tr><tr><td>2025</td><td>2,753</td><td>2,674</td><td>3,704</td><td>3,818,342</td><td>72.10</td><td>97.01</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>corpus_years</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>所有 year 桶合计与总数相减得到缺年：C 294、F 3,722、U 3,722 条；2013–2025 之外的非空年份仍在 JSON 中。2023 年公开/收录规模明显收缩，原始数量下降不能推出真实纠纷减少。C 在 2020 年网络词只有 42 条共现，但 F 同年有 2,464 条，显示标签与批次构成会改变分母；不能据 C 单线讲“网络侵权大幅减少”。</p><h2>三、省份、审理程序与文书种类</h2><figure><img src="province.png" width="1500" height="750" alt="精确名誉权案由省份标签前十记录数"><figcaption>省份是索引标签，不是网络行为人所在地、受害人居住地或平台所在地。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>省份标签</th><th>C 记录</th><th>占 C</th></tr></thead><tbody><tr><td>空字符串</td><td>6,645</td><td>12.78%</td></tr><tr><td>河南省</td><td>4,782</td><td>9.19%</td></tr><tr><td>山东省</td><td>4,421</td><td>8.50%</td></tr><tr><td>北京市</td><td>4,199</td><td>8.07%</td></tr><tr><td>广东省</td><td>2,986</td><td>5.74%</td></tr><tr><td>江苏省</td><td>2,808</td><td>5.40%</td></tr><tr><td>辽宁省</td><td>2,561</td><td>4.92%</td></tr><tr><td>上海市</td><td>2,430</td><td>4.67%</td></tr><tr><td>陕西省</td><td>2,023</td><td>3.89%</td></tr><tr><td>湖南省</td><td>1,929</td><td>3.71%</td></tr><tr><td>浙江省</td><td>1,823</td><td>3.51%</td></tr><tr><td>四川省</td><td>1,467</td><td>2.82%</td></tr><tr><td>湖北省</td><td>1,241</td><td>2.39%</td></tr><tr><td>安徽省</td><td>1,148</td><td>2.21%</td></tr><tr><td>重庆市</td><td>1,123</td><td>2.16%</td></tr><tr><td>吉林省</td><td>1,105</td><td>2.12%</td></tr><tr><td>河北省</td><td>1,097</td><td>2.11%</td></tr><tr><td>福建省</td><td>1,066</td><td>2.05%</td></tr><tr><td>甘肃省</td><td>933</td><td>1.79%</td></tr><tr><td>广西壮族自治区</td><td>901</td><td>1.73%</td></tr><tr><td>天津市</td><td>735</td><td>1.41%</td></tr><tr><td>山西省</td><td>651</td><td>1.25%</td></tr><tr><td>内蒙古自治区</td><td>644</td><td>1.24%</td></tr><tr><td>黑龙江省</td><td>613</td><td>1.18%</td></tr><tr><td>云南省</td><td>505</td><td>0.97%</td></tr><tr><td>江西省</td><td>482</td><td>0.93%</td></tr><tr><td>贵州省</td><td>470</td><td>0.90%</td></tr><tr><td>新疆维吾尔自治区</td><td>439</td><td>0.84%</td></tr><tr><td>青海省</td><td>314</td><td>0.60%</td></tr><tr><td>宁夏回族自治区</td><td>247</td><td>0.47%</td></tr><tr><td>海南省</td><td>115</td><td>0.22%</td></tr><tr><td>西藏自治区</td><td>73</td><td>0.14%</td></tr><tr><td>新疆维吾尔自治区生产建设兵团分院</td><td>18</td><td>0.03%</td></tr><tr><td>最高人民法院</td><td>15</td><td>0.03%</td></tr><tr><td>新疆维吾尔自治区高级人民法院生产建设兵团分院</td><td>1</td><td>0.00%</td></tr><tr><td>湖南湖南省</td><td>1</td><td>0.00%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>空字符串和字段缺失单独保留，不把缺失记录均摊到省份。地域表用于评估索引切片，不评价某省侵权风险；机构匿名、法院迁移和省份字段错误还需要逐案核验。</p><div class="tablewrap"><table><thead><tr><th>程序集合</th><th>C 记录</th><th>案号含初</th><th>案号含终</th></tr></thead><tbody><tr><td>一审</td><td>38,531</td><td>38,343</td><td>2</td></tr><tr><td>二审</td><td>8,778</td><td>0</td><td>8,759</td></tr><tr><td>未映射</td><td>4,702</td><td>1,829</td><td>752</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>一审合并 1/0301/民事一审/一审/刑事一审/行政一审；二审合并 2/0302/民事二审/二审/刑事二审/行政二审；其他编码保留未映射，尤其不把“3”猜成再审。初/终案号交叉检查只是编码诊断。这是文书量分布，不是一审纠纷进入二审的上诉率。</p><div class="tablewrap"><table><thead><tr><th>标题识别文类（互斥）</th><th>C 记录</th><th>占 C</th></tr></thead><tbody><tr><td>决定书</td><td>5</td><td>0.01%</td></tr><tr><td>判决书</td><td>17,662</td><td>33.96%</td></tr><tr><td>裁定书</td><td>27,126</td><td>52.15%</td></tr><tr><td>调解书</td><td>364</td><td>0.70%</td></tr><tr><td>通知书</td><td>431</td><td>0.83%</td></tr><tr><td>标题未识别</td><td>6,423</td><td>12.35%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>按标题短语优先识别判决书→裁定书→调解书→决定书→通知书，后类排除前类；未识别保留。没有把 caseType 当作单独文书类型，因为它同时装案件类型和文类；没有用正文第一行补型，因为旧批次抬头可能错。文类缺口和案由覆盖不齐，阻止我们直接计算裁判结果。</p><h2>四、网络词与责任救济词：两组共现</h2><p>网络语境 = 正文“网络、微信、微博、平台”至少一词的双分词器并集。第二组为“侮辱、诽谤、赔礼道歉、精神损害”。同份记录可以命中多词，各行不相加。关键词出现可能是证据描述、原告诉请、被告反驳、法律引用或其他背景。</p><div class="tablewrap"><table><thead><tr><th>正文词/并集</th><th>C 命中</th><th>C 共现率</th><th>F 命中</th></tr></thead><tbody><tr><td>侮辱</td><td>12,196</td><td>23.45%</td><td>24,267</td></tr><tr><td>平台</td><td>3,429</td><td>6.59%</td><td>11,219</td></tr><tr><td>微信</td><td>4,408</td><td>8.48%</td><td>16,046</td></tr><tr><td>微博</td><td>1,168</td><td>2.25%</td><td>3,289</td></tr><tr><td>精神损害</td><td>9,089</td><td>17.48%</td><td>39,775</td></tr><tr><td>网络</td><td>7,323</td><td>14.08%</td><td>20,606</td></tr><tr><td>网络语境并集</td><td>10,618</td><td>20.41%</td><td>32,773</td></tr><tr><td>诽谤</td><td>10,847</td><td>20.86%</td><td>21,198</td></tr><tr><td>赔礼道歉</td><td>16,153</td><td>31.06%</td><td>48,001</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录数为精确计数；相异案号为 HLL 估算。</p><div class="tablewrap"><table><thead><tr><th>year</th><th>C 记录</th><th>网络语境并集</th><th>C 内共现率</th><th>F 内共现率</th></tr></thead><tbody><tr><td>2013</td><td>744</td><td>171</td><td>22.98%</td><td>21.38%</td></tr><tr><td>2014</td><td>3,061</td><td>727</td><td>23.75%</td><td>19.23%</td></tr><tr><td>2015</td><td>4,453</td><td>1,116</td><td>25.06%</td><td>22.13%</td></tr><tr><td>2016</td><td>5,507</td><td>1,572</td><td>28.55%</td><td>26.07%</td></tr><tr><td>2017</td><td>7,255</td><td>2,344</td><td>32.31%</td><td>27.79%</td></tr><tr><td>2018</td><td>3,368</td><td>737</td><td>21.88%</td><td>24.48%</td></tr><tr><td>2019</td><td>2,179</td><td>377</td><td>17.30%</td><td>25.46%</td></tr><tr><td>2020</td><td>1,338</td><td>42</td><td>3.14%</td><td>15.46%</td></tr><tr><td>2021</td><td>3,818</td><td>821</td><td>21.50%</td><td>20.80%</td></tr><tr><td>2022</td><td>9,101</td><td>1,130</td><td>12.42%</td><td>25.70%</td></tr><tr><td>2023</td><td>2,924</td><td>386</td><td>13.20%</td><td>26.12%</td></tr><tr><td>2024</td><td>3,840</td><td>538</td><td>14.01%</td><td>27.13%</td></tr><tr><td>2025</td><td>2,753</td><td>320</td><td>11.62%</td><td>22.30%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>“平台”也会命中交易、工作或服务平台；“网络”不限定社交平台；“赔礼道歉”是诉请还是获支持需要人工编码。因此这里只报告共现，未判定网络侵权、平台责任、道歉支持率或精神损害赔偿概率。</p><h2>五、方法与局限：引用前必须保留</h2><ul><li>全量聚合查询，未抽样；不发布样本比例，也没有随机种子需要声称。没有完成语义纯度审计或最大单一原告占比统计，不据本页推断案件结果。</li><li>案由空白是批次性问题。F 里 ws_new 与 2021 批次大量记录不在 C 中；这不等于逐条核实的漏标，因为全文也可能引用无关法条。批次明细附在 C/F/U 的 dataset 聚合中。</li><li>正文为空、不公开事由占位、截断或采集缺段都会影响正文共现。exists(body) 不代表有可用正文；本轮没有抽正文核验，故不报告当前正文完整率，也不沿用已修复的旧固定截断比例。</li><li>未标准化案号、未合并程序、未按诉讼角色归并；案件聚类和重复诉状可能影响记录分布。</li><li>2023 年公开量收缩以及 year 的日期语义改变，均可造成假趋势；归一化不提供因果识别。</li><li>F/U 与全库年度分母均排除 bench 测试批次。C 本身不含 bench。任何细分样本不足 30，无法得出统计结论。</li></ul><h2>六、附录检索式与复现</h2><p>查询使用 judgments 索引；<code>size:0, track_total_hits:true</code> 返回精确记录总数，所有响应 failed shards=0 且未超时；C 的 _count 重读相同。正式论文使用前应重跑并保留检索日期。</p><pre><code>{
+  &quot;C&quot;: {
+    &quot;term&quot;: {
+      &quot;cause&quot;: &quot;名誉权纠纷&quot;
+    }
+  },
+  &quot;F&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;名誉权&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;名誉权&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              },
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;名誉权&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;名誉权&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;dataset&quot;: &quot;bench&quot;
+          }
+        }
+      ]
+    }
+  },
+  &quot;网络语境&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;网络&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;网络&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;微信&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;微信&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;微博&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;微博&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;平台&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;平台&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;minimum_should_match&quot;: 1
+    }
+  }
+}</code></pre><p class="source">检索日期：2026-10-12；<a href="queries-and-results.json">下载查询及原始聚合响应</a>，键：<code>C_repeat</code>, <code>F_body_ik_smart</code>, <code>F_body_ik_max_word</code>。记录数为精确计数；相异案号为 HLL 估算。</p><p>正文“名誉权”两路单独命中分别为 135,287（ik_smart）和 134,450（ik_max_word），不能挑较大值代替逻辑并集。F 的字段与分词器并集已经在查询中显式定义。公开附档仅含查询和聚合响应，没有当事人姓名、正文或个案清单。</p><h2>常见问题</h2><details><summary>这份报告有多少名誉权纠纷记录？</summary><p>精确案由 C 为 52,011 条，标题/正文检索 F 为 143,592 条，并集 U 为 146,249 条。三种口径均在 2026-10-12 查询；它们不是全国真实案件总数。</p></details><details><summary>网络语境比例代表网络名誉侵权案件占比吗？</summary><p>不能。C 内 10,618 条正文命中“网络、微信、微博、平台”至少一个词，共现率 20.41%。关键词可出现在证据、转述、法律引用或无关背景中；没有逐案人工判定侵权渠道。</p></details><details><summary>相异案号可以当成独立纠纷数吗？</summary><p>不能。本页仅对以“号”结尾的原始 caseNo 进行 HLL 估算，没有括号与空白规范化，也没有合并一审、二审、再审。一个纠纷可以有多个案号，同一案号也可以有多份文书。</p></details><details><summary>案由搜索页的 OR 数字为什么大得多？</summary><p>cause.t 分词 OR 查询“名誉权纠纷”命中 28,673,899 条，其中精确“名誉权纠纷”标签只占 0.1814%。这是标签口径纯度，不是人工语义准确率。主表用 cause keyword 精确 term。</p></details><details><summary>报告能提供胜诉率或实际赔偿概率吗？</summary><p>不能。本页没有做统一诉讼角色归并与裁判结果人工编码，不计算胜诉率、支持率或赔偿概率。要更细的交叉表和逐案清单，可在数据报告服务中先约定主题定义、清洗与验收口径。</p></details><div class="cta"><h2 style="color:white;border:0;padding:0;margin:0">需要更细的交叉表与逐案清单？</h2><p>可按论文/课题主题约定清洗、案号归并、语境编码与方法局限，定制裁判数据报告。</p><a href="/data-report/">查看数据报告服务</a><a class="ghost" href="mailto:chenjiaxin@wenshucha.com">联系商务</a><p>商务电话：131-6872-7779</p></div><p class="dis">文书查 · 深圳星谱网络科技有限公司。统计材料仅供研究方法与数据选型参考，不构成法律意见。检索日期 2026-10-12。</p></main><footer><div class="wrap">文书查 · 深圳星谱网络科技有限公司<br>商务电话：<a href="tel:13168727779">131-6872-7779</a> · 邮箱：<a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br><a href="/data-report/">数据报告</a> · <a href="/about/">关于我们</a><br><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer></body></html>
