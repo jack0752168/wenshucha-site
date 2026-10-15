@@ -1,0 +1,182 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>民间借贷利息语境裁判数据：双口径、年度归一化与地域分布 - 文书查</title><meta name="description" content="2026-10-15现跑：精确民间借贷案由9322422条与全文口径并列，附2013–2025年度记录、相异案号HLL估算、同年全库归一化、利息及LPR词共现和可复现查询。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://www.wenshucha.com/data/private-lending-interest-report/"><meta property="og:type" content="article"><meta property="og:title" content="民间借贷利息语境裁判数据：双口径、年度归一化与地域分布"><meta property="og:url" content="https://www.wenshucha.com/data/private-lending-interest-report/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "民间借贷利息语境裁判数据：双口径、年度归一化与地域分布", "description": "2026-10-15现跑：精确民间借贷案由9322422条与全文口径并列，附2013–2025年度记录、相异案号HLL估算、同年全库归一化、利息及LPR词共现和可复现查询。", "url": "https://www.wenshucha.com/data/private-lending-interest-report/", "dateModified": "2026-10-15", "creator": {"@type": "Organization", "name": "文书查", "legalName": "深圳星谱网络科技有限公司"}, "measurementTechnique": "Exact aggregates; dual-analyzer union; raw case-number HLL estimates", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://www.wenshucha.com/data/private-lending-interest-report/queries-and-results.json"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/"}, {"@type": "ListItem", "position": 3, "name": "民间借贷利息语境裁判数据：双口径、年度归一化与地域分布", "item": "https://www.wenshucha.com/data/private-lending-interest-report/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这份民间借贷数据报告统计的是什么？", "acceptedAnswer": {"@type": "Answer", "text": "2026-10-15查询精确案由C为9,322,422条，标题或正文F为22,241,602条，并集U为22,881,805条。它们是当前索引的记录集合，不是全国独立借贷纠纷数量。"}}, {"@type": "Question", "name": "出现利息或LPR是否说明法院支持该利率？", "acceptedAnswer": {"@type": "Answer", "text": "不能。C内5,320,364条正文命中利率或利息，比例为57.07%。词语可能出现在诉请、反驳、转述或法条附录。没有抽取裁判主文和统一计息区间，不能推断支持比例。"}}, {"@type": "Question", "name": "为什么全文口径比精确案由大？", "acceptedAnswer": {"@type": "Answer", "text": "标题及正文能召回案由空白批次和其他案件中的民间借贷引述。精确案由则会保留没有可用正文的标签记录。两者各有盲区，不能把差集全部解释成漏标或错误案件。"}}, {"@type": "Question", "name": "年度表能检验2020年规则变化的因果影响吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。year随date派生，部分批次使用发布或采集时间；公开选择、批次覆盖与文书类型也随时间变化。本页不把year分界当作政策处理时点，不估计政策效应。"}}, {"@type": "Question", "name": "如何获得更细的论文数据与逐案清单？", "acceptedAnswer": {"@type": "Answer", "text": "可通过数据报告服务先约定主题、案号归并、日期核验、语境编码与验收方法。现有页面只提供汇总和可执行查询，不承诺胜诉率、实际支持利率或全国案件普查。"}}]}</script><style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+
+.source{font-size:12px;color:var(--mut);overflow-wrap:anywhere}.tablewrap table{min-width:540px} @media(max-width:600px){h1{font-size:26px}.hero{padding:30px 0}.wrap{padding:0 16px}header nav{display:flex;flex-wrap:wrap;gap:8px}header nav a{margin-left:0}.cta{padding:22px}th,td{font-size:13px}}</style></head><body><header><div class="wrap"><a href="/">文书查 SinoVerdict</a><nav><a href="/case-search/">智能检索</a><a href="/mcp/">MCP 服务</a><a href="/data/">裁判数据</a><a href="/data-report/">数据报告</a><a href="/buyers-guide/">采购指南</a></nav></div></header><section class="hero"><div class="wrap"><h1>民间借贷利息语境裁判数据：双口径、年度归一化与地域分布</h1><p>给法学论文与实证课题的可复现样例；检索日期：2026-10-15。</p><div class="kpi"><div><b>9,322,422</b><span>精确案由C记录</span></div><div><b>22,241,602</b><span>标题/正文F记录</span></div><div><b>57.07%</b><span>C内利息/利率词共现</span></div></div></div></section><main class="wrap"><div class="warn"><strong>这是检索口径样例，不是利率适用结论</strong><p>给民商法论文和实证课题的数据起点：先展示收录与检索边界，再讨论如何做逐案研究。每一条记录可能是一份程序性文书、同案复本或他案引述；关键词共现不能代替法官的实体判断。</p></div><h2>一、主题定义：精确案由与全文分别回答什么</h2><p>C为裸keyword字段<code>cause</code>精确等于“民间借贷纠纷”；F为标题或正文检索完整短语“民间借贷纠纷”，各字段对ik_smart与ik_max_word取逻辑并集；U为C∪F。均排除bench测试批次。C回答标签归属，F回答主题文本候选召回。研究利息语境时，再在各集合中统计正文词共现，不把共现词当作另一种案由。</p><div class="tablewrap"><table><thead><tr><th>集合</th><th>记录数</th><th>案号以“号”结尾的记录</th><th>原始相异案号约</th></tr></thead><tbody><tr><td>C</td><td>9,322,422</td><td>8,929,325</td><td>7,728,462</td></tr><tr><td>F</td><td>22,241,602</td><td>19,871,153</td><td>17,360,221</td></tr><tr><td>U</td><td>22,881,805</td><td>20,448,840</td><td>17,465,541</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>U</code>, <code>C_repeat</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>相异案号以原始caseNo作cardinality、precision_threshold=40000；未归一化括号与空白，也未跨一审二审合并纠纷。它是HLL估计，不是精确去重数量。案号不合格式记录未纳入该估计；相异案号估值不能直接相减推导集合差。</p><div class="warn"><strong>分词OR的标签口径纯度：32.50%</strong><p><code>match(cause.t, 民间借贷纠纷, operator=or)</code>命中28,681,478条；与精确C交集9,322,422条。这个比例只量标签匹配，不是人工语义准确率，不能拿OR总数当民间借贷案由量。</p></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>labels</code>, <code>tokenized_OR</code>, <code>tokenized_OR_and_C</code>。记录为精确计数，原始相异案号为HLL估算。</p><h2>二、2013–2025：年度记录与同年收录规模归一化</h2><p>归一化=该集合当年记录÷全库同年记录×100000。分母与分子使用同一个year字段并排除bench；不是法院受理总量或人口。year来自索引date，部分批次对应发布/采集时间，不能当成借款发生、起诉、立案或裁判落款日期。</p><figure><img src="year-normalized.png" width="1500" height="1050" alt="民间借贷精确案由与全文年度收录量及同年归一化双图"><figcaption>原始记录与每十万条同年全库记录并列；均为当前索引切片。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>year</th><th>C记录</th><th>C相异案号约</th><th>F记录</th><th>同年全库分母</th><th>C/十万</th><th>F/十万</th></tr></thead><tbody><tr><td>2013</td><td>161,313</td><td>157,963</td><td>204,410</td><td>1,762,537</td><td>9152.32</td><td>11597.49</td></tr><tr><td>2014</td><td>589,896</td><td>569,948</td><td>836,076</td><td>7,033,956</td><td>8386.40</td><td>11886.28</td></tr><tr><td>2015</td><td>881,769</td><td>850,269</td><td>1,401,740</td><td>9,894,747</td><td>8911.49</td><td>14166.51</td></tr><tr><td>2016</td><td>1,081,392</td><td>1,038,504</td><td>1,951,343</td><td>12,443,177</td><td>8690.64</td><td>15682.03</td></tr><tr><td>2017</td><td>1,052,047</td><td>1,015,352</td><td>2,498,448</td><td>15,147,489</td><td>6945.36</td><td>16494.14</td></tr><tr><td>2018</td><td>554,286</td><td>440,584</td><td>2,637,181</td><td>16,331,967</td><td>3393.87</td><td>16147.36</td></tr><tr><td>2019</td><td>496,895</td><td>262,131</td><td>1,827,480</td><td>12,290,542</td><td>4042.91</td><td>14868.99</td></tr><tr><td>2020</td><td>285,325</td><td>172,151</td><td>2,710,792</td><td>21,359,050</td><td>1335.85</td><td>12691.54</td></tr><tr><td>2021</td><td>633,743</td><td>483,100</td><td>2,167,355</td><td>16,548,198</td><td>3829.68</td><td>13097.23</td></tr><tr><td>2022</td><td>1,604,468</td><td>1,017,952</td><td>2,638,648</td><td>19,292,669</td><td>8316.46</td><td>13676.95</td></tr><tr><td>2023</td><td>481,507</td><td>422,298</td><td>801,093</td><td>6,365,236</td><td>7564.64</td><td>12585.44</td></tr><tr><td>2024</td><td>660,700</td><td>623,668</td><td>903,781</td><td>6,984,435</td><td>9459.61</td><td>12939.93</td></tr><tr><td>2025</td><td>500,759</td><td>433,242</td><td>518,615</td><td>3,818,342</td><td>13114.57</td><td>13582.20</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>corpus_years</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>总数减去所有year桶合计的缺年记录：C 17,392、F 783,017、U 783,266；2013–2025以外年份保留在附档。2023年公开与收录明显收缩，不能把记录下降当作真实借贷纠纷减少。2020年C只有285,325条而F有2,710,792条，首先提示标签与批次口径问题，不能直接讲政策使诉讼下降。</p><h2>三、地域、程序与文书类型：保留未识别值</h2><figure><img src="province.png" width="1500" height="750" alt="精确民间借贷案由省份原始标签前十"><figcaption>省份是索引字段，不是借款人所在地或借款实际发生地。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>省份原始标签</th><th>C记录</th><th>占C</th></tr></thead><tbody><tr><td>空字符串</td><td>1,310,107</td><td>14.05%</td></tr><tr><td>浙江省</td><td>1,062,118</td><td>11.39%</td></tr><tr><td>山东省</td><td>699,151</td><td>7.50%</td></tr><tr><td>河南省</td><td>629,914</td><td>6.76%</td></tr><tr><td>江苏省</td><td>547,790</td><td>5.88%</td></tr><tr><td>福建省</td><td>412,284</td><td>4.42%</td></tr><tr><td>广东省</td><td>411,227</td><td>4.41%</td></tr><tr><td>辽宁省</td><td>346,220</td><td>3.71%</td></tr><tr><td>安徽省</td><td>344,802</td><td>3.70%</td></tr><tr><td>湖南省</td><td>333,946</td><td>3.58%</td></tr><tr><td>陕西省</td><td>310,445</td><td>3.33%</td></tr><tr><td>上海市</td><td>268,208</td><td>2.88%</td></tr><tr><td>四川省</td><td>260,067</td><td>2.79%</td></tr><tr><td>湖北省</td><td>227,127</td><td>2.44%</td></tr><tr><td>河北省</td><td>217,905</td><td>2.34%</td></tr><tr><td>吉林省</td><td>198,022</td><td>2.12%</td></tr><tr><td>内蒙古自治区</td><td>195,616</td><td>2.10%</td></tr><tr><td>重庆市</td><td>190,225</td><td>2.04%</td></tr><tr><td>黑龙江省</td><td>172,497</td><td>1.85%</td></tr><tr><td>北京市</td><td>169,323</td><td>1.82%</td></tr><tr><td>广西壮族自治区</td><td>163,818</td><td>1.76%</td></tr><tr><td>江西省</td><td>161,483</td><td>1.73%</td></tr><tr><td>甘肃省</td><td>144,362</td><td>1.55%</td></tr><tr><td>新疆维吾尔自治区</td><td>96,977</td><td>1.04%</td></tr><tr><td>云南省</td><td>96,127</td><td>1.03%</td></tr><tr><td>贵州省</td><td>94,082</td><td>1.01%</td></tr><tr><td>山西省</td><td>86,159</td><td>0.92%</td></tr><tr><td>宁夏回族自治区</td><td>60,779</td><td>0.65%</td></tr><tr><td>天津市</td><td>57,294</td><td>0.61%</td></tr><tr><td>青海省</td><td>31,020</td><td>0.33%</td></tr><tr><td>海南省</td><td>11,902</td><td>0.13%</td></tr><tr><td>新疆维吾尔自治区生产建设兵团分院</td><td>4,190</td><td>0.04%</td></tr><tr><td>西藏自治区</td><td>3,931</td><td>0.04%</td></tr><tr><td>最高人民法院</td><td>2,084</td><td>0.02%</td></tr><tr><td>新疆维吾尔自治区高级人民法院生产建设兵团分院</td><td>1,150</td><td>0.01%</td></tr><tr><td>宁省</td><td>7</td><td>0.00%</td></tr><tr><td>`山东省</td><td>6</td><td>0.00%</td></tr><tr><td>山山东省</td><td>5</td><td>0.00%</td></tr><tr><td>1江苏省</td><td>3</td><td>0.00%</td></tr><tr><td>3777江苏省</td><td>3</td><td>0.00%</td></tr><tr><td>南省</td><td>3</td><td>0.00%</td></tr><tr><td>山332东省</td><td>3</td><td>0.00%</td></tr><tr><td>某某省</td><td>3</td><td>0.00%</td></tr><tr><td>江江苏省</td><td>3</td><td>0.00%</td></tr><tr><td>辽辽宁省</td><td>3</td><td>0.00%</td></tr><tr><td>----江苏省</td><td>2</td><td>0.00%</td></tr><tr><td>-山东省</td><td>2</td><td>0.00%</td></tr><tr><td>-广东省</td><td>2</td><td>0.00%</td></tr><tr><td>-江苏省</td><td>2</td><td>0.00%</td></tr><tr><td>0山东省</td><td>2</td><td>0.00%</td></tr><tr><td>15山东省</td><td>2</td><td>0.00%</td></tr><tr><td>1山东省</td><td>2</td><td>0.00%</td></tr><tr><td>1陕西省</td><td>2</td><td>0.00%</td></tr><tr><td>205广东省</td><td>2</td><td>0.00%</td></tr><tr><td>28山东省</td><td>2</td><td>0.00%</td></tr><tr><td>‘’广东省</td><td>2</td><td>0.00%</td></tr><tr><td>原陕西省</td><td>2</td><td>0.00%</td></tr><tr><td>发辽宁省</td><td>2</td><td>0.00%</td></tr><tr><td>江8苏省</td><td>2</td><td>0.00%</td></tr><tr><td>ｓ山东省</td><td>2</td><td>0.00%</td></tr><tr><td>246广东省</td><td>1</td><td>0.00%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>空字符串与字段缺失分别保留；省份同义写法本轮未合桶，附录保留原始取值，不把异形标签当作新增行政区。原告批量诉讼、法院集中管辖与批次重复均可能影响地域分布，不能据此评价各地借贷风险。</p><div class="tablewrap"><table><thead><tr><th>程序集合</th><th>C记录</th><th>案号含初</th><th>案号含终</th></tr></thead><tbody><tr><td>一审</td><td>7,188,510</td><td>7,139,230</td><td>310</td></tr><tr><td>二审</td><td>612,848</td><td>39</td><td>609,759</td></tr><tr><td>未映射</td><td>1,521,064</td><td>382,370</td><td>38,818</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>一审合并1、0301、民事一审、一审、刑事一审、行政一审；二审合并2、0302、民事二审、二审、刑事二审、行政二审。其他保留未映射；不猜procedure=3就是再审。案号初/终仅为交叉诊断，文书量比不是上诉率。</p><div class="tablewrap"><table><thead><tr><th>标题文类（按顺序互斥）</th><th>C记录</th><th>占C</th></tr></thead><tbody><tr><td>决定书</td><td>3,949</td><td>0.04%</td></tr><tr><td>判决书</td><td>4,669,006</td><td>50.08%</td></tr><tr><td>裁定书</td><td>3,228,416</td><td>34.63%</td></tr><tr><td>调解书</td><td>124,396</td><td>1.33%</td></tr><tr><td>通知书</td><td>78,465</td><td>0.84%</td></tr><tr><td>标题未识别</td><td>1,218,190</td><td>13.07%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>标题短语依次识别判决书、裁定书、调解书、决定书、通知书；后类排除前类，其余未识别。没有按正文首行补型，也未同时叠加caseType与procedure造成批次编码互斥。该分类仍是标题词面规则，不是逐案文种人工审计。</p><h2>四、两组关键词：利息语境与计息表述</h2><p>第一组为正文“利率”“利息”及其并集；第二组为“LPR”“贷款市场报价利率”“四倍”“年利率24”。每项都取双分词器并集；中文phrase是分词位置匹配，不是逐字子串校验。“年利率24”可能跨空格标点匹配，也不涵盖所有中文数字写法。各词可重叠，不相加。</p><div class="tablewrap"><table><thead><tr><th>正文词/并集</th><th>C命中</th><th>C共现率</th><th>F命中</th></tr></thead><tbody><tr><td>LPR</td><td>242,253</td><td>2.60%</td><td>285,250</td></tr><tr><td>利息</td><td>5,311,669</td><td>56.98%</td><td>10,793,053</td></tr><tr><td>利率</td><td>3,854,854</td><td>41.35%</td><td>6,815,007</td></tr><tr><td>利率利息并集</td><td>5,320,364</td><td>57.07%</td><td>10,816,763</td></tr><tr><td>四倍</td><td>1,049,887</td><td>11.26%</td><td>1,367,005</td></tr><tr><td>年利率24</td><td>642,964</td><td>6.90%</td><td>1,571,900</td></tr><tr><td>贷款市场报价利率</td><td>1,058,042</td><td>11.35%</td><td>1,393,624</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录为精确计数，原始相异案号为HLL估算。</p><div class="tablewrap"><table><thead><tr><th>year</th><th>C记录</th><th>C利率/利息并集</th><th>C内共现率</th><th>F内共现率</th></tr></thead><tbody><tr><td>2013</td><td>161,313</td><td>121,670</td><td>75.42%</td><td>70.45%</td></tr><tr><td>2014</td><td>589,896</td><td>404,082</td><td>68.50%</td><td>60.55%</td></tr><tr><td>2015</td><td>881,769</td><td>589,158</td><td>66.82%</td><td>56.96%</td></tr><tr><td>2016</td><td>1,081,392</td><td>727,985</td><td>67.32%</td><td>53.90%</td></tr><tr><td>2017</td><td>1,052,047</td><td>686,382</td><td>65.24%</td><td>49.63%</td></tr><tr><td>2018</td><td>554,286</td><td>208,700</td><td>37.65%</td><td>50.64%</td></tr><tr><td>2019</td><td>496,895</td><td>133,167</td><td>26.80%</td><td>49.04%</td></tr><tr><td>2020</td><td>285,325</td><td>21,596</td><td>7.57%</td><td>41.02%</td></tr><tr><td>2021</td><td>633,743</td><td>353,054</td><td>55.71%</td><td>43.87%</td></tr><tr><td>2022</td><td>1,604,468</td><td>935,711</td><td>58.32%</td><td>51.39%</td></tr><tr><td>2023</td><td>481,507</td><td>275,945</td><td>57.31%</td><td>49.92%</td></tr><tr><td>2024</td><td>660,700</td><td>379,726</td><td>57.47%</td><td>53.57%</td></tr><tr><td>2025</td><td>500,759</td><td>218,696</td><td>43.67%</td><td>44.28%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录为精确计数，原始相异案号为HLL估算。</p><p>利息词可能出现在诉请、合同约定、双方争辩、他案转述或法条附录。“四倍”也不专指贷款市场报价利率；LPR字母可能有大小写与分词影响。本页不计算法院适用某上限的比例、不抽取实际利率、不判断请求获支持，也不报告胜诉率。</p><h2>五、方法与局限：为什么不能直接做政策断点</h2><ul><li>全量聚合，未抽样；不声称随机样本量、语义纯度或最大单一原告占比。若要做这些判断，应按dataset分层、记录random_score种子与n，再检查批量诉讼簇。</li><li>精确案由只覆盖有相应标签的批次；F中的空案由不能全部视为漏标。C/F/U的dataset与cause原始聚合可复核覆盖构成。</li><li>日期要逐份核验。year不是独立于date的时钟；研究规则变化时，还要区分借款成立、立案、裁判与公开日期，建立适用范围，不以2020年分桶代替处理组。</li><li>正文为空、公开事由占位、缺段与截断会改变共现分母。exists(body)不能证明有可用全文；本轮没有实读正文完整性，不报告完整率。</li><li>不同案号可能仍属同一纠纷，一案也可多文书；没有合并程序或规范化案号。记录分布不能直接当纠纷发生率。</li><li>归一化只校正同年收录规模，不能消除选择公开、缺标签、日期偏移与漏收录。细分样本不足30，无法得出统计结论。</li></ul><h2>六、附录：可执行查询与复核</h2><p>judgments索引，size:0、track_total_hits:true，所有响应未超时、failed shards=0；C用_count重读一致。下载文件仅含查询和聚合响应，没有姓名、正文与个案清单。正式论文引用应标日期、口径、清洗规则并重跑。</p><pre><code>{
+  &quot;C&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;cause&quot;: &quot;民间借贷纠纷&quot;
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;dataset&quot;: &quot;bench&quot;
+          }
+        }
+      ]
+    }
+  },
+  &quot;F&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;民间借贷纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;民间借贷纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              },
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;民间借贷纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;民间借贷纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;dataset&quot;: &quot;bench&quot;
+          }
+        }
+      ]
+    }
+  },
+  &quot;利率利息并集&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;利率&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;利率&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;利息&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;利息&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;minimum_should_match&quot;: 1
+    }
+  }
+}</code></pre><p class="source">检索日期：2026-10-15；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C_repeat</code>, <code>F_body_ik_smart</code>, <code>F_body_ik_max_word</code>。记录为精确计数，原始相异案号为HLL估算。</p><h2>常见问题</h2><details><summary>这份民间借贷数据报告统计的是什么？</summary><p>2026-10-15查询精确案由C为9,322,422条，标题或正文F为22,241,602条，并集U为22,881,805条。它们是当前索引的记录集合，不是全国独立借贷纠纷数量。</p></details><details><summary>出现利息或LPR是否说明法院支持该利率？</summary><p>不能。C内5,320,364条正文命中利率或利息，比例为57.07%。词语可能出现在诉请、反驳、转述或法条附录。没有抽取裁判主文和统一计息区间，不能推断支持比例。</p></details><details><summary>为什么全文口径比精确案由大？</summary><p>标题及正文能召回案由空白批次和其他案件中的民间借贷引述。精确案由则会保留没有可用正文的标签记录。两者各有盲区，不能把差集全部解释成漏标或错误案件。</p></details><details><summary>年度表能检验2020年规则变化的因果影响吗？</summary><p>不能。year随date派生，部分批次使用发布或采集时间；公开选择、批次覆盖与文书类型也随时间变化。本页不把year分界当作政策处理时点，不估计政策效应。</p></details><details><summary>如何获得更细的论文数据与逐案清单？</summary><p>可通过数据报告服务先约定主题、案号归并、日期核验、语境编码与验收方法。现有页面只提供汇总和可执行查询，不承诺胜诉率、实际支持利率或全国案件普查。</p></details><div class="cta"><h2 style="color:white;border:0;padding:0;margin:0">需要论文交叉表与逐案清单？</h2><p>可先约定主题、日期、案号归并、利息语境编码与验收口径，再定制数据报告。</p><a href="/data-report/">查看数据报告服务</a><a class="ghost" href="mailto:chenjiaxin@wenshucha.com">联系商务</a><p>商务电话：131-6872-7779</p></div><p class="dis">文书查 · 深圳星谱网络科技有限公司。仅供数据研究方法参考，不构成法律意见。检索日期：2026-10-15。</p></main><footer><div class="wrap">文书查 · 深圳星谱网络科技有限公司<br>商务电话：<a href="tel:13168727779">131-6872-7779</a> · 邮箱：<a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br><a href="/data-report/">数据报告</a> · <a href="/about/">关于我们</a><br><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer></body></html>

@@ -164,6 +164,8 @@ def main():
         "",
         f"- [名誉权纠纷裁判数据报告]({BASE}/data/reputation-online-report/):2026-10-12现跑的精确案由与全文口径、相异案号HLL估算、年度归一化、地域审级文类和网络词共现；附完整检索式，排除bench测试记录。不计算胜诉率或网络侵权率。",
         "",
+        f"- [民间借贷利息语境裁判数据报告]({BASE}/data/private-lending-interest-report/):2026-10-15现跑的精确案由与全文口径、相异案号HLL估算、年度归一化、地域审级文类和利息词共现；附完整检索式，排除bench测试记录。不计算胜诉率或法院支持利率。",
+        "",
         "## 洞察文章",
         "",
         f"共 {len(blog)} 篇,面向律所信息化负责人、法律科技 CTO 与政法信息中心,"
@@ -203,6 +205,7 @@ def main():
         f"- {BASE}/data/marital-joint-debt-report/ — 夫妻共同债务裁判数据报告(全库现跑,附 2018 年解释前后逐月引用迁移与批次内对照)",
         f"- {BASE}/data/medical-malpractice-report/ — 医疗损害责任纠纷裁判数据报告(现跑双口径、随机抽样与鉴定共现，附检索式)",
         f"- {BASE}/data/reputation-online-report/ — 名誉权纠纷裁判数据：双口径与网络词共现，附检索式和局限",
+        f"- {BASE}/data/private-lending-interest-report/ — 民间借贷裁判数据：双口径与利息词共现，附检索式和局限",
         f"- {BASE}/blog/ — 洞察文章总览",
         "",
         f"## 洞察文章({len(blog)} 篇)",

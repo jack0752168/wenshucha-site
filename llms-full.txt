@@ -1,6 +1,6 @@
 # 文书查 (wenshucha.com) — 全量页面清单
 
-> 生成时间:2026-10-12。口径见 https://www.wenshucha.com/llms.txt。
+> 生成时间:2026-10-15。口径见 https://www.wenshucha.com/llms.txt。
 > 数据来源于中国裁判文书网公开生效裁判文书,已脱敏;判决样本仅含获赔判决,任何比例统计均不代表整体胜诉率。
 
 ## 产品与入口
@@ -20,6 +20,7 @@
 - https://www.wenshucha.com/data/marital-joint-debt-report/ — 夫妻共同债务裁判数据报告(全库现跑,附 2018 年解释前后逐月引用迁移与批次内对照)
 - https://www.wenshucha.com/data/medical-malpractice-report/ — 医疗损害责任纠纷裁判数据报告(现跑双口径、随机抽样与鉴定共现，附检索式)
 - https://www.wenshucha.com/data/reputation-online-report/ — 名誉权纠纷裁判数据：双口径与网络词共现，附检索式和局限
+- https://www.wenshucha.com/data/private-lending-interest-report/ — 民间借贷裁判数据：双口径与利息词共现，附检索式和局限
 - https://www.wenshucha.com/blog/ — 洞察文章总览
 
 ## 洞察文章(58 篇)
@@ -256,7 +257,7 @@ https://www.wenshucha.com/blog/wenshucha-mcp-claude-desktop-setup.html
 https://www.wenshucha.com/blog/xinchuang-domestic-stack-legal-ai-deployment.html
 政府、法院、国企的法律 AI 项目越来越要求信创合规——国产 CPU(鲲鹏/飞腾/海光)、国产操作系统(麒麟/统信 UOS)、国产数据库(达梦/人大金仓/openGauss)、国产算力卡(昇腾)。本文讲清信创栈每一层对法律大模型与裁判文书库私有化部署意味着什么、适配真正的难点在哪(尤其是大模型推理上国产算力卡的模型转换)、信创+等保双合规怎么过,以及一份给信息中心主任的信创适配选型清单。
 
-## 主题数据页(7 个)
+## 主题数据页(8 个)
 
 ### 建设工程「实际施工人」裁判数据报告（2013–2025）
 https://www.wenshucha.com/data/construction-actual-builder-report/
@@ -281,6 +282,10 @@ https://www.wenshucha.com/data/medical-malpractice-report/
 ### 竞业限制纠纷裁判数据报告（2013–2025）
 https://www.wenshucha.com/data/noncompete-report/
 基于 1.6 亿条裁判文书全库现跑的竞业限制纠纷主题数据页：「竞业限制」29,141 条、「竞业禁止」14,900 条、并集 37,046 条记录 / 32,339 个相异案号。含逐年案件量（按全库同年收录量归一化后 2023 年不降反升）、省份与审级分布、十组诉请关键词的共现率与富集倍数，以及分词假零、样板条款污染、exists 假绿三类口径陷阱。每个数字附检索式与检索日期（2026-09-24）。不报胜诉率。
+
+### 民间借贷利息语境裁判数据：双口径、年度归一化与地域分布
+https://www.wenshucha.com/data/private-lending-interest-report/
+2026-10-15现跑：精确民间借贷案由9322422条与全文口径并列，附2013–2025年度记录、相异案号HLL估算、同年全库归一化、利息及LPR词共现和可复现查询。
 
 ### 名誉权纠纷裁判数据：逐年记录、地域与网络语境共现
 https://www.wenshucha.com/data/reputation-online-report/
