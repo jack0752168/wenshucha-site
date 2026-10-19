@@ -1,0 +1,6632 @@
+{
+  "retrieved_on": "2026-10-19",
+  "index": "judgments",
+  "note": "Aggregate-only. Raw caseNo HLL estimate, not distinct disputes. No personal names or sampled text.",
+  "queries": {
+    "labels": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "aggs": {
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "include": ".*知情权.*",
+              "size": 100
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:00.880683+08:00",
+      "response": {
+        "took": 690,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 10000,
+            "relation": "gte"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "cause": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "股东知情权纠纷",
+                "doc_count": 20000
+              },
+              {
+                "key": "业主知情权纠纷",
+                "doc_count": 3299
+              }
+            ]
+          }
+        }
+      }
+    },
+    "C": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "term": {
+                  "cause": "股东知情权纠纷"
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              },
+              "network": {
+                "filter": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 500,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 100
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "doctype": {
+            "filters": {
+              "filters": {
+                "判决书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": []
+                  }
+                },
+                "裁定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "调解书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "决定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "通知书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "标题未识别"
+            }
+          },
+          "stage": {
+            "filters": {
+              "filters": {
+                "一审": {
+                  "terms": {
+                    "procedure": [
+                      "1",
+                      "0301",
+                      "民事一审",
+                      "一审",
+                      "刑事一审",
+                      "行政一审"
+                    ]
+                  }
+                },
+                "二审": {
+                  "terms": {
+                    "procedure": [
+                      "2",
+                      "0302",
+                      "民事二审",
+                      "二审",
+                      "刑事二审",
+                      "行政二审"
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "未映射"
+            },
+            "aggs": {
+              "初": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*初*"
+                  }
+                }
+              },
+              "终": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*终*"
+                  }
+                }
+              }
+            }
+          },
+          "keywords": {
+            "filters": {
+              "filters": {
+                "账簿凭证并集": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计账簿": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计凭证": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "查阅": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "不正当目的": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "商业秘密": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "审计报告": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:14.434502+08:00",
+      "response": {
+        "took": 13488,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 20000,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "doctype": {
+            "buckets": {
+              "决定书": {
+                "doc_count": 8
+              },
+              "判决书": {
+                "doc_count": 10596
+              },
+              "裁定书": {
+                "doc_count": 6986
+              },
+              "调解书": {
+                "doc_count": 94
+              },
+              "通知书": {
+                "doc_count": 116
+              },
+              "标题未识别": {
+                "doc_count": 2200
+              }
+            }
+          },
+          "case_numbers": {
+            "doc_count": 19652,
+            "distinct": {
+              "value": 17042
+            }
+          },
+          "keywords": {
+            "buckets": {
+              "不正当目的": {
+                "doc_count": 8763
+              },
+              "会计凭证": {
+                "doc_count": 8547
+              },
+              "会计账簿": {
+                "doc_count": 11992
+              },
+              "商业秘密": {
+                "doc_count": 2155
+              },
+              "审计报告": {
+                "doc_count": 1942
+              },
+              "查阅": {
+                "doc_count": 12751
+              },
+              "账簿凭证并集": {
+                "doc_count": 12167
+              }
+            }
+          },
+          "stage": {
+            "buckets": {
+              "一审": {
+                "doc_count": 11990,
+                "终": {
+                  "doc_count": 2
+                },
+                "初": {
+                  "doc_count": 11962
+                }
+              },
+              "二审": {
+                "doc_count": 6155,
+                "终": {
+                  "doc_count": 6144
+                },
+                "初": {
+                  "doc_count": 1
+                }
+              },
+              "未映射": {
+                "doc_count": 1855,
+                "终": {
+                  "doc_count": 385
+                },
+                "初": {
+                  "doc_count": 404
+                }
+              }
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "上海市",
+                "doc_count": 2722
+              },
+              {
+                "key": "",
+                "doc_count": 2088
+              },
+              {
+                "key": "北京市",
+                "doc_count": 2021
+              },
+              {
+                "key": "广东省",
+                "doc_count": 1772
+              },
+              {
+                "key": "江苏省",
+                "doc_count": 1750
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 1491
+              },
+              {
+                "key": "山东省",
+                "doc_count": 1364
+              },
+              {
+                "key": "四川省",
+                "doc_count": 682
+              },
+              {
+                "key": "河南省",
+                "doc_count": 550
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 535
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 520
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 454
+              },
+              {
+                "key": "山西省",
+                "doc_count": 442
+              },
+              {
+                "key": "福建省",
+                "doc_count": 430
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 400
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 326
+              },
+              {
+                "key": "天津市",
+                "doc_count": 325
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 243
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 193
+              },
+              {
+                "key": "云南省",
+                "doc_count": 192
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 192
+              },
+              {
+                "key": "河北省",
+                "doc_count": 191
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 181
+              },
+              {
+                "key": "江西省",
+                "doc_count": 164
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 147
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 139
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 138
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 111
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 91
+              },
+              {
+                "key": "青海省",
+                "doc_count": 63
+              },
+              {
+                "key": "海南省",
+                "doc_count": 49
+              },
+              {
+                "key": "新疆维吾尔自治区生产建设兵团分院",
+                "doc_count": 12
+              },
+              {
+                "key": "西藏自治区",
+                "doc_count": 12
+              },
+              {
+                "key": "最高人民法院",
+                "doc_count": 8
+              },
+              {
+                "key": "新疆维吾尔自治区高级人民法院生产建设兵团分院",
+                "doc_count": 2
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "股东知情权纠纷",
+                "doc_count": 20000
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "民事一审",
+                "doc_count": 6361
+              },
+              {
+                "key": "1",
+                "doc_count": 4506
+              },
+              {
+                "key": "2",
+                "doc_count": 2806
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 2787
+              },
+              {
+                "key": "一审",
+                "doc_count": 891
+              },
+              {
+                "key": "",
+                "doc_count": 780
+              },
+              {
+                "key": "二审",
+                "doc_count": 459
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 267
+              },
+              {
+                "key": "0301",
+                "doc_count": 232
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 198
+              },
+              {
+                "key": "3",
+                "doc_count": 140
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 140
+              },
+              {
+                "key": "0302",
+                "doc_count": 103
+              },
+              {
+                "key": "其他",
+                "doc_count": 69
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 58
+              },
+              {
+                "key": "4",
+                "doc_count": 43
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 35
+              },
+              {
+                "key": "再审",
+                "doc_count": 24
+              },
+              {
+                "key": "民事管辖上诉",
+                "doc_count": 19
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 15
+              },
+              {
+                "key": "0303",
+                "doc_count": 12
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 9
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 9
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 7
+              },
+              {
+                "key": "执行恢复",
+                "doc_count": 7
+              },
+              {
+                "key": "1001",
+                "doc_count": 6
+              },
+              {
+                "key": "0104",
+                "doc_count": 4
+              },
+              {
+                "key": "1005",
+                "doc_count": 4
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 4
+              },
+              {
+                "key": "执行监督",
+                "doc_count": 2
+              },
+              {
+                "key": "司法拘留",
+                "doc_count": 1
+              },
+              {
+                "key": "民事再审",
+                "doc_count": 1
+              },
+              {
+                "key": "第三人撤销之诉",
+                "doc_count": 1
+              }
+            ]
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 7495
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 2527
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 1879
+              },
+              {
+                "key": "2024",
+                "doc_count": 1850
+              },
+              {
+                "key": "2022",
+                "doc_count": 1511
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 1259
+              },
+              {
+                "key": "2025",
+                "doc_count": 972
+              },
+              {
+                "key": "2019_2",
+                "doc_count": 780
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 724
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 530
+              },
+              {
+                "key": "2020",
+                "doc_count": 295
+              },
+              {
+                "key": "2023",
+                "doc_count": 178
+              }
+            ]
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 2002,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2003,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2004,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2005,
+                "doc_count": 3,
+                "case_numbers": {
+                  "doc_count": 3,
+                  "distinct": {
+                    "value": 3
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 3,
+                "case_numbers": {
+                  "doc_count": 3,
+                  "distinct": {
+                    "value": 2
+                  }
+                },
+                "network": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2007,
+                "doc_count": 8,
+                "case_numbers": {
+                  "doc_count": 8,
+                  "distinct": {
+                    "value": 8
+                  }
+                },
+                "network": {
+                  "doc_count": 3
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 76,
+                "case_numbers": {
+                  "doc_count": 76,
+                  "distinct": {
+                    "value": 74
+                  }
+                },
+                "network": {
+                  "doc_count": 48
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 180,
+                "case_numbers": {
+                  "doc_count": 180,
+                  "distinct": {
+                    "value": 173
+                  }
+                },
+                "network": {
+                  "doc_count": 110
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 167,
+                "case_numbers": {
+                  "doc_count": 166,
+                  "distinct": {
+                    "value": 148
+                  }
+                },
+                "network": {
+                  "doc_count": 123
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 196,
+                "case_numbers": {
+                  "doc_count": 196,
+                  "distinct": {
+                    "value": 190
+                  }
+                },
+                "network": {
+                  "doc_count": 150
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 188,
+                "case_numbers": {
+                  "doc_count": 188,
+                  "distinct": {
+                    "value": 184
+                  }
+                },
+                "network": {
+                  "doc_count": 134
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 304,
+                "case_numbers": {
+                  "doc_count": 304,
+                  "distinct": {
+                    "value": 297
+                  }
+                },
+                "network": {
+                  "doc_count": 229
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 903,
+                "case_numbers": {
+                  "doc_count": 901,
+                  "distinct": {
+                    "value": 874
+                  }
+                },
+                "network": {
+                  "doc_count": 582
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 1242,
+                "case_numbers": {
+                  "doc_count": 1242,
+                  "distinct": {
+                    "value": 1220
+                  }
+                },
+                "network": {
+                  "doc_count": 801
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 1783,
+                "case_numbers": {
+                  "doc_count": 1778,
+                  "distinct": {
+                    "value": 1755
+                  }
+                },
+                "network": {
+                  "doc_count": 1031
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 1793,
+                "case_numbers": {
+                  "doc_count": 1769,
+                  "distinct": {
+                    "value": 1751
+                  }
+                },
+                "network": {
+                  "doc_count": 1145
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 932,
+                "case_numbers": {
+                  "doc_count": 920,
+                  "distinct": {
+                    "value": 745
+                  }
+                },
+                "network": {
+                  "doc_count": 418
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 668,
+                "case_numbers": {
+                  "doc_count": 653,
+                  "distinct": {
+                    "value": 385
+                  }
+                },
+                "network": {
+                  "doc_count": 229
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 428,
+                "case_numbers": {
+                  "doc_count": 418,
+                  "distinct": {
+                    "value": 278
+                  }
+                },
+                "network": {
+                  "doc_count": 68
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 2023,
+                "case_numbers": {
+                  "doc_count": 1990,
+                  "distinct": {
+                    "value": 1765
+                  }
+                },
+                "network": {
+                  "doc_count": 1375
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 4542,
+                "case_numbers": {
+                  "doc_count": 4463,
+                  "distinct": {
+                    "value": 3124
+                  }
+                },
+                "network": {
+                  "doc_count": 3055
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 1598,
+                "case_numbers": {
+                  "doc_count": 1546,
+                  "distinct": {
+                    "value": 1448
+                  }
+                },
+                "network": {
+                  "doc_count": 1031
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 1850,
+                "case_numbers": {
+                  "doc_count": 1783,
+                  "distinct": {
+                    "value": 1765
+                  }
+                },
+                "network": {
+                  "doc_count": 1095
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 972,
+                "case_numbers": {
+                  "doc_count": 926,
+                  "distinct": {
+                    "value": 926
+                  }
+                },
+                "network": {
+                  "doc_count": 443
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "F": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "股东知情权纠纷",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "股东知情权纠纷",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "股东知情权纠纷",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "股东知情权纠纷",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              },
+              "network": {
+                "filter": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 500,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 100
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "doctype": {
+            "filters": {
+              "filters": {
+                "判决书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": []
+                  }
+                },
+                "裁定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "调解书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "决定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "通知书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "标题未识别"
+            }
+          },
+          "stage": {
+            "filters": {
+              "filters": {
+                "一审": {
+                  "terms": {
+                    "procedure": [
+                      "1",
+                      "0301",
+                      "民事一审",
+                      "一审",
+                      "刑事一审",
+                      "行政一审"
+                    ]
+                  }
+                },
+                "二审": {
+                  "terms": {
+                    "procedure": [
+                      "2",
+                      "0302",
+                      "民事二审",
+                      "二审",
+                      "刑事二审",
+                      "行政二审"
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "未映射"
+            },
+            "aggs": {
+              "初": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*初*"
+                  }
+                }
+              },
+              "终": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*终*"
+                  }
+                }
+              }
+            }
+          },
+          "keywords": {
+            "filters": {
+              "filters": {
+                "账簿凭证并集": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计账簿": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计凭证": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "查阅": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "不正当目的": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "商业秘密": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "审计报告": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:29.401759+08:00",
+      "response": {
+        "took": 14937,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 35084,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "doctype": {
+            "buckets": {
+              "决定书": {
+                "doc_count": 41
+              },
+              "判决书": {
+                "doc_count": 17483
+              },
+              "裁定书": {
+                "doc_count": 13671
+              },
+              "调解书": {
+                "doc_count": 750
+              },
+              "通知书": {
+                "doc_count": 1211
+              },
+              "标题未识别": {
+                "doc_count": 1928
+              }
+            }
+          },
+          "case_numbers": {
+            "doc_count": 33777,
+            "distinct": {
+              "value": 29527
+            }
+          },
+          "keywords": {
+            "buckets": {
+              "不正当目的": {
+                "doc_count": 12833
+              },
+              "会计凭证": {
+                "doc_count": 13608
+              },
+              "会计账簿": {
+                "doc_count": 19545
+              },
+              "商业秘密": {
+                "doc_count": 3111
+              },
+              "审计报告": {
+                "doc_count": 3238
+              },
+              "查阅": {
+                "doc_count": 21446
+              },
+              "账簿凭证并集": {
+                "doc_count": 19961
+              }
+            }
+          },
+          "stage": {
+            "buckets": {
+              "一审": {
+                "doc_count": 19938,
+                "终": {
+                  "doc_count": 3
+                },
+                "初": {
+                  "doc_count": 19881
+                }
+              },
+              "二审": {
+                "doc_count": 8610,
+                "终": {
+                  "doc_count": 8598
+                },
+                "初": {
+                  "doc_count": 0
+                }
+              },
+              "未映射": {
+                "doc_count": 6536,
+                "终": {
+                  "doc_count": 488
+                },
+                "初": {
+                  "doc_count": 527
+                }
+              }
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "上海市",
+                "doc_count": 3385
+              },
+              {
+                "key": "",
+                "doc_count": 3297
+              },
+              {
+                "key": "江苏省",
+                "doc_count": 2919
+              },
+              {
+                "key": "广东省",
+                "doc_count": 2861
+              },
+              {
+                "key": "北京市",
+                "doc_count": 2593
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 2369
+              },
+              {
+                "key": "山东省",
+                "doc_count": 1963
+              },
+              {
+                "key": "四川省",
+                "doc_count": 1053
+              },
+              {
+                "key": "河南省",
+                "doc_count": 838
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 795
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 783
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 734
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 657
+              },
+              {
+                "key": "福建省",
+                "doc_count": 639
+              },
+              {
+                "key": "广东",
+                "doc_count": 589
+              },
+              {
+                "key": "江苏",
+                "doc_count": 555
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 534
+              },
+              {
+                "key": "山西省",
+                "doc_count": 508
+              },
+              {
+                "key": "天津市",
+                "doc_count": 504
+              },
+              {
+                "key": "北京",
+                "doc_count": 495
+              },
+              {
+                "key": "上海",
+                "doc_count": 457
+              },
+              {
+                "key": "浙江",
+                "doc_count": 450
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 362
+              },
+              {
+                "key": "四川",
+                "doc_count": 352
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 316
+              },
+              {
+                "key": "山东",
+                "doc_count": 311
+              },
+              {
+                "key": "云南省",
+                "doc_count": 293
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 287
+              },
+              {
+                "key": "河北省",
+                "doc_count": 277
+              },
+              {
+                "key": "江西省",
+                "doc_count": 274
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 246
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 232
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 202
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 188
+              },
+              {
+                "key": "云南",
+                "doc_count": 182
+              },
+              {
+                "key": "河南",
+                "doc_count": 168
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 166
+              },
+              {
+                "key": "湖南",
+                "doc_count": 165
+              },
+              {
+                "key": "湖北",
+                "doc_count": 155
+              },
+              {
+                "key": "福建",
+                "doc_count": 152
+              },
+              {
+                "key": "天津",
+                "doc_count": 127
+              },
+              {
+                "key": "安徽",
+                "doc_count": 127
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 126
+              },
+              {
+                "key": "陕西",
+                "doc_count": 113
+              },
+              {
+                "key": "吉林",
+                "doc_count": 109
+              },
+              {
+                "key": "山西",
+                "doc_count": 107
+              },
+              {
+                "key": "河北",
+                "doc_count": 102
+              },
+              {
+                "key": "重庆",
+                "doc_count": 99
+              },
+              {
+                "key": "青海省",
+                "doc_count": 93
+              },
+              {
+                "key": "辽宁",
+                "doc_count": 83
+              },
+              {
+                "key": "青海",
+                "doc_count": 81
+              },
+              {
+                "key": "广西壮族",
+                "doc_count": 75
+              },
+              {
+                "key": "江西",
+                "doc_count": 72
+              },
+              {
+                "key": "贵州",
+                "doc_count": 64
+              },
+              {
+                "key": "海南",
+                "doc_count": 60
+              },
+              {
+                "key": "内蒙古",
+                "doc_count": 59
+              },
+              {
+                "key": "黑龙江",
+                "doc_count": 59
+              },
+              {
+                "key": "海南省",
+                "doc_count": 56
+              },
+              {
+                "key": "甘肃",
+                "doc_count": 41
+              },
+              {
+                "key": "新疆维吾尔",
+                "doc_count": 37
+              },
+              {
+                "key": "宁夏回族",
+                "doc_count": 30
+              },
+              {
+                "key": "最高人民法院",
+                "doc_count": 18
+              },
+              {
+                "key": "西藏自治区",
+                "doc_count": 17
+              },
+              {
+                "key": "新疆维吾尔自治区生产建设兵团分院",
+                "doc_count": 12
+              },
+              {
+                "key": "新疆维吾尔自治区高级人民法院生产建设兵团分院",
+                "doc_count": 7
+              },
+              {
+                "key": "西藏",
+                "doc_count": 4
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 48,
+            "buckets": [
+              {
+                "key": "股东知情权纠纷",
+                "doc_count": 19150
+              },
+              {
+                "key": "",
+                "doc_count": 12220
+              },
+              {
+                "key": "与公司有关的纠纷",
+                "doc_count": 992
+              },
+              {
+                "key": "其他案由",
+                "doc_count": 461
+              },
+              {
+                "key": "公司解散纠纷",
+                "doc_count": 343
+              },
+              {
+                "key": "民事",
+                "doc_count": 284
+              },
+              {
+                "key": "股东资格确认纠纷",
+                "doc_count": 162
+              },
+              {
+                "key": "股权转让纠纷",
+                "doc_count": 147
+              },
+              {
+                "key": "损害公司利益责任纠纷",
+                "doc_count": 124
+              },
+              {
+                "key": "合同纠纷",
+                "doc_count": 102
+              },
+              {
+                "key": "民间借贷纠纷",
+                "doc_count": 85
+              },
+              {
+                "key": "公司盈余分配纠纷",
+                "doc_count": 76
+              },
+              {
+                "key": "股东出资纠纷",
+                "doc_count": 70
+              },
+              {
+                "key": "损害股东利益责任纠纷",
+                "doc_count": 67
+              },
+              {
+                "key": "公司决议效力确认纠纷",
+                "doc_count": 66
+              },
+              {
+                "key": "合伙协议纠纷",
+                "doc_count": 50
+              },
+              {
+                "key": "民事执行",
+                "doc_count": 41
+              },
+              {
+                "key": "请求变更公司登记纠纷",
+                "doc_count": 34
+              },
+              {
+                "key": "民事其他",
+                "doc_count": 30
+              },
+              {
+                "key": "公司决议撤销纠纷",
+                "doc_count": 29
+              },
+              {
+                "key": "公司证照返还纠纷",
+                "doc_count": 29
+              },
+              {
+                "key": "公司决议纠纷",
+                "doc_count": 28
+              },
+              {
+                "key": "返还原物纠纷",
+                "doc_count": 27
+              },
+              {
+                "key": "借款合同纠纷",
+                "doc_count": 24
+              },
+              {
+                "key": "业主知情权纠纷",
+                "doc_count": 22
+              },
+              {
+                "key": "劳动争议",
+                "doc_count": 19
+              },
+              {
+                "key": "委托合同纠纷",
+                "doc_count": 18
+              },
+              {
+                "key": "买卖合同纠纷",
+                "doc_count": 13
+              },
+              {
+                "key": "小额借款合同纠纷",
+                "doc_count": 13
+              },
+              {
+                "key": "股票权利确认纠纷",
+                "doc_count": 12
+              },
+              {
+                "key": "不当得利纠纷",
+                "doc_count": 11
+              },
+              {
+                "key": "侵害企业出资人权益纠纷",
+                "doc_count": 11
+              },
+              {
+                "key": "股东名册记载纠纷",
+                "doc_count": 10
+              },
+              {
+                "key": "储蓄存款合同纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "其他不当得利纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "请求公司收购股份纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "清算责任纠纷",
+                "doc_count": 8
+              },
+              {
+                "key": "确认合同无效纠纷",
+                "doc_count": 8
+              },
+              {
+                "key": "与企业有关的纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "劳动合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "工商登记",
+                "doc_count": 7
+              },
+              {
+                "key": "房屋租赁合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "租赁合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "股东损害公司债权人利益责任纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "诉讼、仲裁、人民调解代理合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "财产损害赔偿纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "侵权责任纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "名誉权纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "排除妨害纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "离婚纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "追索劳动报酬纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "与公司、证券、保险、票据有关案件",
+                "doc_count": 5
+              },
+              {
+                "key": "企业公司制改造合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "企业承包经营合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "侵权",
+                "doc_count": 5
+              },
+              {
+                "key": "医疗服务合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "物权保护纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "生命权、健康权、身体权纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "合伙企业纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "委托代建合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "技术咨询合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "法律服务合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "申请撤销仲裁裁决",
+                "doc_count": 4
+              },
+              {
+                "key": "专利权权属纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "侵害集体经济组织成员权益纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "修理合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "债权转让合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "公司关联交易损害责任纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "公司增资纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "其他刑事犯",
+                "doc_count": 3
+              },
+              {
+                "key": "合伙企业财产份额转让纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "因申请诉中财产保全损害责任纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "承揽合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "确认合同效力纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "联营合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "追偿权纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "非法吸收公众存款罪",
+                "doc_count": 3
+              },
+              {
+                "key": "企业借贷纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "保险人代位求偿权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "公司设立纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "其他行政行为",
+                "doc_count": 2
+              },
+              {
+                "key": "劳务合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "商品房预约合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "姓名权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "建设工程合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "房屋买卖合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "所有权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "损害公司债权人利益责任纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "申请公司清算",
+                "doc_count": 2
+              },
+              {
+                "key": "确认合同有效纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "票据追索权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "网络侵权责任纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "装饰装修合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "金融借款合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "不正当竞争纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "与公司、证券、保险、票据等有关的民事纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "与破产有关的纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "专利申请权权属纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "企业出资人权益确认纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "侵占罪",
+                "doc_count": 1
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "民事一审",
+                "doc_count": 10608
+              },
+              {
+                "key": "1",
+                "doc_count": 4808
+              },
+              {
+                "key": "一审",
+                "doc_count": 4244
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 3396
+              },
+              {
+                "key": "2",
+                "doc_count": 3082
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 2362
+              },
+              {
+                "key": "二审",
+                "doc_count": 2015
+              },
+              {
+                "key": "",
+                "doc_count": 1985
+              },
+              {
+                "key": "4",
+                "doc_count": 484
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 388
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 363
+              },
+              {
+                "key": "0301",
+                "doc_count": 271
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 172
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 166
+              },
+              {
+                "key": "3",
+                "doc_count": 162
+              },
+              {
+                "key": "其他",
+                "doc_count": 137
+              },
+              {
+                "key": "0302",
+                "doc_count": 117
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 86
+              },
+              {
+                "key": "再审",
+                "doc_count": 51
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 25
+              },
+              {
+                "key": "民事管辖上诉",
+                "doc_count": 19
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 18
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 17
+              },
+              {
+                "key": "0303",
+                "doc_count": 15
+              },
+              {
+                "key": "1001",
+                "doc_count": 14
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 13
+              },
+              {
+                "key": "强制清算与破产清算申请审查",
+                "doc_count": 8
+              },
+              {
+                "key": "执行恢复",
+                "doc_count": 7
+              },
+              {
+                "key": "0104",
+                "doc_count": 5
+              },
+              {
+                "key": "1005",
+                "doc_count": 5
+              },
+              {
+                "key": "民事再审",
+                "doc_count": 5
+              },
+              {
+                "key": "特别程序",
+                "doc_count": 4
+              },
+              {
+                "key": "行政一审",
+                "doc_count": 4
+              },
+              {
+                "key": "刑事一审",
+                "doc_count": 3
+              },
+              {
+                "key": "司法制裁复议",
+                "doc_count": 3
+              },
+              {
+                "key": "强制清算与破产上诉",
+                "doc_count": 3
+              },
+              {
+                "key": "非诉证据保全审查",
+                "doc_count": 3
+              },
+              {
+                "key": "执行监督",
+                "doc_count": 2
+              },
+              {
+                "key": "第三人撤销之诉",
+                "doc_count": 2
+              },
+              {
+                "key": "财产保全执行",
+                "doc_count": 2
+              },
+              {
+                "key": "ion(){$(",
+                "doc_count": 1
+              },
+              {
+                "key": "一",
+                "doc_count": 1
+              },
+              {
+                "key": "其他执行",
+                "doc_count": 1
+              },
+              {
+                "key": "司法制裁审查",
+                "doc_count": 1
+              },
+              {
+                "key": "司法拘留",
+                "doc_count": 1
+              },
+              {
+                "key": "强制清算",
+                "doc_count": 1
+              },
+              {
+                "key": "撤销仲裁裁决",
+                "doc_count": 1
+              },
+              {
+                "key": "破产申请审查",
+                "doc_count": 1
+              },
+              {
+                "key": "管辖",
+                "doc_count": 1
+              },
+              {
+                "key": "非诉财产保全审查",
+                "doc_count": 1
+              }
+            ]
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 8536
+              },
+              {
+                "key": "ws_new",
+                "doc_count": 6866
+              },
+              {
+                "key": "2021",
+                "doc_count": 4718
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 3161
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 2512
+              },
+              {
+                "key": "2024",
+                "doc_count": 2315
+              },
+              {
+                "key": "2022",
+                "doc_count": 1991
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 1640
+              },
+              {
+                "key": "2025",
+                "doc_count": 1076
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 976
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 627
+              },
+              {
+                "key": "2020",
+                "doc_count": 424
+              },
+              {
+                "key": "2023",
+                "doc_count": 242
+              }
+            ]
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 201,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2002,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2003,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2004,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2005,
+                "doc_count": 4,
+                "case_numbers": {
+                  "doc_count": 4,
+                  "distinct": {
+                    "value": 4
+                  }
+                },
+                "network": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 3,
+                "case_numbers": {
+                  "doc_count": 3,
+                  "distinct": {
+                    "value": 2
+                  }
+                },
+                "network": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2007,
+                "doc_count": 10,
+                "case_numbers": {
+                  "doc_count": 10,
+                  "distinct": {
+                    "value": 9
+                  }
+                },
+                "network": {
+                  "doc_count": 4
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 77,
+                "case_numbers": {
+                  "doc_count": 77,
+                  "distinct": {
+                    "value": 75
+                  }
+                },
+                "network": {
+                  "doc_count": 48
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 192,
+                "case_numbers": {
+                  "doc_count": 192,
+                  "distinct": {
+                    "value": 180
+                  }
+                },
+                "network": {
+                  "doc_count": 113
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 190,
+                "case_numbers": {
+                  "doc_count": 189,
+                  "distinct": {
+                    "value": 163
+                  }
+                },
+                "network": {
+                  "doc_count": 130
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 224,
+                "case_numbers": {
+                  "doc_count": 224,
+                  "distinct": {
+                    "value": 207
+                  }
+                },
+                "network": {
+                  "doc_count": 161
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 225,
+                "case_numbers": {
+                  "doc_count": 225,
+                  "distinct": {
+                    "value": 200
+                  }
+                },
+                "network": {
+                  "doc_count": 150
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 391,
+                "case_numbers": {
+                  "doc_count": 390,
+                  "distinct": {
+                    "value": 344
+                  }
+                },
+                "network": {
+                  "doc_count": 266
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 1202,
+                "case_numbers": {
+                  "doc_count": 1191,
+                  "distinct": {
+                    "value": 1027
+                  }
+                },
+                "network": {
+                  "doc_count": 689
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 1656,
+                "case_numbers": {
+                  "doc_count": 1654,
+                  "distinct": {
+                    "value": 1475
+                  }
+                },
+                "network": {
+                  "doc_count": 977
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 2451,
+                "case_numbers": {
+                  "doc_count": 2424,
+                  "distinct": {
+                    "value": 2161
+                  }
+                },
+                "network": {
+                  "doc_count": 1325
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 2826,
+                "case_numbers": {
+                  "doc_count": 2764,
+                  "distinct": {
+                    "value": 2615
+                  }
+                },
+                "network": {
+                  "doc_count": 1652
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 3442,
+                "case_numbers": {
+                  "doc_count": 3226,
+                  "distinct": {
+                    "value": 2977
+                  }
+                },
+                "network": {
+                  "doc_count": 2102
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 2508,
+                "case_numbers": {
+                  "doc_count": 2423,
+                  "distinct": {
+                    "value": 2102
+                  }
+                },
+                "network": {
+                  "doc_count": 1410
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 3583,
+                "case_numbers": {
+                  "doc_count": 3466,
+                  "distinct": {
+                    "value": 3323
+                  }
+                },
+                "network": {
+                  "doc_count": 1903
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 3862,
+                "case_numbers": {
+                  "doc_count": 3737,
+                  "distinct": {
+                    "value": 3315
+                  }
+                },
+                "network": {
+                  "doc_count": 2191
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 6004,
+                "case_numbers": {
+                  "doc_count": 5790,
+                  "distinct": {
+                    "value": 4026
+                  }
+                },
+                "network": {
+                  "doc_count": 3645
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 2114,
+                "case_numbers": {
+                  "doc_count": 2002,
+                  "distinct": {
+                    "value": 1877
+                  }
+                },
+                "network": {
+                  "doc_count": 1245
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 2315,
+                "case_numbers": {
+                  "doc_count": 2209,
+                  "distinct": {
+                    "value": 2192
+                  }
+                },
+                "network": {
+                  "doc_count": 1334
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 1076,
+                "case_numbers": {
+                  "doc_count": 1029,
+                  "distinct": {
+                    "value": 1029
+                  }
+                },
+                "network": {
+                  "doc_count": 486
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "U": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "股东知情权纠纷"
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "bool": {
+                              "should": [
+                                {
+                                  "match_phrase": {
+                                    "title": {
+                                      "query": "股东知情权纠纷",
+                                      "analyzer": "ik_smart"
+                                    }
+                                  }
+                                },
+                                {
+                                  "match_phrase": {
+                                    "title": {
+                                      "query": "股东知情权纠纷",
+                                      "analyzer": "ik_max_word"
+                                    }
+                                  }
+                                }
+                              ],
+                              "minimum_should_match": 1
+                            }
+                          },
+                          {
+                            "bool": {
+                              "should": [
+                                {
+                                  "match_phrase": {
+                                    "body": {
+                                      "query": "股东知情权纠纷",
+                                      "analyzer": "ik_smart"
+                                    }
+                                  }
+                                },
+                                {
+                                  "match_phrase": {
+                                    "body": {
+                                      "query": "股东知情权纠纷",
+                                      "analyzer": "ik_max_word"
+                                    }
+                                  }
+                                }
+                              ],
+                              "minimum_should_match": 1
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              },
+              "network": {
+                "filter": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 500,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 100
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 100,
+              "missing": "__MISSING__"
+            }
+          },
+          "doctype": {
+            "filters": {
+              "filters": {
+                "判决书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": []
+                  }
+                },
+                "裁定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "调解书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "决定书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "通知书": {
+                  "bool": {
+                    "filter": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "通知书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "must_not": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "判决书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "裁定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "调解书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "title": {
+                                  "query": "决定书",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "标题未识别"
+            }
+          },
+          "stage": {
+            "filters": {
+              "filters": {
+                "一审": {
+                  "terms": {
+                    "procedure": [
+                      "1",
+                      "0301",
+                      "民事一审",
+                      "一审",
+                      "刑事一审",
+                      "行政一审"
+                    ]
+                  }
+                },
+                "二审": {
+                  "terms": {
+                    "procedure": [
+                      "2",
+                      "0302",
+                      "民事二审",
+                      "二审",
+                      "刑事二审",
+                      "行政二审"
+                    ]
+                  }
+                }
+              },
+              "other_bucket": true,
+              "other_bucket_key": "未映射"
+            },
+            "aggs": {
+              "初": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*初*"
+                  }
+                }
+              },
+              "终": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*终*"
+                  }
+                }
+              }
+            }
+          },
+          "keywords": {
+            "filters": {
+              "filters": {
+                "账簿凭证并集": {
+                  "bool": {
+                    "should": [
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计账簿",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      },
+                      {
+                        "bool": {
+                          "should": [
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_smart"
+                                }
+                              }
+                            },
+                            {
+                              "match_phrase": {
+                                "body": {
+                                  "query": "会计凭证",
+                                  "analyzer": "ik_max_word"
+                                }
+                              }
+                            }
+                          ],
+                          "minimum_should_match": 1
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计账簿": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计账簿",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "会计凭证": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "会计凭证",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "查阅": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "查阅",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "不正当目的": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "不正当目的",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "商业秘密": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "商业秘密",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "审计报告": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "审计报告",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:40.856835+08:00",
+      "response": {
+        "took": 11410,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 35934,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "doctype": {
+            "buckets": {
+              "决定书": {
+                "doc_count": 41
+              },
+              "判决书": {
+                "doc_count": 17494
+              },
+              "裁定书": {
+                "doc_count": 13702
+              },
+              "调解书": {
+                "doc_count": 752
+              },
+              "通知书": {
+                "doc_count": 1212
+              },
+              "标题未识别": {
+                "doc_count": 2733
+              }
+            }
+          },
+          "case_numbers": {
+            "doc_count": 34610,
+            "distinct": {
+              "value": 29681
+            }
+          },
+          "keywords": {
+            "buckets": {
+              "不正当目的": {
+                "doc_count": 12847
+              },
+              "会计凭证": {
+                "doc_count": 13623
+              },
+              "会计账簿": {
+                "doc_count": 19567
+              },
+              "商业秘密": {
+                "doc_count": 3112
+              },
+              "审计报告": {
+                "doc_count": 3242
+              },
+              "查阅": {
+                "doc_count": 21467
+              },
+              "账簿凭证并集": {
+                "doc_count": 19983
+              }
+            }
+          },
+          "stage": {
+            "buckets": {
+              "一审": {
+                "doc_count": 19981,
+                "终": {
+                  "doc_count": 3
+                },
+                "初": {
+                  "doc_count": 19924
+                }
+              },
+              "二审": {
+                "doc_count": 8616,
+                "终": {
+                  "doc_count": 8603
+                },
+                "初": {
+                  "doc_count": 1
+                }
+              },
+              "未映射": {
+                "doc_count": 7337,
+                "终": {
+                  "doc_count": 807
+                },
+                "初": {
+                  "doc_count": 902
+                }
+              }
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "",
+                "doc_count": 4089
+              },
+              {
+                "key": "上海市",
+                "doc_count": 3411
+              },
+              {
+                "key": "江苏省",
+                "doc_count": 2924
+              },
+              {
+                "key": "广东省",
+                "doc_count": 2862
+              },
+              {
+                "key": "北京市",
+                "doc_count": 2606
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 2370
+              },
+              {
+                "key": "山东省",
+                "doc_count": 1965
+              },
+              {
+                "key": "四川省",
+                "doc_count": 1053
+              },
+              {
+                "key": "河南省",
+                "doc_count": 838
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 795
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 783
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 735
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 659
+              },
+              {
+                "key": "福建省",
+                "doc_count": 639
+              },
+              {
+                "key": "广东",
+                "doc_count": 589
+              },
+              {
+                "key": "江苏",
+                "doc_count": 555
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 536
+              },
+              {
+                "key": "山西省",
+                "doc_count": 508
+              },
+              {
+                "key": "天津市",
+                "doc_count": 505
+              },
+              {
+                "key": "北京",
+                "doc_count": 495
+              },
+              {
+                "key": "上海",
+                "doc_count": 457
+              },
+              {
+                "key": "浙江",
+                "doc_count": 450
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 362
+              },
+              {
+                "key": "四川",
+                "doc_count": 352
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 317
+              },
+              {
+                "key": "山东",
+                "doc_count": 311
+              },
+              {
+                "key": "云南省",
+                "doc_count": 293
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 287
+              },
+              {
+                "key": "河北省",
+                "doc_count": 277
+              },
+              {
+                "key": "江西省",
+                "doc_count": 274
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 246
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 235
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 202
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 188
+              },
+              {
+                "key": "云南",
+                "doc_count": 182
+              },
+              {
+                "key": "河南",
+                "doc_count": 168
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 166
+              },
+              {
+                "key": "湖南",
+                "doc_count": 165
+              },
+              {
+                "key": "湖北",
+                "doc_count": 155
+              },
+              {
+                "key": "福建",
+                "doc_count": 152
+              },
+              {
+                "key": "天津",
+                "doc_count": 127
+              },
+              {
+                "key": "安徽",
+                "doc_count": 127
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 126
+              },
+              {
+                "key": "陕西",
+                "doc_count": 113
+              },
+              {
+                "key": "吉林",
+                "doc_count": 109
+              },
+              {
+                "key": "山西",
+                "doc_count": 107
+              },
+              {
+                "key": "河北",
+                "doc_count": 102
+              },
+              {
+                "key": "重庆",
+                "doc_count": 99
+              },
+              {
+                "key": "青海省",
+                "doc_count": 93
+              },
+              {
+                "key": "辽宁",
+                "doc_count": 83
+              },
+              {
+                "key": "青海",
+                "doc_count": 81
+              },
+              {
+                "key": "广西壮族",
+                "doc_count": 75
+              },
+              {
+                "key": "江西",
+                "doc_count": 72
+              },
+              {
+                "key": "贵州",
+                "doc_count": 64
+              },
+              {
+                "key": "海南",
+                "doc_count": 60
+              },
+              {
+                "key": "内蒙古",
+                "doc_count": 59
+              },
+              {
+                "key": "黑龙江",
+                "doc_count": 59
+              },
+              {
+                "key": "海南省",
+                "doc_count": 56
+              },
+              {
+                "key": "甘肃",
+                "doc_count": 41
+              },
+              {
+                "key": "新疆维吾尔",
+                "doc_count": 37
+              },
+              {
+                "key": "宁夏回族",
+                "doc_count": 30
+              },
+              {
+                "key": "最高人民法院",
+                "doc_count": 18
+              },
+              {
+                "key": "西藏自治区",
+                "doc_count": 17
+              },
+              {
+                "key": "新疆维吾尔自治区生产建设兵团分院",
+                "doc_count": 12
+              },
+              {
+                "key": "新疆维吾尔自治区高级人民法院生产建设兵团分院",
+                "doc_count": 7
+              },
+              {
+                "key": "西藏",
+                "doc_count": 4
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 48,
+            "buckets": [
+              {
+                "key": "股东知情权纠纷",
+                "doc_count": 20000
+              },
+              {
+                "key": "",
+                "doc_count": 12220
+              },
+              {
+                "key": "与公司有关的纠纷",
+                "doc_count": 992
+              },
+              {
+                "key": "其他案由",
+                "doc_count": 461
+              },
+              {
+                "key": "公司解散纠纷",
+                "doc_count": 343
+              },
+              {
+                "key": "民事",
+                "doc_count": 284
+              },
+              {
+                "key": "股东资格确认纠纷",
+                "doc_count": 162
+              },
+              {
+                "key": "股权转让纠纷",
+                "doc_count": 147
+              },
+              {
+                "key": "损害公司利益责任纠纷",
+                "doc_count": 124
+              },
+              {
+                "key": "合同纠纷",
+                "doc_count": 102
+              },
+              {
+                "key": "民间借贷纠纷",
+                "doc_count": 85
+              },
+              {
+                "key": "公司盈余分配纠纷",
+                "doc_count": 76
+              },
+              {
+                "key": "股东出资纠纷",
+                "doc_count": 70
+              },
+              {
+                "key": "损害股东利益责任纠纷",
+                "doc_count": 67
+              },
+              {
+                "key": "公司决议效力确认纠纷",
+                "doc_count": 66
+              },
+              {
+                "key": "合伙协议纠纷",
+                "doc_count": 50
+              },
+              {
+                "key": "民事执行",
+                "doc_count": 41
+              },
+              {
+                "key": "请求变更公司登记纠纷",
+                "doc_count": 34
+              },
+              {
+                "key": "民事其他",
+                "doc_count": 30
+              },
+              {
+                "key": "公司决议撤销纠纷",
+                "doc_count": 29
+              },
+              {
+                "key": "公司证照返还纠纷",
+                "doc_count": 29
+              },
+              {
+                "key": "公司决议纠纷",
+                "doc_count": 28
+              },
+              {
+                "key": "返还原物纠纷",
+                "doc_count": 27
+              },
+              {
+                "key": "借款合同纠纷",
+                "doc_count": 24
+              },
+              {
+                "key": "业主知情权纠纷",
+                "doc_count": 22
+              },
+              {
+                "key": "劳动争议",
+                "doc_count": 19
+              },
+              {
+                "key": "委托合同纠纷",
+                "doc_count": 18
+              },
+              {
+                "key": "买卖合同纠纷",
+                "doc_count": 13
+              },
+              {
+                "key": "小额借款合同纠纷",
+                "doc_count": 13
+              },
+              {
+                "key": "股票权利确认纠纷",
+                "doc_count": 12
+              },
+              {
+                "key": "不当得利纠纷",
+                "doc_count": 11
+              },
+              {
+                "key": "侵害企业出资人权益纠纷",
+                "doc_count": 11
+              },
+              {
+                "key": "股东名册记载纠纷",
+                "doc_count": 10
+              },
+              {
+                "key": "储蓄存款合同纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "其他不当得利纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "请求公司收购股份纠纷",
+                "doc_count": 9
+              },
+              {
+                "key": "清算责任纠纷",
+                "doc_count": 8
+              },
+              {
+                "key": "确认合同无效纠纷",
+                "doc_count": 8
+              },
+              {
+                "key": "与企业有关的纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "劳动合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "工商登记",
+                "doc_count": 7
+              },
+              {
+                "key": "房屋租赁合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "租赁合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "股东损害公司债权人利益责任纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "诉讼、仲裁、人民调解代理合同纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "财产损害赔偿纠纷",
+                "doc_count": 7
+              },
+              {
+                "key": "侵权责任纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "名誉权纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "排除妨害纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "离婚纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "追索劳动报酬纠纷",
+                "doc_count": 6
+              },
+              {
+                "key": "与公司、证券、保险、票据有关案件",
+                "doc_count": 5
+              },
+              {
+                "key": "企业公司制改造合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "企业承包经营合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "侵权",
+                "doc_count": 5
+              },
+              {
+                "key": "医疗服务合同纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "物权保护纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "生命权、健康权、身体权纠纷",
+                "doc_count": 5
+              },
+              {
+                "key": "合伙企业纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "委托代建合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "技术咨询合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "法律服务合同纠纷",
+                "doc_count": 4
+              },
+              {
+                "key": "申请撤销仲裁裁决",
+                "doc_count": 4
+              },
+              {
+                "key": "专利权权属纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "侵害集体经济组织成员权益纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "修理合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "债权转让合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "公司关联交易损害责任纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "公司增资纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "其他刑事犯",
+                "doc_count": 3
+              },
+              {
+                "key": "合伙企业财产份额转让纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "因申请诉中财产保全损害责任纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "承揽合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "确认合同效力纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "联营合同纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "追偿权纠纷",
+                "doc_count": 3
+              },
+              {
+                "key": "非法吸收公众存款罪",
+                "doc_count": 3
+              },
+              {
+                "key": "企业借贷纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "保险人代位求偿权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "公司设立纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "其他行政行为",
+                "doc_count": 2
+              },
+              {
+                "key": "劳务合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "商品房预约合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "姓名权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "建设工程合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "房屋买卖合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "所有权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "损害公司债权人利益责任纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "申请公司清算",
+                "doc_count": 2
+              },
+              {
+                "key": "确认合同有效纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "票据追索权纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "网络侵权责任纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "装饰装修合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "金融借款合同纠纷",
+                "doc_count": 2
+              },
+              {
+                "key": "不正当竞争纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "与公司、证券、保险、票据等有关的民事纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "与破产有关的纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "专利申请权权属纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "企业出资人权益确认纠纷",
+                "doc_count": 1
+              },
+              {
+                "key": "侵占罪",
+                "doc_count": 1
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "民事一审",
+                "doc_count": 10635
+              },
+              {
+                "key": "1",
+                "doc_count": 4814
+              },
+              {
+                "key": "一审",
+                "doc_count": 4252
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 3399
+              },
+              {
+                "key": "2",
+                "doc_count": 3083
+              },
+              {
+                "key": "",
+                "doc_count": 2765
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 2373
+              },
+              {
+                "key": "二审",
+                "doc_count": 2017
+              },
+              {
+                "key": "4",
+                "doc_count": 484
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 392
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 364
+              },
+              {
+                "key": "0301",
+                "doc_count": 273
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 172
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 166
+              },
+              {
+                "key": "3",
+                "doc_count": 162
+              },
+              {
+                "key": "其他",
+                "doc_count": 138
+              },
+              {
+                "key": "0302",
+                "doc_count": 117
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 86
+              },
+              {
+                "key": "再审",
+                "doc_count": 51
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 27
+              },
+              {
+                "key": "民事管辖上诉",
+                "doc_count": 19
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 18
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 18
+              },
+              {
+                "key": "0303",
+                "doc_count": 15
+              },
+              {
+                "key": "1001",
+                "doc_count": 14
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 13
+              },
+              {
+                "key": "强制清算与破产清算申请审查",
+                "doc_count": 8
+              },
+              {
+                "key": "执行恢复",
+                "doc_count": 7
+              },
+              {
+                "key": "0104",
+                "doc_count": 5
+              },
+              {
+                "key": "1005",
+                "doc_count": 5
+              },
+              {
+                "key": "民事再审",
+                "doc_count": 5
+              },
+              {
+                "key": "特别程序",
+                "doc_count": 4
+              },
+              {
+                "key": "行政一审",
+                "doc_count": 4
+              },
+              {
+                "key": "刑事一审",
+                "doc_count": 3
+              },
+              {
+                "key": "司法制裁复议",
+                "doc_count": 3
+              },
+              {
+                "key": "强制清算与破产上诉",
+                "doc_count": 3
+              },
+              {
+                "key": "执行监督",
+                "doc_count": 3
+              },
+              {
+                "key": "非诉证据保全审查",
+                "doc_count": 3
+              },
+              {
+                "key": "第三人撤销之诉",
+                "doc_count": 2
+              },
+              {
+                "key": "财产保全执行",
+                "doc_count": 2
+              },
+              {
+                "key": "ion(){$(",
+                "doc_count": 1
+              },
+              {
+                "key": "一",
+                "doc_count": 1
+              },
+              {
+                "key": "其他执行",
+                "doc_count": 1
+              },
+              {
+                "key": "司法制裁审查",
+                "doc_count": 1
+              },
+              {
+                "key": "司法拘留",
+                "doc_count": 1
+              },
+              {
+                "key": "强制清算",
+                "doc_count": 1
+              },
+              {
+                "key": "撤销仲裁裁决",
+                "doc_count": 1
+              },
+              {
+                "key": "破产申请审查",
+                "doc_count": 1
+              },
+              {
+                "key": "管辖",
+                "doc_count": 1
+              },
+              {
+                "key": "非诉财产保全审查",
+                "doc_count": 1
+              }
+            ]
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 8543
+              },
+              {
+                "key": "ws_new",
+                "doc_count": 6866
+              },
+              {
+                "key": "2021",
+                "doc_count": 4718
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 3166
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 2512
+              },
+              {
+                "key": "2024",
+                "doc_count": 2351
+              },
+              {
+                "key": "2022",
+                "doc_count": 1991
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 1646
+              },
+              {
+                "key": "2025",
+                "doc_count": 1091
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 976
+              },
+              {
+                "key": "2019_2",
+                "doc_count": 780
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 627
+              },
+              {
+                "key": "2020",
+                "doc_count": 425
+              },
+              {
+                "key": "2023",
+                "doc_count": 242
+              }
+            ]
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 201,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2002,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 1
+                }
+              },
+              {
+                "key": 2003,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2004,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                },
+                "network": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2005,
+                "doc_count": 4,
+                "case_numbers": {
+                  "doc_count": 4,
+                  "distinct": {
+                    "value": 4
+                  }
+                },
+                "network": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 3,
+                "case_numbers": {
+                  "doc_count": 3,
+                  "distinct": {
+                    "value": 2
+                  }
+                },
+                "network": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2007,
+                "doc_count": 10,
+                "case_numbers": {
+                  "doc_count": 10,
+                  "distinct": {
+                    "value": 9
+                  }
+                },
+                "network": {
+                  "doc_count": 4
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 78,
+                "case_numbers": {
+                  "doc_count": 78,
+                  "distinct": {
+                    "value": 76
+                  }
+                },
+                "network": {
+                  "doc_count": 49
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 193,
+                "case_numbers": {
+                  "doc_count": 193,
+                  "distinct": {
+                    "value": 180
+                  }
+                },
+                "network": {
+                  "doc_count": 113
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 190,
+                "case_numbers": {
+                  "doc_count": 189,
+                  "distinct": {
+                    "value": 163
+                  }
+                },
+                "network": {
+                  "doc_count": 130
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 224,
+                "case_numbers": {
+                  "doc_count": 224,
+                  "distinct": {
+                    "value": 207
+                  }
+                },
+                "network": {
+                  "doc_count": 161
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 225,
+                "case_numbers": {
+                  "doc_count": 225,
+                  "distinct": {
+                    "value": 200
+                  }
+                },
+                "network": {
+                  "doc_count": 150
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 391,
+                "case_numbers": {
+                  "doc_count": 390,
+                  "distinct": {
+                    "value": 344
+                  }
+                },
+                "network": {
+                  "doc_count": 266
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 1202,
+                "case_numbers": {
+                  "doc_count": 1191,
+                  "distinct": {
+                    "value": 1027
+                  }
+                },
+                "network": {
+                  "doc_count": 689
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 1656,
+                "case_numbers": {
+                  "doc_count": 1654,
+                  "distinct": {
+                    "value": 1475
+                  }
+                },
+                "network": {
+                  "doc_count": 977
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 2451,
+                "case_numbers": {
+                  "doc_count": 2424,
+                  "distinct": {
+                    "value": 2161
+                  }
+                },
+                "network": {
+                  "doc_count": 1325
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 2826,
+                "case_numbers": {
+                  "doc_count": 2764,
+                  "distinct": {
+                    "value": 2615
+                  }
+                },
+                "network": {
+                  "doc_count": 1652
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 3686,
+                "case_numbers": {
+                  "doc_count": 3468,
+                  "distinct": {
+                    "value": 3002
+                  }
+                },
+                "network": {
+                  "doc_count": 2102
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 2734,
+                "case_numbers": {
+                  "doc_count": 2644,
+                  "distinct": {
+                    "value": 2170
+                  }
+                },
+                "network": {
+                  "doc_count": 1410
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 3894,
+                "case_numbers": {
+                  "doc_count": 3773,
+                  "distinct": {
+                    "value": 3358
+                  }
+                },
+                "network": {
+                  "doc_count": 1903
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 3866,
+                "case_numbers": {
+                  "doc_count": 3741,
+                  "distinct": {
+                    "value": 3318
+                  }
+                },
+                "network": {
+                  "doc_count": 2191
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 6009,
+                "case_numbers": {
+                  "doc_count": 5794,
+                  "distinct": {
+                    "value": 4030
+                  }
+                },
+                "network": {
+                  "doc_count": 3647
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 2117,
+                "case_numbers": {
+                  "doc_count": 2003,
+                  "distinct": {
+                    "value": 1878
+                  }
+                },
+                "network": {
+                  "doc_count": 1245
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 2351,
+                "case_numbers": {
+                  "doc_count": 2244,
+                  "distinct": {
+                    "value": 2225
+                  }
+                },
+                "network": {
+                  "doc_count": 1348
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 1091,
+                "case_numbers": {
+                  "doc_count": 1042,
+                  "distinct": {
+                    "value": 1042
+                  }
+                },
+                "network": {
+                  "doc_count": 491
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "C_repeat": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "term": {
+            "cause": "股东知情权纠纷"
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:40.936954+08:00",
+      "response": {
+        "count": 20000,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "tokenized_OR": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match": {
+            "cause.t": {
+              "query": "股东知情权纠纷",
+              "operator": "or"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:41.037706+08:00",
+      "response": {
+        "count": 28673899,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "tokenized_OR_and_C": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "match": {
+                  "cause.t": {
+                    "query": "股东知情权纠纷",
+                    "operator": "or"
+                  }
+                }
+              },
+              {
+                "term": {
+                  "cause": "股东知情权纠纷"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:41.072887+08:00",
+      "response": {
+        "count": 20000,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "corpus_years": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:41.105776+08:00",
+      "response": {
+        "took": 0,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 160284678,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 8,
+            "buckets": [
+              {
+                "key": 200,
+                "doc_count": 1
+              },
+              {
+                "key": 201,
+                "doc_count": 898
+              },
+              {
+                "key": 202,
+                "doc_count": 1
+              },
+              {
+                "key": 204,
+                "doc_count": 4
+              },
+              {
+                "key": 205,
+                "doc_count": 18
+              },
+              {
+                "key": 206,
+                "doc_count": 46
+              },
+              {
+                "key": 207,
+                "doc_count": 29
+              },
+              {
+                "key": 208,
+                "doc_count": 72
+              },
+              {
+                "key": 209,
+                "doc_count": 67
+              },
+              {
+                "key": 1003,
+                "doc_count": 1
+              },
+              {
+                "key": 1008,
+                "doc_count": 1
+              },
+              {
+                "key": 1010,
+                "doc_count": 2
+              },
+              {
+                "key": 1011,
+                "doc_count": 1
+              },
+              {
+                "key": 1012,
+                "doc_count": 1
+              },
+              {
+                "key": 1013,
+                "doc_count": 4
+              },
+              {
+                "key": 1014,
+                "doc_count": 9
+              },
+              {
+                "key": 1015,
+                "doc_count": 6
+              },
+              {
+                "key": 1016,
+                "doc_count": 5
+              },
+              {
+                "key": 1017,
+                "doc_count": 7
+              },
+              {
+                "key": 1018,
+                "doc_count": 2
+              },
+              {
+                "key": 1020,
+                "doc_count": 1
+              },
+              {
+                "key": 1935,
+                "doc_count": 1
+              },
+              {
+                "key": 1936,
+                "doc_count": 1
+              },
+              {
+                "key": 1946,
+                "doc_count": 1
+              },
+              {
+                "key": 1956,
+                "doc_count": 2
+              },
+              {
+                "key": 1957,
+                "doc_count": 1
+              },
+              {
+                "key": 1958,
+                "doc_count": 1
+              },
+              {
+                "key": 1960,
+                "doc_count": 1
+              },
+              {
+                "key": 1961,
+                "doc_count": 1
+              },
+              {
+                "key": 1962,
+                "doc_count": 7
+              },
+              {
+                "key": 1963,
+                "doc_count": 2
+              },
+              {
+                "key": 1964,
+                "doc_count": 2
+              },
+              {
+                "key": 1965,
+                "doc_count": 4
+              },
+              {
+                "key": 1966,
+                "doc_count": 2
+              },
+              {
+                "key": 1967,
+                "doc_count": 4
+              },
+              {
+                "key": 1968,
+                "doc_count": 4
+              },
+              {
+                "key": 1969,
+                "doc_count": 3
+              },
+              {
+                "key": 1970,
+                "doc_count": 66
+              },
+              {
+                "key": 1971,
+                "doc_count": 5
+              },
+              {
+                "key": 1972,
+                "doc_count": 3
+              },
+              {
+                "key": 1973,
+                "doc_count": 7
+              },
+              {
+                "key": 1974,
+                "doc_count": 10
+              },
+              {
+                "key": 1975,
+                "doc_count": 6
+              },
+              {
+                "key": 1976,
+                "doc_count": 3
+              },
+              {
+                "key": 1977,
+                "doc_count": 3
+              },
+              {
+                "key": 1978,
+                "doc_count": 3
+              },
+              {
+                "key": 1979,
+                "doc_count": 6
+              },
+              {
+                "key": 1980,
+                "doc_count": 8
+              },
+              {
+                "key": 1981,
+                "doc_count": 4
+              },
+              {
+                "key": 1982,
+                "doc_count": 13
+              },
+              {
+                "key": 1983,
+                "doc_count": 8
+              },
+              {
+                "key": 1984,
+                "doc_count": 5
+              },
+              {
+                "key": 1985,
+                "doc_count": 9
+              },
+              {
+                "key": 1986,
+                "doc_count": 13
+              },
+              {
+                "key": 1987,
+                "doc_count": 14
+              },
+              {
+                "key": 1988,
+                "doc_count": 16
+              },
+              {
+                "key": 1989,
+                "doc_count": 11
+              },
+              {
+                "key": 1990,
+                "doc_count": 16
+              },
+              {
+                "key": 1991,
+                "doc_count": 28
+              },
+              {
+                "key": 1992,
+                "doc_count": 42
+              },
+              {
+                "key": 1993,
+                "doc_count": 18
+              },
+              {
+                "key": 1994,
+                "doc_count": 22
+              },
+              {
+                "key": 1995,
+                "doc_count": 41
+              },
+              {
+                "key": 1996,
+                "doc_count": 43
+              },
+              {
+                "key": 1997,
+                "doc_count": 186
+              },
+              {
+                "key": 1998,
+                "doc_count": 373
+              },
+              {
+                "key": 1999,
+                "doc_count": 576
+              },
+              {
+                "key": 2000,
+                "doc_count": 1530
+              },
+              {
+                "key": 2001,
+                "doc_count": 3243
+              },
+              {
+                "key": 2002,
+                "doc_count": 6274
+              },
+              {
+                "key": 2003,
+                "doc_count": 8031
+              },
+              {
+                "key": 2004,
+                "doc_count": 10954
+              },
+              {
+                "key": 2005,
+                "doc_count": 35719
+              },
+              {
+                "key": 2006,
+                "doc_count": 37446
+              },
+              {
+                "key": 2007,
+                "doc_count": 53508
+              },
+              {
+                "key": 2008,
+                "doc_count": 159884
+              },
+              {
+                "key": 2009,
+                "doc_count": 419493
+              },
+              {
+                "key": 2010,
+                "doc_count": 575651
+              },
+              {
+                "key": 2011,
+                "doc_count": 620244
+              },
+              {
+                "key": 2012,
+                "doc_count": 715524
+              },
+              {
+                "key": 2013,
+                "doc_count": 1762537
+              },
+              {
+                "key": 2014,
+                "doc_count": 7033956
+              },
+              {
+                "key": 2015,
+                "doc_count": 9894747
+              },
+              {
+                "key": 2016,
+                "doc_count": 12443177
+              },
+              {
+                "key": 2017,
+                "doc_count": 15147489
+              },
+              {
+                "key": 2018,
+                "doc_count": 16331967
+              },
+              {
+                "key": 2019,
+                "doc_count": 12290542
+              },
+              {
+                "key": 2020,
+                "doc_count": 21359050
+              },
+              {
+                "key": 2021,
+                "doc_count": 16548198
+              },
+              {
+                "key": 2022,
+                "doc_count": 19292669
+              },
+              {
+                "key": 2023,
+                "doc_count": 6365236
+              },
+              {
+                "key": 2024,
+                "doc_count": 6984435
+              },
+              {
+                "key": 2025,
+                "doc_count": 3818342
+              },
+              {
+                "key": 2026,
+                "doc_count": 22
+              },
+              {
+                "key": 2027,
+                "doc_count": 9
+              },
+              {
+                "key": 2028,
+                "doc_count": 3
+              },
+              {
+                "key": 2029,
+                "doc_count": 3
+              },
+              {
+                "key": 2030,
+                "doc_count": 4
+              },
+              {
+                "key": 2031,
+                "doc_count": 1
+              },
+              {
+                "key": 2035,
+                "doc_count": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    "F_body_ik_smart": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "body": {
+              "query": "股东知情权纠纷",
+              "analyzer": "ik_smart"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:41.320855+08:00",
+      "response": {
+        "count": 0,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "F_body_ik_max_word": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "body": {
+              "query": "股东知情权纠纷",
+              "analyzer": "ik_max_word"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-19T10:04:41.505152+08:00",
+      "response": {
+        "count": 33187,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
 
 运营主体:深圳星谱网络科技有限公司(粤ICP备2025437990号-2)
 商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · https://www.wenshucha.com
-最后更新:2026-10-15
+最后更新:2026-10-19
 
 ## 核心事实(可引用)
 
@@ -55,6 +55,8 @@
 - [名誉权纠纷裁判数据报告](https://www.wenshucha.com/data/reputation-online-report/):2026-10-12现跑的精确案由与全文口径、相异案号HLL估算、年度归一化、地域审级文类和网络词共现；附完整检索式，排除bench测试记录。不计算胜诉率或网络侵权率。
 
 - [民间借贷利息语境裁判数据报告](https://www.wenshucha.com/data/private-lending-interest-report/):2026-10-15现跑的精确案由与全文口径、相异案号HLL估算、年度归一化、地域审级文类和利息词共现；附完整检索式，排除bench测试记录。不计算胜诉率或法院支持利率。
+
+- [股东知情权裁判数据报告](https://www.wenshucha.com/data/shareholder-inspection-report/):2026-10-19现跑的精确案由与全文口径、相异案号HLL估算、年度归一化、地域审级文类和账簿凭证词共现；附完整检索式，排除bench测试记录。不计算胜诉率或法院支持查阅。
 
 ## 洞察文章
 

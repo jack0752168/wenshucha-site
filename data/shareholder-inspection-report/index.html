@@ -1,0 +1,182 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股东知情权裁判数据：双口径、年度归一化与账簿凭证语境 - 文书查</title><meta name="description" content="2026-10-19现跑：精确股东知情权案由20000条与全文候选35084条并列，附2013–2025年度记录、原始相异案号HLL、地域程序文类、账簿凭证共现和可复现查询。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://www.wenshucha.com/data/shareholder-inspection-report/"><meta property="og:type" content="article"><meta property="og:title" content="股东知情权裁判数据：双口径、年度归一化与账簿凭证语境"><meta property="og:url" content="https://www.wenshucha.com/data/shareholder-inspection-report/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "股东知情权裁判数据：双口径、年度归一化与账簿凭证语境", "description": "2026-10-19现跑：精确股东知情权案由20000条与全文候选35084条并列，附2013–2025年度记录、原始相异案号HLL、地域程序文类、账簿凭证共现和可复现查询。", "url": "https://www.wenshucha.com/data/shareholder-inspection-report/", "dateModified": "2026-10-19", "creator": {"@type": "Organization", "name": "文书查", "legalName": "深圳星谱网络科技有限公司"}, "measurementTechnique": "Exact aggregates; dual-analyzer union; raw case-number HLL estimates", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://www.wenshucha.com/data/shareholder-inspection-report/queries-and-results.json"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "文书查", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "裁判数据", "item": "https://www.wenshucha.com/data/"}, {"@type": "ListItem", "position": 3, "name": "股东知情权裁判数据：双口径、年度归一化与账簿凭证语境", "item": "https://www.wenshucha.com/data/shareholder-inspection-report/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "统计的是全国股东知情权案件总数吗？", "acceptedAnswer": {"@type": "Answer", "text": "不是。C为精确案由20,000条，F为标题或正文完整案由短语候选35,084条，并集U为35,934条；都是当前索引记录。圆整数20000原因未明，不是官方总量或已证实完整覆盖。"}}, {"@type": "Question", "name": "账簿与凭证共现可以当作法院支持查阅的比例吗？", "acceptedAnswer": {"@type": "Answer", "text": "不可以。C内12,167条正文命中至少一词，只是词面共现；可能是诉请、抗辩、法条或他案转述，没有编码裁判主文。"}}, {"@type": "Question", "name": "为什么案由与全文的年度走势不同？", "acceptedAnswer": {"@type": "Answer", "text": "标签缺失与批次构成会改变召回。全文可包含其他案由的引用，精确标签也可能没有可用正文。两条曲线不能互相替代，更不能直接当作真实诉讼发生趋势。"}}, {"@type": "Question", "name": "相异案号是否等于独立纠纷？", "acceptedAnswer": {"@type": "Answer", "text": "不等于。本页以案号以号结尾的格式子集，对原始caseNo作HLL估算；未归一化括号空格，未关联一审二审，不能与历史规范化案号数混比。"}}, {"@type": "Question", "name": "怎样申请论文数据与逐案清单？", "acceptedAnswer": {"@type": "Answer", "text": "通过数据报告服务先约定检索口径、日期核验、程序关联、正文可用性与人工编码，再确定交付和验收。本页不提供胜诉率或新法因果结论。"}}]}</script><style>
+:root{--navy:#0e1b2e;--accent:#c8a35a;--accent2:#3a6ea5;--bg:#f7f8fb;--ink:#1a2433;--mut:#5a6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:9}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header nav a{margin-left:16px;font-weight:400;font-size:14px;opacity:.85}
+.hero{background:linear-gradient(160deg,#0e1b2e,#16273f);color:#fff;padding:52px 0 44px}
+h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.35;margin:0 0 14px}
+.hero p{font-size:17px;color:#cfd8e6;max-width:720px;margin:0 0 20px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.kpi div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:15px}
+.kpi b{display:block;font-size:25px;color:var(--accent);font-family:"Songti SC",serif}
+.kpi span{font-size:13px;color:#b9c4d4}
+h2{font-family:"Songti SC",serif;font-size:23px;color:var(--navy);margin:44px 0 12px;border-left:4px solid var(--accent);padding-left:12px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin:14px 0;font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f5;font-size:15px}
+th{background:#f0f3f8;color:var(--navy)}
+td:nth-child(n+2){text-align:right}
+th:nth-child(n+2){text-align:right}
+.tablewrap{overflow-x:auto}
+figure{margin:20px 0}
+figure img{width:100%;height:auto;border:1px solid #e6eaf0;border-radius:10px;background:#fff}
+figcaption{font-size:13px;color:var(--mut);margin-top:7px}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+pre{background:#0e1b2e;color:#dfe7f2;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:#fff8ec;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0}
+.warn strong{color:var(--navy)}
+details{background:#fff;border:1px solid #e6eaf0;border-radius:9px;padding:13px 17px;margin:9px 0}
+summary{font-weight:600;cursor:pointer;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:30px;margin:44px 0;text-align:center}
+.cta a{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;text-decoration:none;padding:12px 28px;border-radius:9px;margin:8px 6px}
+.cta a.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.links a{display:inline-block;margin:4px 14px 4px 0;font-size:14px}
+.dis{color:var(--mut);font-size:13px;margin:30px 0;padding-top:16px;border-top:1px solid #e0e5ec}
+footer{background:var(--navy);color:#aab4c2;padding:26px 0;font-size:13px;margin-top:44px}
+footer a{color:#fff}
+
+.source{font-size:12px;color:var(--mut);overflow-wrap:anywhere}.tablewrap table{min-width:540px} @media(max-width:600px){h1{font-size:26px}.hero{padding:30px 0}.wrap{padding:0 16px}header nav{display:flex;flex-wrap:wrap;gap:8px}header nav a{margin-left:0}.cta{padding:22px}th,td{font-size:13px}}</style></head><body><header><div class="wrap"><a href="/">文书查 SinoVerdict</a><nav><a href="/case-search/">智能检索</a><a href="/mcp/">MCP 服务</a><a href="/data/">裁判数据</a><a href="/data-report/">数据报告</a><a href="/buyers-guide/">采购指南</a></nav></div></header><section class="hero"><div class="wrap"><h1>股东知情权裁判数据：双口径、年度归一化与账簿凭证语境</h1><p>给公司法论文的可复现样例；检索日期：2026-10-19。</p><div class="kpi"><div><b>20,000</b><span>精确案由C记录</span></div><div><b>35,084</b><span>标题/正文F候选</span></div><div><b>60.83%</b><span>C内账簿/凭证词共现</span></div></div></div></section><main class="wrap"><div class="warn"><strong>这是检索与统计口径样例，不是裁判结果报告</strong><p>面向公司法论文与实证课题：先把标签、全文、日期与文书粒度分开。原主题池中的“结果分布”没有直接执行，因为未完成主文编码和一二审归并，做成比例会误导。</p></div><h2>一、主题与集合：标签、文本候选各量什么</h2><p>C为裸keyword字段<code>cause</code>精确等于“股东知情权纠纷”；F为标题或正文检索完整短语“股东知情权纠纷”，各字段对ik_smart与ik_max_word取逻辑并集；U为C∪F。所有正式集合排除bench测试批次。注意：F使用完整案由短语，不是较短的“股东知情权”；不能与旧研究的标题短词口径直接比较。</p><div class="tablewrap"><table><thead><tr><th>集合</th><th>记录数</th><th>案号以“号”结尾的记录</th><th>原始相异案号约</th></tr></thead><tbody><tr><td>C</td><td>20,000</td><td>19,652</td><td>17,042</td></tr><tr><td>F</td><td>35,084</td><td>33,777</td><td>29,527</td></tr><tr><td>U</td><td>35,934</td><td>34,610</td><td>29,681</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>U</code>, <code>C_repeat</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>C的20,000是本次_search精确命中与_count复读一致的索引计数；它恰为圆整数，原因尚未查明，不能据此证明完整覆盖或给它编造截断原因。F可以召回空标签批次，也可能是合同、执行或其他股东争议中援引的旧案；C也包含程序性文书。C∩F=19,150条，F−C=15,934条，C−F=850条。差集不是已确认漏标或错案。</p><p>原始caseNo的cardinality使用precision_threshold=40000，仅对案号以“号”结尾子集统计；未统一括号、空白、全半角或关联程序。不同案号可能属于同一纠纷，同一案号可有多份文书。不能把记录数减估值全部解释成重复，更不能与旧文章的规范化精确案号去重数混用。</p><div class="warn"><strong>分词OR的精确标签占比仅0.0697%</strong><p><code>match(cause.t, 股东知情权纠纷, operator=or)</code>命中28,673,899条，其中精确C为20,000条。该比例只衡量标签归属，不是人工语义准确率；OR总数不能当作股东知情权案件量。</p></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>labels</code>, <code>tokenized_OR</code>, <code>tokenized_OR_and_C</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><h2>二、2013–2025：原始量与同年全库分母并列</h2><p>归一化=该集合当年记录÷同年全库记录×100000，分子分母都用year并排除bench；不是人口、企业数或法院受理量。year派生自索引date，部分批次可能是公开或采集时间，不保证裁判落款年。</p><figure><img src="year-normalized.png" width="1500" height="1050" alt="股东知情权精确案由与全文年度记录及同年归一化双图"><figcaption>两条检索曲线都受公开选择与采集构成影响。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>year</th><th>C记录</th><th>C相异案号约</th><th>F记录</th><th>同年全库分母</th><th>C/十万</th><th>F/十万</th></tr></thead><tbody><tr><td>2013</td><td>304</td><td>297</td><td>391</td><td>1,762,537</td><td>17.25</td><td>22.18</td></tr><tr><td>2014</td><td>903</td><td>874</td><td>1,202</td><td>7,033,956</td><td>12.84</td><td>17.09</td></tr><tr><td>2015</td><td>1,242</td><td>1,220</td><td>1,656</td><td>9,894,747</td><td>12.55</td><td>16.74</td></tr><tr><td>2016</td><td>1,783</td><td>1,755</td><td>2,451</td><td>12,443,177</td><td>14.33</td><td>19.70</td></tr><tr><td>2017</td><td>1,793</td><td>1,751</td><td>2,826</td><td>15,147,489</td><td>11.84</td><td>18.66</td></tr><tr><td>2018</td><td>932</td><td>745</td><td>3,442</td><td>16,331,967</td><td>5.71</td><td>21.08</td></tr><tr><td>2019</td><td>668</td><td>385</td><td>2,508</td><td>12,290,542</td><td>5.44</td><td>20.41</td></tr><tr><td>2020</td><td>428</td><td>278</td><td>3,583</td><td>21,359,050</td><td>2.00</td><td>16.78</td></tr><tr><td>2021</td><td>2,023</td><td>1,765</td><td>3,862</td><td>16,548,198</td><td>12.22</td><td>23.34</td></tr><tr><td>2022</td><td>4,542</td><td>3,124</td><td>6,004</td><td>19,292,669</td><td>23.54</td><td>31.12</td></tr><tr><td>2023</td><td>1,598</td><td>1,448</td><td>2,114</td><td>6,365,236</td><td>25.11</td><td>33.21</td></tr><tr><td>2024</td><td>1,850</td><td>1,765</td><td>2,315</td><td>6,984,435</td><td>26.49</td><td>33.15</td></tr><tr><td>2025</td><td>972</td><td>926</td><td>1,076</td><td>3,818,342</td><td>25.46</td><td>28.18</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>, <code>corpus_years</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>总数减全部year桶合计的缺年记录：C 138、F 724、U 728；其他年份见附档。2018–2020标签曲线低谷首先要查批次标签覆盖。2023公开与收录收缩使分子分母均变化，归一化仍不能消除选择偏差，不把曲线当真实纠纷发生量或法律效果。</p><h2>三、地域、程序与标题文类</h2><figure><img src="province.png" width="1500" height="750" alt="股东知情权精确案由省份原始标签前十"><figcaption>省份是索引标签，不能等同公司注册地或争议发生地。</figcaption></figure><div class="tablewrap"><table><thead><tr><th>省份原始标签</th><th>C记录</th><th>占C</th></tr></thead><tbody><tr><td>上海市</td><td>2,722</td><td>13.61%</td></tr><tr><td>空字符串</td><td>2,088</td><td>10.44%</td></tr><tr><td>北京市</td><td>2,021</td><td>10.11%</td></tr><tr><td>广东省</td><td>1,772</td><td>8.86%</td></tr><tr><td>江苏省</td><td>1,750</td><td>8.75%</td></tr><tr><td>浙江省</td><td>1,491</td><td>7.46%</td></tr><tr><td>山东省</td><td>1,364</td><td>6.82%</td></tr><tr><td>四川省</td><td>682</td><td>3.41%</td></tr><tr><td>河南省</td><td>550</td><td>2.75%</td></tr><tr><td>湖北省</td><td>535</td><td>2.67%</td></tr><tr><td>陕西省</td><td>520</td><td>2.60%</td></tr><tr><td>辽宁省</td><td>454</td><td>2.27%</td></tr><tr><td>山西省</td><td>442</td><td>2.21%</td></tr><tr><td>福建省</td><td>430</td><td>2.15%</td></tr><tr><td>湖南省</td><td>400</td><td>2.00%</td></tr><tr><td>安徽省</td><td>326</td><td>1.63%</td></tr><tr><td>天津市</td><td>325</td><td>1.62%</td></tr><tr><td>重庆市</td><td>243</td><td>1.21%</td></tr><tr><td>广西壮族自治区</td><td>193</td><td>0.97%</td></tr><tr><td>云南省</td><td>192</td><td>0.96%</td></tr><tr><td>新疆维吾尔自治区</td><td>192</td><td>0.96%</td></tr><tr><td>河北省</td><td>191</td><td>0.95%</td></tr><tr><td>吉林省</td><td>181</td><td>0.91%</td></tr><tr><td>江西省</td><td>164</td><td>0.82%</td></tr><tr><td>贵州省</td><td>147</td><td>0.73%</td></tr><tr><td>甘肃省</td><td>139</td><td>0.69%</td></tr><tr><td>内蒙古自治区</td><td>138</td><td>0.69%</td></tr><tr><td>黑龙江省</td><td>111</td><td>0.56%</td></tr><tr><td>宁夏回族自治区</td><td>91</td><td>0.46%</td></tr><tr><td>青海省</td><td>63</td><td>0.32%</td></tr><tr><td>海南省</td><td>49</td><td>0.24%</td></tr><tr><td>新疆维吾尔自治区生产建设兵团分院</td><td>12</td><td>0.06%</td></tr><tr><td>西藏自治区</td><td>12</td><td>0.06%</td></tr><tr><td>最高人民法院</td><td>8</td><td>0.04%</td></tr><tr><td>新疆维吾尔自治区高级人民法院生产建设兵团分院</td><td>2</td><td>0.01%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>空字符串与字段缺失保留，省份异形标签未合桶；法院集中管辖、批量程序与复本都可能改变地域分布。历史英文研究已提示集体改制相关批量诉讼，本轮没有重算最大当事人簇，不据此排除集中效应。<a href="https://sinoverdict.wenshucha.com/blog/shareholder-inspection-rights-chinese-case-law-cause-filter-date-field.html">相关英文方法研究</a>有不同口径的历史分析，日期与分母须分别引用。</p><div class="tablewrap"><table><thead><tr><th>程序集合</th><th>C记录</th><th>案号含初</th><th>案号含终</th></tr></thead><tbody><tr><td>一审</td><td>11,990</td><td>11,962</td><td>2</td></tr><tr><td>二审</td><td>6,155</td><td>1</td><td>6,144</td></tr><tr><td>未映射</td><td>1,855</td><td>404</td><td>385</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>一审合并1、0301、民事一审、一审、刑事一审、行政一审；二审合并2、0302、民事二审、二审、刑事二审、行政二审；其他未映射。案号初/终仅作诊断，未猜编码3的含义，也未跨程序合并；文书量比不是上诉率。原始程序桶保存在附档。</p><div class="tablewrap"><table><thead><tr><th>标题文类（按顺序互斥）</th><th>C记录</th><th>占C</th></tr></thead><tbody><tr><td>决定书</td><td>8</td><td>0.04%</td></tr><tr><td>判决书</td><td>10,596</td><td>52.98%</td></tr><tr><td>裁定书</td><td>6,986</td><td>34.93%</td></tr><tr><td>调解书</td><td>94</td><td>0.47%</td></tr><tr><td>通知书</td><td>116</td><td>0.58%</td></tr><tr><td>标题未识别</td><td>2,200</td><td>11.00%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>标题按判决书、裁定书、调解书、决定书、通知书顺序识别，后类排除前类，其余未识别。未用正文首行补型：部分批次正文首行会错误统一写“判决书”。标题分类仍是词面规则，不能替代逐案文种审计，程序性裁定更不能当实体拒绝查阅。</p><h2>四、两组共现：账簿凭证与查阅争点</h2><p>第一组为正文“会计账簿”“会计凭证”及并集；第二组为“查阅”“不正当目的”“商业秘密”“审计报告”。每项取双分词器并集，词间可以重叠，不相加。phrase是分词位置匹配，不等于逐字子串验证，更不是立场或裁判结果编码。</p><div class="tablewrap"><table><thead><tr><th>正文词/并集</th><th>C命中</th><th>C共现率</th><th>F命中</th></tr></thead><tbody><tr><td>不正当目的</td><td>8,763</td><td>43.81%</td><td>12,833</td></tr><tr><td>会计凭证</td><td>8,547</td><td>42.73%</td><td>13,608</td></tr><tr><td>会计账簿</td><td>11,992</td><td>59.96%</td><td>19,545</td></tr><tr><td>商业秘密</td><td>2,155</td><td>10.78%</td><td>3,111</td></tr><tr><td>审计报告</td><td>1,942</td><td>9.71%</td><td>3,238</td></tr><tr><td>查阅</td><td>12,751</td><td>63.75%</td><td>21,446</td></tr><tr><td>账簿凭证并集</td><td>12,167</td><td>60.83%</td><td>19,961</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><div class="tablewrap"><table><thead><tr><th>year</th><th>C记录</th><th>C账簿/凭证并集</th><th>C内共现率</th><th>F内共现率</th></tr></thead><tbody><tr><td>2013</td><td>304</td><td>229</td><td>75.33%</td><td>68.03%</td></tr><tr><td>2014</td><td>903</td><td>582</td><td>64.45%</td><td>57.32%</td></tr><tr><td>2015</td><td>1,242</td><td>801</td><td>64.49%</td><td>59.00%</td></tr><tr><td>2016</td><td>1,783</td><td>1,031</td><td>57.82%</td><td>54.06%</td></tr><tr><td>2017</td><td>1,793</td><td>1,145</td><td>63.86%</td><td>58.46%</td></tr><tr><td>2018</td><td>932</td><td>418</td><td>44.85%</td><td>61.07%</td></tr><tr><td>2019</td><td>668</td><td>229</td><td>34.28%</td><td>56.22%</td></tr><tr><td>2020</td><td>428</td><td>68</td><td>15.89%</td><td>53.11%</td></tr><tr><td>2021</td><td>2,023</td><td>1,375</td><td>67.97%</td><td>56.73%</td></tr><tr><td>2022</td><td>4,542</td><td>3,055</td><td>67.26%</td><td>60.71%</td></tr><tr><td>2023</td><td>1,598</td><td>1,031</td><td>64.52%</td><td>58.89%</td></tr><tr><td>2024</td><td>1,850</td><td>1,095</td><td>59.19%</td><td>57.62%</td></tr><tr><td>2025</td><td>972</td><td>443</td><td>45.58%</td><td>45.17%</td></tr></tbody></table></div><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C</code>, <code>F</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><p>“会计凭证”可能出现在诉请、公司拒绝理由、历史事实、法条或他案引述；“不正当目的”也可能由原告否认，而非由法院认定。空正文仍在总体分母中。本页不报告支持查阅比例、拒绝率或胜诉率。</p><p>法规背景可核对<a href="https://www.samr.gov.cn/xyjgs/flfg/art/2024/art_d4e84936a8a744f8928ac7aec7594345.html" rel="noopener">市场监管总局所载现行公司法</a>第五十七条；本页只是以相关词构造研究变量。法规内容不说明本库每份文书适用该条，亦不能把year=2024直接切成实施前后组。</p><h2>五、可复现方法与不可外推的边界</h2><ul><li>这是全量聚合，未抽样，也未声称语义纯度。若需人工复核，应按dataset分层，记录random_score种子和n，保留批内平手偏差及编码表；本页没有凭空补样本。</li><li>全文body的完整案由短语在ik_smart下为0条，在ik_max_word下为33,187条。这是分析器差异，零命中不能直接说不存在案件；F取两字段双分析器逻辑联集。</li><li>正文空白、公开事由占位、缺段或截断会改变共现；exists(body)不证明可用全文。全量补修不保证每份完整，本轮未实读正文完整性、不报完整率。</li><li>案由缺失和文本引述影响C/F两套分母；记录数不是独立纠纷，HLL原始案号不是规范化精确去重。不要把本页与历史英文页的案号估算或标题短词数直接相减。</li><li>研究新法须逐份核落款日期、争议发生时间与适用条款，再建立程序关联。索引year只用于收录画像，不能识别政策因果。</li><li>归一化仅校正同年收录规模，不消除公开选择、批次覆盖或重复。任何细分样本少于30，无法得出统计结论。</li></ul><h2>六、附录：查询、聚合与引用</h2><p>judgments索引，size:0、track_total_hits:true；所有正式响应未超时、failed shards=0。C复读_count一致。附档仅含查询及汇总，无姓名、案号明细或正文。每个表的来源键对应附档请求与返回；正式引用请带检索日期、集合、案号处理及统计限制。</p><pre><code>{
+  &quot;C&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;cause&quot;: &quot;股东知情权纠纷&quot;
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;dataset&quot;: &quot;bench&quot;
+          }
+        }
+      ]
+    }
+  },
+  &quot;F&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;股东知情权纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;title&quot;: {
+                          &quot;query&quot;: &quot;股东知情权纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              },
+              {
+                &quot;bool&quot;: {
+                  &quot;should&quot;: [
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;股东知情权纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_smart&quot;
+                        }
+                      }
+                    },
+                    {
+                      &quot;match_phrase&quot;: {
+                        &quot;body&quot;: {
+                          &quot;query&quot;: &quot;股东知情权纠纷&quot;,
+                          &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                        }
+                      }
+                    }
+                  ],
+                  &quot;minimum_should_match&quot;: 1
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;dataset&quot;: &quot;bench&quot;
+          }
+        }
+      ]
+    }
+  },
+  &quot;账簿凭证并集&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;会计账簿&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;会计账簿&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        {
+          &quot;bool&quot;: {
+            &quot;should&quot;: [
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;会计凭证&quot;,
+                    &quot;analyzer&quot;: &quot;ik_smart&quot;
+                  }
+                }
+              },
+              {
+                &quot;match_phrase&quot;: {
+                  &quot;body&quot;: {
+                    &quot;query&quot;: &quot;会计凭证&quot;,
+                    &quot;analyzer&quot;: &quot;ik_max_word&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        }
+      ],
+      &quot;minimum_should_match&quot;: 1
+    }
+  }
+}</code></pre><p class="source">检索日期：2026-10-19；<a href="queries-and-results.json">查询与原始聚合响应</a>，键：<code>C_repeat</code>, <code>F_body_ik_smart</code>, <code>F_body_ik_max_word</code>。记录为精确查询计数，原始相异案号为HLL估算。</p><h2>常见问题</h2><details><summary>统计的是全国股东知情权案件总数吗？</summary><p>不是。C为精确案由20,000条，F为标题或正文完整案由短语候选35,084条，并集U为35,934条；都是当前索引记录。圆整数20000原因未明，不是官方总量或已证实完整覆盖。</p></details><details><summary>账簿与凭证共现可以当作法院支持查阅的比例吗？</summary><p>不可以。C内12,167条正文命中至少一词，只是词面共现；可能是诉请、抗辩、法条或他案转述，没有编码裁判主文。</p></details><details><summary>为什么案由与全文的年度走势不同？</summary><p>标签缺失与批次构成会改变召回。全文可包含其他案由的引用，精确标签也可能没有可用正文。两条曲线不能互相替代，更不能直接当作真实诉讼发生趋势。</p></details><details><summary>相异案号是否等于独立纠纷？</summary><p>不等于。本页以案号以号结尾的格式子集，对原始caseNo作HLL估算；未归一化括号空格，未关联一审二审，不能与历史规范化案号数混比。</p></details><details><summary>怎样申请论文数据与逐案清单？</summary><p>通过数据报告服务先约定检索口径、日期核验、程序关联、正文可用性与人工编码，再确定交付和验收。本页不提供胜诉率或新法因果结论。</p></details><div class="cta"><h2 style="color:white;border:0;padding:0;margin:0">需要论文交叉表与逐案清单？</h2><p>先约定主题、日期、案号归并、账簿凭证语境编码与验收，再定制数据报告。</p><a href="/data-report/">查看数据报告服务</a><a class="ghost" href="mailto:chenjiaxin@wenshucha.com">联系商务</a><p>商务电话：131-6872-7779</p></div><p class="dis">文书查 · 深圳星谱网络科技有限公司。仅供研究方法参考，不构成法律意见。检索日期：2026-10-19。</p></main><footer><div class="wrap">文书查 · 深圳星谱网络科技有限公司<br>商务电话：<a href="tel:13168727779">131-6872-7779</a> · 邮箱：<a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a><br><a href="/data-report/">数据报告</a> · <a href="/about/">关于我们</a><br><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a></div></footer></body></html>
