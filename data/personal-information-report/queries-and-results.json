@@ -1,0 +1,5933 @@
+{
+  "retrieved_on": "2026-10-22",
+  "index": "judgments",
+  "note": "Aggregate-only. Not a case universe, not court coverage. No personal names or sampled text.",
+  "queries": {
+    "C": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 60,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 50,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 50
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 40
+            }
+          },
+          "co": {
+            "filters": {
+              "filters": {
+                "人脸识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "敏感个人信息": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "告知同意": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息处理者": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "生物识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "征信": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "手机号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "身份证号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "大数据": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "删除": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息保护法": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "pipl_by_year": {
+            "filter": {
+              "bool": {
+                "should": [
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_smart"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_max_word"
+                      }
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            },
+            "aggs": {
+              "years": {
+                "terms": {
+                  "field": "year",
+                  "size": 100,
+                  "order": {
+                    "_key": "asc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:06.865590+08:00",
+      "response": {
+        "took": 6175,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 14115,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "case_numbers": {
+            "doc_count": 13116,
+            "distinct": {
+              "value": 10991
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "江苏省",
+                "doc_count": 2766
+              },
+              {
+                "key": "",
+                "doc_count": 2538
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 2060
+              },
+              {
+                "key": "山东省",
+                "doc_count": 948
+              },
+              {
+                "key": "河南省",
+                "doc_count": 879
+              },
+              {
+                "key": "北京市",
+                "doc_count": 586
+              },
+              {
+                "key": "广东省",
+                "doc_count": 540
+              },
+              {
+                "key": "四川省",
+                "doc_count": 521
+              },
+              {
+                "key": "上海市",
+                "doc_count": 431
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 312
+              },
+              {
+                "key": "河北省",
+                "doc_count": 275
+              },
+              {
+                "key": "天津市",
+                "doc_count": 221
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 201
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 193
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 171
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 160
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 142
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 130
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 130
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 126
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 125
+              },
+              {
+                "key": "山西省",
+                "doc_count": 115
+              },
+              {
+                "key": "青海省",
+                "doc_count": 98
+              },
+              {
+                "key": "福建省",
+                "doc_count": 94
+              },
+              {
+                "key": "云南省",
+                "doc_count": 90
+              },
+              {
+                "key": "江西省",
+                "doc_count": 83
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 69
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 67
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 20
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 12
+              },
+              {
+                "key": "海南省",
+                "doc_count": 8
+              },
+              {
+                "key": "新疆维吾尔自治区生产建设兵团分院",
+                "doc_count": 3
+              },
+              {
+                "key": "西藏自治区",
+                "doc_count": 1
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "一般人格权纠纷",
+                "doc_count": 11849
+              },
+              {
+                "key": "隐私权纠纷",
+                "doc_count": 2161
+              },
+              {
+                "key": "个人信息保护纠纷",
+                "doc_count": 105
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "1",
+                "doc_count": 4323
+              },
+              {
+                "key": "民事一审",
+                "doc_count": 3051
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 1730
+              },
+              {
+                "key": "2",
+                "doc_count": 1194
+              },
+              {
+                "key": "",
+                "doc_count": 1167
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 609
+              },
+              {
+                "key": "一审",
+                "doc_count": 566
+              },
+              {
+                "key": "其他",
+                "doc_count": 560
+              },
+              {
+                "key": "3",
+                "doc_count": 210
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 199
+              },
+              {
+                "key": "二审",
+                "doc_count": 104
+              },
+              {
+                "key": "4",
+                "doc_count": 102
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 82
+              },
+              {
+                "key": "0301",
+                "doc_count": 50
+              },
+              {
+                "key": "1001",
+                "doc_count": 27
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 22
+              },
+              {
+                "key": "0302",
+                "doc_count": 19
+              },
+              {
+                "key": "再审",
+                "doc_count": 13
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 13
+              },
+              {
+                "key": "破产申请审查",
+                "doc_count": 12
+              },
+              {
+                "key": "人身安全保护令",
+                "doc_count": 10
+              },
+              {
+                "key": "0303",
+                "doc_count": 5
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 5
+              },
+              {
+                "key": "民事管辖上诉",
+                "doc_count": 5
+              },
+              {
+                "key": "特别程序",
+                "doc_count": 5
+              },
+              {
+                "key": "督促",
+                "doc_count": 5
+              },
+              {
+                "key": "其他执行",
+                "doc_count": 4
+              },
+              {
+                "key": "司法救助",
+                "doc_count": 4
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 4
+              },
+              {
+                "key": "财产保全执行",
+                "doc_count": 4
+              },
+              {
+                "key": "人身安全保护令申请审查",
+                "doc_count": 3
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 2
+              },
+              {
+                "key": "民事指定管辖",
+                "doc_count": 2
+              },
+              {
+                "key": "0104",
+                "doc_count": 1
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 1
+              },
+              {
+                "key": "司法制裁审查",
+                "doc_count": 1
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 1
+              }
+            ]
+          },
+          "co": {
+            "buckets": {
+              "个人信息保护法": {
+                "doc_count": 26
+              },
+              "个人信息处理者": {
+                "doc_count": 5
+              },
+              "人脸识别": {
+                "doc_count": 25
+              },
+              "删除": {
+                "doc_count": 552
+              },
+              "告知同意": {
+                "doc_count": 1
+              },
+              "大数据": {
+                "doc_count": 11
+              },
+              "征信": {
+                "doc_count": 299
+              },
+              "手机号码": {
+                "doc_count": 208
+              },
+              "敏感个人信息": {
+                "doc_count": 5
+              },
+              "生物识别": {
+                "doc_count": 49
+              },
+              "身份证号码": {
+                "doc_count": 333
+              }
+            }
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 5829
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 1357
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 1273
+              },
+              {
+                "key": "2022",
+                "doc_count": 1254
+              },
+              {
+                "key": "2019_2",
+                "doc_count": 1161
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 758
+              },
+              {
+                "key": "2024",
+                "doc_count": 704
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 503
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 426
+              },
+              {
+                "key": "2025",
+                "doc_count": 370
+              },
+              {
+                "key": "2020",
+                "doc_count": 356
+              },
+              {
+                "key": "2023",
+                "doc_count": 124
+              }
+            ]
+          },
+          "pipl_by_year": {
+            "doc_count": 26,
+            "years": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 2022,
+                  "doc_count": 13
+                },
+                {
+                  "key": 2023,
+                  "doc_count": 2
+                },
+                {
+                  "key": 2024,
+                  "doc_count": 2
+                },
+                {
+                  "key": 2025,
+                  "doc_count": 9
+                }
+              ]
+            }
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 1970,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 1,
+                "case_numbers": {
+                  "doc_count": 1,
+                  "distinct": {
+                    "value": 1
+                  }
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 21,
+                "case_numbers": {
+                  "doc_count": 21,
+                  "distinct": {
+                    "value": 21
+                  }
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 104,
+                "case_numbers": {
+                  "doc_count": 100,
+                  "distinct": {
+                    "value": 99
+                  }
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 111,
+                "case_numbers": {
+                  "doc_count": 111,
+                  "distinct": {
+                    "value": 110
+                  }
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 112,
+                "case_numbers": {
+                  "doc_count": 112,
+                  "distinct": {
+                    "value": 110
+                  }
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 79,
+                "case_numbers": {
+                  "doc_count": 79,
+                  "distinct": {
+                    "value": 79
+                  }
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 317,
+                "case_numbers": {
+                  "doc_count": 317,
+                  "distinct": {
+                    "value": 316
+                  }
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 1179,
+                "case_numbers": {
+                  "doc_count": 1179,
+                  "distinct": {
+                    "value": 1134
+                  }
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 1173,
+                "case_numbers": {
+                  "doc_count": 1172,
+                  "distinct": {
+                    "value": 1138
+                  }
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 1201,
+                "case_numbers": {
+                  "doc_count": 1194,
+                  "distinct": {
+                    "value": 1186
+                  }
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 1145,
+                "case_numbers": {
+                  "doc_count": 1133,
+                  "distinct": {
+                    "value": 1123
+                  }
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 897,
+                "case_numbers": {
+                  "doc_count": 841,
+                  "distinct": {
+                    "value": 682
+                  }
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 956,
+                "case_numbers": {
+                  "doc_count": 906,
+                  "distinct": {
+                    "value": 541
+                  }
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 550,
+                "case_numbers": {
+                  "doc_count": 476,
+                  "distinct": {
+                    "value": 315
+                  }
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 1458,
+                "case_numbers": {
+                  "doc_count": 1216,
+                  "distinct": {
+                    "value": 953
+                  }
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 2855,
+                "case_numbers": {
+                  "doc_count": 2466,
+                  "distinct": {
+                    "value": 1522
+                  }
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 836,
+                "case_numbers": {
+                  "doc_count": 705,
+                  "distinct": {
+                    "value": 649
+                  }
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 704,
+                "case_numbers": {
+                  "doc_count": 684,
+                  "distinct": {
+                    "value": 684
+                  }
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 370,
+                "case_numbers": {
+                  "doc_count": 358,
+                  "distinct": {
+                    "value": 357
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "F": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 60,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 50,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 50
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 40
+            }
+          },
+          "co": {
+            "filters": {
+              "filters": {
+                "人脸识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "敏感个人信息": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "告知同意": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息处理者": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "生物识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "征信": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "手机号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "身份证号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "大数据": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "删除": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息保护法": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "pipl_by_year": {
+            "filter": {
+              "bool": {
+                "should": [
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_smart"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_max_word"
+                      }
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            },
+            "aggs": {
+              "years": {
+                "terms": {
+                  "field": "year",
+                  "size": 100,
+                  "order": {
+                    "_key": "asc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:14.608138+08:00",
+      "response": {
+        "took": 7686,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 192662,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "case_numbers": {
+            "doc_count": 190010,
+            "distinct": {
+              "value": 169805
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 333,
+            "buckets": [
+              {
+                "key": "广东省",
+                "doc_count": 26153
+              },
+              {
+                "key": "",
+                "doc_count": 20310
+              },
+              {
+                "key": "山东省",
+                "doc_count": 8849
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 8796
+              },
+              {
+                "key": "河南省",
+                "doc_count": 8732
+              },
+              {
+                "key": "上海市",
+                "doc_count": 8695
+              },
+              {
+                "key": "北京市",
+                "doc_count": 8074
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 6508
+              },
+              {
+                "key": "江苏省",
+                "doc_count": 6070
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 5525
+              },
+              {
+                "key": "江西省",
+                "doc_count": 5516
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 5334
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 5044
+              },
+              {
+                "key": "广东",
+                "doc_count": 4424
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 4220
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 4038
+              },
+              {
+                "key": "福建省",
+                "doc_count": 3860
+              },
+              {
+                "key": "四川省",
+                "doc_count": 3733
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 3445
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 3058
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 2849
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 2744
+              },
+              {
+                "key": "河北省",
+                "doc_count": 2552
+              },
+              {
+                "key": "北京",
+                "doc_count": 2007
+              },
+              {
+                "key": "山西省",
+                "doc_count": 1974
+              },
+              {
+                "key": "河南",
+                "doc_count": 1847
+              },
+              {
+                "key": "云南省",
+                "doc_count": 1845
+              },
+              {
+                "key": "江苏",
+                "doc_count": 1665
+              },
+              {
+                "key": "天津市",
+                "doc_count": 1528
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 1493
+              },
+              {
+                "key": "湖南",
+                "doc_count": 1240
+              },
+              {
+                "key": "浙江",
+                "doc_count": 1204
+              },
+              {
+                "key": "广西壮族",
+                "doc_count": 1197
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 1161
+              },
+              {
+                "key": "山东",
+                "doc_count": 1089
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 1012
+              },
+              {
+                "key": "四川",
+                "doc_count": 998
+              },
+              {
+                "key": "上海",
+                "doc_count": 951
+              },
+              {
+                "key": "重庆",
+                "doc_count": 922
+              },
+              {
+                "key": "吉林",
+                "doc_count": 896
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 855
+              },
+              {
+                "key": "福建",
+                "doc_count": 822
+              },
+              {
+                "key": "河北",
+                "doc_count": 738
+              },
+              {
+                "key": "辽宁",
+                "doc_count": 730
+              },
+              {
+                "key": "湖北",
+                "doc_count": 705
+              },
+              {
+                "key": "安徽",
+                "doc_count": 701
+              },
+              {
+                "key": "云南",
+                "doc_count": 695
+              },
+              {
+                "key": "天津",
+                "doc_count": 692
+              },
+              {
+                "key": "海南",
+                "doc_count": 672
+              },
+              {
+                "key": "海南省",
+                "doc_count": 631
+              },
+              {
+                "key": "江西",
+                "doc_count": 590
+              },
+              {
+                "key": "黑龙江",
+                "doc_count": 496
+              },
+              {
+                "key": "陕西",
+                "doc_count": 472
+              },
+              {
+                "key": "山西",
+                "doc_count": 464
+              },
+              {
+                "key": "内蒙古",
+                "doc_count": 342
+              },
+              {
+                "key": "青海省",
+                "doc_count": 325
+              },
+              {
+                "key": "贵州",
+                "doc_count": 310
+              },
+              {
+                "key": "甘肃",
+                "doc_count": 223
+              },
+              {
+                "key": "最高人民法院",
+                "doc_count": 165
+              },
+              {
+                "key": "宁夏回族",
+                "doc_count": 143
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 267,
+            "sum_other_doc_count": 30876,
+            "buckets": [
+              {
+                "key": "",
+                "doc_count": 65703
+              },
+              {
+                "key": "金融借款合同纠纷",
+                "doc_count": 19078
+              },
+              {
+                "key": "小额借款合同纠纷",
+                "doc_count": 8525
+              },
+              {
+                "key": "民间借贷纠纷",
+                "doc_count": 8437
+              },
+              {
+                "key": "信用卡纠纷",
+                "doc_count": 6987
+              },
+              {
+                "key": "劳动争议",
+                "doc_count": 5478
+              },
+              {
+                "key": "买卖合同纠纷",
+                "doc_count": 4275
+              },
+              {
+                "key": "借款合同纠纷",
+                "doc_count": 4158
+              },
+              {
+                "key": "侵犯公民个人信息罪",
+                "doc_count": 3974
+              },
+              {
+                "key": "侵犯公民个人信息",
+                "doc_count": 3721
+              },
+              {
+                "key": "诈骗罪",
+                "doc_count": 3138
+              },
+              {
+                "key": "机动车交通事故责任纠纷",
+                "doc_count": 2177
+              },
+              {
+                "key": "合同纠纷",
+                "doc_count": 2113
+              },
+              {
+                "key": "盗窃罪",
+                "doc_count": 1592
+              },
+              {
+                "key": "劳动合同纠纷",
+                "doc_count": 1582
+              },
+              {
+                "key": "追偿权纠纷",
+                "doc_count": 1401
+              },
+              {
+                "key": "离婚纠纷",
+                "doc_count": 1288
+              },
+              {
+                "key": "诈骗",
+                "doc_count": 1229
+              },
+              {
+                "key": "名誉权纠纷",
+                "doc_count": 1064
+              },
+              {
+                "key": "服务合同纠纷",
+                "doc_count": 1041
+              },
+              {
+                "key": "劳务合同纠纷",
+                "doc_count": 1028
+              },
+              {
+                "key": "房屋买卖合同纠纷",
+                "doc_count": 1004
+              },
+              {
+                "key": "故意伤害罪",
+                "doc_count": 903
+              },
+              {
+                "key": "走私、贩卖、运输、制造毒品罪",
+                "doc_count": 861
+              },
+              {
+                "key": "危险驾驶罪",
+                "doc_count": 844
+              },
+              {
+                "key": "刑事",
+                "doc_count": 836
+              },
+              {
+                "key": "物业服务合同纠纷",
+                "doc_count": 827
+              },
+              {
+                "key": "危险驾驶",
+                "doc_count": 783
+              },
+              {
+                "key": "行政处罚",
+                "doc_count": 762
+              },
+              {
+                "key": "隐私权纠纷",
+                "doc_count": 746
+              },
+              {
+                "key": "租赁合同纠纷",
+                "doc_count": 734
+              },
+              {
+                "key": "交通肇事罪",
+                "doc_count": 731
+              },
+              {
+                "key": "侵害作品信息网络传播权纠纷",
+                "doc_count": 674
+              },
+              {
+                "key": "帮助信息网络犯罪活动",
+                "doc_count": 674
+              },
+              {
+                "key": "信用卡诈骗罪",
+                "doc_count": 622
+              },
+              {
+                "key": "政府信息公开",
+                "doc_count": 577
+              },
+              {
+                "key": "盗窃",
+                "doc_count": 575
+              },
+              {
+                "key": "教育培训合同纠纷",
+                "doc_count": 555
+              },
+              {
+                "key": "房屋租赁合同纠纷",
+                "doc_count": 553
+              },
+              {
+                "key": "保证保险合同纠纷",
+                "doc_count": 536
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 105,
+            "buckets": [
+              {
+                "key": "民事一审",
+                "doc_count": 67026
+              },
+              {
+                "key": "1",
+                "doc_count": 37436
+              },
+              {
+                "key": "一审",
+                "doc_count": 30407
+              },
+              {
+                "key": "刑事一审",
+                "doc_count": 15134
+              },
+              {
+                "key": "",
+                "doc_count": 7944
+              },
+              {
+                "key": "2",
+                "doc_count": 7929
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 6685
+              },
+              {
+                "key": "二审",
+                "doc_count": 6200
+              },
+              {
+                "key": "0301",
+                "doc_count": 3429
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 2118
+              },
+              {
+                "key": "刑罚与执行变更",
+                "doc_count": 1338
+              },
+              {
+                "key": "刑事二审",
+                "doc_count": 1000
+              },
+              {
+                "key": "行政一审",
+                "doc_count": 702
+              },
+              {
+                "key": "4",
+                "doc_count": 536
+              },
+              {
+                "key": "其他",
+                "doc_count": 488
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 448
+              },
+              {
+                "key": "3",
+                "doc_count": 429
+              },
+              {
+                "key": "刑罚变更",
+                "doc_count": 364
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 328
+              },
+              {
+                "key": "0302",
+                "doc_count": 320
+              },
+              {
+                "key": "行政二审",
+                "doc_count": 300
+              },
+              {
+                "key": "再审",
+                "doc_count": 285
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 217
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 209
+              },
+              {
+                "key": "0201",
+                "doc_count": 167
+              },
+              {
+                "key": "刑罚与执行变更审查",
+                "doc_count": 165
+              },
+              {
+                "key": "特别程序",
+                "doc_count": 139
+              },
+              {
+                "key": "刑事审判监督",
+                "doc_count": 100
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 86
+              },
+              {
+                "key": "督促",
+                "doc_count": 84
+              },
+              {
+                "key": "行政非诉审查",
+                "doc_count": 62
+              },
+              {
+                "key": "0223",
+                "doc_count": 55
+              },
+              {
+                "key": "刑事管辖",
+                "doc_count": 54
+              },
+              {
+                "key": "行政审判监督",
+                "doc_count": 50
+              },
+              {
+                "key": "0202",
+                "doc_count": 49
+              },
+              {
+                "key": "非诉执行审查",
+                "doc_count": 39
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 38
+              },
+              {
+                "key": "管辖",
+                "doc_count": 36
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 29
+              },
+              {
+                "key": "0303",
+                "doc_count": 19
+              },
+              {
+                "key": "行政赔偿",
+                "doc_count": 17
+              },
+              {
+                "key": "民事再审",
+                "doc_count": 15
+              },
+              {
+                "key": "8",
+                "doc_count": 13
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 11
+              },
+              {
+                "key": "0402",
+                "doc_count": 10
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 10
+              },
+              {
+                "key": "撤销仲裁裁决",
+                "doc_count": 10
+              },
+              {
+                "key": "财产保全执行",
+                "doc_count": 10
+              },
+              {
+                "key": "人身安全保护令",
+                "doc_count": 9
+              },
+              {
+                "key": "1001",
+                "doc_count": 8
+              }
+            ]
+          },
+          "co": {
+            "buckets": {
+              "个人信息保护法": {
+                "doc_count": 685
+              },
+              "个人信息处理者": {
+                "doc_count": 138
+              },
+              "人脸识别": {
+                "doc_count": 10083
+              },
+              "删除": {
+                "doc_count": 8143
+              },
+              "告知同意": {
+                "doc_count": 16
+              },
+              "大数据": {
+                "doc_count": 599
+              },
+              "征信": {
+                "doc_count": 15364
+              },
+              "手机号码": {
+                "doc_count": 22529
+              },
+              "敏感个人信息": {
+                "doc_count": 204
+              },
+              "生物识别": {
+                "doc_count": 335
+              },
+              "身份证号码": {
+                "doc_count": 12487
+              }
+            }
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 46330
+              },
+              {
+                "key": "ws_new",
+                "doc_count": 35002
+              },
+              {
+                "key": "2021",
+                "doc_count": 29758
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 21034
+              },
+              {
+                "key": "2024",
+                "doc_count": 14518
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 10486
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 9305
+              },
+              {
+                "key": "2022",
+                "doc_count": 8444
+              },
+              {
+                "key": "2025",
+                "doc_count": 7011
+              },
+              {
+                "key": "2020",
+                "doc_count": 3428
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 3366
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 3019
+              },
+              {
+                "key": "2023",
+                "doc_count": 961
+              }
+            ]
+          },
+          "pipl_by_year": {
+            "doc_count": 685,
+            "years": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 2015,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2017,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2018,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2019,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2020,
+                  "doc_count": 2
+                },
+                {
+                  "key": 2021,
+                  "doc_count": 6
+                },
+                {
+                  "key": 2022,
+                  "doc_count": 174
+                },
+                {
+                  "key": 2023,
+                  "doc_count": 99
+                },
+                {
+                  "key": 2024,
+                  "doc_count": 299
+                },
+                {
+                  "key": 2025,
+                  "doc_count": 101
+                }
+              ]
+            }
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 2001,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2002,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2003,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 1
+                  }
+                }
+              },
+              {
+                "key": 2005,
+                "doc_count": 5,
+                "case_numbers": {
+                  "doc_count": 5,
+                  "distinct": {
+                    "value": 4
+                  }
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 22,
+                "case_numbers": {
+                  "doc_count": 22,
+                  "distinct": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "key": 2007,
+                "doc_count": 15,
+                "case_numbers": {
+                  "doc_count": 15,
+                  "distinct": {
+                    "value": 13
+                  }
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 69,
+                "case_numbers": {
+                  "doc_count": 69,
+                  "distinct": {
+                    "value": 61
+                  }
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 154,
+                "case_numbers": {
+                  "doc_count": 152,
+                  "distinct": {
+                    "value": 144
+                  }
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 457,
+                "case_numbers": {
+                  "doc_count": 457,
+                  "distinct": {
+                    "value": 418
+                  }
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 1333,
+                "case_numbers": {
+                  "doc_count": 1332,
+                  "distinct": {
+                    "value": 1285
+                  }
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 812,
+                "case_numbers": {
+                  "doc_count": 801,
+                  "distinct": {
+                    "value": 751
+                  }
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 1917,
+                "case_numbers": {
+                  "doc_count": 1908,
+                  "distinct": {
+                    "value": 1675
+                  }
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 6952,
+                "case_numbers": {
+                  "doc_count": 6925,
+                  "distinct": {
+                    "value": 6124
+                  }
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 10883,
+                "case_numbers": {
+                  "doc_count": 10863,
+                  "distinct": {
+                    "value": 9545
+                  }
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 12804,
+                "case_numbers": {
+                  "doc_count": 12721,
+                  "distinct": {
+                    "value": 11212
+                  }
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 15621,
+                "case_numbers": {
+                  "doc_count": 15332,
+                  "distinct": {
+                    "value": 14396
+                  }
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 19115,
+                "case_numbers": {
+                  "doc_count": 17905,
+                  "distinct": {
+                    "value": 17070
+                  }
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 13722,
+                "case_numbers": {
+                  "doc_count": 13631,
+                  "distinct": {
+                    "value": 12088
+                  }
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 21539,
+                "case_numbers": {
+                  "doc_count": 21340,
+                  "distinct": {
+                    "value": 20906
+                  }
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 25389,
+                "case_numbers": {
+                  "doc_count": 25193,
+                  "distinct": {
+                    "value": 22254
+                  }
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 31839,
+                "case_numbers": {
+                  "doc_count": 31612,
+                  "distinct": {
+                    "value": 24400
+                  }
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 7803,
+                "case_numbers": {
+                  "doc_count": 7677,
+                  "distinct": {
+                    "value": 7392
+                  }
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 14518,
+                "case_numbers": {
+                  "doc_count": 14452,
+                  "distinct": {
+                    "value": 14447
+                  }
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 7011,
+                "case_numbers": {
+                  "doc_count": 6955,
+                  "distinct": {
+                    "value": 6950
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "U": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "case_numbers": {
+            "filter": {
+              "wildcard": {
+                "caseNo": "*号"
+              }
+            },
+            "aggs": {
+              "distinct": {
+                "cardinality": {
+                  "field": "caseNo",
+                  "precision_threshold": 40000
+                }
+              }
+            }
+          },
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "case_numbers": {
+                "filter": {
+                  "wildcard": {
+                    "caseNo": "*号"
+                  }
+                },
+                "aggs": {
+                  "distinct": {
+                    "cardinality": {
+                      "field": "caseNo",
+                      "precision_threshold": 40000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "province": {
+            "terms": {
+              "field": "province",
+              "size": 60,
+              "missing": "__MISSING__"
+            }
+          },
+          "procedure": {
+            "terms": {
+              "field": "procedure",
+              "size": 50,
+              "missing": "__MISSING__"
+            }
+          },
+          "dataset": {
+            "terms": {
+              "field": "dataset",
+              "size": 50
+            }
+          },
+          "cause": {
+            "terms": {
+              "field": "cause",
+              "size": 40
+            }
+          },
+          "co": {
+            "filters": {
+              "filters": {
+                "人脸识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "人脸识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "敏感个人信息": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "敏感个人信息",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "告知同意": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "告知同意",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息处理者": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息处理者",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "生物识别": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "生物识别",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "征信": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "征信",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "手机号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "手机号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "身份证号码": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "身份证号码",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "大数据": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "大数据",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "删除": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "删除",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "个人信息保护法": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          },
+          "pipl_by_year": {
+            "filter": {
+              "bool": {
+                "should": [
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_smart"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "body": {
+                        "query": "个人信息保护法",
+                        "analyzer": "ik_max_word"
+                      }
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            },
+            "aggs": {
+              "years": {
+                "terms": {
+                  "field": "year",
+                  "size": 100,
+                  "order": {
+                    "_key": "asc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.215916+08:00",
+      "response": {
+        "took": 7578,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 205751,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "case_numbers": {
+            "doc_count": 202114,
+            "distinct": {
+              "value": 179916
+            }
+          },
+          "province": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 337,
+            "buckets": [
+              {
+                "key": "广东省",
+                "doc_count": 26600
+              },
+              {
+                "key": "",
+                "doc_count": 22779
+              },
+              {
+                "key": "山东省",
+                "doc_count": 9569
+              },
+              {
+                "key": "河南省",
+                "doc_count": 9546
+              },
+              {
+                "key": "湖南省",
+                "doc_count": 9086
+              },
+              {
+                "key": "上海市",
+                "doc_count": 9079
+              },
+              {
+                "key": "江苏省",
+                "doc_count": 8799
+              },
+              {
+                "key": "北京市",
+                "doc_count": 8525
+              },
+              {
+                "key": "重庆市",
+                "doc_count": 6666
+              },
+              {
+                "key": "辽宁省",
+                "doc_count": 6249
+              },
+              {
+                "key": "黑龙江省",
+                "doc_count": 5642
+              },
+              {
+                "key": "江西省",
+                "doc_count": 5586
+              },
+              {
+                "key": "广西壮族自治区",
+                "doc_count": 5448
+              },
+              {
+                "key": "浙江省",
+                "doc_count": 5214
+              },
+              {
+                "key": "广东",
+                "doc_count": 4424
+              },
+              {
+                "key": "四川省",
+                "doc_count": 4214
+              },
+              {
+                "key": "陕西省",
+                "doc_count": 4155
+              },
+              {
+                "key": "福建省",
+                "doc_count": 3943
+              },
+              {
+                "key": "湖北省",
+                "doc_count": 3632
+              },
+              {
+                "key": "吉林省",
+                "doc_count": 3181
+              },
+              {
+                "key": "贵州省",
+                "doc_count": 2906
+              },
+              {
+                "key": "安徽省",
+                "doc_count": 2860
+              },
+              {
+                "key": "河北省",
+                "doc_count": 2807
+              },
+              {
+                "key": "山西省",
+                "doc_count": 2080
+              },
+              {
+                "key": "北京",
+                "doc_count": 2007
+              },
+              {
+                "key": "云南省",
+                "doc_count": 1924
+              },
+              {
+                "key": "河南",
+                "doc_count": 1847
+              },
+              {
+                "key": "天津市",
+                "doc_count": 1738
+              },
+              {
+                "key": "江苏",
+                "doc_count": 1665
+              },
+              {
+                "key": "甘肃省",
+                "doc_count": 1551
+              },
+              {
+                "key": "内蒙古自治区",
+                "doc_count": 1282
+              },
+              {
+                "key": "湖南",
+                "doc_count": 1240
+              },
+              {
+                "key": "浙江",
+                "doc_count": 1204
+              },
+              {
+                "key": "广西壮族",
+                "doc_count": 1197
+              },
+              {
+                "key": "山东",
+                "doc_count": 1089
+              },
+              {
+                "key": "宁夏回族自治区",
+                "doc_count": 1028
+              },
+              {
+                "key": "四川",
+                "doc_count": 998
+              },
+              {
+                "key": "上海",
+                "doc_count": 951
+              },
+              {
+                "key": "重庆",
+                "doc_count": 922
+              },
+              {
+                "key": "吉林",
+                "doc_count": 896
+              },
+              {
+                "key": "新疆维吾尔自治区",
+                "doc_count": 865
+              },
+              {
+                "key": "福建",
+                "doc_count": 822
+              },
+              {
+                "key": "河北",
+                "doc_count": 738
+              },
+              {
+                "key": "辽宁",
+                "doc_count": 730
+              },
+              {
+                "key": "湖北",
+                "doc_count": 705
+              },
+              {
+                "key": "安徽",
+                "doc_count": 701
+              },
+              {
+                "key": "云南",
+                "doc_count": 695
+              },
+              {
+                "key": "天津",
+                "doc_count": 692
+              },
+              {
+                "key": "海南",
+                "doc_count": 672
+              },
+              {
+                "key": "海南省",
+                "doc_count": 639
+              },
+              {
+                "key": "江西",
+                "doc_count": 590
+              },
+              {
+                "key": "黑龙江",
+                "doc_count": 496
+              },
+              {
+                "key": "陕西",
+                "doc_count": 472
+              },
+              {
+                "key": "山西",
+                "doc_count": 464
+              },
+              {
+                "key": "青海省",
+                "doc_count": 421
+              },
+              {
+                "key": "内蒙古",
+                "doc_count": 342
+              },
+              {
+                "key": "贵州",
+                "doc_count": 310
+              },
+              {
+                "key": "甘肃",
+                "doc_count": 223
+              },
+              {
+                "key": "最高人民法院",
+                "doc_count": 165
+              },
+              {
+                "key": "宁夏回族",
+                "doc_count": 143
+              }
+            ]
+          },
+          "cause": {
+            "doc_count_error_upper_bound": 269,
+            "sum_other_doc_count": 31237,
+            "buckets": [
+              {
+                "key": "",
+                "doc_count": 65703
+              },
+              {
+                "key": "金融借款合同纠纷",
+                "doc_count": 19078
+              },
+              {
+                "key": "一般人格权纠纷",
+                "doc_count": 11849
+              },
+              {
+                "key": "小额借款合同纠纷",
+                "doc_count": 8525
+              },
+              {
+                "key": "民间借贷纠纷",
+                "doc_count": 8437
+              },
+              {
+                "key": "信用卡纠纷",
+                "doc_count": 6987
+              },
+              {
+                "key": "劳动争议",
+                "doc_count": 5478
+              },
+              {
+                "key": "买卖合同纠纷",
+                "doc_count": 4275
+              },
+              {
+                "key": "借款合同纠纷",
+                "doc_count": 4158
+              },
+              {
+                "key": "侵犯公民个人信息罪",
+                "doc_count": 3974
+              },
+              {
+                "key": "侵犯公民个人信息",
+                "doc_count": 3721
+              },
+              {
+                "key": "诈骗罪",
+                "doc_count": 3138
+              },
+              {
+                "key": "机动车交通事故责任纠纷",
+                "doc_count": 2177
+              },
+              {
+                "key": "隐私权纠纷",
+                "doc_count": 2161
+              },
+              {
+                "key": "合同纠纷",
+                "doc_count": 2113
+              },
+              {
+                "key": "盗窃罪",
+                "doc_count": 1592
+              },
+              {
+                "key": "劳动合同纠纷",
+                "doc_count": 1582
+              },
+              {
+                "key": "追偿权纠纷",
+                "doc_count": 1401
+              },
+              {
+                "key": "离婚纠纷",
+                "doc_count": 1288
+              },
+              {
+                "key": "诈骗",
+                "doc_count": 1229
+              },
+              {
+                "key": "名誉权纠纷",
+                "doc_count": 1064
+              },
+              {
+                "key": "服务合同纠纷",
+                "doc_count": 1041
+              },
+              {
+                "key": "劳务合同纠纷",
+                "doc_count": 1028
+              },
+              {
+                "key": "房屋买卖合同纠纷",
+                "doc_count": 1004
+              },
+              {
+                "key": "故意伤害罪",
+                "doc_count": 903
+              },
+              {
+                "key": "走私、贩卖、运输、制造毒品罪",
+                "doc_count": 861
+              },
+              {
+                "key": "危险驾驶罪",
+                "doc_count": 844
+              },
+              {
+                "key": "刑事",
+                "doc_count": 836
+              },
+              {
+                "key": "物业服务合同纠纷",
+                "doc_count": 827
+              },
+              {
+                "key": "危险驾驶",
+                "doc_count": 783
+              },
+              {
+                "key": "行政处罚",
+                "doc_count": 762
+              },
+              {
+                "key": "租赁合同纠纷",
+                "doc_count": 734
+              },
+              {
+                "key": "交通肇事罪",
+                "doc_count": 731
+              },
+              {
+                "key": "侵害作品信息网络传播权纠纷",
+                "doc_count": 674
+              },
+              {
+                "key": "帮助信息网络犯罪活动",
+                "doc_count": 674
+              },
+              {
+                "key": "信用卡诈骗罪",
+                "doc_count": 622
+              },
+              {
+                "key": "政府信息公开",
+                "doc_count": 577
+              },
+              {
+                "key": "盗窃",
+                "doc_count": 575
+              },
+              {
+                "key": "教育培训合同纠纷",
+                "doc_count": 555
+              },
+              {
+                "key": "房屋租赁合同纠纷",
+                "doc_count": 553
+              }
+            ]
+          },
+          "procedure": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 131,
+            "buckets": [
+              {
+                "key": "民事一审",
+                "doc_count": 69674
+              },
+              {
+                "key": "1",
+                "doc_count": 41586
+              },
+              {
+                "key": "一审",
+                "doc_count": 30813
+              },
+              {
+                "key": "刑事一审",
+                "doc_count": 15134
+              },
+              {
+                "key": "",
+                "doc_count": 9111
+              },
+              {
+                "key": "2",
+                "doc_count": 9037
+              },
+              {
+                "key": "民事二审",
+                "doc_count": 7191
+              },
+              {
+                "key": "二审",
+                "doc_count": 6277
+              },
+              {
+                "key": "执行实施",
+                "doc_count": 3848
+              },
+              {
+                "key": "0301",
+                "doc_count": 3473
+              },
+              {
+                "key": "刑罚与执行变更",
+                "doc_count": 1338
+              },
+              {
+                "key": "其他",
+                "doc_count": 1011
+              },
+              {
+                "key": "刑事二审",
+                "doc_count": 1000
+              },
+              {
+                "key": "行政一审",
+                "doc_count": 702
+              },
+              {
+                "key": "4",
+                "doc_count": 638
+              },
+              {
+                "key": "3",
+                "doc_count": 631
+              },
+              {
+                "key": "民事审判监督",
+                "doc_count": 526
+              },
+              {
+                "key": "首次执行",
+                "doc_count": 521
+              },
+              {
+                "key": "刑罚变更",
+                "doc_count": 364
+              },
+              {
+                "key": "0302",
+                "doc_count": 337
+              },
+              {
+                "key": "行政二审",
+                "doc_count": 300
+              },
+              {
+                "key": "再审",
+                "doc_count": 292
+              },
+              {
+                "key": "执行审查",
+                "doc_count": 222
+              },
+              {
+                "key": "再审审查与审判监督",
+                "doc_count": 217
+              },
+              {
+                "key": "0201",
+                "doc_count": 167
+              },
+              {
+                "key": "刑罚与执行变更审查",
+                "doc_count": 165
+              },
+              {
+                "key": "特别程序",
+                "doc_count": 144
+              },
+              {
+                "key": "刑事审判监督",
+                "doc_count": 100
+              },
+              {
+                "key": "民事管辖",
+                "doc_count": 90
+              },
+              {
+                "key": "督促",
+                "doc_count": 89
+              },
+              {
+                "key": "行政非诉审查",
+                "doc_count": 62
+              },
+              {
+                "key": "0223",
+                "doc_count": 55
+              },
+              {
+                "key": "刑事管辖",
+                "doc_count": 54
+              },
+              {
+                "key": "行政审判监督",
+                "doc_count": 50
+              },
+              {
+                "key": "0202",
+                "doc_count": 49
+              },
+              {
+                "key": "民事申诉再审审查",
+                "doc_count": 43
+              },
+              {
+                "key": "非诉执行审查",
+                "doc_count": 39
+              },
+              {
+                "key": "管辖",
+                "doc_count": 36
+              },
+              {
+                "key": "1001",
+                "doc_count": 35
+              },
+              {
+                "key": "恢复执行",
+                "doc_count": 32
+              },
+              {
+                "key": "执行异议",
+                "doc_count": 31
+              },
+              {
+                "key": "0303",
+                "doc_count": 23
+              },
+              {
+                "key": "人身安全保护令",
+                "doc_count": 19
+              },
+              {
+                "key": "行政赔偿",
+                "doc_count": 17
+              },
+              {
+                "key": "民事再审",
+                "doc_count": 15
+              },
+              {
+                "key": "8",
+                "doc_count": 13
+              },
+              {
+                "key": "民事管辖上诉",
+                "doc_count": 13
+              },
+              {
+                "key": "执行复议",
+                "doc_count": 12
+              },
+              {
+                "key": "破产申请审查",
+                "doc_count": 12
+              },
+              {
+                "key": "财产保全执行",
+                "doc_count": 12
+              }
+            ]
+          },
+          "co": {
+            "buckets": {
+              "个人信息保护法": {
+                "doc_count": 685
+              },
+              "个人信息处理者": {
+                "doc_count": 138
+              },
+              "人脸识别": {
+                "doc_count": 10092
+              },
+              "删除": {
+                "doc_count": 8469
+              },
+              "告知同意": {
+                "doc_count": 16
+              },
+              "大数据": {
+                "doc_count": 602
+              },
+              "征信": {
+                "doc_count": 15550
+              },
+              "手机号码": {
+                "doc_count": 22640
+              },
+              "敏感个人信息": {
+                "doc_count": 204
+              },
+              "生物识别": {
+                "doc_count": 335
+              },
+              "身份证号码": {
+                "doc_count": 12713
+              }
+            }
+          },
+          "dataset": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "ws",
+                "doc_count": 51892
+              },
+              {
+                "key": "ws_new",
+                "doc_count": 35002
+              },
+              {
+                "key": "2021",
+                "doc_count": 29758
+              },
+              {
+                "key": "2021_x",
+                "doc_count": 22282
+              },
+              {
+                "key": "2024",
+                "doc_count": 15131
+              },
+              {
+                "key": "2023_2",
+                "doc_count": 11640
+              },
+              {
+                "key": "2022_x",
+                "doc_count": 9741
+              },
+              {
+                "key": "2022",
+                "doc_count": 9587
+              },
+              {
+                "key": "2025",
+                "doc_count": 7221
+              },
+              {
+                "key": "2023_x",
+                "doc_count": 3757
+              },
+              {
+                "key": "2020",
+                "doc_count": 3756
+              },
+              {
+                "key": "2019_1",
+                "doc_count": 3754
+              },
+              {
+                "key": "2019_2",
+                "doc_count": 1161
+              },
+              {
+                "key": "2023",
+                "doc_count": 1069
+              }
+            ]
+          },
+          "pipl_by_year": {
+            "doc_count": 685,
+            "years": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 2015,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2017,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2018,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2019,
+                  "doc_count": 1
+                },
+                {
+                  "key": 2020,
+                  "doc_count": 2
+                },
+                {
+                  "key": 2021,
+                  "doc_count": 6
+                },
+                {
+                  "key": 2022,
+                  "doc_count": 174
+                },
+                {
+                  "key": 2023,
+                  "doc_count": 99
+                },
+                {
+                  "key": 2024,
+                  "doc_count": 299
+                },
+                {
+                  "key": 2025,
+                  "doc_count": 101
+                }
+              ]
+            }
+          },
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 1970,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2001,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2002,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "key": 2003,
+                "doc_count": 2,
+                "case_numbers": {
+                  "doc_count": 2,
+                  "distinct": {
+                    "value": 1
+                  }
+                }
+              },
+              {
+                "key": 2005,
+                "doc_count": 5,
+                "case_numbers": {
+                  "doc_count": 5,
+                  "distinct": {
+                    "value": 4
+                  }
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 23,
+                "case_numbers": {
+                  "doc_count": 23,
+                  "distinct": {
+                    "value": 16
+                  }
+                }
+              },
+              {
+                "key": 2007,
+                "doc_count": 15,
+                "case_numbers": {
+                  "doc_count": 15,
+                  "distinct": {
+                    "value": 13
+                  }
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 87,
+                "case_numbers": {
+                  "doc_count": 87,
+                  "distinct": {
+                    "value": 79
+                  }
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 256,
+                "case_numbers": {
+                  "doc_count": 250,
+                  "distinct": {
+                    "value": 241
+                  }
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 566,
+                "case_numbers": {
+                  "doc_count": 566,
+                  "distinct": {
+                    "value": 526
+                  }
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 1436,
+                "case_numbers": {
+                  "doc_count": 1435,
+                  "distinct": {
+                    "value": 1386
+                  }
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 891,
+                "case_numbers": {
+                  "doc_count": 880,
+                  "distinct": {
+                    "value": 830
+                  }
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 2221,
+                "case_numbers": {
+                  "doc_count": 2212,
+                  "distinct": {
+                    "value": 1978
+                  }
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 8082,
+                "case_numbers": {
+                  "doc_count": 8055,
+                  "distinct": {
+                    "value": 7209
+                  }
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 12009,
+                "case_numbers": {
+                  "doc_count": 11988,
+                  "distinct": {
+                    "value": 10637
+                  }
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 13949,
+                "case_numbers": {
+                  "doc_count": 13859,
+                  "distinct": {
+                    "value": 12342
+                  }
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 16705,
+                "case_numbers": {
+                  "doc_count": 16404,
+                  "distinct": {
+                    "value": 15458
+                  }
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 19983,
+                "case_numbers": {
+                  "doc_count": 18717,
+                  "distinct": {
+                    "value": 17721
+                  }
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 14658,
+                "case_numbers": {
+                  "doc_count": 14517,
+                  "distinct": {
+                    "value": 12611
+                  }
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 22086,
+                "case_numbers": {
+                  "doc_count": 21813,
+                  "distinct": {
+                    "value": 21213
+                  }
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 26738,
+                "case_numbers": {
+                  "doc_count": 26300,
+                  "distinct": {
+                    "value": 23128
+                  }
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 34404,
+                "case_numbers": {
+                  "doc_count": 33792,
+                  "distinct": {
+                    "value": 25738
+                  }
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 8558,
+                "case_numbers": {
+                  "doc_count": 8306,
+                  "distinct": {
+                    "value": 7968
+                  }
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 15131,
+                "case_numbers": {
+                  "doc_count": 15045,
+                  "distinct": {
+                    "value": 15040
+                  }
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 7221,
+                "case_numbers": {
+                  "doc_count": 7157,
+                  "distinct": {
+                    "value": 7152
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "corpus_years": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "query": {
+          "bool": {
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.275805+08:00",
+      "response": {
+        "took": 0,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 10000,
+            "relation": "gte"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 8,
+            "buckets": [
+              {
+                "key": 200,
+                "doc_count": 1
+              },
+              {
+                "key": 201,
+                "doc_count": 898
+              },
+              {
+                "key": 202,
+                "doc_count": 1
+              },
+              {
+                "key": 204,
+                "doc_count": 4
+              },
+              {
+                "key": 205,
+                "doc_count": 18
+              },
+              {
+                "key": 206,
+                "doc_count": 46
+              },
+              {
+                "key": 207,
+                "doc_count": 29
+              },
+              {
+                "key": 208,
+                "doc_count": 72
+              },
+              {
+                "key": 209,
+                "doc_count": 67
+              },
+              {
+                "key": 1003,
+                "doc_count": 1
+              },
+              {
+                "key": 1008,
+                "doc_count": 1
+              },
+              {
+                "key": 1010,
+                "doc_count": 2
+              },
+              {
+                "key": 1011,
+                "doc_count": 1
+              },
+              {
+                "key": 1012,
+                "doc_count": 1
+              },
+              {
+                "key": 1013,
+                "doc_count": 4
+              },
+              {
+                "key": 1014,
+                "doc_count": 9
+              },
+              {
+                "key": 1015,
+                "doc_count": 6
+              },
+              {
+                "key": 1016,
+                "doc_count": 5
+              },
+              {
+                "key": 1017,
+                "doc_count": 7
+              },
+              {
+                "key": 1018,
+                "doc_count": 2
+              },
+              {
+                "key": 1020,
+                "doc_count": 1
+              },
+              {
+                "key": 1935,
+                "doc_count": 1
+              },
+              {
+                "key": 1936,
+                "doc_count": 1
+              },
+              {
+                "key": 1946,
+                "doc_count": 1
+              },
+              {
+                "key": 1956,
+                "doc_count": 2
+              },
+              {
+                "key": 1957,
+                "doc_count": 1
+              },
+              {
+                "key": 1958,
+                "doc_count": 1
+              },
+              {
+                "key": 1960,
+                "doc_count": 1
+              },
+              {
+                "key": 1961,
+                "doc_count": 1
+              },
+              {
+                "key": 1962,
+                "doc_count": 7
+              },
+              {
+                "key": 1963,
+                "doc_count": 2
+              },
+              {
+                "key": 1964,
+                "doc_count": 2
+              },
+              {
+                "key": 1965,
+                "doc_count": 4
+              },
+              {
+                "key": 1966,
+                "doc_count": 2
+              },
+              {
+                "key": 1967,
+                "doc_count": 4
+              },
+              {
+                "key": 1968,
+                "doc_count": 4
+              },
+              {
+                "key": 1969,
+                "doc_count": 3
+              },
+              {
+                "key": 1970,
+                "doc_count": 66
+              },
+              {
+                "key": 1971,
+                "doc_count": 5
+              },
+              {
+                "key": 1972,
+                "doc_count": 3
+              },
+              {
+                "key": 1973,
+                "doc_count": 7
+              },
+              {
+                "key": 1974,
+                "doc_count": 10
+              },
+              {
+                "key": 1975,
+                "doc_count": 6
+              },
+              {
+                "key": 1976,
+                "doc_count": 3
+              },
+              {
+                "key": 1977,
+                "doc_count": 3
+              },
+              {
+                "key": 1978,
+                "doc_count": 3
+              },
+              {
+                "key": 1979,
+                "doc_count": 6
+              },
+              {
+                "key": 1980,
+                "doc_count": 8
+              },
+              {
+                "key": 1981,
+                "doc_count": 4
+              },
+              {
+                "key": 1982,
+                "doc_count": 13
+              },
+              {
+                "key": 1983,
+                "doc_count": 8
+              },
+              {
+                "key": 1984,
+                "doc_count": 5
+              },
+              {
+                "key": 1985,
+                "doc_count": 9
+              },
+              {
+                "key": 1986,
+                "doc_count": 13
+              },
+              {
+                "key": 1987,
+                "doc_count": 14
+              },
+              {
+                "key": 1988,
+                "doc_count": 16
+              },
+              {
+                "key": 1989,
+                "doc_count": 11
+              },
+              {
+                "key": 1990,
+                "doc_count": 16
+              },
+              {
+                "key": 1991,
+                "doc_count": 28
+              },
+              {
+                "key": 1992,
+                "doc_count": 42
+              },
+              {
+                "key": 1993,
+                "doc_count": 18
+              },
+              {
+                "key": 1994,
+                "doc_count": 22
+              },
+              {
+                "key": 1995,
+                "doc_count": 41
+              },
+              {
+                "key": 1996,
+                "doc_count": 43
+              },
+              {
+                "key": 1997,
+                "doc_count": 186
+              },
+              {
+                "key": 1998,
+                "doc_count": 373
+              },
+              {
+                "key": 1999,
+                "doc_count": 576
+              },
+              {
+                "key": 2000,
+                "doc_count": 1530
+              },
+              {
+                "key": 2001,
+                "doc_count": 3243
+              },
+              {
+                "key": 2002,
+                "doc_count": 6274
+              },
+              {
+                "key": 2003,
+                "doc_count": 8031
+              },
+              {
+                "key": 2004,
+                "doc_count": 10954
+              },
+              {
+                "key": 2005,
+                "doc_count": 35719
+              },
+              {
+                "key": 2006,
+                "doc_count": 37446
+              },
+              {
+                "key": 2007,
+                "doc_count": 53508
+              },
+              {
+                "key": 2008,
+                "doc_count": 159884
+              },
+              {
+                "key": 2009,
+                "doc_count": 419493
+              },
+              {
+                "key": 2010,
+                "doc_count": 575651
+              },
+              {
+                "key": 2011,
+                "doc_count": 620244
+              },
+              {
+                "key": 2012,
+                "doc_count": 715524
+              },
+              {
+                "key": 2013,
+                "doc_count": 1762537
+              },
+              {
+                "key": 2014,
+                "doc_count": 7033956
+              },
+              {
+                "key": 2015,
+                "doc_count": 9894747
+              },
+              {
+                "key": 2016,
+                "doc_count": 12443177
+              },
+              {
+                "key": 2017,
+                "doc_count": 15147489
+              },
+              {
+                "key": 2018,
+                "doc_count": 16331967
+              },
+              {
+                "key": 2019,
+                "doc_count": 12290542
+              },
+              {
+                "key": 2020,
+                "doc_count": 21359050
+              },
+              {
+                "key": 2021,
+                "doc_count": 16548198
+              },
+              {
+                "key": 2022,
+                "doc_count": 19292669
+              },
+              {
+                "key": 2023,
+                "doc_count": 6365236
+              },
+              {
+                "key": 2024,
+                "doc_count": 6984435
+              },
+              {
+                "key": 2025,
+                "doc_count": 3818342
+              },
+              {
+                "key": 2026,
+                "doc_count": 22
+              },
+              {
+                "key": 2027,
+                "doc_count": 9
+              },
+              {
+                "key": 2028,
+                "doc_count": 3
+              },
+              {
+                "key": 2029,
+                "doc_count": 3
+              },
+              {
+                "key": 2030,
+                "doc_count": 4
+              },
+              {
+                "key": 2031,
+                "doc_count": 1
+              },
+              {
+                "key": 2035,
+                "doc_count": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    "body_个人信息_ik_smart": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "body": {
+              "query": "个人信息",
+              "analyzer": "ik_smart"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.373556+08:00",
+      "response": {
+        "count": 192227,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "title_个人信息_ik_smart": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "title": {
+              "query": "个人信息",
+              "analyzer": "ik_smart"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.418918+08:00",
+      "response": {
+        "count": 14403,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "body_个人信息_ik_max_word": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "body": {
+              "query": "个人信息",
+              "analyzer": "ik_max_word"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.447704+08:00",
+      "response": {
+        "count": 190659,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "title_个人信息_ik_max_word": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "match_phrase": {
+            "title": {
+              "query": "个人信息",
+              "analyzer": "ik_max_word"
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.477438+08:00",
+      "response": {
+        "count": 14398,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "labels_tokenized_OR": {
+      "endpoint": "/judgments/_count",
+      "request": {
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "match": {
+                  "cause.t": {
+                    "query": "个人信息 隐私权 一般人格权",
+                    "operator": "or"
+                  }
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:22.504201+08:00",
+      "response": {
+        "count": 80332,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "C_and_F": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "title": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_smart"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "body": {
+                                "query": "个人信息",
+                                "analyzer": "ik_max_word"
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:32.500084+08:00",
+      "response": {
+        "took": 9,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 1026,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    },
+    "C_titledict": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "cls": {
+            "filters": {
+              "filters": {
+                "判决书": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "判决书",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "判决书",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "裁定书": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "裁定书",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "裁定书",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "调解书": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "调解书",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "调解书",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "决定书": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "决定书",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "决定书",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                },
+                "通知书": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "通知书",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "title": {
+                            "query": "通知书",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:32.857180+08:00",
+      "response": {
+        "took": 270,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 10000,
+            "relation": "gte"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "cls": {
+            "buckets": {
+              "决定书": {
+                "doc_count": 13
+              },
+              "判决书": {
+                "doc_count": 5171
+              },
+              "裁定书": {
+                "doc_count": 5771
+              },
+              "调解书": {
+                "doc_count": 104
+              },
+              "通知书": {
+                "doc_count": 1230
+              }
+            }
+          }
+        }
+      }
+    },
+    "C_years_co": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {
+          "years": {
+            "terms": {
+              "field": "year",
+              "size": 100,
+              "order": {
+                "_key": "asc"
+              }
+            },
+            "aggs": {
+              "pipl": {
+                "filter": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息保护法",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              },
+              "co": {
+                "filter": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息",
+                            "analyzer": "ik_smart"
+                          }
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "body": {
+                            "query": "个人信息",
+                            "analyzer": "ik_max_word"
+                          }
+                        }
+                      }
+                    ],
+                    "minimum_should_match": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:03:32.909077+08:00",
+      "response": {
+        "took": 7,
+        "timed_out": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 10000,
+            "relation": "gte"
+          },
+          "max_score": null,
+          "hits": []
+        },
+        "aggregations": {
+          "years": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": 1970,
+                "doc_count": 2,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2006,
+                "doc_count": 1,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2008,
+                "doc_count": 21,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 3
+                }
+              },
+              {
+                "key": 2009,
+                "doc_count": 104,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2010,
+                "doc_count": 111,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 2
+                }
+              },
+              {
+                "key": 2011,
+                "doc_count": 112,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 9
+                }
+              },
+              {
+                "key": 2012,
+                "doc_count": 79,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 0
+                }
+              },
+              {
+                "key": 2013,
+                "doc_count": 317,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 13
+                }
+              },
+              {
+                "key": 2014,
+                "doc_count": 1179,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 49
+                }
+              },
+              {
+                "key": 2015,
+                "doc_count": 1173,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 47
+                }
+              },
+              {
+                "key": 2016,
+                "doc_count": 1201,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 56
+                }
+              },
+              {
+                "key": 2017,
+                "doc_count": 1145,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 61
+                }
+              },
+              {
+                "key": 2018,
+                "doc_count": 897,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 29
+                }
+              },
+              {
+                "key": 2019,
+                "doc_count": 956,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 20
+                }
+              },
+              {
+                "key": 2020,
+                "doc_count": 550,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 3
+                }
+              },
+              {
+                "key": 2021,
+                "doc_count": 1458,
+                "pipl": {
+                  "doc_count": 0
+                },
+                "co": {
+                  "doc_count": 109
+                }
+              },
+              {
+                "key": 2022,
+                "doc_count": 2855,
+                "pipl": {
+                  "doc_count": 13
+                },
+                "co": {
+                  "doc_count": 290
+                }
+              },
+              {
+                "key": 2023,
+                "doc_count": 836,
+                "pipl": {
+                  "doc_count": 2
+                },
+                "co": {
+                  "doc_count": 81
+                }
+              },
+              {
+                "key": 2024,
+                "doc_count": 704,
+                "pipl": {
+                  "doc_count": 2
+                },
+                "co": {
+                  "doc_count": 91
+                }
+              },
+              {
+                "key": 2025,
+                "doc_count": 370,
+                "pipl": {
+                  "doc_count": 9
+                },
+                "co": {
+                  "doc_count": 160
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "cls_excl_判决书": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:04:02.232547+08:00",
+      "response": {
+        "took": 15,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 5171,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    },
+    "cls_excl_裁定书": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:04:02.520113+08:00",
+      "response": {
+        "took": 269,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 5770,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    },
+    "cls_excl_调解书": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:04:02.810795+08:00",
+      "response": {
+        "took": 264,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 104,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    },
+    "cls_excl_决定书": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "决定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "决定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:04:03.313651+08:00",
+      "response": {
+        "took": 455,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 13,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    },
+    "cls_excl_通知书": {
+      "endpoint": "/judgments/_search",
+      "request": {
+        "size": 0,
+        "track_total_hits": true,
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "cause": "隐私权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "一般人格权纠纷"
+                      }
+                    },
+                    {
+                      "term": {
+                        "cause": "个人信息保护纠纷"
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "通知书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "通知书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "dataset": "bench"
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "判决书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "裁定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "调解书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "决定书",
+                          "analyzer": "ik_smart"
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "title": {
+                          "query": "决定书",
+                          "analyzer": "ik_max_word"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "retrieved_at": "2026-10-22T10:04:03.434911+08:00",
+      "response": {
+        "took": 83,
+        "timed_out": false,
+        "terminated_early": false,
+        "_shards": {
+          "total": 4,
+          "successful": 4,
+          "skipped": 0,
+          "failed": 0
+        },
+        "hits": {
+          "total": {
+            "value": 1230,
+            "relation": "eq"
+          },
+          "max_score": null,
+          "hits": []
+        }
+      }
+    }
+  }
+}
