@@ -364,6 +364,28 @@
       </div>
     </section>
 
+    <!-- MCP 主产品 · 公开测试到机构接入 -->
+    <section class="block" id="mcp-product">
+      <div class="wrap">
+        <div class="shead">
+          <div class="tag" style="color:var(--accent-2)">文书查 MCP · 法律 AI 的裁判文书数据接口</div>
+          <h2>从检索到引用核验，四个工具接进你的工作流</h2>
+          <p>适合法律 AI 产品、律所内部 Agent 和企业法务系统。先用公开 Key 跑通一个真实案例，再按调用量和交付要求选择方案。</p>
+        </div>
+        <div class="cards c4" style="margin-bottom:34px">
+          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🔎</div><h3>检索判例</h3><p><code>search_judgments</code> 按法律术语检索，返回案号、法院、裁判日期等可核对字段。</p></div>
+          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">📖</div><h3>读取库内正文</h3><p><code>get_judgment</code> 按案号取文书正文；部分记录没有可用判决正文，调用前可查看覆盖标记。</p></div>
+          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">✅</div><h3>核验案号</h3><p><code>verify_case_number</code> 检查模型给出的案号是否存在，并回读法院和日期。</p></div>
+          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🧾</div><h3>核验判词</h3><p><code>verify_quote</code> 检查引用的文字能否在库内正文中找到，减少编造引用。</p></div>
+        </div>
+        <div style="text-align:center">
+          <a class="btn btn-primary" href="/mcp/quickstart/">⚙️ 复制公开 Key，开始测试 →</a>
+          <a class="btn btn-ghost" href="/mcp/apply/">机构接入申请 →</a>
+          <div style="margin-top:14px;font-size:13px;color:var(--muted)">本服务使用 BM25 词汇检索；数据覆盖与局限、完整返回示例见 <a href="/mcp/" style="color:var(--accent-2)">MCP 产品页</a>。</div>
+        </div>
+      </div>
+    </section>
+
     <!-- 产品① 智能检索系统(Alpha 复刻线,应用在 tob.wenshucha.com/cases) -->
     <section class="block" id="search">
       <div class="wrap">
