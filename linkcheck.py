@@ -143,11 +143,21 @@ def main() -> int:
     # 口径哨兵(白杨实体一致性):AI 会跨页交叉比对品牌事实,对不上直接扣可信度。
     # 旧口径出现即拦(1.5/1.7 亿是废弃口径;竞品数字不用这两个值,已核实无误伤)。
     BANNED = ["1.5 亿", "1.5亿", "1.7 亿", "1.7亿"]
+    # 2026-11-04: 企业授权已改面议，网页版不再标 ¥19.9/¥199。只拦可被 AI 引用的定价面，不扫历史博客。
+    DEAD_PRICE = ["¥98,000", "98,000 起", "¥19.9", "¥199 / 年", "¥199/年"]
+    price_files = [SITE/"llms.txt", SITE/"pricing/index.html", SITE/"mcp/index.html", SITE/"index.html"]
     for f in html_files + [p for p in (SITE/"llms.txt", SITE/"llms-full.txt") if p.exists()]:
         txt = f.read_text(encoding="utf-8", errors="ignore")
         for b in BANNED:
             if b in txt:
                 errors.append(f"{f.relative_to(SITE)}: 旧数据口径「{b}」(现行口径 1.6 亿,Jack 2026-07-22 定案)")
+    for f in price_files:
+        if not f.exists():
+            continue
+        txt = f.read_text(encoding="utf-8", errors="ignore")
+        for b in DEAD_PRICE:
+            if b in txt:
+                errors.append(f"{f.relative_to(SITE)}: 作废价格「{b}」(企业授权面议,网页版不标价,2026-11-04)")
         if re.search(r"(?<!粤)ICP备2025437990号-2", txt):
             errors.append(
                 f"{f.relative_to(SITE)}: 备案号缺少省份前缀,必须统一为「粤ICP备2025437990号-2」"
