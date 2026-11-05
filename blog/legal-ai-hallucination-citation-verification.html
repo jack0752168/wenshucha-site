@@ -106,6 +106,11 @@
 <ol><li>从待核文本提取案号和实际引文，保留原始文字。</li><li>调用 <code>verify_case_number</code>，核对库内命中与返回信息。未命中只能写“本库未核实”，不能据此认定案号伪造。</li><li>按需用 <code>get_judgment</code>取得库内正文，再调用 <code>verify_quote</code>辅助核对引文。无正文、未收录、接口失败和文字未匹配须分开处理，不能一概当作通过或造假。</li><li>人工阅读上下文，判断引用是否支持拟表达的观点；需要时凭案号、法院和日期到官方渠道复核。本库不提供法院原文直链，也不判断法律适用或判决后续效力。</li></ol>
 <p><a href="/mcp/quickstart/">工具参数与客户端配置</a>中有公开测试 Key。公开测试受共享额度限制；持续使用可选开发者 Pro（¥99/月或¥990/年，每月5万次调用、5000篇全文），团队版¥4800/年。<a href="/pricing/#production-selection">按业务量选付费方案</a>；SLA、数据授权和私有化请走<a href="/mcp/apply/">机构申请</a>，另行约定。</p>
 </section>
+<h3>两个核验工具的参数，不要混用</h3>
+<p>案号核验工具 <code>verify_case_number</code> 接收 <code>caseNo</code>；判词核验工具 <code>verify_quote</code> 必填 <code>quote</code>（至少6字），可选 <code>caseNo</code>。核对某案的引用时应同时传案号，避免只在全库找到相似句就误认是这个案件说的。</p>
+<pre style="max-width:100%;overflow:auto"><code>verify_case_number 参数：{"caseNo":"&lt;待核验的完整案号&gt;"}
+verify_quote 参数：{"quote":"&lt;需逐字比对的实际判词&gt;","caseNo":"&lt;同一案号&gt;"}</code></pre>
+<p>以上是参数模板，不是实际案件或成功返回样本。<code>verify_quote</code>采用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；受分词、正文缺失和转述差异影响。返回结果应保留为核验线索，由人工阅读上下文。<a href="/mcp/#verification-procurement">核验服务的正式采购与额度选择</a>。</p>
 <h2>一、为什么法律场景的幻觉,比别处都致命</h2>
       <p>大模型在写营销文案时编一句,顶多不够准;在法律场景里,输出是要拿去支撑法律判断的,容错率近乎为零。法律 AI 的幻觉有三个让人后背发凉的特点:</p>
       <ul>
