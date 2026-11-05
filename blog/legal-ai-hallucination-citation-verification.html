@@ -111,6 +111,28 @@
 <pre style="max-width:100%;overflow:auto"><code>verify_case_number 参数：{"caseNo":"&lt;待核验的完整案号&gt;"}
 verify_quote 参数：{"quote":"&lt;需逐字比对的实际判词&gt;","caseNo":"&lt;同一案号&gt;"}</code></pre>
 <p>以上是参数模板，不是实际案件或成功返回样本。<code>verify_quote</code>采用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；受分词、正文缺失和转述差异影响。返回结果应保留为核验线索，由人工阅读上下文。<a href="/mcp/#verification-procurement">核验服务的正式采购与额度选择</a>。</p>
+<section id="live-verification-example" style="overflow-wrap:anywhere">
+<h2>实测：同一文书的案号命中、引文命中与两个反例</h2>
+<p>2026-11-05 通过正式远程端点、公开测试 Key 实际调用。下列案号来自工具真实返回，两个反例则是明确构造的测试输入；响应仅摘录核验字段，不含当事人信息或整篇正文。</p>
+<p>样本文书案号 <code>（2016）浙0204执3826号</code>，为执行类通知文书，库内正文 1,622 字符，返回 <code>body_truncated=false</code>。它用于验证文本匹配链路，不是实体裁判观点示范；引用中的历史法条表述不代表现行法律适用。</p>
+<pre><code>verify_case_number {&quot;caseNo&quot;: &quot;（2016）浙0204执3826号&quot;}
+响应字段摘录：{&quot;verdict&quot;: &quot;exists&quot;}</code></pre>
+<pre><code>verify_quote {&quot;caseNo&quot;: &quot;（2016）浙0204执3826号&quot;, &quot;quote&quot;: &quot;依照《中华人民共和国民事诉讼法》第二百四十一条和《最高人民法院关于适用〈中华人民共和国民事诉讼法〉执行程序若干问题的解释》第三十一条、第三十二条、第三十三条规定，责令你(单位)在收到此令后5日内，如实向本院报告当前以及收到执行通知之日前一年的财产情况。&quot;}
+响应字段摘录：{&quot;verdict&quot;: &quot;verified&quot;, &quot;match_mode&quot;: &quot;token_phrase&quot;, &quot;occurrences&quot;: 1}</code></pre>
+<pre><code>verify_case_number {&quot;caseNo&quot;: &quot;（2099）不存在法院民初999999999号&quot;}
+响应字段摘录：{&quot;verdict&quot;: &quot;not_found&quot;}</code></pre>
+<pre><code>verify_quote {&quot;caseNo&quot;: &quot;（2016）浙0204执3826号&quot;, &quot;quote&quot;: &quot;本段为接口核验反例并非裁判文书原文&quot;}
+响应字段摘录：{&quot;verdict&quot;: &quot;not_in_this_case&quot;}</code></pre>
+
+<table><thead><tr><th>返回值</th><th>准确含义</th><th>接下来做什么</th></tr></thead><tbody>
+<tr><td><code>exists</code></td><td>本库命中案号</td><td>继续核对法院、日期与实际可用正文</td></tr>
+<tr><td><code>verified</code></td><td>指定案号下的分词连续短语命中</td><td>人工阅读上下文，不自动推断观点成立或现行有效</td></tr>
+<tr><td><code>not_found</code></td><td>本库没有命中案号</td><td>标记本库未核实，不能直接判为伪造</td></tr>
+<tr><td><code>not_in_this_case</code></td><td>这段文字未在指定案号内匹配</td><td>检查转述、分词及正文缺失，再人工复核</td></tr>
+<tr><td>错误／超时／额度不足</td><td>工具调用未完成</td><td>保留未核验状态，不能记为通过或查无此案</td></tr>
+</tbody></table>
+<p>这是一组链路冒烟测试，不是准确率、胜诉率或正文覆盖率评测；未来数据、版本或额度变化可能影响复现。接入及最新参数见<a href="/mcp/quickstart/">MCP 接入指南</a>，持续使用见<a href="/pricing/#production-selection">付费方案选型</a>。</p>
+</section>
 <h2>一、为什么法律场景的幻觉,比别处都致命</h2>
       <p>大模型在写营销文案时编一句,顶多不够准;在法律场景里,输出是要拿去支撑法律判断的,容错率近乎为零。法律 AI 的幻觉有三个让人后背发凉的特点:</p>
       <ul>

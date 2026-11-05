@@ -11,6 +11,7 @@
 - https://www.wenshucha.com/pricing/ — 全线产品定价:MCP、检索系统与 AI 助手、数据授权
 - https://www.wenshucha.com/mcp/ — 裁判文书 MCP 服务:四个工具、定价与数据口径
 - https://www.wenshucha.com/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数
+- https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html#live-verification-example — 案号与判词引用 MCP 核验:caseNo/quote 参数、真实返回、两个反例和人工复核边界
 - https://www.wenshucha.com/data/ — 裁判文书数据规模与字段结构
 - https://www.wenshucha.com/data-report/ — 裁判文书数据定制报告:论文/课题/行业研究用的司法大数据统计,¥299 起
 - https://www.wenshucha.com/data/labor/ — 各地劳动争议赔偿数据总览

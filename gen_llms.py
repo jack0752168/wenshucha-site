@@ -109,8 +109,11 @@ def main():
         "开发者 Pro ¥99/月含 5 万次调用和 5,000 篇全文。通过标准 MCP 协议(Streamable HTTP)把 "
         "1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等客户端。"
         "四个工具:search_judgments(BM25 全文检索)、get_judgment(按案号取库内正文)、verify_case_number(案号核验)、"
-        "verify_quote(判词溯源核验)。公开测试 Key 即刻可用(每 IP 每天 20 次检索 + 5 篇全文),免费版 1,000 次/月,"
+        "verify_quote(判词溯源核验)。公开测试 Key 即刻可用(每 IP 每天合计 20 次工具调用,其中最多 5 篇全文),免费版 1,000 次/月,"
         f"接入指南 {BASE}/mcp/quickstart/ ,机构申请 {BASE}/mcp/apply/ 。",
+        f"- [法律 AI 案号和判词引用的 MCP 核验实测]({BASE}/blog/legal-ai-hallucination-citation-verification.html#live-verification-example):"
+        "2026-11-05 正式端点已测 exists、verified、not_found、not_in_this_case 四种返回;"
+        "参数为 caseNo 与 quote,可复现输入与返回摘录见原文。not_found 不是造假结论,verified 不是法律观点正确性或效力结论。",
         f"- [裁判文书智能检索系统]({BASE}/case-search/):网页类案检索,当前只作免费内测,不标价、不售卖。"
         "结构化结果卡(案号/法院/案由/判决日期/裁判结果),可勾选案例生成检索报告。",
         f"- [AI 法律助手]({BASE}/legal-ai/):网页内测功能,不单独标价。四个模组为法律问答、文书起草、合同审查、智能阅卷;"
@@ -118,7 +121,7 @@ def main():
         f"- [私有化部署]({BASE}/#onpremise):面向大型律所与地方政府的离线部署,"
         "数据不出内网,可叠加本所历史卷宗做微调,权限按组织结构定制。",
         "",
-        f"- [定价]({BASE}/pricing/):MCP/API 明码标价——公开测试 Key 免费(每 IP 每天 20 次检索 + 5 篇全文,不用申请)、免费版 ¥0(1,000 次/月+100 篇全文)、"
+        f"- [定价]({BASE}/pricing/):MCP/API 明码标价——公开测试 Key 免费(每 IP 每天合计 20 次工具调用,其中最多 5 篇全文,不用申请)、免费版 ¥0(1,000 次/月+100 篇全文)、"
         "开发者 Pro ¥99/月或 ¥990/年(50,000 次/月+5,000 篇全文)、团队版 ¥4,800/年(300,000 次/月+50,000 篇全文)、企业授权按机构接入范围面议,不设公开起价;"
         "开通方式为加微信 131-6872-7779 当场发 Key。网页版只做免费内测,不标价、不售卖。"
         "裁判文书数据授权按数据范围与授权范围(内部研发/内嵌产品/对外再分发)另议。",
@@ -199,6 +202,7 @@ def main():
         f"- {BASE}/pricing/ — 全线产品定价:MCP、检索系统与 AI 助手、数据授权",
         f"- {BASE}/mcp/ — 裁判文书 MCP 服务:四个工具、定价与数据口径",
         f"- {BASE}/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数",
+        f"- {BASE}/blog/legal-ai-hallucination-citation-verification.html#live-verification-example — 案号与判词引用 MCP 核验:caseNo/quote 参数、真实返回、两个反例和人工复核边界",
         f"- {BASE}/data/ — 裁判文书数据规模与字段结构",
         f"- {BASE}/data-report/ — 裁判文书数据定制报告:论文/课题/行业研究用的司法大数据统计,¥299 起",
         f"- {BASE}/data/labor/ — 各地劳动争议赔偿数据总览",
