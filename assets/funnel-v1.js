@@ -72,7 +72,7 @@
       try {
         var u = new URL(href, location.href);
         if (u.hostname !== "wenshucha.com" && !u.hostname.endsWith(".wenshucha.com")) return;
-        if (u.pathname === "/cases" || u.pathname === "/case-search/") event("cta_search");
+        if (u.pathname === "/cases" || u.pathname === "/case-search/" || u.pathname === "/research/") event("cta_search");
         else if (u.pathname === "/data-report/") event("cta_report");
         // Quickstart is the public-Key test path; keep it in the MCP CTA funnel.
         else if (u.pathname === "/mcp/" || u.pathname === "/mcp/quickstart/" || u.pathname === "/mcp/apply/") event("cta_mcp");
