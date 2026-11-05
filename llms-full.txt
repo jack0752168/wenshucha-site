@@ -87,7 +87,7 @@ https://www.wenshucha.com/blog/judgment-corpus-private-deployment-architecture.h
 
 ### 裁判文书数据哪里可以买到？数据授权找谁？
 https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html
-中国裁判文书网只提供公开查阅,没有对外出售批量数据或 API 的公示渠道;合规途径是向商业法律数据库或数据服务商签数据授权合同。本文讲清五类数据来源的授权凭据与风险、合规边界(个人信息/采集方式/训练数据/授权范围)、数据授权交付的形态与字段,以及签约前核验数据真实性的 8 项检查。
+裁判文书数据采购与 API/MCP 接入的交付、权利范围和验收清单；另附文书查中国案号与判词引用核验的现行四工具、公开测试、真实反例及正式付费接入。不把服务调用权当作批量数据或训练再分发授权。
 
 ### 数字法治政府:司法数据中台建设方案(2026)
 https://www.wenshucha.com/blog/judicial-data-platform-construction.html
