@@ -152,9 +152,9 @@ https://www.wenshucha.com/blog/legal-ai-cutover-data-migration.html
 https://www.wenshucha.com/blog/legal-ai-data-security-audit-mlps-evaluation.html
 法律 AI 私有化部署进内网,最后一道关往往不是技术、也不是采购,而是数据安全审计与等保测评能不能过。政法机关要过等保三级,大所要向客户证明保密义务落地,而法律 AI 有一批普通信息系统没有的安全风险——训练数据来源合规、检索层权限越界、提示注入、模型投毒、答案里带出隐私。本文给出一套可落地的法律 AI 数据安全审计与等保测评实战:测评到底测什么、法律 AI 特有的六类风险怎么自查、等保三级测评的完整流程与常见扣分项,以及一份可直接照用的过审自查清单,面向政法信息中心安全负责人与大所信息化 / 合规官。
 
-### 法律 AI 幻觉怎么治:裁判文书引证核验落地指南(2026)
+### 法律 AI 案号和判词引用如何用 MCP 核验？参数与验收指南
 https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html
-法律大模型最大的落地障碍是幻觉——编造案号、张冠李戴判决结果、把法条记错。这在法律场景里足以让一份意见书报废,甚至让律师被处罚。本文讲清法律 AI 为什么会一本正经地编案例、幻觉的四种典型形态、治理的根(在真实可核验的裁判文书语料上做 RAG grounding + 引证核验),以及验收法律 AI 时怎么实测幻觉率,附一份给信息中心主任的引证核验清单。
+用文书查 MCP 的 verify_case_number 与 verify_quote 辅助核验法律 AI 生成的中国案号和判词引用，附 caseNo/quote 参数、库内正文读取、未命中处理、人工复核及付费选型。未命中不等于伪造，不提供法院原文直链。
 
 ### 律所私有化法律 AI 的推理性能优化与 GPU 利用率:并发、吞吐、显存与成本怎么调(2026)
 https://www.wenshucha.com/blog/legal-ai-inference-performance-gpu-utilization.html
