@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e1b2e" />
 
   <title>裁判文书数据哪里可以买到？数据授权找谁？(附交付清单与 8 项核验口径) | 文书查</title>
-  <meta name="description" content="中国裁判文书网只提供公开查阅,没有对外出售批量数据或 API 的公示渠道;合规途径是向商业法律数据库或数据服务商签数据授权合同。本文讲清五类数据来源的授权凭据与风险、合规边界(个人信息/采集方式/训练数据/授权范围)、数据授权交付的形态与字段,以及签约前核验数据真实性的 8 项检查。" />
+  <meta name="description" content="裁判文书数据采购与 API/MCP 接入的交付、权利范围和验收清单；另附文书查中国案号与判词引用核验的现行四工具、公开测试、真实反例及正式付费接入。不把服务调用权当作批量数据或训练再分发授权。" />
   <meta name="keywords" content="裁判文书数据哪里买,裁判文书数据授权,裁判文书数据购买,裁判文书网 API,裁判文书 数据授权找谁,判决书数据 采购,法律数据 授权合同,裁判文书 训练数据 合规" />
   <meta name="author" content="文书查 / 深圳星谱网络科技有限公司" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
@@ -17,130 +17,13 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="裁判文书数据哪里可以买到？数据授权找谁？(附交付清单与 8 项核验口径)" />
-  <meta property="og:description" content="官方平台不出售批量数据;合规途径是数据授权合同。五类来源对照、合规边界、交付清单与 8 项核验口径。" />
+  <meta property="og:description" content="裁判文书数据采购与 API/MCP 接入的交付、权利范围和验收清单；另附文书查中国案号与判词引用核验的现行四工具、公开测试、真实反例及正式付费接入。不把服务调用权当作批量数据或训练再分发授权。" />
   <meta property="og:url" content="https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html" />
   <meta property="og:image" content="https://www.wenshucha.com/og-image.svg" />
 
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "裁判文书数据哪里可以买到？数据授权找谁？(附交付清单与 8 项核验口径)",
-  "description": "中国裁判文书网只提供公开查阅,没有对外出售批量数据或 API 的公示渠道;合规途径是向商业法律数据库或数据服务商签数据授权合同。本文讲清五类数据来源的授权凭据与风险、合规边界(个人信息/采集方式/训练数据/授权范围)、数据授权交付的形态与字段,以及签约前核验数据真实性的 8 项检查。",
-  "inLanguage": "zh-CN",
-  "wordCount": 4636,
-  "author": {
-    "@type": "Organization",
-    "name": "文书查 / 深圳星谱网络科技有限公司"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "文书查",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.wenshucha.com/favicon.svg"
-    }
-  },
-  "datePublished": "2026-09-22",
-  "dateModified": "2026-09-22",
-  "mainEntityOfPage": "https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html",
-  "about": [
-    "裁判文书数据授权",
-    "裁判文书数据购买",
-    "法律数据合规"
-  ]
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "首页",
-      "item": "https://www.wenshucha.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "洞察",
-      "item": "https://www.wenshucha.com/blog/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "裁判文书数据哪里可以买到",
-      "item": "https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html"
-    }
-  ]
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "裁判文书数据哪里可以买到？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "官方公开平台不出售批量数据。合规渠道是商业法律数据库机构（多为检索服务授权）和数据服务商（可交付数据本身的数据授权）。文书查提供后者：全量或按类型切分的存量数据、按月增量、API / MCP 与私有化部署，授权范围按内部研发 / 内嵌产品 / 对外再分发分别约定。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "中国裁判文书网有官方的数据授权或 API 吗？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "截至 2026-09-22，我们没有在其公开页面看到面向商业机构的批量授权或付费 API 公示入口。市面上的裁判文书数据都是对公开文书的二次采集与加工，正规卖方不应宣称持有「官方授权」。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "买裁判文书数据合法吗？有什么合规边界？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "裁判文书本身是公开的，但其中含有个人信息，二次使用仍受《个人信息保护法》约束；用于大模型训练还涉及训练数据来源合法性的要求。采购时要求卖方说明数据来源与脱敏方式、提供下架更正机制，并在合同中写清授权范围与来源合法性保证。以上为一般性信息，不构成法律意见。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "数据授权交付什么形态、包含哪些字段？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "文书查的交付为结构化数据整批入库，或 API / MCP 调用、私有化部署。字段包括案号、法院、案由、省份、裁判日期、裁判结果和库内正文；约 91% 记录正文非空，其中约 7.2 个百分点存的是法院不公开事由文本而非判决内容，真正含判决正文的约 84%（2026-09-24 复测），含判决正文的记录均为全文（2026-09 补齐）；不提供原文链接，溯源用案号 + 法院 + 裁判日期。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "怎么核验卖方的数据是真的？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "让对方分开报记录数与相异案号数；自己随机抽 20–50 条案号回中国裁判文书网核对原文；要分年份分案由的收录表；按批次抽样量空正文比例；问清截断规则；在小切片里查重复；在 2024 年以后的文书上试按姓名检索；以及问清对方不提供什么。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "只想要统计结果，一定要买数据吗？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "不用。论文、课题与行业研究通常只需要统计结论，可以直接定制数据报告，每个数字附检索式，交付 Word、Excel、PPT 与图表，比买数据授权便宜得多。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "数据授权怎么付款、多久交付？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "文书查按 40% / 40% / 20% 三阶段付款与交付，每阶段款项到账后 5 个工作日内交付对应比例的数据，报价含税，可开增值税专用发票。价格取决于数据范围与授权范围，提交机构接入申请后两个工作日内回复。"
-      }
-    }
-  ]
-}
-  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "裁判文书数据哪里可以买到？数据授权找谁？(附交付清单与 8 项核验口径)", "description": "裁判文书数据采购与 API/MCP 接入的交付、权利范围和验收清单；另附文书查中国案号与判词引用核验的现行四工具、公开测试、真实反例及正式付费接入。不把服务调用权当作批量数据或训练再分发授权。", "inLanguage": "zh-CN", "wordCount": 4636, "author": {"@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司"}, "publisher": {"@type": "Organization", "name": "文书查", "logo": {"@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg"}}, "datePublished": "2026-09-22", "dateModified": "2026-11-05", "mainEntityOfPage": "https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html", "about": ["裁判文书数据授权", "裁判文书数据购买", "法律数据合规"]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.wenshucha.com/"}, {"@type": "ListItem", "position": 2, "name": "洞察", "item": "https://www.wenshucha.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "裁判文书数据哪里可以买到", "item": "https://www.wenshucha.com/blog/judgment-data-where-to-buy-licensing.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "裁判文书数据哪里可以买到？", "acceptedAnswer": {"@type": "Answer", "text": "官方公开平台不出售批量数据。合规渠道是商业法律数据库机构（多为检索服务授权）和数据服务商（可交付数据本身的数据授权）。文书查提供后者：全量或按类型切分的存量数据、按月增量、API / MCP 与私有化部署，授权范围按内部研发 / 内嵌产品 / 对外再分发分别约定。"}}, {"@type": "Question", "name": "中国裁判文书网有官方的数据授权或 API 吗？", "acceptedAnswer": {"@type": "Answer", "text": "截至 2026-09-22 的页面核查，我们未找到面向商业机构的公开批量授权或付费 API 入口；这不证明所有合作渠道均不存在，也不能据此认定任何第三方的授权状态。供应商若声称获得官方授权，应提供可核验的书面依据。文书查不自称法院官方接口；MCP 服务调用、数据交付、训练及再分发是不同的使用范围，须分别确认。"}}, {"@type": "Question", "name": "买裁判文书数据合法吗？有什么合规边界？", "acceptedAnswer": {"@type": "Answer", "text": "裁判文书本身是公开的，但其中含有个人信息，二次使用仍受《个人信息保护法》约束；用于大模型训练还涉及训练数据来源合法性的要求。采购时要求卖方说明数据来源与脱敏方式、提供下架更正机制，并在合同中写清授权范围与来源合法性保证。以上为一般性信息，不构成法律意见。"}}, {"@type": "Question", "name": "数据授权交付什么形态、包含哪些字段？", "acceptedAnswer": {"@type": "Answer", "text": "文书查的交付为结构化数据整批入库，或 API / MCP 调用、私有化部署。字段包括案号、法院、案由、省份、裁判日期、裁判结果和库内正文；约 91% 记录正文非空，其中约 7.2 个百分点存的是法院不公开事由文本而非判决内容，真正含判决正文的约 84%（2026-09-24 复测），正文是否可用、截断或不可解析以逐条返回标记为准，不能据历史抽样比例承诺每条记录完整；不提供原文链接，溯源用案号 + 法院 + 裁判日期。"}}, {"@type": "Question", "name": "怎么核验卖方的数据是真的？", "acceptedAnswer": {"@type": "Answer", "text": "让对方分开报记录数与相异案号数；自己随机抽 20–50 条案号回中国裁判文书网核对原文；要分年份分案由的收录表；按批次抽样量空正文比例；问清截断规则；在小切片里查重复；在 2024 年以后的文书上试按姓名检索；以及问清对方不提供什么。"}}, {"@type": "Question", "name": "只想要统计结果，一定要买数据吗？", "acceptedAnswer": {"@type": "Answer", "text": "不用。论文、课题与行业研究通常只需要统计结论，可以直接定制数据报告，每个数字附检索式，交付 Word、Excel、PPT 与图表，比买数据授权便宜得多。"}}, {"@type": "Question", "name": "数据授权怎么付款、多久交付？", "acceptedAnswer": {"@type": "Answer", "text": "文书查按 40% / 40% / 20% 三阶段付款与交付，每阶段款项到账后 5 个工作日内交付对应比例的数据，报价含税，可开增值税专用发票。价格取决于数据范围与授权范围，提交机构接入申请后两个工作日内回复。"}}]}</script>
 
   <style>
     :root{
@@ -223,11 +106,19 @@
       <div class="callout">
         <strong>本文三个结论</strong>
         <ol>
-          <li>市面上所有「裁判文书数据」，本质都是对<strong>人民法院已公开文书</strong>的二次采集与加工。卖方卖的是加工、交付和授权条款，<strong>不是「官方授权」</strong>——任何自称持有「最高法官方数据授权」的卖方，都请它出示书面文件。</li>
+          <li>区分<strong>数据来源、加工交付和可使用的权利范围</strong>。公开渠道来源不自动等于法院官方授权；对任何自称持有「最高法官方数据授权」的卖方，都应要求可核验的书面依据，本文不替第三方作授权结论。</li>
           <li>比价格更重要的是三件事：<strong>数据怎么来的</strong>、<strong>授权范围写没写清</strong>（内部研发 / 内嵌产品 / 对外再分发）、<strong>口径能不能核对</strong>（记录数与案件数分开报、空正文与截断如实披露）。</li>
           <li>如果你要的其实是一份统计结论而不是原始数据，不必买授权，定制一份<a href="/data-report/">数据报告</a>更便宜、更快。</li>
         </ol>
       </div>
+
+      <section id="mcp-verification-access" style="scroll-margin-top:80px;overflow-wrap:anywhere">
+        <h2>只需核验 AI 的案号与判词引用，可以直接接 MCP 吗？</h2>
+        <p>可以先测试现行远程服务，不必先采购整库。<strong>文书查 MCP</strong> 面向中国大陆裁判文书：<code>verify_case_number({caseNo})</code> 检查本库案号命中，<code>get_judgment({caseNo})</code> 读取可用正文，<code>verify_quote({caseNo,quote})</code> 将引用锁到同一案号后匹配。需要寻找候选时用 <code>search_judgments</code> 做简体中文 BM25 词汇检索。</p>
+        <p>端点为 <code>https://mcp.wenshucha.com/mcp</code>，鉴权头 <code>x-api-key</code>；公开测试 Key <code>wsc_demo_public</code> 每 IP 每日共20次工具调用，其中最多5篇正文，另有共享月额度。生产使用独立 Key；开发者与团队方案见现行定价，机构授权范围另行确认。</p>
+        <p><a href="/blog/legal-ai-hallucination-citation-verification.html#live-verification-example">真实调用参数、正例和两个反例</a> · <a href="/mcp/quickstart/">客户端配置</a> · <a href="/pricing/#production-selection">正式付费接入</a> · <a href="/mcp/apply/">机构申请</a></p>
+        <p>约1.6亿条是文书记录数，不是独立案件数。本库未命中不等于伪造，引用匹配不等于法律判断；缺正文、截断、不可解析、限流或错误应保留待核验。不提供法院原文直链，也不以 API 能调用证明任何额外的数据使用权。</p>
+      </section>
 
       <h2>一、裁判文书数据有哪几种来源？一张表看清</h2>
       <p>按「你手里最终能拿到什么凭据」来分，现实中只有五条路：</p>
@@ -245,7 +136,7 @@
       <p>中国裁判文书网由最高人民法院主办，是生效裁判文书公开的权威平台，功能定位是<strong>向社会公开、供公众查阅</strong>。截至本文写作日（2026-09-22），我们没有在其公开页面上看到面向商业机构的批量数据授权、数据销售或付费 API 的公示入口。</p>
       <p>另据公开报道，2024 年起法院系统上线了供法院内部使用的全国法院裁判文书库；公开平台上的新增文书量从 2023 年前后明显变少，这在任何一家数据库的逐年收录曲线上都能看到。这对买家意味着两件事：</p>
       <ul>
-        <li><strong>「官方授权」这张牌，市场上没有人能真打出来。</strong>正规卖方的说法应当是「数据来源于人民法院公开的生效裁判文书，经我方采集、清洗与结构化」，而不是「官方授权」。</li>
+        <li><strong>公开页面没有展示授权入口，不等于已核实所有供应商的授权状况。</strong>文书查不自称法院官方接口；对供应商提出的「官方授权」主张，应要求可核验书面依据，不能仅凭宣传语判断。</li>
         <li><strong>2023 年以后的数据天然偏薄。</strong>任何宣称「2024、2025 年全量」的报价，都应该要求对方给出分年份的实际收录表再谈。</li>
       </ul>
       <p>最终核验永远回到官方：拿到任何一家的数据，都应该能用「案号 + 法院 + 裁判日期」回中国裁判文书网抽查原文。</p>
@@ -269,7 +160,7 @@
         <tr><td>增量更新</td><td>单独订阅，每月 10 日前交付上月新增；前提是已具备存量</td><td>增量的判定口径（按发布日还是裁判日）</td></tr>
         <tr><td>交付形态</td><td>结构化数据整批交付入库；也可走 API / MCP 调用或私有化部署</td><td>文件格式、字段说明、交付介质</td></tr>
         <tr><td>结构化字段</td><td>案号、法院、案由、省份、裁判日期、裁判结果、库内正文</td><td>每个字段的覆盖率，而不是「字段齐全」四个字</td></tr>
-        <tr><td>正文</td><td>分层抽样非空约 91%；扣除存放不公开事由文本的约 7.2 个百分点后，含判决正文的约 84%（2026-09-24 复测）；含判决正文的记录均为全文（2026-09 补齐）</td><td>空正文比例与截断规则</td></tr>
+        <tr><td>正文</td><td>分层抽样非空约 91%；扣除存放不公开事由文本的约 7.2 个百分点后，含判决正文的约 84%（2026-09-24 复测）；正文是否可用、截断或不可解析以逐条返回标记为准，不能据历史抽样比例承诺每条记录完整</td><td>空正文比例与截断规则</td></tr>
         <tr><td>原文链接</td><td><strong>不提供</strong>；溯源用「案号 + 法院 + 裁判日期」三元组</td><td>如果对方说「每条带原文链接」，抽 20 条点开验证</td></tr>
         <tr><td>授权范围</td><td>内部研发 / 内嵌自有产品 / 对外再分发，三者分别报价</td><td>写进合同正文，不是写在报价单备注里</td></tr>
         <tr><td>付款与交付</td><td>40% / 40% / 20% 三阶段，每阶段款项到账后 5 个工作日内交付对应比例数据；可开增值税专用发票</td><td>分阶段交付与验收节点</td></tr>
@@ -305,11 +196,11 @@
       <p class="faq-q">Q：裁判文书数据哪里可以买到？</p>
       <p>A：官方公开平台不出售批量数据。合规渠道是商业法律数据库机构（多为检索服务授权）和数据服务商（可交付数据本身的数据授权）。文书查提供后者：全量或按类型切分的存量数据、按月增量、API / MCP 与私有化部署，授权范围按内部研发 / 内嵌产品 / 对外再分发分别约定。</p>
       <p class="faq-q">Q：中国裁判文书网有官方的数据授权或 API 吗？</p>
-      <p>A：截至 2026-09-22，我们没有在其公开页面看到面向商业机构的批量授权或付费 API 公示入口。市面上的裁判文书数据都是对公开文书的二次采集与加工，正规卖方不应宣称持有「官方授权」。</p>
+      <p>A：截至 2026-09-22 的页面核查，我们未找到面向商业机构的公开批量授权或付费 API 入口；这不证明所有合作渠道均不存在，也不能据此认定任何第三方的授权状态。供应商若声称获得官方授权，应提供可核验的书面依据。文书查不自称法院官方接口；MCP 服务调用、数据交付、训练及再分发是不同的使用范围，须分别确认。</p>
       <p class="faq-q">Q：买裁判文书数据合法吗？有什么合规边界？</p>
       <p>A：裁判文书本身是公开的，但其中含有个人信息，二次使用仍受《个人信息保护法》约束；用于大模型训练还涉及训练数据来源合法性的要求。采购时要求卖方说明数据来源与脱敏方式、提供下架更正机制，并在合同中写清授权范围与来源合法性保证。以上为一般性信息，不构成法律意见。</p>
       <p class="faq-q">Q：数据授权交付什么形态、包含哪些字段？</p>
-      <p>A：文书查的交付为结构化数据整批入库，或 API / MCP 调用、私有化部署。字段包括案号、法院、案由、省份、裁判日期、裁判结果和库内正文；约 91% 记录正文非空，其中约 7.2 个百分点存的是法院不公开事由文本而非判决内容，真正含判决正文的约 84%（2026-09-24 复测），含判决正文的记录均为全文（2026-09 补齐）；不提供原文链接，溯源用案号 + 法院 + 裁判日期。</p>
+      <p>A：文书查的交付为结构化数据整批入库，或 API / MCP 调用、私有化部署。字段包括案号、法院、案由、省份、裁判日期、裁判结果和库内正文；约 91% 记录正文非空，其中约 7.2 个百分点存的是法院不公开事由文本而非判决内容，真正含判决正文的约 84%（2026-09-24 复测），正文是否可用、截断或不可解析以逐条返回标记为准，不能据历史抽样比例承诺每条记录完整；不提供原文链接，溯源用案号 + 法院 + 裁判日期。</p>
       <p class="faq-q">Q：怎么核验卖方的数据是真的？</p>
       <p>A：让对方分开报记录数与相异案号数；自己随机抽 20–50 条案号回中国裁判文书网核对原文；要分年份分案由的收录表；按批次抽样量空正文比例；问清截断规则；在小切片里查重复；在 2024 年以后的文书上试按姓名检索；以及问清对方不提供什么。</p>
       <p class="faq-q">Q：只想要统计结果，一定要买数据吗？</p>
