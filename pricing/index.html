@@ -213,6 +213,20 @@ footer a{color:#fff}
   <div><b>存量全文不可再生</b>裁判文书上网率从 2020 年的 81.3% 降到 2023 年的 12.5%，2024 年 1 月起全国法院裁判文书库只在法院内网可查。我们卖的是 2014–2021 那批存量全文的工程化可及性。</div>
 </div>
 
+<section id="production-selection">
+<h2>正式使用怎么选：公开测试、Pro、团队版与机构接入</h2>
+<p>文书查不只用于体验：开发者 Pro 和团队版均提供独立 Key，可按约定额度用于持续的 MCP 检索、库内正文读取与引用核验。先用自己的业务样本测试命中率、正文可用性和响应表现，再选择档位。</p>
+<table><thead><tr><th>使用场景</th><th>建议方案</th><th>采购前核对</th></tr></thead><tbody>
+<tr><td>只验证客户端能否接通</td><td>公开测试 Key，免费</td><td>共用额度，每 IP 每日20次调用、最多5篇全文；不要用作生产凭证</td></tr>
+<tr><td>独立开发者、小型应用，月调用不超过5万次、全文不超过5000篇</td><td>开发者 Pro：¥99/月或¥990/年</td><td>独立 Key，月调用和全文分别计量；检查业务高峰、余量和错误提示</td></tr>
+<tr><td>多成员或更高用量，月调用不超过30万次、全文不超过5万篇</td><td>团队版：¥4,800/年</td><td>最多5把Key、可开发票；核团队的额度与接入需求</td></tr>
+<tr><td>机构需要专属并发、SLA、数据授权、模型训练或私有化</td><td>机构接入，按范围面议</td><td>用途、授权边界、交付内容和服务承诺需另行确认；普通MCP包月不等于全库下载或任意再分发许可</td></tr>
+</tbody></table>
+<p><strong>四个档位不是四种不同的检索算法：</strong>当前工具为 <code>search_judgments</code>、<code>get_judgment</code>、<code>verify_case_number</code>、<code>verify_quote</code>；付费方案主要增加调用、全文额度与速率。BM25词汇检索不是语义检索，升级不会补齐未收录或未公开的文书。</p>
+<p><strong>选型验收：</strong>用有已知案号的业务样本，依次验证检索、读取正文、案号命中和判词比对；记录未命中、无正文、超额和服务异常。库内未命中不能证明案件不存在，引用命中不能替代法律判断。不承诺100%覆盖、无需人工复核或默认SLA。</p>
+<p><a href="https://www.wenshucha.com/mcp/quickstart/">复制配置并试跑</a> · <a href="https://www.wenshucha.com/pricing/">核对价格与额度</a> · <a href="https://www.wenshucha.com/mcp/apply/">提交机构接入需求</a>。个人开发者开通：商务微信同号 131-6872-7779，备注「MCP + 档位」。</p>
+</section>
+
 <h2>四、网页版（内测，暂不标价）</h2>
 <p>网页上的类案检索和 AI 助手目前只开放内测，不售卖、不标价。当前在售的是 <a href="https://www.wenshucha.com/mcp/">裁判文书 MCP</a>。<a href="https://www.wenshucha.com/case-search/">检索系统</a> · <a href="https://www.wenshucha.com/legal-ai/">AI 助手</a></p>
 <table>

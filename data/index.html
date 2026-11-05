@@ -95,7 +95,7 @@ footer a{color:#fff}
 
   <section>
     <h2>裁判文书数据接口 — REST API 标准化调用</h2>
-    <p>无需自建爬虫与清洗管线,一个 API 即可把裁判文书数据接进你的产品。base:<code>https://tob.wenshucha.com/api/v1</code>,支持关键词 + 法院 + 案由 + 年份 + 省份组合检索与全文获取,结果带 source_url 可回查(案号、法院、裁判日期)。</p>
+    <p>无需自建爬虫与清洗管线,一个 API 即可把裁判文书数据接进你的产品。base:<code>https://tob.wenshucha.com/api/v1</code>,支持关键词 + 法院 + 案由 + 年份 + 省份组合检索与全文获取,按案号、法院和裁判日期自行核对；本库不提供法院原文直链。</p>
     <pre>curl -X POST https://tob.wenshucha.com/api/v1/cases/search \
   -H "Authorization: Bearer &lt;YOUR_KEY&gt;" \
   -d '{"keyword":"违法解除劳动合同","province":"广东省","year":2022}'</pre>
