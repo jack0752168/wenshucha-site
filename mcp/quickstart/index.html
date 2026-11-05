@@ -195,6 +195,7 @@ footer a{color:#fff}
     }
   }'</pre>
 
+<div class="note" id="mcp-error-handling"><p><b>HTTP 200 不等于工具成功。</b>先检查 JSON-RPC 错误与 <code>result.isError</code>；错误内容可能是普通文本，不能无条件当 JSON 业务结果解析。错误、未命中与引用未匹配分开记录。<a href="/blog/legal-ai-hallucination-citation-verification.html#mcp-error-example">查看正式端点 HTTP 200 + isError:true 的真实反例</a>。</p></div>
 <h2>三、四个工具</h2>
 <p style="font-size:14.5px;color:var(--mut)">拉取工具列表不消耗额度，只有真正调用才计次。</p>
 

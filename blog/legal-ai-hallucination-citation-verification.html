@@ -25,7 +25,7 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "法律 AI 案号和判词引用如何用 MCP 核验？参数与验收指南", "description": "用文书查 MCP 的 verify_case_number 与 verify_quote 辅助核验法律 AI 生成的中国案号和判词引用，附 caseNo/quote 参数、库内正文读取、未命中处理、人工复核及付费选型。未命中不等于伪造，不提供法院原文直链。", "author": {"@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司"}, "publisher": {"@type": "Organization", "name": "文书查", "logo": {"@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg"}}, "datePublished": "2026-06-29", "dateModified": "2026-11-05", "mainEntityOfPage": "https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html"}</script>
 
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "法律 AI 生成的案号和判词引用，如何用 MCP 工具核验？", "acceptedAnswer": {"@type": "Answer", "text": "先用文书查 MCP 的 verify_case_number 传入 caseNo，检查本库命中；用 get_judgment 取得可用库内正文；再用 verify_quote 传入 quote 和同一 caseNo 辅助比对。未命中、无正文、未匹配和接口失败分别留痕，人工阅读上下文。核验工具不判断法律适用或后续效力。"}}, {"@type": "Question", "name": "本库未命中案号，就能认定 AI 编造了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。未收录、未公开、正文缺失或检索条件不合适均可能造成未命中，应标为本库未核实并进一步复核。"}}, {"@type": "Question", "name": "文书查 MCP 会返回法院原文链接吗？", "acceptedAnswer": {"@type": "Answer", "text": "不提供中国裁判文书网原文直链。get_judgment 读取的是可用库内正文，不保证每条记录都有判决内容；可凭案号、法院和日期到官方渠道另行复核。"}}, {"@type": "Question", "name": "判词匹配通过，就能证明法律观点正确吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。verify_quote 使用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；引用匹配也不证明法律论证、适用范围或判决后续效力正确。"}}, {"@type": "Question", "name": "核验只能免费试用吗？", "acceptedAnswer": {"@type": "Answer", "text": "公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化需机构申请和另行约定，以官网现行方案为准。"}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "法律 AI 生成的案号和判词引用，如何用 MCP 工具核验？", "acceptedAnswer": {"@type": "Answer", "text": "先用文书查 MCP 的 verify_case_number 传入 caseNo，检查本库命中；用 get_judgment 取得可用库内正文；再用 verify_quote 传入 quote 和同一 caseNo 辅助比对。未命中、无正文、未匹配和接口失败分别留痕，人工阅读上下文。核验工具不判断法律适用或后续效力。"}}, {"@type": "Question", "name": "本库未命中案号，就能认定 AI 编造了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。未收录、未公开、正文缺失或检索条件不合适均可能造成未命中，应标为本库未核实并进一步复核。"}}, {"@type": "Question", "name": "文书查 MCP 会返回法院原文链接吗？", "acceptedAnswer": {"@type": "Answer", "text": "不提供中国裁判文书网原文直链。get_judgment 读取的是可用库内正文，不保证每条记录都有判决内容；可凭案号、法院和日期到官方渠道另行复核。"}}, {"@type": "Question", "name": "判词匹配通过，就能证明法律观点正确吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。verify_quote 使用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；引用匹配也不证明法律论证、适用范围或判决后续效力正确。"}}, {"@type": "Question", "name": "核验只能免费试用吗？", "acceptedAnswer": {"@type": "Answer", "text": "公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化需机构申请和另行约定，以官网现行方案为准。"}}, {"@type": "Question", "name": "HTTP 200 就代表 MCP 核验通过了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不代表。HTTP 成功只说明传输完成，还要先检查 JSON-RPC 错误和 result.isError。2026-11-05 对正式端点传入过短引文，HTTP 200 但 result.isError 为 true；这是参数错误，不是未命中或核验通过。错误内容可能是普通文本，不能无条件当成带 verdict 的 JSON。"}}]}</script>
 
   <style>
     :root{
@@ -124,6 +124,19 @@ verify_quote 参数：{"quote":"&lt;需逐字比对的实际判词&gt;","caseNo"
 <pre><code>verify_quote {&quot;caseNo&quot;: &quot;（2016）浙0204执3826号&quot;, &quot;quote&quot;: &quot;本段为接口核验反例并非裁判文书原文&quot;}
 响应字段摘录：{&quot;verdict&quot;: &quot;not_in_this_case&quot;}</code></pre>
 
+<section id="mcp-error-example"><h3>HTTP 200 就代表 MCP 核验通过了吗？</h3><p>不代表。HTTP 成功只说明传输完成，还要先检查 JSON-RPC 错误和 result.isError。2026-11-05 对正式端点传入过短引文，HTTP 200 但 result.isError 为 true；这是参数错误，不是未命中或核验通过。错误内容可能是普通文本，不能无条件当成带 verdict 的 JSON。</p><p>实际测试参数：<code>verify_quote({&quot;quote&quot;:&quot;短&quot;})</code>。响应摘录：</p><pre><code>{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;result&quot;: {
+    &quot;isError&quot;: true,
+    &quot;content&quot;: [
+      {
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;text&quot;: &quot;引文太短（至少 6 个字），无法可靠核验。（本次已退还额度）&quot;
+      }
+    ]
+  }
+}</code></pre><p>这是参数错误反例；不消耗正文，不含真实当事人信息。错误或额度问题要保留未核验状态，不能转写为“查无此案”。</p></section>
 <table><thead><tr><th>返回值</th><th>准确含义</th><th>接下来做什么</th></tr></thead><tbody>
 <tr><td><code>exists</code></td><td>本库命中案号</td><td>继续核对法院、日期与实际可用正文</td></tr>
 <tr><td><code>verified</code></td><td>指定案号下的分词连续短语命中</td><td>人工阅读上下文，不自动推断观点成立或现行有效</td></tr>
