@@ -3,15 +3,16 @@
 # 这份文件是 /root/sync-wenshucha-site.sh 的唯一版本源，部署脚本会自动安装。
 set -u
 
-REPO=/opt/wenshucha-site-repo
-WEB=/www/wwwroot/wenshucha.com
-STAMP=/opt/.wenshucha-site-deployed-rev
+REPO=${WSC_SYNC_REPO:-/opt/wenshucha-site-repo}
+WEB=${WSC_SYNC_WEB:-/www/wwwroot/wenshucha.com}
+STAMP=${WSC_SYNC_STAMP:-/opt/.wenshucha-site-deployed-rev}
 URL=https://github.com/jack0752168/wenshucha-site.git
 REWRITE_SRC="$REPO/ops/nginx/html_wenshucha.com.conf"
 REWRITE_TARGET=/www/server/panel/vhost/rewrite/html_wenshucha.com.conf
 MCP_VHOST_SRC="$REPO/ops/nginx/mcp_wenshucha.conf"
 MCP_VHOST_TARGET=/www/server/panel/vhost/nginx/mcp_wenshucha.conf
 QUARANTINE=/www/backup/wenshucha-webroot-quarantine-auto
+CHECK_LOG=${WSC_SYNC_CHECK_LOG:-/tmp/wenshucha-linkcheck.log}
 
 log() { echo "[$(date '+%F %T')] $*"; }
 
@@ -19,17 +20,29 @@ if [ ! -d "$REPO/.git" ]; then
   timeout 120 git clone -q --depth 1 "$URL" "$REPO" || { log "clone 超时/失败"; exit 1; }
 fi
 cd "$REPO" || exit 1
-timeout 90 git fetch -q --depth 1 origin main 2>/dev/null || exit 0
+git diff --quiet && git diff --cached --quiet || { log 'UNKNOWN: tracked changes preserved; no publish'; exit 2; }
+timeout 90 git fetch -q origin main 2>/dev/null || { log 'UNKNOWN: git fetch failed; webroot/stamp unchanged'; exit 2; }
+if [ -f "$STAMP" ]; then
+  deployed=$(cat "$STAMP")
+  incoming=$(git rev-parse origin/main)
+  if [ "$deployed" != "$incoming" ] && ! git merge-base --is-ancestor "$deployed" "$incoming"; then
+    log 'UNKNOWN: cannot prove incoming source descends from deployed version; no publish'
+    exit 2
+  fi
+fi
 timeout 30 git reset -q --hard origin/main || exit 1
 REV=$(git rev-parse HEAD)
 
 # 仓库自己有错就拒绝覆盖线上；不能把“同步成功”当成“站点健康”。
-if [ -f "$REPO/linkcheck.py" ]; then
-  python3 "$REPO/linkcheck.py" "$REPO" >/tmp/wenshucha-linkcheck.log 2>&1 || {
-    log "linkcheck 未通过，拒绝部署"
-    tail -30 /tmp/wenshucha-linkcheck.log
-    exit 1
-  }
+for required in linkcheck.py ops/research_catalog.py ops/research-intro.tmpl; do
+  [ -f "$REPO/$required" ] || { log "UNKNOWN: missing guard $required; no publish"; exit 2; }
+done
+python3 "$REPO/linkcheck.py" "$REPO" >"$CHECK_LOG" 2>&1
+guard_rc=$?
+if [ "$guard_rc" != 0 ]; then
+  log "guard failed/unknown ($guard_rc); webroot/stamp unchanged"
+  tail -30 "$CHECK_LOG"
+  exit "$guard_rc"
 fi
 
 # 宝塔重存配置可能覆盖 canonical/保护规则。即使 Git revision 没变也要自愈。

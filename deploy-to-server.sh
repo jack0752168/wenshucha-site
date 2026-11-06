@@ -1,66 +1,44 @@
 #!/bin/bash
-# Mac → 腾讯云 直推静态站。
-# 服务器那边有 cron 每 5 分钟从 GitHub 拉一次做兜底,但国内拉 GitHub 会挂,
-# 所以真正上线以这条 SSH 直推为准(改完立刻生效,不用等 5 分钟也不看 GitHub 脸色)。
+# One committed source; the complete cloud publication shares cron's flock.
 set -euo pipefail
-# 守门员:内链/锚点/robots/sitemap 有错就拒绝上线(146 处死锚点的教训)
-python3 ~/wenshucha-site/gen_llms.py >/dev/null || echo '⚠️ llms 生成失败,继续'
-python3 ~/wenshucha-site/linkcheck.py ~/wenshucha-site || { echo "✗ linkcheck 未过,中止部署"; exit 1; }
-
-# 服务器 5 分钟兜底同步也版本化，避免它把运维脚本重新复制进 webroot。
-scp ~/wenshucha-site/ops/sync-wenshucha-site.sh \
-  root@114.132.74.235:/tmp/sync-wenshucha-site.sh.codex
-ssh root@114.132.74.235 '
-  incoming=/tmp/sync-wenshucha-site.sh.codex
-  target=/root/sync-wenshucha-site.sh
-  backup=/root/sync-wenshucha-site.sh.bak_before_codex_deploy
-  bash -n "$incoming" || exit 1
-  cp "$target" "$backup"
-  install -m 700 "$incoming" "$target"
-  rm -f "$incoming"
-'
-
-# nginx rewrite 也版本化:宝塔若覆盖规则,部署时自动恢复；语法失败则回滚旧配置。
-scp ~/wenshucha-site/ops/nginx/html_wenshucha.com.conf \
-  root@114.132.74.235:/tmp/html_wenshucha.com.conf.codex
-ssh root@114.132.74.235 '
-  target=/www/server/panel/vhost/rewrite/html_wenshucha.com.conf
-  incoming=/tmp/html_wenshucha.com.conf.codex
-  backup=/www/server/panel/vhost/rewrite/html_wenshucha.com.conf.bak_before_codex_deploy
-  if ! cmp -s "$incoming" "$target"; then
-    cp "$target" "$backup"
-    cp "$incoming" "$target"
-    if /www/server/nginx/sbin/nginx -t -c /www/server/nginx/conf/nginx.conf; then
-      /etc/init.d/nginx reload
-    else
-      cp "$backup" "$target"
-      /www/server/nginx/sbin/nginx -t -c /www/server/nginx/conf/nginx.conf
-      exit 1
-    fi
-  fi
-  rm -f "$incoming"
-'
-rsync -az --exclude='.git' --exclude='.github' --exclude='.gitignore' --exclude='.vercel' \
-  --exclude='ops' --exclude='*.py' --exclude='*.sh' --exclude='README*' --exclude='.DS_Store' \
-  ~/wenshucha-site/ root@114.132.74.235:/www/wwwroot/wenshucha.com/
-ssh root@114.132.74.235 'chown -R www:www /www/wwwroot/wenshucha.com 2>/dev/null; git -C /opt/wenshucha-site-repo rev-parse HEAD > /opt/.wenshucha-site-deployed-rev 2>/dev/null; true'
-# 線上守門員:寶塔重寫規則若被覆蓋,會讓 /index.html 再次成為第二個首頁。
-index_code="$(curl -sS --retry 3 --retry-all-errors --retry-delay 2 -o /dev/null -w '%{http_code}' --max-time 15 https://www.wenshucha.com/index.html)"
-index_location="$(curl -sSI --retry 3 --retry-all-errors --retry-delay 2 --max-time 15 https://www.wenshucha.com/index.html | awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); print $2; exit}')"
-if [ "$index_code" != "301" ] || [ "$index_location" != "https://www.wenshucha.com/" ]; then
-  echo "✗ 線上 canonical 失效:/index.html 應 301 到首頁,實際 HTTP $index_code → ${index_location:-無 Location}"
-  exit 1
+SITE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+SITE_REV="$(git -C "$SITE_ROOT" rev-parse HEAD)"
+SERVER=root@114.132.74.235
+git -C "$SITE_ROOT" diff --quiet && git -C "$SITE_ROOT" diff --cached --quiet || { echo 'UNKNOWN: commit tracked site changes before deployment'; exit 2; }
+[ -z "$(git -C "$SITE_ROOT" ls-files --others --exclude-standard)" ] || { echo 'UNKNOWN: use a clean committed checkout'; exit 2; }
+python3 "$SITE_ROOT/gen_llms.py" >/dev/null
+git -C "$SITE_ROOT" diff --quiet || { echo 'UNKNOWN: generated content is not committed'; exit 2; }
+python3 "$SITE_ROOT/linkcheck.py" "$SITE_ROOT" || { rc=$?; echo 'Gate rejected deployment'; exit "$rc"; }
+deploy_tmp="$(mktemp -d)"
+trap 'rm -rf "$deploy_tmp"' EXIT
+git -C "$SITE_ROOT" archive --format=tar -o "$deploy_tmp/source.tar" "$SITE_REV"
+cloud_rev="$(ssh "$SERVER" 'git -C /opt/wenshucha-site-repo rev-parse HEAD')"
+bundle=none
+if [ "$cloud_rev" != "$SITE_REV" ]; then
+  git -C "$SITE_ROOT" cat-file -e "$cloud_rev^{commit}" 2>/dev/null && git -C "$SITE_ROOT" merge-base --is-ancestor "$cloud_rev" "$SITE_REV" || { echo 'UNKNOWN: cloud source is newer/divergent; rollback not authorized'; exit 2; }
+  git -C "$SITE_ROOT" bundle create "$deploy_tmp/site.bundle" HEAD "^$cloud_rev"
+  bundle=site.bundle
 fi
-home_icp="$(curl -sS --retry 3 --retry-all-errors --retry-delay 2 --max-time 15 https://www.wenshucha.com/ | grep -o '粤ICP备2025437990号-2' | head -1 || true)"
-if [ "$home_icp" != "粤ICP备2025437990号-2" ]; then
-  echo "✗ 線上首頁缺少完整備案號,中止報綠"
-  exit 1
-fi
-for hidden_path in deploy-to-server.sh gen_llms.py linkcheck.py _wscdl/probe.py files/执行.xlsx; do
-  hidden_code="$(curl -sS --retry 3 --retry-all-errors --retry-delay 2 -o /dev/null -w '%{http_code}' --max-time 15 "https://www.wenshucha.com/$hidden_path")"
-  if [ "$hidden_code" = "200" ]; then
-    echo "✗ 非網站檔案仍可公開下載:/$hidden_path"
-    exit 1
-  fi
-done
-echo "✓ 已直推上线"
+python3 - "$SITE_ROOT" "$SITE_REV" "$deploy_tmp/public.sha256" <<'PY'
+import hashlib, pathlib, subprocess, sys
+root, rev, output = pathlib.Path(sys.argv[1]), sys.argv[2], pathlib.Path(sys.argv[3])
+names = subprocess.check_output(['git', '-C', str(root), 'ls-tree', '-r', '--name-only', '-z', rev]).decode().split('\0')
+lines = []
+for name in filter(None, names):
+    p = pathlib.PurePosixPath(name)
+    if any(part in ('.git', '.github', '.gitignore', '.vercel', 'ops') for part in p.parts) or p.suffix in ('.py', '.sh') or p.name.startswith('README') or p.name == '.DS_Store':
+        continue
+    if '\n' in name or '\\' in name:
+        raise SystemExit('UNKNOWN: unsupported manifest filename')
+    content = subprocess.check_output(['git', '-C', str(root), 'show', rev+':'+name])
+    lines.append(hashlib.sha256(content).hexdigest()+'  '+name+'\n')
+output.write_text(''.join(lines))
+PY
+remote_stage="/tmp/wsc-site-deploy-$SITE_REV"
+ssh "$SERVER" "umask 077; mkdir -p '$remote_stage/source'"
+scp "$deploy_tmp/source.tar" "$deploy_tmp/public.sha256" "$SERVER:$remote_stage/"
+if [ "$bundle" != none ]; then scp "$deploy_tmp/site.bundle" "$SERVER:$remote_stage/"; fi
+ssh "$SERVER" "tar -xf '$remote_stage/source.tar' -C '$remote_stage/source'"
+# One lock covers source install, current guard, public writes, checks and stamp.
+ssh "$SERVER" "flock -w 45 /tmp/sync-wsc.lock bash '$remote_stage/source/ops/publish-site.sh' '$remote_stage/source' '$SITE_REV' '$remote_stage/public.sha256' '$remote_stage/$bundle'"
+echo "Published committed source $SITE_REV"
