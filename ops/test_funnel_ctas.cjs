@@ -11,8 +11,9 @@ cases.push({path: '/case-research/', dest: 'https://tob.wenshucha.com/research/'
 for (const item of cases) {
   const events = [];
   let click;
-  const location = new URL('https://www.wenshucha.com'+item.path+'?wsc_qa=1');
-  const document = {cookie:'', referrer:'', addEventListener(name, fn) {if(name === 'click') click=fn;}};
+  const location = new URL('https://www.wenshucha.com'+item.path+'?wsc_qa=1&utm_campaign=qa_contract_20261106');
+  const stored = {sid:crypto.randomUUID(), source:'direct', medium:'direct', campaign:'old_qa', qa:true, until:Date.now()+100000};
+  const document = {cookie:'wsc_funnel_v1='+encodeURIComponent(JSON.stringify(stored)), referrer:'', addEventListener(name, fn) {if(name === 'click') click=fn;}};
   const context = {window:{}, document, location, URL, URLSearchParams, Date, crypto, screen:{width:1280},
     fetch(url, opts) {events.push(JSON.parse(opts.body));return Promise.resolve({ok:true});}};
   vm.runInNewContext(source, context);
@@ -22,6 +23,7 @@ for (const item of cases) {
   assert.equal(event.surface, item.surface);
   assert.equal(event.path, item.path);
   assert.equal(event.version, 'ctr-funnel-20261012');
+  assert.equal(event.campaign, 'qa_contract_20261106');
   assert(events.every(e=>e.qa === true));
   assert(!Object.keys(event).some(k=>['destination','email','question'].includes(k)));
 }

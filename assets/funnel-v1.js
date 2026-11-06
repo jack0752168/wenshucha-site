@@ -7,13 +7,18 @@
   function uuid() { return crypto.randomUUID(); }
   function context() {
     var qaParam = new URLSearchParams(location.search).get("wsc_qa");
+    // Explicit QA campaigns must be independently receiptable even when an old
+    // QA cookie exists. Ordinary visitor attribution remains unchanged.
+    var qaCampaign = qaParam === "1" ? new URLSearchParams(location.search).get("utm_campaign") : null;
+    if (qaCampaign && !/^[a-zA-Z0-9_-]{1,80}$/.test(qaCampaign)) qaCampaign = null;
     if (memory && (qaParam === "1" || qaParam === "0") && memory.qa !== (qaParam === "1")) memory = null;
+    if (memory && qaCampaign && memory.campaign !== qaCampaign) memory = null;
     if (memory && memory.until > Date.now()) return memory;
     try {
       var raw = document.cookie.split("; ").find(function (x) { return x.indexOf(cookie + "=") === 0; });
       if (raw) {
         var stored = JSON.parse(decodeURIComponent(raw.slice(cookie.length + 1)));
-        if (/^[a-f0-9-]{36}$/.test(stored.sid) && stored.until > Date.now() && sources.indexOf(stored.source) >= 0 && ((qaParam !== "1" && qaParam !== "0") || stored.qa === (qaParam === "1"))) memory = stored;
+        if (/^[a-f0-9-]{36}$/.test(stored.sid) && stored.until > Date.now() && sources.indexOf(stored.source) >= 0 && ((qaParam !== "1" && qaParam !== "0") || stored.qa === (qaParam === "1")) && (!qaCampaign || stored.campaign === qaCampaign)) memory = stored;
       }
     } catch (_) {}
     if (!memory || memory.until <= Date.now()) {
