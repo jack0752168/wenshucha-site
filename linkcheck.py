@@ -70,6 +70,14 @@ def ids_of(f: Path, cache={}):
 
 def main() -> int:
     errors = []
+    # Both local deploy and cloud autoheal call this gate. Live catalog failure
+    # is unknown and must block publication, never silently accept stale prices.
+    from ops.research_catalog import Unknown, check_site
+    try:
+        errors.extend(check_site(SITE))
+    except (Unknown, OSError, ValueError) as exc:
+        print('UNKNOWN: research catalog check unavailable; deployment blocked: ' + str(exc))
+        return 2
     html_files = [f for f in SITE.rglob("*.html") if ".git" not in f.parts]
     titles = defaultdict(list)
     descriptions = defaultdict(list)

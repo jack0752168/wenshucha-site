@@ -72,10 +72,14 @@
       try {
         var u = new URL(href, location.href);
         if (u.hostname !== "wenshucha.com" && !u.hostname.endsWith(".wenshucha.com")) return;
-        if (u.pathname === "/cases" || u.pathname === "/case-search/" || u.pathname === "/research/") event("cta_search");
+        // Keep the backend's literal version and accepted event/surface contract.
+        // Separate destination intent without recording queries or case details.
+        if (u.pathname === "/case-research/") event("cta_search", {surface: "inline"});
+        else if (u.pathname === "/research/") event("cta_search", {surface: "report"});
+        else if (u.pathname === "/cases" || u.pathname === "/case-search/") event("cta_search", {surface: "detail"});
         else if (u.pathname === "/data-report/") event("cta_report");
         // Quickstart is the public-Key test path; keep it in the MCP CTA funnel.
-        else if (u.pathname === "/mcp/" || u.pathname === "/mcp/quickstart/" || u.pathname === "/mcp/apply/") event("cta_mcp");
+        else if (u.pathname === "/mcp/" || u.pathname === "/mcp/quickstart/" || u.pathname === "/mcp/apply/") event("cta_mcp", {surface: "mcp"});
       } catch (_) {}
     }
   }, true);
