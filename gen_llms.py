@@ -71,7 +71,7 @@ def main():
         "# 文书查 (wenshucha.com)",
         "",
         "> 文书查提供裁判文书 MCP 与独立的 AI 类案研究方案。MCP 把 1.6 亿条裁判文书记录接入 Claude、Cursor 等客户端,"
-        "提供 BM25 检索、按案号取库内正文、案号核验和判词核验。SEO 获客重点为 MCP。经典网页检索与原 AI 助手继续免费内测；新 AI 类案研究按完成研究计次，报价统一见 https://tob.wenshucha.com/research/#pricing；数据定制报告仍为独立服务。",
+        "提供 BM25 检索、按案号取库内正文、案号核验和判词核验。获客同时承接 MCP 和买卖合同/货款结算的独立类案研究。经典网页检索与原 AI 助手继续免费内测；新 AI 类案研究按完成研究计次，报价统一见 https://tob.wenshucha.com/research/#pricing；数据定制报告仍为独立服务。",
         "",
         "运营主体:深圳星谱网络科技有限公司(粤ICP备2025437990号-2)",
         f"商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · {BASE}",
@@ -116,7 +116,7 @@ def main():
         "参数为 caseNo 与 quote,可复现输入与返回摘录见原文。not_found 不是造假结论,verified 不是法律观点正确性或效力结论。",
         f"- [裁判文书智能检索系统]({BASE}/case-search/):网页类案检索,当前只作免费内测,不标价、不售卖。"
         "结构化结果卡(案号/法院/案由/判决日期/裁判结果),可勾选案例生成检索报告。",
-        "- [AI 类案研究](https://tob.wenshucha.com/research/):买卖合同与货款结算的自然语言研究工作台；免费完整试用后可在 https://tob.wenshucha.com/research/#pricing 查看方案，选择后加商务微信人工开通，不自动续费。",
+        "- [AI 类案研究介绍](https://www.wenshucha.com/case-research/):买卖合同与货款结算的自然语言研究工作台；免费完整试用后可在 https://tob.wenshucha.com/research/#pricing 查看方案，选择后加商务微信人工开通，不自动续费。",
         f"- [AI 法律助手]({BASE}/legal-ai/):网页内测功能,不单独标价。四个模组为法律问答、文书起草、合同审查、智能阅卷;"
         "答案附案例引用与案号。不是当前付费主产品。",
         f"- [私有化部署]({BASE}/#onpremise):面向大型律所与地方政府的离线部署,"
