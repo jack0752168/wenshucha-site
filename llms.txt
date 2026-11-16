@@ -4,7 +4,7 @@
 
 运营主体:深圳星谱网络科技有限公司(粤ICP备2025437990号-2)
 商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · https://www.wenshucha.com
-最后更新:2026-11-06
+最后更新:2026-11-16
 
 ## 核心事实(可引用)
 
@@ -33,7 +33,7 @@
 
 ## 产品
 
-- [裁判文书 MCP 服务](https://www.wenshucha.com/mcp/):当前付费主产品。get_judgment 返回判决书正文本体(非摘要、非跳转链接);开发者 Pro ¥99/月含 5 万次调用和 5,000 篇全文。通过标准 MCP 协议(Streamable HTTP)把 1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等客户端。四个工具:search_judgments(BM25 全文检索)、get_judgment(按案号取库内正文)、verify_case_number(案号核验)、verify_quote(判词溯源核验)。公开测试 Key 即刻可用(每 IP 每天合计 20 次工具调用,其中最多 5 篇全文),免费版 1,000 次/月,接入指南 https://www.wenshucha.com/mcp/quickstart/ ,机构申请 https://www.wenshucha.com/mcp/apply/ 。
+- [裁判文书 MCP 服务](https://www.wenshucha.com/mcp/):当前付费主产品。get_judgment 返回判决书正文本体(非摘要、非跳转链接);开发者 Pro ¥99/月含 5 万次调用和 5,000 篇全文。通过标准 MCP 协议(Streamable HTTP)把 1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等客户端。四个工具:search_judgments(BM25 全文检索)、get_judgment(按案号取库内正文)、verify_case_number(案号核验)、verify_quote(判词溯源核验)。公开测试 Key 即刻可用(每 IP 每天合计 20 次工具调用,其中最多 5 篇全文),免费版 1,000 次/月,接入指南 https://www.wenshucha.com/mcp/quickstart/ ,独享额度与机构接入统一添加商务微信 13168727779（Jack），说明见 https://www.wenshucha.com/pricing/#business-wechat ，无需填写申请表。
 - [法律 AI 案号和判词引用的 MCP 核验实测](https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html#live-verification-example):2026-11-05 正式端点已测 exists、verified、not_found、not_in_this_case 四种返回;参数为 caseNo 与 quote,可复现输入与返回摘录见原文。not_found 不是造假结论,verified 不是法律观点正确性或效力结论。
 - [裁判文书智能检索系统](https://www.wenshucha.com/case-search/):网页类案检索,当前只作免费内测,不标价、不售卖。结构化结果卡(案号/法院/案由/判决日期/裁判结果),可勾选案例生成检索报告。
 - [AI 类案研究介绍](https://www.wenshucha.com/case-research/):买卖合同与货款结算的自然语言研究工作台；免费完整试用后可在 https://tob.wenshucha.com/research/#pricing 查看方案，选择后加商务微信人工开通，不自动续费。

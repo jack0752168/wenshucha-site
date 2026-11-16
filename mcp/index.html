@@ -210,7 +210,7 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
   <p style="margin:0">全文按篇计：只有 <code>get_judgment</code> 真的返回正文才算 1 篇，检索与两个核验工具不占全文额度。<a href="https://www.wenshucha.com/pricing/">完整定价、与同行的对比、企业授权 →</a></p>
 </div>
 
-<p style="font-size:14.5px;color:#5a6677">如果你是<strong>机构</strong>（律所 / 法务部 / 政法机关 / 法律科技厂商），需要不限次调用、SLA、数据授权或私有化部署，请走<a href="https://www.wenshucha.com/mcp/apply/"><strong>机构接入申请</strong></a>；企业授权按接入范围面议，两个工作日内回复。</p>
+<p style="font-size:14.5px;color:#5a6677">如果你是<strong>机构</strong>（律所 / 法务部 / 政法机关 / 法律科技厂商），需要不限次调用、SLA、数据授权或私有化部署，请<a href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a>；企业授权按接入范围面议，微信 131-6872-7779 对接。</p>
 
 <section id="production-selection" style="max-width:100%;overflow-x:auto;overflow-wrap:anywhere">
 <h2>正式使用怎么选：公开测试、Pro、团队版与机构接入</h2>
@@ -223,10 +223,10 @@ code{background:#eef1f6;padding:1px 5px;border-radius:3px;font:13.5px Menlo,Cons
 </tbody></table>
 <p><strong>四个档位不是四种不同的检索算法：</strong>当前工具为 <code>search_judgments</code>、<code>get_judgment</code>、<code>verify_case_number</code>、<code>verify_quote</code>；付费方案主要增加调用、全文额度与速率。BM25词汇检索不是语义检索，升级不会补齐未收录或未公开的文书。</p>
 <p><strong>选型验收：</strong>用有已知案号的业务样本，依次验证检索、读取正文、案号命中和判词比对；记录未命中、无正文、超额和服务异常。库内未命中不能证明案件不存在，引用命中不能替代法律判断。不承诺100%覆盖、无需人工复核或默认SLA。</p>
-<p><a href="https://www.wenshucha.com/mcp/quickstart/">复制配置并试跑</a> · <a href="https://www.wenshucha.com/pricing/">核对价格与额度</a> · <a href="https://www.wenshucha.com/mcp/apply/">提交机构接入需求</a>。个人开发者开通：商务微信同号 131-6872-7779，备注「MCP + 档位」。</p>
+<p><a href="https://www.wenshucha.com/mcp/quickstart/">复制配置并试跑</a> · <a href="https://www.wenshucha.com/pricing/">核对价格与额度</a> · <a href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a>。个人开发者开通：商务微信同号 131-6872-7779，备注「MCP + 档位」。</p>
 </section>
 
-<section id="verification-procurement"><h2>案号与判词核验：正式付费选型</h2><h3>文书查 MCP 核验只能免费试用吗？</h3><p>不是。公开测试 Key 用于验证接入；开发者 Pro 和团队版提供独立 Key，可在约定服务范围和额度内持续调用四个工具。Pro 为99元/月或990元/年，每月5万次调用和5000篇全文；团队版4800元/年，每月30万次调用和5万篇全文。SLA、数据授权、训练与再分发权限需另行确认。</p><h3>正式采购案号与判词核验服务，应该如何验收？</h3><p>用已知案号和真实引文核对库内命中、正文可用性和引用匹配；另测未命中、无正文、超额与服务错误。未命中不能证明案号伪造，引用匹配不能证明法律论证正确。按实际调用量、全文量、团队与授权要求选方案，不把公开Key用于生产。</p><p><a href="/mcp/quickstart/">按客户端接入</a> · <a href="/pricing/#production-selection">选择Pro或团队版</a> · <a href="/mcp/apply/">机构采购申请</a></p></section>
+<section id="verification-procurement"><h2>案号与判词核验：正式付费选型</h2><h3>文书查 MCP 核验只能免费试用吗？</h3><p>不是。公开测试 Key 用于验证接入；开发者 Pro 和团队版提供独立 Key，可在约定服务范围和额度内持续调用四个工具。Pro 为99元/月或990元/年，每月5万次调用和5000篇全文；团队版4800元/年，每月30万次调用和5万篇全文。SLA、数据授权、训练与再分发权限需另行确认。</p><h3>正式采购案号与判词核验服务，应该如何验收？</h3><p>用已知案号和真实引文核对库内命中、正文可用性和引用匹配；另测未命中、无正文、超额与服务错误。未命中不能证明案号伪造，引用匹配不能证明法律论证正确。按实际调用量、全文量、团队与授权要求选方案，不把公开Key用于生产。</p><p><a href="/mcp/quickstart/">按客户端接入</a> · <a href="/pricing/#production-selection">选择Pro或团队版</a> · <a href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a></p></section>
 <h2>检索方式：如实说明</h2>
 <div class="note">
   <p style="margin:0 0 8px"><b>本服务是精确词汇检索（BM25），不是向量语义检索。</b></p>

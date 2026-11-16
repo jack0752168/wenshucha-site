@@ -84,7 +84,7 @@
         else if (u.pathname === "/cases" || u.pathname === "/case-search/") event("cta_search", {surface: "detail"});
         else if (u.pathname === "/data-report/") event("cta_report");
         // Quickstart is the public-Key test path; keep it in the MCP CTA funnel.
-        else if (u.pathname === "/mcp/" || u.pathname === "/mcp/quickstart/" || u.pathname === "/mcp/apply/") event("cta_mcp", {surface: "mcp"});
+        else if (u.pathname === "/mcp/" || u.pathname === "/mcp/quickstart/") event("cta_mcp", {surface: "mcp"});
       } catch (_) {}
     }
   }, true);

@@ -25,7 +25,7 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "法律 AI 案号和判词引用如何用 MCP 核验？参数与验收指南", "description": "用文书查 MCP 的 verify_case_number 与 verify_quote 辅助核验法律 AI 生成的中国案号和判词引用，附 caseNo/quote 参数、库内正文读取、未命中处理、人工复核及付费选型。未命中不等于伪造，不提供法院原文直链。", "author": {"@type": "Organization", "name": "文书查 / 深圳星谱网络科技有限公司"}, "publisher": {"@type": "Organization", "name": "文书查", "logo": {"@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg"}}, "datePublished": "2026-06-29", "dateModified": "2026-11-05", "mainEntityOfPage": "https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html"}</script>
 
   <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "法律 AI 生成的案号和判词引用，如何用 MCP 工具核验？", "acceptedAnswer": {"@type": "Answer", "text": "先用文书查 MCP 的 verify_case_number 传入 caseNo，检查本库命中；用 get_judgment 取得可用库内正文；再用 verify_quote 传入 quote 和同一 caseNo 辅助比对。未命中、无正文、未匹配和接口失败分别留痕，人工阅读上下文。核验工具不判断法律适用或后续效力。"}}, {"@type": "Question", "name": "本库未命中案号，就能认定 AI 编造了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。未收录、未公开、正文缺失或检索条件不合适均可能造成未命中，应标为本库未核实并进一步复核。"}}, {"@type": "Question", "name": "文书查 MCP 会返回法院原文链接吗？", "acceptedAnswer": {"@type": "Answer", "text": "不提供中国裁判文书网原文直链。get_judgment 读取的是可用库内正文，不保证每条记录都有判决内容；可凭案号、法院和日期到官方渠道另行复核。"}}, {"@type": "Question", "name": "判词匹配通过，就能证明法律观点正确吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。verify_quote 使用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；引用匹配也不证明法律论证、适用范围或判决后续效力正确。"}}, {"@type": "Question", "name": "核验只能免费试用吗？", "acceptedAnswer": {"@type": "Answer", "text": "公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化需机构申请和另行约定，以官网现行方案为准。"}}, {"@type": "Question", "name": "HTTP 200 就代表 MCP 核验通过了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不代表。HTTP 成功只说明传输完成，还要先检查 JSON-RPC 错误和 result.isError。2026-11-05 对正式端点传入过短引文，HTTP 200 但 result.isError 为 true；这是参数错误，不是未命中或核验通过。错误内容可能是普通文本，不能无条件当成带 verdict 的 JSON。"}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "法律 AI 生成的案号和判词引用，如何用 MCP 工具核验？", "acceptedAnswer": {"@type": "Answer", "text": "先用文书查 MCP 的 verify_case_number 传入 caseNo，检查本库命中；用 get_judgment 取得可用库内正文；再用 verify_quote 传入 quote 和同一 caseNo 辅助比对。未命中、无正文、未匹配和接口失败分别留痕，人工阅读上下文。核验工具不判断法律适用或后续效力。"}}, {"@type": "Question", "name": "本库未命中案号，就能认定 AI 编造了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。未收录、未公开、正文缺失或检索条件不合适均可能造成未命中，应标为本库未核实并进一步复核。"}}, {"@type": "Question", "name": "文书查 MCP 会返回法院原文链接吗？", "acceptedAnswer": {"@type": "Answer", "text": "不提供中国裁判文书网原文直链。get_judgment 读取的是可用库内正文，不保证每条记录都有判决内容；可凭案号、法院和日期到官方渠道另行复核。"}}, {"@type": "Question", "name": "判词匹配通过，就能证明法律观点正确吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。verify_quote 使用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；引用匹配也不证明法律论证、适用范围或判决后续效力正确。"}}, {"@type": "Question", "name": "核验只能免费试用吗？", "acceptedAnswer": {"@type": "Answer", "text": "公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化请添加商务微信 131-6872-7779 另行约定，以官网现行方案为准。"}}, {"@type": "Question", "name": "HTTP 200 就代表 MCP 核验通过了吗？", "acceptedAnswer": {"@type": "Answer", "text": "不代表。HTTP 成功只说明传输完成，还要先检查 JSON-RPC 错误和 result.isError。2026-11-05 对正式端点传入过短引文，HTTP 200 但 result.isError 为 true；这是参数错误，不是未命中或核验通过。错误内容可能是普通文本，不能无条件当成带 verdict 的 JSON。"}}]}</script>
 
   <style>
     :root{
@@ -104,7 +104,7 @@
 <h2>中国案号与判词引用，如何用文书查 MCP 核验？</h2>
 <p>当前远程文书查 MCP 提供 <code>verify_case_number</code> 和 <code>verify_quote</code>，另有 <code>search_judgments</code> 与 <code>get_judgment</code>用于检索和读取库内正文。无需先购买私有化系统即可测试。</p>
 <ol><li>从待核文本提取案号和实际引文，保留原始文字。</li><li>调用 <code>verify_case_number</code>，核对库内命中与返回信息。未命中只能写“本库未核实”，不能据此认定案号伪造。</li><li>按需用 <code>get_judgment</code>取得库内正文，再调用 <code>verify_quote</code>辅助核对引文。无正文、未收录、接口失败和文字未匹配须分开处理，不能一概当作通过或造假。</li><li>人工阅读上下文，判断引用是否支持拟表达的观点；需要时凭案号、法院和日期到官方渠道复核。本库不提供法院原文直链，也不判断法律适用或判决后续效力。</li></ol>
-<p><a href="/mcp/quickstart/">工具参数与客户端配置</a>中有公开测试 Key。公开测试受共享额度限制；持续使用可选开发者 Pro（¥99/月或¥990/年，每月5万次调用、5000篇全文），团队版¥4800/年。<a href="/pricing/#production-selection">按业务量选付费方案</a>；SLA、数据授权和私有化请走<a href="/mcp/apply/">机构申请</a>，另行约定。</p>
+<p><a href="/mcp/quickstart/">工具参数与客户端配置</a>中有公开测试 Key。公开测试受共享额度限制；持续使用可选开发者 Pro（¥99/月或¥990/年，每月5万次调用、5000篇全文），团队版¥4800/年。<a href="/pricing/#production-selection">按业务量选付费方案</a>；SLA、数据授权和私有化请<a href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a>，另行约定。</p>
 </section>
 <h3>两个核验工具的参数，不要混用</h3>
 <p>案号核验工具 <code>verify_case_number</code> 接收 <code>caseNo</code>；判词核验工具 <code>verify_quote</code> 必填 <code>quote</code>（至少6字），可选 <code>caseNo</code>。核对某案的引用时应同时传案号，避免只在全库找到相似句就误认是这个案件说的。</p>
@@ -232,7 +232,7 @@ verify_quote 参数：{"quote":"&lt;需逐字比对的实际判词&gt;","caseNo"
 <p class="faq-q">Q:判词匹配通过，就能证明法律观点正确吗？</p>
 <p>A:不能。verify_quote 使用分词后的连续短语匹配，忽略标点与空白，不是逐字节鉴定；引用匹配也不证明法律论证、适用范围或判决后续效力正确。</p>
 <p class="faq-q">Q:核验只能免费试用吗？</p>
-<p>A:公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化需机构申请和另行约定，以官网现行方案为准。</p>
+<p>A:公开测试 Key 可先验证链路；持续使用可选开发者 Pro ¥99/月或¥990/年，每月5万次调用、5000篇全文；团队版¥4800/年。SLA、数据授权及私有化请添加商务微信 131-6872-7779 另行约定，以官网现行方案为准。</p>
 
       <div class="cta-box">
         <h3>先试跑案号与判词核验</h3>

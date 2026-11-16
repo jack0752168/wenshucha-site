@@ -110,7 +110,7 @@ def main():
         "1.6 亿条裁判文书记录接入 Claude、Cursor、Claude Code 等客户端。"
         "四个工具:search_judgments(BM25 全文检索)、get_judgment(按案号取库内正文)、verify_case_number(案号核验)、"
         "verify_quote(判词溯源核验)。公开测试 Key 即刻可用(每 IP 每天合计 20 次工具调用,其中最多 5 篇全文),免费版 1,000 次/月,"
-        f"接入指南 {BASE}/mcp/quickstart/ ,机构申请 {BASE}/mcp/apply/ 。",
+        f"接入指南 {BASE}/mcp/quickstart/ ,独享额度与机构接入统一添加商务微信 13168727779（Jack），说明见 {BASE}/pricing/#business-wechat ，无需填写申请表。",
         f"- [法律 AI 案号和判词引用的 MCP 核验实测]({BASE}/blog/legal-ai-hallucination-citation-verification.html#live-verification-example):"
         "2026-11-05 正式端点已测 exists、verified、not_found、not_in_this_case 四种返回;"
         "参数为 caseNo 与 quote,可复现输入与返回摘录见原文。not_found 不是造假结论,verified 不是法律观点正确性或效力结论。",
