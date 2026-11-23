@@ -4,8 +4,8 @@ After=network-online.target
 
 [Service]
 Type=simple
-User=www
-Group=www
+User=wsc-trial
+Group=wsc-trial
 WorkingDirectory=/opt/wsc-mcp-trial
 EnvironmentFile=/etc/wsc-mcp-trial.env
 ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning server.mjs
