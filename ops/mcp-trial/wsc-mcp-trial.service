@@ -1,0 +1,24 @@
+[Unit]
+Description=Wenshucha verified self-service MCP trials
+After=network-online.target
+
+[Service]
+Type=simple
+User=www
+Group=www
+WorkingDirectory=/opt/wsc-mcp-trial
+EnvironmentFile=/etc/wsc-mcp-trial.env
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning server.mjs
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/wsc-mcp-trial
+MemoryMax=180M
+TasksMax=40
+
+[Install]
+WantedBy=multi-user.target

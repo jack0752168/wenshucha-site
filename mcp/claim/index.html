@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow"><meta name="referrer" content="no-referrer">
+<title>免费领取一个月 MCP · 文书查</title>
+<meta name="description" content="填写姓名、电话及公司，验证邮箱后自助领取文书查MCP独立免费Key，有效期一个月，可检索案例及读取裁判文书正文。">
+<link rel="canonical" href="https://www.wenshucha.com/mcp/claim/">
+<link rel="stylesheet" href="claim.css"><script src="claim.js" defer></script>
+</head><body>
+<header><a href="/">文书查</a><a href="/mcp/quickstart/">接入文档</a></header>
+<main>
+<section class="intro"><p class="eyebrow">文书查 MCP</p><h1>免费领一个月，<br>连接裁判文书正文。</h1><p>每位领取者获得独立 Key。从验证领取当日起生效，一个月后自动到期，无需加微信、无需付款。</p>
+<div class="quota"><span><b>1,000</b> 次工具调用 / 月</span><span><b>100</b> 次正文读取 / 月</span></div>
+<p class="small">正文读取计入工具调用；同一篇重复读取会重复计次。额度按自然月每月 1 日重置，有效期内可使用。同一邮箱或手机号仅可领取一次。</p>
+<ul><li>案例检索与库内正文读取</li><li>案号核验与判词核验</li><li>支持 Claude Code、Cursor 等 MCP 客户端</li></ul>
+<p class="small">库内正文按记录提供；部分文书源头缺失或不完整会标注。核验结果表示库内匹配。</p></section>
+<section class="card" aria-label="免费领取表单">
+<div id="start"><h2>填写资料，验证邮箱</h2><p class="muted">请填写真实联系方式，便于接入支持与试用回访。</p>
+<form id="profile-form">
+<label for="name">姓名</label><input id="name" name="name" required minlength="2" maxlength="60" autocomplete="name" placeholder="您的姓名">
+<label for="phone">手机号</label><input id="phone" name="phone" required maxlength="24" inputmode="tel" autocomplete="tel" placeholder="手机号；境外号码请带国家区号">
+<label for="company">公司 / 机构</label><input id="company" name="company" required minlength="2" maxlength="120" autocomplete="organization" placeholder="公司、律所或机构完整名称">
+<label for="email">接收验证码的邮箱</label><input id="email" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="支持企业邮箱、QQ、163 等常用邮箱">
+<div class="trap" aria-hidden="true"><label>网站<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent"><input id="consent" type="checkbox" required><span>我同意将所填资料用于领取验证、服务开通、接入支持及试用回访，并记录至文书查客户台账。资料不在本页公开。<a href="#privacy">查看资料使用说明</a></span></label>
+<button id="send" type="submit">发送邮箱验证码</button></form></div>
+<div id="verification" hidden><h2>输入邮箱验证码</h2><p>验证码已发送至 <strong id="email-display"></strong>，10 分钟内有效。通常需等待数秒，请同时检查垃圾邮件。</p>
+<form id="code-form"><label for="code">六位验证码</label><input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required placeholder="000000"><button type="submit" id="verify">验证并领取</button></form>
+<button type="button" id="back" class="secondary">修改资料 / 重新发送</button></div>
+<div id="waiting" hidden><h2>正在开通您的独立 Key</h2><p>邮箱验证已通过，请稍候，页面会自动显示领取结果。</p></div>
+<div id="result" hidden><h2>领取成功</h2><p>免费版有效期至 <strong id="expiry"></strong>（含当天），到期自动停用。</p><label for="key">您的专属 Key</label><textarea id="key" readonly rows="2" spellcheck="false"></textarea><button id="copy-key" type="button">复制 Key</button>
+<p class="small">请自行保存，不要公开。再次验证同一邮箱可取回原 Key，不会重置试用期限。</p>
+<label for="client">选择客户端配置</label><select id="client"><option value="cursor">Cursor</option><option value="claude-code">Claude Code</option><option value="desktop">Claude Desktop（需 Node.js）</option></select>
+<textarea id="config" readonly rows="12" spellcheck="false"></textarea><button class="secondary" id="copy-config" type="button">复制配置</button><p><a href="/mcp/quickstart/">查看完整安装与使用步骤</a></p><p id="crm-status" class="small"></p></div>
+<p id="message" role="status" aria-live="polite"></p>
+</section>
+<section class="privacy" id="privacy"><h2>资料使用说明</h2><p>运营主体：深圳星谱网络科技有限公司。姓名、电话、公司及邮箱用于验证领取、独立 Key 开通、接入支持及试用回访，开通成功后记录至客户台账。电话与公司信息为自行填写，邮箱通过验证码验证。不要求密码或付款信息，也不自动订阅营销邮件。</p><p>如需查询、更正或删除所提交资料，请联系 <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a>。删除申请将按处理需要核对身份。<a href="/pricing/">查看更高额度方案</a>。</p></section>
+</main><footer>文书查 · 深圳星谱网络科技有限公司 · <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2025437990号-2</a></footer>
+</body></html>
