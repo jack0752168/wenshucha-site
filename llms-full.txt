@@ -6,7 +6,7 @@
 ## 产品与入口
 
 - https://www.wenshucha.com/ — 文书查首页:裁判文书智能检索 + AI 法律助手
-- https://www.wenshucha.com/case-search/ — 裁判文书智能检索系统介绍
+- https://www.wenshucha.com/case-search/ — 类案检索系统、裁判文书检索系统、判决书查询的网页产品入口；关键词/条件检索，实际可用库内正文与案例清单，独立AI类案研究另列。
 - https://www.wenshucha.com/legal-ai/ — AI 法律助手介绍(四模组)
 - https://www.wenshucha.com/pricing/ — 全线产品定价:MCP、检索系统与 AI 助手、数据授权
 - https://www.wenshucha.com/#onpremise — 裁判文书数据本地部署：律所内网自用、AI集成商与企业项目；先核样本、范围、授权与环境，按书面清单确认交付。
