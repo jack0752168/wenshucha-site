@@ -46,7 +46,8 @@ root_code=$(curl "${curl_base[@]}" -o /dev/null -w '%{http_code}' https://www.we
 index_code=$(curl "${curl_base[@]}" -o /dev/null -w '%{http_code}' https://www.wenshucha.com/index.html)
 location=$(curl "${curl_base[@]}" -I https://www.wenshucha.com/index.html | awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); print $2; exit}')
 [ "$root_code" = 200 ] && [ "$index_code" = 301 ] && [ "$location" = 'https://www.wenshucha.com/' ] || { echo 'FAIL: canonical verification'; exit 1; }
-curl "${curl_base[@]}" https://www.wenshucha.com/ | grep -q '粤ICP备2025437990号-2'
+home_html=$(curl "${curl_base[@]}" https://www.wenshucha.com/)
+grep -q '粤ICP备2025437990号-2' <<< "$home_html"
 for hidden in deploy-to-server.sh gen_llms.py linkcheck.py ops/research_catalog.py; do
   code=$(curl --silent --show-error --resolve www.wenshucha.com:443:127.0.0.1 --max-time 15 -o /dev/null -w '%{http_code}' "https://www.wenshucha.com/$hidden")
   [ "$code" != 200 ] || { echo "FAIL: operational file exposed $hidden"; exit 1; }
