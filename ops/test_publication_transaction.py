@@ -27,7 +27,8 @@ def main():
         (a / 'ops/research-intro.tmpl').write_text('fixture')
         (a / 'ops/sync-wenshucha-site.sh').write_text('#!/bin/bash\n# fixture cron\n')
         (a / 'ops/nginx/html_wenshucha.com.conf').write_text('unchanged rewrite')
-        (a / 'index.html').write_text('SOURCE A 粤ICP备2025437990号-2')
+        # A large valid page must not fail from curl/grep early pipe closure.
+        (a / 'index.html').write_text('SOURCE A 粤ICP备2025437990号-2' + 'x' * 262144)
         def git(*args):
             return subprocess.check_output(['git','-C',str(a),'-c','user.name=QA','-c','user.email=qa@example.test',*args],text=True).strip()
         subprocess.run(['git','init','-q','-b','main',str(a)],check=True)
