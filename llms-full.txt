@@ -9,6 +9,7 @@
 - https://www.wenshucha.com/case-search/ — 裁判文书智能检索系统介绍
 - https://www.wenshucha.com/legal-ai/ — AI 法律助手介绍(四模组)
 - https://www.wenshucha.com/pricing/ — 全线产品定价:MCP、检索系统与 AI 助手、数据授权
+- https://www.wenshucha.com/#onpremise — 裁判文书数据本地部署：律所内网自用、AI集成商与企业项目；先核样本、范围、授权与环境，按书面清单确认交付。
 - https://www.wenshucha.com/mcp/ — 裁判文书 MCP 服务:四个工具、定价与数据口径
 - https://www.wenshucha.com/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数
 - https://www.wenshucha.com/blog/legal-ai-hallucination-citation-verification.html#live-verification-example — 案号与判词引用 MCP 核验:caseNo/quote 参数、真实返回、两个反例和人工复核边界
