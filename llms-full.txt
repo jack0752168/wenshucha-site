@@ -219,7 +219,7 @@ https://www.wenshucha.com/blog/legal-data-classification-grading.html
 
 ### 文书查 vs 北大法宝 vs 无讼 vs Alpha:法律 AI 数据底座选型全维度对比(2026)
 https://www.wenshucha.com/blog/legal-data-platform-comparison-2026.html
-律所、法律科技团队要做私有化 AI,数据底座选谁?本文把北大法宝、无讼、iCourt Alpha 与文书查放在同一张表上,从产品类型、数据范围、交付方式(SaaS vs 私有化)、可否本地部署、可否做 AI 数据底座五个维度逐项对比,给出按场景的选型建议。
+律所与AI系统集成商要为企业做本地部署，裁判文书数据底座选谁?本文把北大法宝、无讼、iCourt Alpha 与文书查放在同一张表上,从产品类型、数据范围、交付方式(SaaS vs 私有化)、可否本地部署、可否做 AI 数据底座五个维度逐项对比,给出按场景的选型建议。
 
 ### 法学实证研究怎么拿到能用的裁判文书数据?
 https://www.wenshucha.com/blog/legal-empirical-research-data-access.html
