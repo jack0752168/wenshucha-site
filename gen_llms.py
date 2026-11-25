@@ -71,7 +71,7 @@ def main():
         "# 文书查 (wenshucha.com)",
         "",
         "> 文书查提供裁判文书 MCP 与独立的 AI 类案研究方案。MCP 把 1.6 亿条裁判文书记录接入 Claude、Cursor 等客户端,"
-        "提供 BM25 检索、按案号取库内正文、案号核验和判词核验。获客同时承接 MCP 和买卖合同/货款结算的独立类案研究。经典网页检索与原 AI 助手继续免费内测；新 AI 类案研究按完成研究计次，报价统一见 https://tob.wenshucha.com/research/#pricing；数据定制报告仍为独立服务。",
+        "提供 BM25 检索、按案号取库内正文、案号核验和判词核验。获客同时承接 MCP 和买卖合同/货款结算的独立类案研究。经典网页检索与原 AI 助手继续免费内测；新 AI 类案研究按完成研究计次，报价统一见 https://tob.wenshucha.com/research/#pricing。数据定制报告已下线，不再接受该服务申请。",
         "",
         "运营主体:深圳星谱网络科技有限公司(粤ICP备2025437990号-2)",
         f"商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · {BASE}",
@@ -130,7 +130,6 @@ def main():
         "## 数据专题",
         "",
         f"- [裁判文书数据规模与字段结构]({BASE}/data/)",
-        f"- [裁判文书数据定制报告]({BASE}/data-report/):按研究主题在 1.6 亿全库上出统计报告(逐年案件量、案由构成、地域审级画像、关键词交叉、法院观点归类、裁判结果分布),交付 Word+Excel+PPT+图表,每个数字附检索式;基础版 ¥299 起,24–72 小时交付,面向论文/课题/行业研究。",
         f"- [各地劳动争议赔偿数据]({BASE}/data/labor/):按城市聚合的赔偿金额分布、"
         "解除原因构成与真实案例(附案号),共 " + str(len(labor)) + " 个城市页。",
         f"- [全国劳动争议赔偿数据报告]({BASE}/data/labor-report/):80,000 份已获赔付判决的赔偿金额四分位分布、"
@@ -205,7 +204,6 @@ def main():
         f"- {BASE}/mcp/quickstart/ — MCP 接入指南:端点、试用 Key、客户端配置与工具参数",
         f"- {BASE}/blog/legal-ai-hallucination-citation-verification.html#live-verification-example — 案号与判词引用 MCP 核验:caseNo/quote 参数、真实返回、两个反例和人工复核边界",
         f"- {BASE}/data/ — 裁判文书数据规模与字段结构",
-        f"- {BASE}/data-report/ — 裁判文书数据定制报告:论文/课题/行业研究用的司法大数据统计,¥299 起",
         f"- {BASE}/data/labor/ — 各地劳动争议赔偿数据总览",
         f"- {BASE}/data/equity-transfer-report/ — 股权转让纠纷裁判数据报告(全库现跑,附检索式)",
         f"- {BASE}/data/noncompete-report/ — 竞业限制纠纷裁判数据报告(全库现跑,附检索式与富集倍数口径)",
