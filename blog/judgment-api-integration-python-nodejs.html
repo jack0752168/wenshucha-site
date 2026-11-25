@@ -35,7 +35,7 @@
       "logo": { "@type": "ImageObject", "url": "https://www.wenshucha.com/favicon.svg" }
     },
     "datePublished": "2026-06-27",
-    "dateModified": "2026-06-27",
+    "dateModified": "2026-11-25",
     "mainEntityOfPage": "https://www.wenshucha.com/blog/judgment-api-integration-python-nodejs.html"
   }
   </script>
@@ -210,7 +210,7 @@ if __name__ == "__main__":
                             year_from=2022, year_to=2025, size=10)
     for hit in data.get("items", []):       <span class="c"># 列表字段名以文档为准</span>
         print(hit.get("case_no"), hit.get("court"), hit.get("source_url"))
-        <span class="c"># source_url = 案号回查原文,务必存下来供用户核对</span></code></pre>
+        <span class="c"># 本库不提供法院原文直链；保存案号、法院、裁判日期供人工回查</span></code></pre>
 
       <h2>四、Node.js 接入示例(fetch)</h2>
       <p>等价骨架,Node 18+ 自带 <code>fetch</code>。BFF / 实时检索服务这样写最顺:</p>

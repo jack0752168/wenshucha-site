@@ -15,7 +15,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文书查","item":"https://www.wenshucha.com/"},{"@type":"ListItem","position":2,"name":"采购决策指南","item":"https://www.wenshucha.com/buyers-guide/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"文书查","legalName":"深圳星谱网络科技有限公司","url":"https://www.wenshucha.com/","description":"面向中国大陆律所、法院与政府法务部门的裁判文书智能检索与法律 AI 服务商,提供自建裁判文书数据底座、类案检索、AI 法律助手与私有化离线部署。","address":{"@type":"PostalAddress","addressCountry":"CN","addressRegion":"广东省","addressLocality":"深圳市","streetAddress":"宝安区新安街道诺铂广场 1715"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","telephone":"+86-131-6872-7779","email":"chenjiaxin@wenshucha.com","areaServed":"CN","availableLanguage":["zh-CN"]},"identifier":"粤ICP备2025437990号-2"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"文书查怎么收费?","acceptedAnswer":{"@type":"Answer","text":"分三种形态计价,不按席位数收费。一、在线检索与 AI 助手:免注册试用,每天有免费额度,适合个人律师与小团队评估。二、数据接口与 license:按数据范围(案由/年份/地域)与调用量计,适合要在数据上盖自有产品的机构。三、私有化离线部署:按数据范围、部署规模与定制程度一次性计价,含三年迭代。私有化部署因涉及硬件环境与定制范围,不设标准价目表,需按需求评估后报价。可联系商务 131-6872-7779 或 chenjiaxin@wenshucha.com。"}},
+{"@type":"Question","name":"文书查怎么收费?","acceptedAnswer":{"@type":"Answer","text":"分三种形态计价,不按席位数收费。一、在线检索与 AI 助手:免注册试用,每天有免费额度,适合个人律师与小团队评估。二、数据接口与 license:按数据范围(案由/年份/地域)与调用量计,适合要在数据上盖自有产品的机构。三、私有化离线部署:按数据范围、部署规模与定制程度一次性计价,服务范围、维护期限与费用另行书面约定。私有化部署因涉及硬件环境与定制范围,不设标准价目表,需按需求评估后报价。可联系商务 131-6872-7779 或 chenjiaxin@wenshucha.com。"}},
 {"@type":"Question","name":"私有化部署对硬件有什么要求?","acceptedAnswer":{"@type":"Answer","text":"取决于三件事,而不是律所规模:一是并发量(同时使用的律师数,决定 GPU 数量);二是平均上下文长度(法律文档偏长,KV cache 随并发与上下文线性增长,长文档场景对显存的放大效应往往大于人数);三是检索层索引能否常驻内存(索引放不下内存会导致查询频繁读盘,此时加 GPU 无效)。推理层、检索层、存储带宽必须分三本账各算一遍。实际配置需按本所使用形态测算,可提供容量规划表模板。"}},
 {"@type":"Question","name":"数据来源是什么?合规吗?","acceptedAnswer":{"@type":"Answer","text":"数据来源于中国裁判文书网公开生效裁判文书,当事人个人信息(姓名、身份证号、联系方式、住址等)已做脱敏处理。判决数据集的统计口径需注意:样本仅含已获赔付的判决,不含败诉样本,因此任何基于本站数据的比例统计均不代表整体胜诉率。私有化部署场景下数据存放于机构内网,不出内网。"}},
 {"@type":"Question","name":"数据更新到什么时候?多久更新一次?","acceptedAnswer":{"@type":"Answer","text":"数据覆盖范围与最新更新时点会随批次变化,采购前请向商务索取当期的数据覆盖说明(含各案由、各年份、各地域的实际收录情况)。私有化部署可约定增量同步的频率与方式。建议在合同中明确写入数据截止时点与更新条款,这也是选型时应向任何供应商确认的事项。"}},
@@ -80,19 +80,19 @@ ol.q li{margin:10px 0}
 <main class="wrap">
 
 <div class="tldr">
-  <strong>一句话版本：</strong>我们不按席位收费，按「用什么形态 + 覆盖多少数据」计价；私有化部署没有标准价目表，因为硬件配置取决于并发量和文档长度而不是律所规模；数据来源是裁判文书网公开生效文书，样本只含获赔判决——这一点会影响你怎么读统计数字，下面会讲清楚。
+  <strong>一句话版本：</strong>我们不按席位收费，按「用什么形态 + 覆盖多少数据」计价；私有化部署没有标准价目表，因为硬件配置取决于并发量和文档长度而不是律所规模；数据来源是裁判文书网公开生效文书，劳动争议赔偿专题样本只含获赔判决，1.6亿全库不作此筛选——这一点会影响你怎么读统计数字，下面会讲清楚。
 </div>
 
-<h2>一、怎么收费</h2>
+<section id="integrators"><h2>AI系统集成商向企业交付：先确定数据和授权范围</h2><p>文书查可沟通约1.6亿条裁判文书记录的存量/增量、本地交付或检索接口，最终客户内部使用、内嵌产品与再分发分别约定。记录数不代表完整正文数；先以当期样本验收。</p><p><a href="/solutions/legal-data-integrators/">集成商项目询价、交付清单与验收模板 →</a></p></section><h2>一、怎么收费</h2>
 
 <p>三种形态，按需求选，<strong>不按席位数收费</strong>（法律场景里使用频次差异极大，按人头计价对客户不划算）。</p>
 
 <table>
   <thead><tr><th>形态</th><th>怎么计价</th><th>适合谁</th></tr></thead>
   <tbody>
-    <tr><td><strong>在线检索 + AI 助手</strong></td><td>免注册试用，每天有免费额度；超出部分按用量</td><td>个人律师、小团队；以及正式采购前的评估阶段</td></tr>
+    <tr><td><strong>在线检索 + AI 助手</strong></td><td>经典检索与原AI助手免费内测；独立AI类案研究另行计次</td><td>个人律师、小团队；以及正式采购前的评估阶段</td></tr>
     <tr><td><strong>数据接口 / license</strong></td><td>按数据范围（案由 / 年份 / 地域）与调用量计</td><td>要在数据上盖自有产品的机构、法律科技公司、研究机构</td></tr>
-    <tr><td><strong>私有化离线部署</strong></td><td>按数据范围、部署规模与定制程度一次性计价，含三年迭代</td><td>大型律所、法院 / 检察院 / 司法局等对数据不出内网有硬要求的单位</td></tr>
+    <tr><td><strong>私有化离线部署</strong></td><td>按数据范围、部署规模与定制程度一次性计价，服务范围、维护期限与费用另行书面约定</td><td>大型律所、法院 / 检察院 / 司法局等对数据不出内网有硬要求的单位</td></tr>
   </tbody>
 </table>
 
@@ -118,7 +118,7 @@ ol.q li{margin:10px 0}
   <h3>来源</h3>
   <p>中国裁判文书网公开生效裁判文书。当事人个人信息（姓名、身份证号、联系方式、住址等）已做脱敏处理。</p>
   <h3>⚠️ 统计口径的边界</h3>
-  <p>我们的判决数据集<strong>样本仅含已获赔付的判决，不含败诉样本</strong>。这意味着：任何基于这批数据算出来的比例，<strong>都不代表整体胜诉率</strong>。</p>
+  <p>劳动争议赔偿专题的判决集<strong>劳动争议赔偿专题样本仅含已获赔付的判决，不含败诉样本；这不代表1.6亿全库的筛选条件</strong>。这意味着：任何基于这批数据算出来的比例，<strong>都不代表整体胜诉率</strong>。</p>
   <p>我们把这条写在这里，是因为这类数据被误读为「胜诉率」的情况在行业里很常见。你在评估任何一家供应商的数据统计时，都该追问这个问题：<strong>这个百分比的分母是什么？</strong></p>
   <h3>数据截止与更新</h3>
   <p>覆盖范围与最新更新时点随批次变化。<strong>采购前请索取当期的数据覆盖说明</strong>，含各案由、各年份、各地域的实际收录情况。私有化部署可约定增量同步的频率与方式，建议写进合同。</p>
@@ -149,7 +149,7 @@ ol.q li{margin:10px 0}
   <li>能不能私有化部署？<strong>部署后数据是否完全不出内网</strong>？</li>
   <li>硬件配置<strong>怎么算出来的</strong>？能不能给测算过程而不只给结论？</li>
   <li>验收标准是什么？<strong>怎么判定「做到了」</strong>？</li>
-  <li>三年内的迭代和运维怎么约定？<strong>后续加数据、换模型要不要另付费</strong>？</li>
+  <li>约定服务期内的迭代和运维怎么安排？<strong>后续加数据、换模型要不要另付费</strong>？</li>
 </ol>
 
 <div class="card">
@@ -204,7 +204,7 @@ ol.q li{margin:10px 0}
   <a href="https://www.wenshucha.com/legal-ai/">AI 法律助手</a>
 </section>
 
-<div class="dis">数据来源于中国裁判文书网公开生效裁判文书，当事人个人信息已脱敏。判决数据集样本仅含已获赔付的判决，不含败诉样本，任何基于本站数据的比例统计均不代表整体胜诉率。本页所述配置要点为一般性技术考量，实际方案以按需评估结果为准。</div>
+<div class="dis">数据来源于中国裁判文书网公开生效裁判文书，当事人个人信息已脱敏。判决数据集劳动争议赔偿专题样本仅含已获赔付的判决，不含败诉样本；这不代表1.6亿全库的筛选条件，任何基于本站数据的比例统计均不代表整体胜诉率。本页所述配置要点为一般性技术考量，实际方案以按需评估结果为准。</div>
 
 </main>
 

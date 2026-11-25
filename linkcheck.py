@@ -156,6 +156,9 @@ def main() -> int:
     price_files = [SITE/"llms.txt", SITE/"pricing/index.html", SITE/"mcp/index.html", SITE/"index.html"]
     for f in html_files + [p for p in (SITE/"llms.txt", SITE/"llms-full.txt") if p.exists()]:
         txt = f.read_text(encoding="utf-8", errors="ignore")
+        for obsolete in ("含判决正文的记录均为全文", "全文可取", "演示阶段不收费", "演示阶段通常不收费", "含三年迭代", "14-30 天交付演示", "¥248,000", "¥198,000", "¥298,000"):
+            if obsolete in txt:
+                errors.append(f"{f.relative_to(SITE)}: 失效的交付/价格承诺「{obsolete}」，请按当期范围与书面方案说明")
         for b in BANNED:
             if b in txt:
                 errors.append(f"{f.relative_to(SITE)}: 旧数据口径「{b}」(现行口径 1.6 亿,Jack 2026-07-22 定案)")
