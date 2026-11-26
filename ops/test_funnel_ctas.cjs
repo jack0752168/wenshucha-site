@@ -5,7 +5,8 @@ const crypto = require('node:crypto');
 const source = fs.readFileSync(require('node:path').join(__dirname, '../assets/funnel-v1.js'), 'utf8');
 const origins = ['/', '/pricing/', '/case-search/', '/blog/similar-case-search-completeness-guide.html', '/blog/limitation-period-defense-tolling-search.html'];
 const cases = origins.map(path => ({path, dest: '/case-research/', name: 'cta_search', surface: 'inline'}));
-cases.push({path: '/case-research/', dest: 'https://tob.wenshucha.com/research/', name: 'cta_search', surface: 'report'},
+cases.push({path: '/case-search/', dest: 'https://tob.wenshucha.com/research/', name: 'cta_search', surface: 'report'},
+  {path: '/case-research/', dest: 'https://tob.wenshucha.com/research/', name: 'cta_search', surface: 'report'},
   {path: '/', dest: '/case-search/', name: 'cta_search', surface: 'detail'},
   {path: '/', dest: '/mcp/quickstart/', name: 'cta_mcp', surface: 'mcp'});
 for (const item of cases) {

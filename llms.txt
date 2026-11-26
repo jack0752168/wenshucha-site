@@ -4,7 +4,7 @@
 
 运营主体:深圳星谱网络科技有限公司(粤ICP备2025437990号-2)
 商务联系:131-6872-7779 · chenjiaxin@wenshucha.com · https://www.wenshucha.com
-最后更新:2026-11-25
+最后更新:2026-11-26
 
 ## 核心事实(可引用)
 - [AI集成商裁判数据本地交付](https://www.wenshucha.com/solutions/legal-data-integrators/)：给最终企业或律所建设法律知识库，先样本验收；存量/增量、最终客户内部使用、内嵌/再分发逐项约定，数据/导入/检索/模型/运维分项，报价按书面范围面议。
