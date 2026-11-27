@@ -62,7 +62,7 @@
     "url": "https://www.wenshucha.com/",
     "logo": "https://www.wenshucha.com/favicon.svg",
     "foundingDate": "2017",
-    "description": "提供面向法律 AI 产品、律所与企业法务的裁判文书 MCP 服务，支持检索、取库内正文、核验案号与判词。",
+    "description": "提供 AI 类案研究、裁判文书 MCP 接入和裁判数据本地部署。",
     "sameAs": ["https://mcp.wenshucha.com/","https://sinoverdict.wenshucha.com/"],
     "address": {
       "@type": "PostalAddress",
@@ -84,107 +84,13 @@
   }
   </script>
 
-  <!-- JSON-LD: SoftwareApplication · 裁判文书 MCP -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "文书查 · 裁判文书 MCP",
-    "description": "面向 MCP 客户端的裁判文书数据服务：检索、按案号读取库内正文、核验案号和判词。使用 BM25 词汇检索。",
-    "applicationCategory": "BusinessApplication",
-    "applicationSubCategory": "LegalTech",
-    "operatingSystem": "支持 MCP 的客户端",
-    "url": "https://www.wenshucha.com/mcp/",
-    "brand": { "@type": "Brand", "name": "文书查" },
-    "featureList": ["search_judgments","get_judgment","verify_case_number","verify_quote"],
-    "audience": { "@type": "BusinessAudience", "name": "法律 AI 开发者、律师事务所、企业法务" },
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "CNY",
-      "price": "0",
-      "description": "公开测试 Key，无需注册；每 IP 每天最多 20 次工具调用，其中最多 5 篇库内正文"
-    }
-  }
-  </script>
-
-  <!-- JSON-LD: FAQPage（抢百度精选问答 + Google PAA） -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "文书查的裁判文书数据从哪里来？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "数据均源自人民法院公开裁判文书（中国裁判文书网及各级人民法院公开渠道），经统一清洗与结构化处理,合法、真实、可追溯。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "数据规模有多大？覆盖哪些类型？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "库内约 1.6 亿条裁判文书记录，不等于独立案件数，也不代表全国全部裁判文书。案号、法院、日期和正文覆盖并非 100%，具体字段及局限见 MCP 产品页。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "API 与 MCP Server 怎么接入？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "先打开文书查 MCP 快速接入页，复制公开测试 Key 并按客户端格式配置。当前四个工具为 search_judgments、get_judgment、verify_case_number、verify_quote；支持检索、取库内正文与引用核验。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "经典检索系统能做什么？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "面向 1.6 亿+裁判文书的多维检索:按案件类型、审理程序、法院层级、文书类型、地域、年份组合筛选,实时聚合计数逐层收窄;结果以结构化卡片呈现（案号/法院/案由/判决日期/裁判结果），可勾选案例一键生成检索报告。库内正文可展开，展示范围以实际结果为准,可按有效案号回到官方渠道核对。免注册即可试用。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "AI 法律助手有哪些功能？免费吗？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "四大模组:法律问答（检索自建判决库作答并附案例引用与案号）、文书起草（起诉状/答辩状/法律意见书等）、合同审查（逐条识别风险并给修改建议）、智能阅卷（梳理时间线、争议焦点与证据清单）。每天免费 8 次,无需注册即可使用。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "有海外英文版吗？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "有,海外品牌为 SinoVerdict(sinoverdict.wenshucha.com),面向境外律所与做中国业务的法律 AI 团队,英文介绍与对接服务；当前 MCP 检索使用简体中文法律术语，不承诺英文语义检索、英文摘要或法院原文直链。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "服务过哪些客户？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "自 2017 年起服务无讼、北大法宝、牛法网等司法科技企业,北京大学、清华大学、长江商学院等高校科研,以及江苏某法院等司法机关,共数十家。"
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: BreadcrumbList -->
+  <!-- JSON-LD: WebSite -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "文书查",
-    "url": "https://www.wenshucha.com/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.wenshucha.com/?q={search_term}",
-      "query-input": "required name=search_term"
-    }
+    "url": "https://www.wenshucha.com/"
   }
   </script>
 
@@ -201,564 +107,156 @@
   })();
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <style>
-    :root{
-      --navy:#0e1b2e; --navy-2:#16294a; --ink:#1f2937; --muted:#5b6b80;
-      --accent:#c8a35a; --accent-2:#e0c178; --bg:#f7f8fb; --card:#ffffff;
-      --line:#e6e9f0; --ok:#1f7a5a;
-      --shadow:0 8px 30px rgba(14,27,46,.08); --shadow-lg:0 20px 50px rgba(14,27,46,.14);
+    :root {
+      color-scheme: light;
+      --ink: #0e1b2e;
+      --muted: #4d5a6b;
+      --paper: #f7f6f1;
+      --card: #fff;
+      --line: #deddd5;
+      --link: #174a78;
+      --focus: #2d6fad;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
-      color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
-    h1,h2,h3{font-family:"Songti SC","SimSun",Georgia,serif;font-weight:700;letter-spacing:.01em;color:var(--navy)}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
-    .accent{color:var(--accent)}
+    * { box-sizing: border-box; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC",
+        "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      margin: 0;
+    }
+    a { color: var(--link); text-underline-offset: .22em; }
+    a:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    .wrap { width: min(1080px, calc(100% - 48px)); margin-inline: auto; }
 
-    /* nav */
-    header{position:sticky;top:0;z-index:50;background:rgba(14,27,46,.92);backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.08)}
-    header nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .logo{display:flex;align-items:center;gap:10px;color:#fff;font-family:"Songti SC",serif;font-weight:700;font-size:21px}
-    .logo .mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:grid;place-items:center;color:var(--navy);font-weight:800;font-size:16px}
-    .navlinks{display:flex;gap:28px}
-    .navlinks a{color:rgba(255,255,255,.78);font-size:14.5px;transition:color .2s}
-    .navlinks a:hover{color:var(--accent-2)}
-    @media(max-width:820px){.navlinks{display:flex;gap:16px;max-width:64%;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a[href^="#"]{display:none}.navlinks a{white-space:nowrap;font-size:13.5px}}@media(max-width:390px){.logo{font-size:18px}.navlinks{gap:13px}.navlinks a{font-size:12.5px}}
+    .site-header { border-bottom: 1px solid var(--line); }
+    .site-header .wrap { display: flex; align-items: center; min-height: 68px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 19px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .brand img { width: 36px; height: 36px; }
 
-    /* hero */
-    .hero{position:relative;background:radial-gradient(1200px 500px at 80% -10%,rgba(200,163,90,.18),transparent 60%),
-      linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;overflow:hidden}
-    .hero::after{content:"";position:absolute;inset:0;
-      background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-      background-size:46px 46px;mask-image:radial-gradient(900px 400px at 75% 0,#000,transparent 70%);pointer-events:none}
-    .hero .wrap{position:relative;padding:88px 24px 96px}
-    .eyebrow{display:inline-block;font-size:13px;letter-spacing:.18em;color:var(--accent-2);
-      border:1px solid rgba(200,163,90,.4);border-radius:999px;padding:6px 16px;margin-bottom:24px}
-    .hero h1{color:#fff;font-size:46px;line-height:1.25;max-width:18ch}
-    .hero p.lead{margin-top:22px;max-width:60ch;color:rgba(255,255,255,.82);font-size:17px}
-    .cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:13px 26px;border-radius:10px;font-size:15px;font-weight:600;transition:.2s;cursor:pointer}
-    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--navy)}
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,163,90,.35)}
-    .btn-ghost{border:1px solid rgba(255,255,255,.28);color:#fff}
-    .btn-ghost:hover{background:rgba(255,255,255,.08)}
-    @media(max-width:600px){.hero h1{font-size:32px}.hero .wrap{padding:60px 24px 68px}}
+    .hero { padding: 64px 0 54px; }
+    h1 { font-size: clamp(28px, 4.3vw, 55px); line-height: 1.19; margin: 0; }
+    .intro { margin: 12px 0 30px; color: var(--muted); font-size: clamp(15px, 1.55vw, 19px); }
+    .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      min-height: 188px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--ink);
+      text-decoration: none;
+      scroll-margin-top: 12px;
+    }
+    .product:hover { border-color: var(--link); }
+    .product h2 { font-size: 22px; line-height: 1.3; margin: 0 0 6px; }
+    .product p { font-size: 15px; color: var(--muted); margin: 0 0 18px; }
+    .product-action { color: var(--link); font-size: 15px; font-weight: 700; margin-top: auto; }
+    .product:hover .product-action { text-decoration: underline; }
 
-    /* stats band */
-    .stats{background:var(--navy-2);color:#fff;border-top:1px solid rgba(255,255,255,.08)}
-    .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-    .stat{padding:30px 18px;text-align:center;border-left:1px solid rgba(255,255,255,.08)}
-    .stat:first-child{border-left:none}
-    .stat .num{font-family:"Songti SC",serif;font-size:34px;font-weight:700;color:var(--accent-2)}
-    .stat .lab{margin-top:6px;font-size:14px;color:rgba(255,255,255,.72)}
-    @media(max-width:700px){.stats .grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(odd){border-left:none}
-      .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.08)}}
+    .source { padding: 22px 0; border-top: 1px solid var(--line); }
+    .source .wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
+    .source p { margin: 0; color: var(--muted); font-size: 15px; }
+    .source strong { color: var(--ink); }
 
-    /* sections */
-    section.block{padding:84px 0}
-    .shead{text-align:center;max-width:62ch;margin:0 auto 52px}
-    .shead .tag{font-size:13px;letter-spacing:.16em;color:var(--accent);font-weight:700}
-    .shead h2{font-size:32px;margin-top:12px}
-    .shead p{margin-top:14px;color:var(--muted);font-size:16px}
+    footer { background: #fff; border-top: 1px solid var(--line); padding: 26px 0; }
+    .resources { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 16px; }
+    .resources a { font-weight: 600; font-size: 14px; }
+    .company { margin: 0; font-size: 14px; color: var(--muted); }
+    .contact { display: flex; flex-wrap: wrap; gap: 3px 14px; margin: 4px 0 0; font-size: 14px; }
 
-    .cards{display:grid;gap:22px}
-    .c5{grid-template-columns:repeat(5,1fr)}
-    .c4{grid-template-columns:repeat(4,1fr)}
-    .c3{grid-template-columns:repeat(3,1fr)}
-    .c2{grid-template-columns:repeat(2,1fr)}
-    @media(max-width:980px){.c5{grid-template-columns:repeat(2,1fr)}.c4{grid-template-columns:repeat(2,1fr)}.c3{grid-template-columns:1fr}}
-    @media(max-width:600px){.c5,.c4,.c2{grid-template-columns:1fr}}
-
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow);transition:.25s}
-    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(200,163,90,.4)}
-    .card .ic{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,#fbf3df,#f3e3bd);
-      display:grid;place-items:center;font-size:20px;margin-bottom:16px}
-    .card h3{font-size:18px;font-family:inherit;font-weight:700;color:var(--navy)}
-    .card p{margin-top:9px;color:var(--muted);font-size:14.5px}
-
-    .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-
-    /* table */
-    .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);background:#fff}
-    table{width:100%;border-collapse:collapse;min-width:680px}
-    th,td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:14.5px}
-    thead th{background:var(--navy);color:#fff;font-weight:600;font-family:inherit}
-    thead th:first-child{border-top-left-radius:0}
-    tbody tr:last-child td{border-bottom:none}
-    tbody td:first-child{font-weight:600;color:var(--navy)}
-    .q{color:var(--ok);font-weight:600}
-    .hi{background:rgba(200,163,90,.07)}
-
-    /* about */
-    .about{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
-    @media(max-width:820px){.about{grid-template-columns:1fr;gap:28px}}
-    .about p{color:var(--muted);font-size:16px;margin-top:16px}
-    .panel{background:linear-gradient(160deg,var(--navy),var(--navy-2));border-radius:18px;padding:34px;color:#fff}
-    .panel .row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:15px}
-    .panel .row:last-child{border-bottom:none}
-    .panel .row span:last-child{color:var(--accent-2);font-weight:600}
-
-    /* clients */
-    .clients{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    @media(max-width:820px){.clients{grid-template-columns:1fr}}
-    .client-group{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 26px 28px;box-shadow:var(--shadow)}
-    .cg-label{font-size:13px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{display:inline-block;padding:9px 16px;border-radius:9px;background:var(--bg);border:1px solid var(--line);
-      color:var(--navy);font-size:15px;font-weight:600;font-family:"Songti SC","SimSun",serif}
-    .chip.more{background:transparent;border-style:dashed;color:var(--muted);font-family:inherit;font-weight:500}
-
-    /* footer */
-    footer{background:var(--navy);color:rgba(255,255,255,.6);padding:40px 0;text-align:center;font-size:13.5px}
-    footer .logo{justify-content:center;margin-bottom:14px;font-size:18px}
-    footer a:hover{color:var(--accent-2)}
-    footer nav{text-align:left}
-    footer nav a{color:rgba(255,255,255,.62);text-decoration:none}
-    footer nav a:hover{color:var(--accent-2);text-decoration:underline}
-    @media(max-width:640px){footer nav{text-align:center}}
-    footer .meta{margin-top:8px;line-height:2}
+    @media (max-width: 700px) {
+      .wrap { width: calc(100% - 32px); }
+      .site-header .wrap { min-height: 54px; }
+      .brand img { width: 30px; height: 30px; }
+      .hero { padding: 25px 0 24px; }
+      h1 { font-size: clamp(24px, 7.2vw, 32px); }
+      .intro { margin: 8px 0 16px; }
+      .products { grid-template-columns: 1fr; gap: 9px; }
+      .product { min-height: 0; padding: 12px 14px; border-radius: 10px; }
+      .product h2 { font-size: 18px; margin-bottom: 2px; }
+      .product p { font-size: 14px; margin-bottom: 4px; }
+      .product-action { font-size: 14px; }
+      .source { padding: 16px 0; }
+      footer { padding: 18px 0; }
+    }
   </style>
-<script src="/assets/funnel-v1.js?v=research-20261106-2" defer></script>
+  <script src="/assets/funnel-v1.js?v=research-20261106-2" defer></script>
 </head>
-<body>
-  <header>
+<body id="top">
+  <header class="site-header">
     <div class="wrap">
-      <nav>
-        <a class="logo" href="#top"><span class="mark">文</span> 文书查</a>
-        <div class="navlinks">
-          <a href="/#onpremise" style="color:var(--accent-2)">数据本地部署 ★</a>
-          <a href="/mcp/">MCP 服务</a>
-          <a href="/mcp/quickstart/">快速接入</a>
-          <a href="#search">AI 类案研究</a>
-          <a href="#aiassist">AI 助手</a>
-          <a href="#scale">数据底座</a>
-          <a href="#clients">客户案例</a>
-
-          <a href="/blog/">洞察</a>
-        </div>
-      </nav>
+      <a class="brand" href="/" aria-label="文书查首页">
+        <img src="/favicon.svg" width="36" height="36" alt="" />
+        <span>文书查</span>
+      </a>
     </div>
   </header>
 
-  <main id="top">
-    <!-- HERO · MCP 付费产品入口 -->
-    <section class="hero">
+  <main>
+    <section class="hero" aria-labelledby="home-title">
       <div class="wrap">
-        <span class="eyebrow">★ 裁判文书数据本地部署 · MCP 远程接入</span>
-        <h1>让法律 AI <span class="accent">用上真实裁判数据</span><br/>本地部署与 MCP 接入</h1>
-        <p class="lead">为<strong>律所内网、AI 系统集成商与企业项目</strong>提供裁判文书数据合作：按范围沟通存量与增量数据、本地部署及检索接口对接。库内约 1.6 亿条记录（并非独立案件数），先核样本、正文覆盖和最终客户授权。需要远程接入的开发者，可用 MCP 检索、读取库内正文并核验引用。</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="/#onpremise">律所 / 集成商 · 数据本地部署 →</a>
-          <a class="btn btn-ghost" href="/mcp/quickstart/">用公开 Key 试跑 MCP →</a>
-          <a class="btn btn-ghost" href="/mcp/">查看四个工具与返回示例 →</a>
-          <a class="btn btn-ghost" href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a>
-          <a class="btn btn-ghost" href="tel:+8613168727779">📞 商务洽谈</a>
-        </div>
-        <div style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.6)">
-          开发者可先试用四个 MCP 工具　·　律所 / 法务 / 法律科技厂商可申请机构方案　·　<a href="/pricing/" style="color:var(--accent-2);text-decoration:underline">查看价格与额度</a>
+        <h1 id="home-title">裁判文书检索与数据服务</h1>
+        <p class="intro">为法律工作者、开发者及企业提供裁判文书检索与数据接入。</p>
+        <div class="products">
+          <a class="product" id="search" href="https://tob.wenshucha.com/research/" aria-labelledby="research-action">
+            <h2>AI 类案研究</h2>
+            <p>按案情找相似判决，核对事实与引文。</p>
+            <span class="product-action" id="research-action">开始类案研究 →</span>
+          </a>
+          <a class="product" id="mcp-product" href="/mcp/quickstart/" aria-labelledby="mcp-action">
+            <h2>MCP</h2>
+            <p>让 AI 检索判例、读正文、核验引文。</p>
+            <span class="product-action" id="mcp-action">试用 MCP →</span>
+          </a>
+          <a class="product" id="onpremise" href="/solutions/legal-data-integrators/" aria-labelledby="deployment-action">
+            <h2>裁判数据本地部署</h2>
+            <p>面向律所、企业和集成商的数据交付。</p>
+            <span class="product-action" id="deployment-action">查看本地部署方案 →</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- MCP 主产品 · 公开测试到机构接入 -->
-    <section class="block" id="mcp-product">
+    <section class="source" id="scale" aria-label="裁判文书数据来源">
       <div class="wrap">
-        <div class="shead">
-          <div class="tag" style="color:var(--accent-2)">文书查 MCP · 法律 AI 的裁判文书数据接口</div>
-          <h2>从检索到引用核验，四个工具接进你的工作流</h2>
-          <p>适合法律 AI 产品、律所内部 Agent 和企业法务系统。先用公开 Key 跑通一个真实案例，再按调用量和交付要求选择方案。</p>
-        </div>
-        <div class="cards c4" style="margin-bottom:34px">
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🔎</div><h3>检索判例</h3><p><code>search_judgments</code> 按法律术语检索，返回案号、法院、裁判日期等可核对字段。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">📖</div><h3>读取库内正文</h3><p><code>get_judgment</code> 按案号取文书正文；部分记录没有可用判决正文，调用前可查看覆盖标记。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">✅</div><h3>核验案号</h3><p><code>verify_case_number</code> 检查案号是否被本库收录，回读法院和日期；未命中不等于伪造。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🧾</div><h3>核验判词</h3><p><code>verify_quote</code> 检查引用的文字能否在库内正文中找到，减少编造引用。</p></div>
-        </div>
-        <div style="text-align:center">
-          <a class="btn btn-primary" href="/mcp/quickstart/">⚙️ 复制公开 Key，开始测试 →</a>
-          <a class="btn btn-ghost" href="https://www.wenshucha.com/pricing/#business-wechat">联系商务微信</a>
-          <div id="citation-verification-entry" style="scroll-margin-top:112px;margin-top:14px;font-size:14px;color:var(--muted);overflow-wrap:anywhere"><a href="/blog/legal-ai-hallucination-citation-verification.html#live-verification-example" style="color:#24547a;text-decoration:underline">案号与判词引用核验：真实参数、正例及两个反例 →</a><br />未命中、缺正文、引文未匹配和接口失败分别记录，文本匹配不等于法律观点正确。<br />本服务使用 BM25 词汇检索；数据覆盖与局限见 <a href="/mcp/" style="color:#24547a;text-decoration:underline">MCP 产品页</a>。</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- AI 类案研究承接原网页检索主入口；经典检索与既有深链保留。 -->
-    <section class="block" id="search">
-      <div class="wrap">
-        <div class="shead">
-          <div class="tag" style="color:var(--accent-2)">AI 类案研究 · 先看真实示例，再注册试用</div>
-          <h2>说清案情，<span class="accent">把类案依据放在眼前</span></h2>
-          <p>描述或口述争议，先确认研究方向，再查阅库内文书、比较事实差异，逐条回到正文核对引用。首期聚焦买卖合同与货款结算，注册可试用 3 次研究，7 天有效。</p>
-        </div>
-        <div class="cards c3" style="margin-bottom:44px">
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">💬</div><h3>从案情开始</h3><p>描述争议与目标，核对 AI 梳理的事实、待确认事项和检索方向，确认后开始研究。口述能力取决于浏览器支持。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">⚖️</div><h3>对照事实与依据</h3><p>查看相关案例及不同结果，区分事实差异；点击引文可定位库内正文。没有找到相反裁判时明确说明。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">📄</div><h3>保存与导出</h3><p>每次最多选取 8 份文书，含 3 次续问与 Word 报告。未完成研究退还次数；重要结论请律师复核。</p></div>
-        </div>
-        <div style="text-align:center">
-          <a class="btn btn-primary" href="https://tob.wenshucha.com/research/" style="font-size:16px;padding:15px 32px">开始 AI 类案研究 →</a>
-          <div style="margin-top:14px;font-size:13px;color:var(--muted)">无需登录可看完整示例 · 注册领取 3 次试用 · <a href="https://tob.wenshucha.com/research/#pricing" style="color:var(--accent-2)">查看研究方案 →</a> · <a href="/case-research/" style="color:var(--accent-2)">适用场景与完整交付 →</a> · <a href="https://tob.wenshucha.com/cases?legacy=1" style="color:var(--accent-2)">其他案由使用经典检索 →</a><br />样本与引文吻合不代表全部案件、现行法律或官方原件已经核实。</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 产品② AI 法律助手(四模组,应用在 tob.wenshucha.com/ai) -->
-    <section class="block alt" id="aiassist">
-      <div class="wrap">
-        <div class="shead">
-          <div class="tag" style="color:var(--accent-2)">免费 AI 助手 · 产品能力展示</div>
-          <h2>AI 法律助手  ·  <span class="accent">四大模组</span></h2>
-          <p>不是通用聊天机器人 —— 背后接的是我们自己的 1.6 亿裁判文书库,答案带真实案例引用,可按案号与法院信息回核。打开即用,无需注册。</p>
-        </div>
-        <div class="cards c4" style="margin-bottom:44px">
-          <div class="card" style="border-top:3px solid var(--accent-2)"><div class="ic">💬</div><h3>法律问答</h3><p>提问直接检索判决库作答,附案例引用与案号,不是凭空生成。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent-2)"><div class="ic">✍️</div><h3>文书起草</h3><p>起诉状、答辩状、法律意见书等常用文书,按案情要素成稿。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent-2)"><div class="ic">🛡️</div><h3>合同审查</h3><p>逐条识别风险点、给修改建议,标注依据条款。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent-2)"><div class="ic">📚</div><h3>智能阅卷</h3><p>上传卷宗自动梳理时间线、争议焦点与证据清单。</p></div>
-        </div>
-        <div style="text-align:center">
-          <a class="btn btn-primary" href="https://tob.wenshucha.com/ai" style="font-size:16px;padding:15px 32px">🤖 免费试用 AI 助手 →</a>
-          <div style="margin-top:14px;font-size:13px;color:var(--muted)">每天免费 8 次  ·  答案带案例引用,可溯源  ·  <a href="/legal-ai/" style="color:var(--accent-2)">AI 法律助手四模组详解 →</a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ON-PREMISE · 私有化部署专属 section(给大律所/法院/政府决策人看) -->
-    <section class="block" id="onpremise" style="background:linear-gradient(180deg,#fff 0%,#f7f8fb 100%)"><p style="padding:12px 24px"><a href="/solutions/legal-data-integrators/">AI集成商：最终客户本地交付、数据授权与样本验收 →</a></p>
-      <div class="wrap">
-        <div class="shead">
-          <div class="tag" style="color:var(--accent-2)">重点方案 · 律所内网 / AI 集成商 / 企业项目</div>
-          <h2>裁判文书数据本地部署，让法律 AI 接上客户自己的数据底座</h2>
-          <p>面向律所内部使用，以及为大型企业实施法律 AI 项目的软件公司、系统集成商和项目承包方。先确认数据范围、授权用途和客户环境，再约定数据交付、检索或接口对接的具体内容。</p>
-        </div>
-        <div class="cards c3" style="margin-top:36px">
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">⚖️</div><h3>律所自用：内网类案检索</h3><p>围绕律师办案与内部研究，确认使用人数、案件类型、年份及法院范围。按样本核验正文可用性和检索结果，再讨论本地数据与现有系统的对接。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🧩</div><h3>集成商：为最终客户交付</h3><p>支持先沟通项目需求和数据样本。须明确最终使用单位、部署位置、内嵌产品范围及能否向客户交付数据；自身研发授权不自动包含转授权或再分发权。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🏢</div><h3>企业项目：法律 AI 数据接入</h3><p>适用于已有知识库、Agent 或检索系统，需要补充中国裁判文书数据的团队。数据、检索/API 对接和模型应用是不同交付层，按项目分别确认。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">📚</div><h3>先核数据，再定范围</h3><p>库内约 1.6 亿条裁判文书记录，不等于独立案件数或全部可用全文。先核年份、案由、地域、字段、相异案号及正文缺失/截断情况，不承诺全量完整。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">🔒</div><h3>内网与更新方式单独确认</h3><p>客户数据留存要求、能否联网、导入格式、存储容量和增量更新方式需先确认。远程 MCP 试用不等于本地部署，按量 API 也不等于全库数据授权。</p></div>
-          <div class="card" style="border-top:3px solid var(--accent)"><div class="ic">📋</div><h3>样本验收后约定交付</h3><p>依次确认项目主体与用途、数据样本、授权边界、环境与接口要求、验收项及交付范围。报价、实施周期和运维支持按书面方案约定。</p></div>
-        </div>
-        <div style="text-align:center;margin-top:40px;padding:32px 28px;border-radius:18px;background:linear-gradient(135deg,#16294a,#0e1b2e);color:#fff">
-          <h3 style="color:#fff;font-size:22px;margin-bottom:12px">沟通本地数据部署项目</h3>
-          <p style="color:rgba(255,255,255,.85);max-width:68ch;margin:0 auto 22px">微信备注「数据本地部署」；请先提供单位类型、自用或替客户实施、所需数据范围、部署环境与计划时间。请勿发送未公开案情或客户个人资料。</p>
-          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-            <a class="btn btn-primary" href="/pricing/#business-wechat">商务微信 · 131-6872-7779</a>
-            <a class="btn btn-ghost" href="/blog/judgment-data-where-to-buy-licensing.html#local-deployment" style="border-color:rgba(255,255,255,.3);color:#fff">查看数据范围、授权与验收清单</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <div class="stats" id="scale">
-      <div class="wrap">
-        <div class="grid">
-          <div class="stat"><div class="num">1.6 亿+</div><div class="lab">篇裁判文书</div></div>
-          <div class="stat"><div class="num">5 大</div><div class="lab">文书类型全覆盖</div></div>
-          <div class="stat"><div class="num">1985–至今</div><div class="lab">时间跨度</div></div>
-          <div class="stat"><div class="num">每日</div><div class="lab">同步更新</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TYPES -->
-    <section class="block">
-      <div class="wrap">
-        <div class="shead" id="types">
-          <div class="tag">数据品类</div>
-          <h2>五大类裁判文书，字段齐全</h2>
-          <p>数据均源自人民法院公开裁判文书，统一清洗与结构化处理，案号、案由、法院、当事人、裁判日期、正文等字段规整可用。</p>
-        </div>
-        <div class="cards c5">
-          <div class="card"><div class="ic">⚖️</div><h3>刑事文书</h3><p>各级法院刑事一审、二审、再审等裁判文书。</p></div>
-          <div class="card"><div class="ic">📑</div><h3>民事文书</h3><p>合同、侵权、婚姻家庭、劳动争议等全类型民事裁判。</p></div>
-          <div class="card"><div class="ic">🏛️</div><h3>行政文书</h3><p>行政诉讼、行政复议等行政类裁判文书。</p></div>
-          <div class="card"><div class="ic">📌</div><h3>执行文书</h3><p>执行裁定、执行通知等执行类文书。</p></div>
-          <div class="card"><div class="ic">🧾</div><h3>国家赔偿</h3><p>国家赔偿决定等专项裁判文书。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ADVANTAGES -->
-    <section class="block alt">
-      <div class="wrap">
-        <div class="shead" id="adv">
-          <div class="tag">核心优势</div>
-          <h2>合法、权威、开箱即用的数据底座</h2>
-        </div>
-        <div class="cards c3">
-          <div class="card"><div class="ic">🛡️</div><h3>来源权威</h3><p>数据均源自人民法院裁判文书公开平台，合法、真实、可追溯。</p></div>
-          <div class="card"><div class="ic">🔄</div><h3>按批次持续补充</h3><p>持续维护公开文书数据；具体更新范围和日期以实际交付说明为准。</p></div>
-          <div class="card"><div class="ic">🧩</div><h3>字段结构化</h3><p>案号、案由、法院、当事人、裁判日期、正文等字段齐全规整。</p></div>
-          <div class="card"><div class="ic">🌐</div><h3>全量覆盖</h3><p>横跨 1985 年至今，覆盖全国各级法院五大文书类型。</p></div>
-          <div class="card"><div class="ic">⚙️</div><h3>高度格式化</h3><p>统一清洗与结构化，便于检索、统计与模型训练，开箱即用。</p></div>
-          <div class="card"><div class="ic">🤝</div><h3>合作灵活</h3><p>支持全量打包、增量订阅、标准化 API 等多种交付方式。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOLUTIONS -->
-    <section class="block">
-      <div class="wrap">
-        <div class="shead" id="solution">
-          <div class="tag">解决方案</div>
-          <h2>面向不同场景的数据合作</h2>
-        </div>
-        <div class="cards c3">
-          <div class="card"><div class="ic">🏢</div><h3>政府机构</h3><p>司法大数据分析、类案检索、辅助决策与监督，支撑数字法治建设。</p></div>
-          <div class="card"><div class="ic">🎓</div><h3>高校科研</h3><p>法学实证研究、司法语料训练、法律 AI 模型构建的高质量语料来源。</p></div>
-          <div class="card"><div class="ic">💼</div><h3>企业客户</h3><p>法律科技产品、风控合规、智能检索与问答的底层数据支撑。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- API -->
-    <!-- API 接口/调用额度表已撤(Jack:「API接口跟定价也撤了…太多了,有点分散注意力了」)。
-         重心是检索系统与 AI 助手,API 需求走商务对接。 -->
-
-    <!-- ABOUT -->
-    <section class="block">
-      <div class="wrap about" id="about">
-        <div>
-          <div class="tag" style="font-size:13px;letter-spacing:.16em;color:var(--accent);font-weight:700">关于文书查</div>
-          <h2 style="font-size:30px;margin-top:12px">权威、稳定、易用的司法数据服务商</h2>
-          <p>文书查隶属<strong style="color:var(--navy)">深圳星谱网络科技有限公司</strong>（CDO 成员联盟之一），是一家专注司法行业的大数据高新企业。公司旗下拥有「数据满屋」与「文书查」两大品牌——数据满屋是围绕司法数据的自营数据平台，文书查则是自主研发的、基于裁判文书数据的检索与分析系统。</p>
-          <p>自 2017 年深耕司法数据领域，我们以人民法院公开数据为来源，构建覆盖 1985 年至今、超过 1.6 亿篇的全量裁判文书数据库；通过全量打包、增量订阅与标准化 API 等方式，为政府、高校与企业提供合规、稳定、易用的司法数据底座，助力司法大数据分析、法学研究与法律科技应用。</p>
-        </div>
-        <div class="panel">
-          <div class="row"><span>运营主体</span><span>深圳星谱网络科技</span></div>
-          <div class="row"><span>深耕领域</span><span>自 2017 年</span></div>
-          <div class="row"><span>数据规模</span><span>1.6 亿+ 篇</span></div>
-          <div class="row"><span>时间跨度</span><span>1985 — 至今</span></div>
-          <div class="row"><span>文书类型</span><span>刑事·民事·行政·执行·赔偿</span></div>
-          <div class="row"><span>更新频率</span><span>更新范围以实际交付说明为准</span></div>
-          <div class="row"><span>交付方式</span><span>全量 / 增量 / API</span></div>
-          <div class="row"><span>数据来源</span><span>人民法院公开文书</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLIENTS / PARTNERS -->
-    <section class="block alt">
-      <div class="wrap">
-        <div class="shead" id="clients">
-          <div class="tag">客户与合作伙伴</div>
-          <h2>自 2017 年，已服务数十家司法领域客户</h2>
-          <p>从司法科技企业到重点高校、司法机关，文书查的裁判文书数据长期为各类机构提供底层支撑。</p>
-        </div>
-        <div class="clients">
-          <div class="client-group">
-            <div class="cg-label">司法科技企业</div>
-            <div class="chips">
-              <span class="chip">无讼</span>
-              <span class="chip">北大法宝</span>
-              <span class="chip">牛法网</span>
-            </div>
-          </div>
-          <div class="client-group">
-            <div class="cg-label">高校科研</div>
-            <div class="chips">
-              <span class="chip">北京大学</span>
-              <span class="chip">清华大学</span>
-              <span class="chip">长江商学院</span>
-            </div>
-          </div>
-          <div class="client-group">
-            <div class="cg-label">司法机关</div>
-            <div class="chips">
-              <span class="chip">江苏某法院</span>
-              <span class="chip more">…等数十家</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- FAQ（百度精选问答 + Google PAA） -->
-    <section class="block" id="faq">
-      <div class="wrap">
-        <div class="shead">
-          <div class="tag">常见问题</div>
-          <h2>政府 / 高校 / 律所 / AI 厂商最常问的问题</h2>
-          <p>从数据来源、合规边界,到 API / MCP 接入方式与定价口径,一次说清。</p>
-        </div>
-        <div class="cards c2" style="margin-top:36px">
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">文书查的裁判文书数据从哪里来?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">数据均源自人民法院公开裁判文书(中国裁判文书网及各级法院公开渠道),经统一清洗与结构化处理,合法、真实、可追溯。</span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">数据规模和时间跨度?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">库内约 1.6 亿条裁判文书记录，不等于独立案件数，也不代表全国全部裁判文书。案号、法院、日期和正文覆盖并非 100%，具体局限见 <a href="/mcp/">MCP 产品说明</a>。</span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">API 与 MCP Server 怎么接入?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">打开 <a href="/mcp/quickstart/">MCP 快速接入</a>，复制公开测试 Key 并按客户端格式配置。当前四个工具为 search_judgments、get_judgment、verify_case_number、verify_quote，支持检索、取库内正文与引用核验。</span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">经典检索系统能做什么?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">按案件类型 / 审理程序 / 法院层级 / 文书类型 / 地域 / 年份组合筛选,实时聚合计数逐层收窄;结果以结构化卡片呈现(案号 / 法院 / 案由 / 判决日期 / 裁判结果),可勾选案例一键生成检索报告。库内正文可展开，展示范围以实际结果为准,可按有效案号回到官方渠道核对。<a href="https://tob.wenshucha.com/cases?province=" style="color:var(--accent)">免费打开 →</a></span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">AI 法律助手有哪些功能?免费吗?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">四大模组:法律问答(检索自建判决库作答,附案例引用与案号)、文书起草、合同审查(逐条识别风险给修改建议)、智能阅卷(梳理时间线 / 争议焦点 / 证据清单)。<strong>每天免费 8 次,无需注册</strong>。<a href="https://tob.wenshucha.com/ai" style="color:var(--accent)">立即试用 →</a></span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">有海外英文版吗?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">有,海外品牌为 <a href="https://sinoverdict.wenshucha.com/" rel="alternate" hreflang="en" style="color:var(--accent)">SinoVerdict</a>,面向境外律所与做中国业务的法律 AI 团队,英文介绍与对接服务；当前 MCP 使用简体中文法律术语检索，案号可用于自行核对。</span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">服务过哪些客户?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">自 2017 年起服务无讼、北大法宝、牛法网等司法科技企业;北京大学、清华大学、长江商学院等高校科研;江苏某法院等司法机关。共数十家。</span>
-            </p>
-          </div>
-          <div class="card" itemscope itemtype="https://schema.org/Question">
-            <h3 itemprop="name" style="font-size:17px">合规边界?</h3>
-            <p itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" style="margin-top:10px;color:var(--muted);font-size:14.5px">
-              <span itemprop="text">仅采集人民法院公开渠道已公示的裁判文书,不涉及未公开案件、个人隐私二次脱敏部分及限定不公开的内容。可签订数据使用协议,明确用途与边界。</span>
-            </p>
-          </div>
-        </div>
+        <p>约 <strong>1.6 亿条裁判文书记录</strong>，数据来自人民法院公开渠道。</p>
+        <a href="/data/">查看数据范围与字段</a>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <!-- 站点导航 / HTML sitemap:百度蜘蛛 98% 的抓取都停在首页,42 篇文章 + 41 个数据页
-           全靠这里才有唯一入口(百度 13 个月从没抓过 /sitemap.xml,内页发现只能靠首页链接)。
-           验证过 /data/ 曾完全无内链 → 40 个数据页零抓取。此处必须覆盖全部内页,别精简。 -->
-      <nav aria-label="站点导航" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:22px;padding:0 0 26px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px;line-height:1.95">
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">产品与检索</div>
-          <a href="https://tob.wenshucha.com/research/">AI 类案研究</a><br />
-          <a href="/case-search/">经典裁判文书检索</a><br />
-          <a href="/legal-ai/">AI 法律助手</a><br />
-          <a href="/mcp/">MCP 服务</a><a href="/pricing/">定价</a><a href="/buyers-guide/">采购决策指南</a><br />
-          <a href="/about/">关于文书查</a><br />
-          <a href="/data/">裁判文书数据规模</a><br />
-
-          <a href="#onpremise">私有化部署方案</a><br />
-          <a href="https://tob.wenshucha.com/cases?legacy=1">经典检索</a><br />
-          <a href="https://tob.wenshucha.com/ai">打开 AI 助手</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">律所私有化部署</div>
-          <a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a><br />
-          <a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署实战</a><br />
-          <a href="/blog/law-firm-data-compliance-confidentiality.html">私有化部署与客户保密义务</a><br />
-          <a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库怎么建</a><br />
-          <a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调:历史卷宗</a><br />
-          <a href="/blog/law-firm-ai-adoption-user-enablement.html">律所 AI 落地培训与 adoption</a><br />
-          <a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的 5 个坑</a><br />
-          <a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a><br />
-          <a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台:案件胜算区间</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">技术选型</div>
-          <a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">RAG 还是微调:技术路线</a><br />
-          <a href="/blog/legal-ai-open-source-base-model-selection.html">开源底座选型 DeepSeek/Qwen/GLM</a><br />
-          <a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a><br />
-          <a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理与升级</a><br />
-          <a href="/blog/legal-ai-capacity-planning-scaling.html">算力容量规划与扩容</a><br />
-          <a href="/blog/legal-ai-inference-performance-gpu-utilization.html">推理性能与 GPU 利用率</a><br />
-          <a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年总拥有成本 TCO 测算</a><br />
-          <a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境国产化适配</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">部署运维</div>
-          <a href="/blog/legal-ai-cutover-data-migration.html">上线切换与数据迁移</a><br />
-          <a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用架构</a><br />
-          <a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">监控告警与故障响应</a><br />
-          <a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与数据回流</a><br />
-          <a href="/blog/legal-ai-offline-corpus-update-delivery.html">断网内网语料增量更新</a><br />
-          <a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离</a><br />
-          <a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型验收测评</a><br />
-          <a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">法院·检察院·政府</div>
-          <a href="/blog/government-legal-ai-procurement-budget-process.html">政法机关 AI 政府采购与预算</a><br />
-          <a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a><br />
-          <a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院智能审判辅助</a><br />
-          <a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统</a><br />
-          <a href="/blog/procuratorate-ai-case-pushing-indictment.html">检察院 AI 系统落地</a><br />
-          <a href="/blog/judicial-data-platform-construction.html">司法数据中台建设</a><br />
-          <a href="/blog/judicial-data-platform-security-compliance.html">司法数据中台等保三级</a>
-        </div>
-        <div>
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">数据·API·对比</div>
-          <a href="/blog/">全部文章(56 篇)</a><br />
-          <a href="/blog/counterparty-litigation-screening-corporate-legal.html">签约前怎么查交易对手的涉诉记录</a><br />
-          <a href="/blog/attorney-fees-liquidated-damages-claim-drafting.html">律师费和违约金能不能让对方承担</a><br />
-          <a href="/blog/case-filing-cause-of-action-jurisdiction.html">案由怎么选、管辖法院怎么定</a><br />
-          <a href="/blog/mediation-settlement-agreement-enforceability.html">调解与和解协议怎么写才执行得动</a><br />
-          <a href="/blog/property-preservation-litigation-guide.html">财产保全怎么做才不白做</a><br />
-          <a href="/blog/enforcement-stage-judgment-search-asset-leads.html">执行阶段怎么用判决检索</a><br />
-          <a href="/blog/appeal-retrial-reversal-grounds-search.html">二审和再审怎么找改判点</a><br />
-          <a href="/blog/similar-case-search-report-writing-guide.html">类案检索报告怎么写</a><br />
-          <a href="/blog/legal-brief-argument-similar-case-citation.html">代理词怎么写才有用</a><br />
-          <a href="/blog/cross-examination-opinion-evidence-challenge.html">质证意见怎么写</a><br />
-          <a href="/blog/evidence-list-proof-checklist-litigation.html">举证清单怎么做才不漏项</a><br />
-          <a href="/blog/ai-case-file-review-digital-dossier.html">AI 阅卷的边界与核验流程</a><br />
-          <a href="/blog/similar-case-search-completeness-guide.html">类案检索怎么才算查全了</a><br />
-          <a href="/blog/judgment-api-integration-python-nodejs.html">裁判文书 API 接入实战</a><br />
-          <a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿判决私有库架构</a><br />
-          <a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义 vs 关键词</a><br />
-          <a href="/blog/wenshucha-mcp-claude-desktop-setup.html">文书查接入 Claude Desktop(MCP)</a><br />
-          <a href="/blog/legal-empirical-research-data-access.html">法学实证研究数据接入</a><br />
-          <a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a><br />
-          <a href="/blog/legal-data-platform-comparison-2026.html">文书查 vs 法宝 vs 无讼 vs Alpha</a><br />
-          <a href="/blog/legal-ai-hallucination-citation-verification.html">法律 AI 幻觉与引证核验</a><br />
-          <a href="/blog/legal-ai-vendor-due-diligence.html">供应商尽职调查清单</a><br />
-          <a href="/blog/legal-ai-tender-technical-specifications.html">招投标技术参数模板</a><br />
-          <a href="/blog/legal-ai-startup-data-foundation.html">创业团队数据底座选型</a>
-        </div>
-        <div style="grid-column:1/-1">
-          <div style="color:var(--accent);font-weight:700;margin-bottom:4px">各地劳动争议赔偿数据(41 城)</div>
-          <a href="/data/labor/">各地劳动争议判决数据总览</a> ·
-          <a href="/data/labor-report/">全国劳动争议赔偿数据报告</a> ·
-          <a href="/data/overtime-pay-report/">加班费劳动争议裁判数据（研究口径）</a><br />
-          <a href="/data/equity-transfer-report/">股权转让纠纷裁判数据报告</a><br />
-          <a href="/data/noncompete-report/">竞业限制纠纷裁判数据报告</a><br />
-          <a href="/data/construction-actual-builder-report/">建设工程实际施工人裁判数据报告</a><br />
-          <a href="/data/marital-joint-debt-report/">夫妻共同债务裁判数据报告</a><br />
-          <a href="/data/reputation-online-report/">名誉权纠纷裁判数据报告</a><br />
-          <a href="/data/shareholder-inspection-report/">股东知情权裁判数据报告</a><br />
-          <a href="/data/personal-information-report/">个人信息与隐私权裁判数据报告</a><br />
-          <a href="/data/private-lending-interest-report/">民间借贷利息语境裁判数据报告</a><br />
-          <a href="/data/medical-malpractice-report/">医疗损害责任纠纷裁判数据报告</a><br />
-          <a href="/data/labor/shanghai.html">上海</a> · <a href="/data/labor/chongqing.html">重庆</a> · <a href="/data/labor/beijing.html">北京</a> · <a href="/data/labor/tianjin.html">天津</a> · <a href="/data/labor/wuhan.html">武汉</a> · <a href="/data/labor/shenyang.html">沈阳</a> · <a href="/data/labor/changsha.html">长沙</a> · <a href="/data/labor/xian.html">西安</a> · <a href="/data/labor/hangzhou.html">杭州</a> · <a href="/data/labor/shenzhen.html">深圳</a> · <a href="/data/labor/chengdu.html">成都</a> · <a href="/data/labor/nanjing.html">南京</a> · <a href="/data/labor/qingdao.html">青岛</a> · <a href="/data/labor/xinjiangwulumuqi.html">乌鲁木齐</a> · <a href="/data/labor/hefei.html">合肥</a> · <a href="/data/labor/zhengzhou.html">郑州</a> · <a href="/data/labor/dongguan.html">东莞</a> · <a href="/data/labor/dalian.html">大连</a> · <a href="/data/labor/guangzhou.html">广州</a> · <a href="/data/labor/changchun.html">长春</a> · <a href="/data/labor/xiamen.html">厦门</a> · <a href="/data/labor/jinan.html">济南</a> · <a href="/data/labor/ningbo.html">宁波</a> · <a href="/data/labor/kunming.html">昆明</a> · <a href="/data/labor/foshan.html">佛山</a> · <a href="/data/labor/suzhou.html">苏州</a> · <a href="/data/labor/nanning.html">南宁</a> · <a href="/data/labor/haikou.html">海口</a> · <a href="/data/labor/shaoxing.html">绍兴</a> · <a href="/data/labor/nanchang.html">南昌</a> · <a href="/data/labor/luoyang.html">洛阳</a> · <a href="/data/labor/liuzhou.html">柳州</a> · <a href="/data/labor/wenzhou.html">温州</a> · <a href="/data/labor/tangshan.html">唐山</a> · <a href="/data/labor/jiaozuo.html">焦作</a> · <a href="/data/labor/kunshan.html">昆山</a> · <a href="/data/labor/haerbin.html">哈尔滨</a> · <a href="/data/labor/yantai.html">烟台</a> · <a href="/data/labor/zhongshan.html">中山</a> · <a href="/data/labor/jiutai.html">九台</a> · <a href="/data/labor/huaian.html">淮安</a> · <a href="/data/labor/fuzhou.html">福州</a> · <a href="/data/labor/panzhihua.html">攀枝花</a> · <a href="/data/labor/zhumadian.html">驻马店</a> · <a href="/data/labor/xuzhou.html">徐州</a> · <a href="/data/labor/wuzhou.html">梧州</a> · <a href="/data/labor/xiangyang.html">襄阳</a> · <a href="/data/labor/bijie.html">毕节</a> · <a href="/data/labor/wuhu.html">芜湖</a> · <a href="/data/labor/wuxi.html">无锡</a> · <a href="/data/labor/jilin.html">吉林</a> · <a href="/data/labor/xinxiang.html">新乡</a> · <a href="/data/labor/shijiazhuang.html">石家庄</a> · <a href="/data/labor/jiyuan.html">济源</a> · <a href="/data/labor/zhuzhou.html">株洲</a> · <a href="/data/labor/guilin.html">桂林</a> · <a href="/data/labor/yinchuan.html">银川</a> · <a href="/data/labor/shiyan.html">十堰</a> · <a href="/data/labor/guiyang.html">贵阳</a> · <a href="/data/labor/kaili.html">凯里</a> · <a href="/data/labor/pingquan.html">平泉</a> · <a href="/data/labor/dengfeng.html">登封</a> · <a href="/data/labor/hengyang.html">衡阳</a> · <a href="/data/labor/mianzhu.html">绵竹</a> · <a href="/data/labor/leshan.html">乐山</a> · <a href="/data/labor/zunyi.html">遵义</a> · <a href="/data/labor/anshan.html">鞍山</a> · <a href="/data/labor/anyang.html">安阳</a> · <a href="/data/labor/xuchang.html">许昌</a> · <a href="/data/labor/yichang.html">宜昌</a> · <a href="/data/labor/zhangjiagang.html">张家港</a> · <a href="/data/labor/pingli.html">平利</a> · <a href="/data/labor/lanzhou.html">兰州</a> · <a href="/data/labor/linjiang.html">临江</a> · <a href="/data/labor/taiyuan.html">太原</a> · <a href="/data/labor/yutian.html">玉田</a> · <a href="/data/labor/quanzhou.html">泉州</a> · <a href="/data/labor/changde.html">常德</a> · <a href="/data/labor/xingyang.html">荥阳</a> · <a href="/data/labor/loudi.html">娄底</a>
-        </div>
+      <nav class="resources" aria-label="产品与资料">
+        <a href="/case-search/">经典检索</a>
+        <a href="/case-research/">类案研究说明</a>
+        <a href="/mcp/">MCP 文档</a>
+        <a href="/pricing/">产品定价</a>
+        <a href="/blog/">文章指南</a>
+        <a href="/data/labor/">裁判数据专题</a>
+        <a id="aiassist" href="/legal-ai/">其他法律工具</a>
+        <a href="/about/">关于文书查</a>
       </nav>
-      <a class="logo" href="#top"><span class="mark">文</span> 文书查</a>
-      <div class="meta">
-        <strong style="color:var(--accent-2)">商务对接</strong>&nbsp; Jack &nbsp;·&nbsp;
-        <a href="tel:+8613168727779" style="color:var(--accent-2);font-weight:600">131 6872 7779</a> &nbsp;·&nbsp;
-        <a href="mailto:chenjiaxin@wenshucha.com" style="color:var(--accent-2)">chenjiaxin@wenshucha.com</a><br />
-        深圳星谱网络科技有限公司 · 全国全量裁判文书数据服务<br />
-        广东省深圳市宝安区新安街道诺铂广场 1715 · 数据来源于人民法院公开裁判文书<br />
+      <p class="company">深圳星谱网络科技有限公司</p>
+      <p class="contact">
+        <a href="tel:+8613168727779">131-6872-7779</a>
+        <a href="mailto:chenjiaxin@wenshucha.com">chenjiaxin@wenshucha.com</a>
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025437990号-2</a>
-        &nbsp;·&nbsp; © 2017–2026 文书查
-      </div>
+      </p>
     </div>
   </footer>
 <!--wsc-px-->
