@@ -172,6 +172,20 @@
     .source p { margin: 0; color: var(--muted); font-size: 15px; }
     .source strong { color: var(--ink); }
 
+    .guides { padding: 26px 0 30px; border-top: 1px solid var(--line); }
+    .guides h2 { margin: 0 0 6px; font-size: 21px; }
+    .guides p { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+    .guides ul, .directory ul { margin: 0; padding: 0; list-style: none; }
+    .guides ul { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+    .guides a, .directory a { overflow-wrap: anywhere; }
+    .directory { border-top: 1px solid var(--line); margin: 12px 0 16px; }
+    .directory summary { width: fit-content; min-height: 44px; padding: 9px 0; cursor: pointer; font-weight: 600; }
+    .directory summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .directory h3 { margin: 12px 0 6px; font-size: 15px; }
+    .directory ul { margin-bottom: 16px; font-size: 14px; }
+    .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 6px 18px; }
+    .directory-cities { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
     footer { background: #fff; border-top: 1px solid var(--line); padding: 26px 0; }
     .resources { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 16px; }
     .resources a { font-weight: 600; font-size: 14px; }
@@ -237,6 +251,19 @@
         <a href="/data/">查看数据范围与字段</a>
       </div>
     </section>
+
+    <section class="guides" aria-labelledby="guides-title">
+      <div class="wrap">
+        <h2 id="guides-title">接入与选型指南</h2>
+        <p>裁判文书 MCP 提供四个工具，可检索判例、按案号读取库内正文、核验案号和核验判词。</p>
+        <ul>
+          <li><a href="/blog/wenshucha-mcp-claude-desktop-setup.html">Claude Desktop 接入 MCP</a></li>
+          <li><a href="/blog/legal-ai-hallucination-citation-verification.html">用 MCP 核验案号与判词</a></li>
+          <li><a href="/blog/legal-data-platform-comparison-2026.html">法律数据平台对比</a></li>
+          <li><a href="/blog/judgment-data-where-to-buy-licensing.html">裁判文书采购与授权指南</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -251,6 +278,164 @@
         <a id="aiassist" href="/legal-ai/">其他法律工具</a>
         <a href="/about/">关于文书查</a>
       </nav>
+      <details class="directory">
+        <summary>全部文章与裁判数据</summary>
+        <h3>法律检索、技术与采购</h3>
+        <ul class="directory-grid">
+          <li><a href="https://tob.wenshucha.com/cases?legacy=1">按案号检索裁判文书</a></li>
+          <li><a href="/buyers-guide/">采购决策指南</a></li>
+          <li><a href="/blog/law-firm-private-ai-deployment-guide.html">律所 AI 私有化部署完全指南</a></li>
+          <li><a href="/blog/law-firm-on-prem-llm-gpu-guide.html">律所内网大模型部署实战</a></li>
+          <li><a href="/blog/law-firm-data-compliance-confidentiality.html">私有化部署与客户保密义务</a></li>
+          <li><a href="/blog/law-firm-rag-knowledge-base.html">律所 RAG 知识库怎么建</a></li>
+          <li><a href="/blog/law-firm-llm-finetune-case-archive.html">法律大模型微调:历史卷宗</a></li>
+          <li><a href="/blog/law-firm-ai-adoption-user-enablement.html">律所 AI 落地培训与 adoption</a></li>
+          <li><a href="/blog/law-firm-ai-procurement-pitfalls.html">律所采购 AI 的 5 个坑</a></li>
+          <li><a href="/blog/law-firm-ai-roi-calculation.html">律所 AI 投资回报测算</a></li>
+          <li><a href="/blog/lawyer-workbench-case-win-rate.html">律师工作台:案件胜算区间</a></li>
+          <li><a href="/blog/legal-ai-rag-vs-finetune-technical-route.html">RAG 还是微调:技术路线</a></li>
+          <li><a href="/blog/legal-ai-open-source-base-model-selection.html">开源底座选型 DeepSeek/Qwen/GLM</a></li>
+          <li><a href="/blog/legal-ai-vector-database-retrieval-engine-selection.html">向量库与检索引擎选型</a></li>
+          <li><a href="/blog/legal-ai-model-version-management-upgrade.html">模型版本管理与升级</a></li>
+          <li><a href="/blog/legal-ai-capacity-planning-scaling.html">算力容量规划与扩容</a></li>
+          <li><a href="/blog/legal-ai-inference-performance-gpu-utilization.html">推理性能与 GPU 利用率</a></li>
+          <li><a href="/blog/legal-ai-private-deployment-tco-three-year.html">三年总拥有成本 TCO 测算</a></li>
+          <li><a href="/blog/xinchuang-domestic-stack-legal-ai-deployment.html">信创环境国产化适配</a></li>
+          <li><a href="/blog/legal-ai-cutover-data-migration.html">上线切换与数据迁移</a></li>
+          <li><a href="/blog/legal-ai-private-deployment-disaster-recovery-ha.html">灾备与高可用架构</a></li>
+          <li><a href="/blog/legal-ai-private-deployment-monitoring-alerting.html">监控告警与故障响应</a></li>
+          <li><a href="/blog/legal-ai-continuous-operation-iteration.html">持续运营与数据回流</a></li>
+          <li><a href="/blog/legal-ai-offline-corpus-update-delivery.html">断网内网语料增量更新</a></li>
+          <li><a href="/blog/legal-ai-multi-tenant-permission-isolation.html">多租户与权限隔离</a></li>
+          <li><a href="/blog/legal-ai-acceptance-testing-evaluation.html">法律大模型验收测评</a></li>
+          <li><a href="/blog/legal-ai-data-security-audit-mlps-evaluation.html">数据安全审计与等保测评</a></li>
+          <li><a href="/blog/government-legal-ai-procurement-budget-process.html">政法机关 AI 政府采购与预算</a></li>
+          <li><a href="/blog/court-ai-procurement-checklist.html">法院 AI 采购清单</a></li>
+          <li><a href="/blog/court-ai-trial-assistance-sentencing-document.html">法院智能审判辅助</a></li>
+          <li><a href="/blog/court-similar-case-recommendation-system.html">法院类案推送系统</a></li>
+          <li><a href="/blog/procuratorate-ai-case-pushing-indictment.html">检察院 AI 系统落地</a></li>
+          <li><a href="/blog/judicial-data-platform-construction.html">司法数据中台建设</a></li>
+          <li><a href="/blog/judicial-data-platform-security-compliance.html">司法数据中台等保三级</a></li>
+          <li><a href="/blog/counterparty-litigation-screening-corporate-legal.html">签约前怎么查交易对手的涉诉记录</a></li>
+          <li><a href="/blog/attorney-fees-liquidated-damages-claim-drafting.html">律师费和违约金能不能让对方承担</a></li>
+          <li><a href="/blog/case-filing-cause-of-action-jurisdiction.html">案由怎么选、管辖法院怎么定</a></li>
+          <li><a href="/blog/mediation-settlement-agreement-enforceability.html">调解与和解协议怎么写才执行得动</a></li>
+          <li><a href="/blog/property-preservation-litigation-guide.html">财产保全怎么做才不白做</a></li>
+          <li><a href="/blog/enforcement-stage-judgment-search-asset-leads.html">执行阶段怎么用判决检索</a></li>
+          <li><a href="/blog/appeal-retrial-reversal-grounds-search.html">二审和再审怎么找改判点</a></li>
+          <li><a href="/blog/similar-case-search-report-writing-guide.html">类案检索报告怎么写</a></li>
+          <li><a href="/blog/legal-brief-argument-similar-case-citation.html">代理词怎么写才有用</a></li>
+          <li><a href="/blog/cross-examination-opinion-evidence-challenge.html">质证意见怎么写</a></li>
+          <li><a href="/blog/evidence-list-proof-checklist-litigation.html">举证清单怎么做才不漏项</a></li>
+          <li><a href="/blog/ai-case-file-review-digital-dossier.html">AI 阅卷的边界与核验流程</a></li>
+          <li><a href="/blog/similar-case-search-completeness-guide.html">类案检索怎么才算查全了</a></li>
+          <li><a href="/blog/judgment-api-integration-python-nodejs.html">裁判文书 API 接入实战</a></li>
+          <li><a href="/blog/judgment-corpus-private-deployment-architecture.html">1.6 亿判决私有库架构</a></li>
+          <li><a href="/blog/similar-case-retrieval-semantic-vs-keyword.html">类案检索:语义 vs 关键词</a></li>
+          <li><a href="/blog/legal-empirical-research-data-access.html">法学实证研究数据接入</a></li>
+          <li><a href="/blog/legal-data-classification-grading.html">法律数据分类分级</a></li>
+          <li><a href="/blog/legal-ai-vendor-due-diligence.html">供应商尽职调查清单</a></li>
+          <li><a href="/blog/legal-ai-tender-technical-specifications.html">招投标技术参数模板</a></li>
+          <li><a href="/blog/legal-ai-startup-data-foundation.html">创业团队数据底座选型</a></li>
+        </ul>
+        <h3>裁判数据专题</h3>
+        <ul class="directory-grid">
+          <li><a href="/data/labor-report/">全国劳动争议赔偿数据报告</a></li>
+          <li><a href="/data/overtime-pay-report/">加班费劳动争议裁判数据（研究口径）</a></li>
+          <li><a href="/data/equity-transfer-report/">股权转让纠纷裁判数据报告</a></li>
+          <li><a href="/data/noncompete-report/">竞业限制纠纷裁判数据报告</a></li>
+          <li><a href="/data/construction-actual-builder-report/">建设工程实际施工人裁判数据报告</a></li>
+          <li><a href="/data/marital-joint-debt-report/">夫妻共同债务裁判数据报告</a></li>
+          <li><a href="/data/reputation-online-report/">名誉权纠纷裁判数据报告</a></li>
+          <li><a href="/data/shareholder-inspection-report/">股东知情权裁判数据报告</a></li>
+          <li><a href="/data/personal-information-report/">个人信息与隐私权裁判数据报告</a></li>
+          <li><a href="/data/private-lending-interest-report/">民间借贷利息语境裁判数据报告</a></li>
+          <li><a href="/data/medical-malpractice-report/">医疗损害责任纠纷裁判数据报告</a></li>
+        </ul>
+        <h3>各地劳动争议裁判数据</h3>
+        <ul class="directory-cities">
+          <li><a href="/data/labor/shanghai.html">上海</a></li>
+          <li><a href="/data/labor/chongqing.html">重庆</a></li>
+          <li><a href="/data/labor/beijing.html">北京</a></li>
+          <li><a href="/data/labor/tianjin.html">天津</a></li>
+          <li><a href="/data/labor/wuhan.html">武汉</a></li>
+          <li><a href="/data/labor/shenyang.html">沈阳</a></li>
+          <li><a href="/data/labor/changsha.html">长沙</a></li>
+          <li><a href="/data/labor/xian.html">西安</a></li>
+          <li><a href="/data/labor/hangzhou.html">杭州</a></li>
+          <li><a href="/data/labor/shenzhen.html">深圳</a></li>
+          <li><a href="/data/labor/chengdu.html">成都</a></li>
+          <li><a href="/data/labor/nanjing.html">南京</a></li>
+          <li><a href="/data/labor/qingdao.html">青岛</a></li>
+          <li><a href="/data/labor/xinjiangwulumuqi.html">乌鲁木齐</a></li>
+          <li><a href="/data/labor/hefei.html">合肥</a></li>
+          <li><a href="/data/labor/zhengzhou.html">郑州</a></li>
+          <li><a href="/data/labor/dongguan.html">东莞</a></li>
+          <li><a href="/data/labor/dalian.html">大连</a></li>
+          <li><a href="/data/labor/guangzhou.html">广州</a></li>
+          <li><a href="/data/labor/changchun.html">长春</a></li>
+          <li><a href="/data/labor/xiamen.html">厦门</a></li>
+          <li><a href="/data/labor/jinan.html">济南</a></li>
+          <li><a href="/data/labor/ningbo.html">宁波</a></li>
+          <li><a href="/data/labor/kunming.html">昆明</a></li>
+          <li><a href="/data/labor/foshan.html">佛山</a></li>
+          <li><a href="/data/labor/suzhou.html">苏州</a></li>
+          <li><a href="/data/labor/nanning.html">南宁</a></li>
+          <li><a href="/data/labor/haikou.html">海口</a></li>
+          <li><a href="/data/labor/shaoxing.html">绍兴</a></li>
+          <li><a href="/data/labor/nanchang.html">南昌</a></li>
+          <li><a href="/data/labor/luoyang.html">洛阳</a></li>
+          <li><a href="/data/labor/liuzhou.html">柳州</a></li>
+          <li><a href="/data/labor/wenzhou.html">温州</a></li>
+          <li><a href="/data/labor/tangshan.html">唐山</a></li>
+          <li><a href="/data/labor/jiaozuo.html">焦作</a></li>
+          <li><a href="/data/labor/kunshan.html">昆山</a></li>
+          <li><a href="/data/labor/haerbin.html">哈尔滨</a></li>
+          <li><a href="/data/labor/yantai.html">烟台</a></li>
+          <li><a href="/data/labor/zhongshan.html">中山</a></li>
+          <li><a href="/data/labor/jiutai.html">九台</a></li>
+          <li><a href="/data/labor/huaian.html">淮安</a></li>
+          <li><a href="/data/labor/fuzhou.html">福州</a></li>
+          <li><a href="/data/labor/panzhihua.html">攀枝花</a></li>
+          <li><a href="/data/labor/zhumadian.html">驻马店</a></li>
+          <li><a href="/data/labor/xuzhou.html">徐州</a></li>
+          <li><a href="/data/labor/wuzhou.html">梧州</a></li>
+          <li><a href="/data/labor/xiangyang.html">襄阳</a></li>
+          <li><a href="/data/labor/bijie.html">毕节</a></li>
+          <li><a href="/data/labor/wuhu.html">芜湖</a></li>
+          <li><a href="/data/labor/wuxi.html">无锡</a></li>
+          <li><a href="/data/labor/jilin.html">吉林</a></li>
+          <li><a href="/data/labor/xinxiang.html">新乡</a></li>
+          <li><a href="/data/labor/shijiazhuang.html">石家庄</a></li>
+          <li><a href="/data/labor/jiyuan.html">济源</a></li>
+          <li><a href="/data/labor/zhuzhou.html">株洲</a></li>
+          <li><a href="/data/labor/guilin.html">桂林</a></li>
+          <li><a href="/data/labor/yinchuan.html">银川</a></li>
+          <li><a href="/data/labor/shiyan.html">十堰</a></li>
+          <li><a href="/data/labor/guiyang.html">贵阳</a></li>
+          <li><a href="/data/labor/kaili.html">凯里</a></li>
+          <li><a href="/data/labor/pingquan.html">平泉</a></li>
+          <li><a href="/data/labor/dengfeng.html">登封</a></li>
+          <li><a href="/data/labor/hengyang.html">衡阳</a></li>
+          <li><a href="/data/labor/mianzhu.html">绵竹</a></li>
+          <li><a href="/data/labor/leshan.html">乐山</a></li>
+          <li><a href="/data/labor/zunyi.html">遵义</a></li>
+          <li><a href="/data/labor/anshan.html">鞍山</a></li>
+          <li><a href="/data/labor/anyang.html">安阳</a></li>
+          <li><a href="/data/labor/xuchang.html">许昌</a></li>
+          <li><a href="/data/labor/yichang.html">宜昌</a></li>
+          <li><a href="/data/labor/zhangjiagang.html">张家港</a></li>
+          <li><a href="/data/labor/pingli.html">平利</a></li>
+          <li><a href="/data/labor/lanzhou.html">兰州</a></li>
+          <li><a href="/data/labor/linjiang.html">临江</a></li>
+          <li><a href="/data/labor/taiyuan.html">太原</a></li>
+          <li><a href="/data/labor/yutian.html">玉田</a></li>
+          <li><a href="/data/labor/quanzhou.html">泉州</a></li>
+          <li><a href="/data/labor/changde.html">常德</a></li>
+          <li><a href="/data/labor/xingyang.html">荥阳</a></li>
+          <li><a href="/data/labor/loudi.html">娄底</a></li>
+        </ul>
+      </details>
       <p class="company">深圳星谱网络科技有限公司</p>
       <p class="contact">
         <a href="tel:+8613168727779">131-6872-7779</a>
